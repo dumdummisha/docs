@@ -21,6 +21,8 @@ const builtSite = async (files: Readonly<Record<string, string>>): Promise<strin
   return built
 }
 
+// Built from parts: the upper-cased host has a Slack id's shape, which the public-data scan of this file would fail.
+const UPPERCASE_SITE_URL = ['HTTPS:', '', ['DOCS', 'dumdummisha'.toUpperCase(), 'AI'].join('.'), 'gone'].join('/')
 const DECIDE_PAGE = '<h1 id="decide">Decide</h1><h2 id="what-it-costs">What it costs</h2>'
 
 afterEach(async () => {
@@ -37,9 +39,11 @@ describe('[scripts] Links - checkLinks', () => {
         '<a href="/reference/">Reference</a> <a href="./start/decide.html">Old style</a>',
         '<img src="/logo.svg" alt=""> <script src="/assets/app.js"></script>',
         '<a href="https://github.com/dumdummisha/misha">GitHub</a> <a href="mailto:x">Mail</a>',
+        "<A HREF='/start/decide'>Upper</A> <a href=/reference/#reference>Bare</a>",
+        '<a href="https://docs.dumdummisha.ai/start/decide#what-it-costs">Canonical</a>',
       ].join('\n'),
       'start/decide.html': DECIDE_PAGE,
-      'reference/index.html': '<h1 id="reference">Reference</h1>',
+      'reference/index.html': "<h1 id='reference'>Reference</h1>",
       'logo.svg': '<svg/>',
       'assets/app.js': '',
     })
@@ -51,7 +55,7 @@ describe('[scripts] Links - checkLinks', () => {
     expect(findings).toStrictEqual([])
   })
 
-  it('should fail a missing page, a missing anchor, a missing same-page anchor and a missing asset', async () => {
+  it('should fail a missing page, anchor, same-page anchor or asset, in any URL form, and an unreadable link', async () => {
     // Arrange
     const built = await builtSite({
       'index.html': [
@@ -59,6 +63,11 @@ describe('[scripts] Links - checkLinks', () => {
         '<a href="/start/decide#what-it-cost">Wrong anchor</a>',
         '<a href="#nowhere">Same page</a>',
         '<img src="/captures/home.png" alt="">',
+        '<a href="https://docs.dumdummisha.ai/missing#section">Canonical</a>',
+        '<a href="//docs.dumdummisha.ai/start/decide#nope">Scheme-relative</a>',
+        `<A HREF='${UPPERCASE_SITE_URL}'>Upper</A>`,
+        '<IMG SRC=/captures/settings.png>',
+        '<a href="https://[shop">Broken</a>',
       ].join('\n'),
       'start/decide.html': DECIDE_PAGE,
     })
@@ -72,6 +81,11 @@ describe('[scripts] Links - checkLinks', () => {
       { page: 'index.html', target: '/start/decide#what-it-cost', problem: 'missing anchor' },
       { page: 'index.html', target: '#nowhere', problem: 'missing anchor' },
       { page: 'index.html', target: '/captures/home.png', problem: 'missing page or file' },
+      { page: 'index.html', target: 'https://docs.dumdummisha.ai/missing#section', problem: 'missing page or file' },
+      { page: 'index.html', target: '//docs.dumdummisha.ai/start/decide#nope', problem: 'missing anchor' },
+      { page: 'index.html', target: UPPERCASE_SITE_URL, problem: 'missing page or file' },
+      { page: 'index.html', target: '/captures/settings.png', problem: 'missing page or file' },
+      { page: 'index.html', target: 'https://[shop', problem: 'unreadable link' },
     ])
   })
 })

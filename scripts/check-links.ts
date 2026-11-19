@@ -1,22 +1,28 @@
 import { existsSync, statSync } from 'node:fs'
 import { readdir, readFile } from 'node:fs/promises'
-import { join, posix, relative } from 'node:path'
+import { join, relative } from 'node:path'
+
+import { SITE_URL } from './site.ts'
 
 export interface ILinkFinding {
   page: string
   target: string
-  problem: 'missing page or file' | 'missing anchor'
+  problem: 'missing page or file' | 'missing anchor' | 'unreadable link'
 }
 
-const LINK_ATTRIBUTE = /\s(?:href|src)="(?<target>[^"]*)"/gu
-const ID_ATTRIBUTE = /\sid="(?<id>[^"]*)"/gu
-const EXTERNAL = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/iu
+// An attribute's value in any HTML form: double-quoted, single-quoted or bare, with the name in any letter case.
+const ATTRIBUTE_VALUE = String.raw`\s*=\s*(?:"(?<double>[^"]*)"|'(?<single>[^']*)'|(?<bare>[^\s"'=<>\x60]+))`
+const LINK_ATTRIBUTE = new RegExp(String.raw`\s(?:href|src)${ATTRIBUTE_VALUE}`, 'giu')
+const ID_ATTRIBUTE = new RegExp(String.raw`\sid${ATTRIBUTE_VALUE}`, 'giu')
+const SITE_HOST = new URL(SITE_URL).host
 
 const decodeEntities = (value: string): string =>
   value.replaceAll('&quot;', '"').replaceAll('&#39;', "'").replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&amp;', '&')
 
-const idsOf = (html: string): Set<string> =>
-  new Set([...html.matchAll(ID_ATTRIBUTE)].map((match) => decodeEntities(match.groups?.id ?? '')))
+const valuesOf = (html: string, attribute: RegExp): string[] =>
+  [...html.matchAll(attribute)].map((match) =>
+    decodeEntities(match.groups?.double ?? match.groups?.single ?? match.groups?.bare ?? '')
+  )
 
 // The built file a site path serves with clean URLs: the file itself, its .html page, or the folder's index.html.
 const fileFor = (built: string, sitePath: string): string | undefined => {
@@ -26,28 +32,36 @@ const fileFor = (built: string, sitePath: string): string | undefined => {
   return candidates.find((candidate) => existsSync(candidate) && statSync(candidate).isFile())
 }
 
-// Every internal link and image in the built site's pages, checked against the built files and the target page's ids.
+// Every link and image in the built site's pages that stays on the site, relative or absolute (any letter case,
+// scheme-relative, the canonical host), checked against the built files and the target page's ids.
 export const checkLinks = async (built: string): Promise<ILinkFinding[]> => {
   const entries = await readdir(built, { recursive: true, withFileTypes: true })
   const pages = entries.filter((entry) => entry.isFile() && entry.name.endsWith('.html')).map((entry) => join(entry.parentPath, entry.name))
   const htmlByFile = new Map(await Promise.all(pages.map(async (page) => [page, await readFile(page, 'utf8')] as const)))
   const findings: ILinkFinding[] = []
   for (const [page, html] of htmlByFile) {
-    const sitePathOfPage = `/${relative(built, page).split('\\').join('/')}`
-    for (const match of html.matchAll(LINK_ATTRIBUTE)) {
-      const target = decodeEntities(match.groups?.target ?? '')
-      if (target === '' || EXTERNAL.test(target)) {
+    const pageUrl = `${SITE_URL}/${relative(built, page).split('\\').join('/')}`
+    for (const target of valuesOf(html, LINK_ATTRIBUTE)) {
+      if (target === '') {
         continue
       }
-      const [path = '', anchor] = target.split('#')
-      const sitePath = path === '' ? sitePathOfPage : posix.resolve(posix.dirname(sitePathOfPage), path.split('?')[0] ?? '')
-      const file = path === '' ? page : fileFor(built, sitePath)
+      const finding = (problem: ILinkFinding['problem']): ILinkFinding => ({ page: relative(built, page), target, problem })
+      const url = URL.parse(target, pageUrl)
+      if (url === null) {
+        findings.push(finding('unreadable link'))
+        continue
+      }
+      if (url.host !== SITE_HOST || (url.protocol !== 'https:' && url.protocol !== 'http:')) {
+        continue
+      }
+      const file = fileFor(built, url.pathname)
       if (file === undefined) {
-        findings.push({ page: relative(built, page), target, problem: 'missing page or file' })
+        findings.push(finding('missing page or file'))
         continue
       }
-      if (anchor !== undefined && anchor !== '' && !idsOf(htmlByFile.get(file) ?? '').has(decodeURIComponent(anchor))) {
-        findings.push({ page: relative(built, page), target, problem: 'missing anchor' })
+      const anchor = decodeURIComponent(url.hash.slice(1))
+      if (anchor !== '' && !valuesOf(htmlByFile.get(file) ?? '', ID_ATTRIBUTE).includes(anchor)) {
+        findings.push(finding('missing anchor'))
       }
     }
   }

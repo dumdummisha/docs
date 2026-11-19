@@ -40,7 +40,7 @@ describe('[scripts] Links - checkLinks', () => {
       ].join('\n'),
       'start/decide.html': DECIDE_PAGE,
       'reference/index.html': '<h1 id="reference">Reference</h1>',
-      'logo.svg': '<svg xmlns="http://www.w3.org/2000/svg"/>',
+      'logo.svg': '<svg/>',
       'assets/app.js': '',
     })
 

@@ -229,7 +229,9 @@ describe('[scripts] Import - importDesktop', () => {
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toStrictEqual(
-        new BundleError('The bundle fails the public-data scan:\nfacts/settings.json:1 email address')
+        new BundleError(
+          'The bundle fails the public-data scan:\nfacts/settings.json:1 email address\nfacts/settings.json:1 person outside the cast'
+        )
       )
     })
   })

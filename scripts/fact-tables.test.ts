@@ -234,7 +234,6 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     ['<!-- facts surfaces forget -->', 'There is no settings change forget in the facts'],
     ['<!-- facts retention forever -->', 'There is no retention store forever in the facts'],
     ['<!-- facts capabilities telepathy -->', 'There is no capability telepathy in the facts'],
-    ['<!-- facts workflows release -->', 'There is no workflow release in the facts'],
     ['<!-- facts endpoints -->', 'endpoints takes exactly one workflow'],
     ['<!-- facts endpoints delivery quick-answer -->', 'endpoints takes exactly one workflow'],
     ['<!-- facts endpoints release -->', 'There is no workflow release in the facts'],
@@ -253,19 +252,8 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     expect(markdown.split('\n')).toStrictEqual([
       '| Request | Done by | Who may ask | Needs | Limit |',
       '| --- | --- | --- | --- | --- |',
-      '| Carry a change to a reviewed pull request | A worker | You and the people you allow | GitHub CLI on Set up<br>OpenCode signed in to OpenAI | Dev at most. |',
-      '| Render a Figma screen | The clone | Anyone the clone answers | Figma on Set up | Reads \\| renders only. |',
-    ])
-  })
-
-  it("should list a workflow's repository commands with its needs and only its results as its ends", () => {
-    // Act
-    const markdown = factTableMarkdown(FACTS, '<!-- facts workflows -->')
-
-    // Assert
-    expect(markdown.split('\n').slice(2)).toStrictEqual([
-      '| **Delivery** | A change that makes sense | You and the people you allow | GitHub CLI on Set up<br>Optional `execute` command in the repository: Merges and deploys to dev. | GPT reviews the pull request. | A reviewed pull request<br>Merged and checked on dev |',
-      '| **Quick answer** | One bounded read | Anyone the clone answers | The connection that holds the answer | None | A marked reply |',
+      '| Carry a change to a reviewed pull request | Worker | You and those you allow | GitHub CLI on Set up<br>OpenCode signed in to OpenAI | Dev at most. |',
+      '| Render a Figma screen | Clone | Anyone | Figma on Set up | Reads \\| renders only. |',
     ])
   })
 

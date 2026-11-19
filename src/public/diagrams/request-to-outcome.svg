@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 984" width="1060" height="984" role="img" aria-labelledby="title desc" font-family="Figtree, &#x27;Helvetica Neue&#x27;, Helvetica, Arial, sans-serif">
+<title id="title">A request and its possible outcomes</title>
+<desc id="desc">A Slack message reaches the clone, which judges it as a question, research, your own change to a service, delivery or dependency updates. Each path ends in an answer, a change, a reviewed pull request, a change checked on dev, a wait, a stop or a decision for you. The numbered list under the diagram describes every path.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f1b16"/></marker></defs>
+<rect width="1060" height="984" fill="#fffef8"/>
+<rect x="330" y="16" width="400" height="40" rx="4" fill="#ffcf4a" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="530.0" y="40.5" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">1  A Slack message reaches your clone</text>
+<path d="M530 56 L530 78" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="330" y="80" width="400" height="44" rx="4" fill="#ffcf4a" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="530.0" y="106.5" text-anchor="middle" font-size="13" fill="#1f1b16">2  The clone reads the thread and judges the request</text>
+<path d="M730 102 L826 102" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="828" y="80" width="220" height="44" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
+<text x="938.0" y="98.0" text-anchor="middle" font-size="13" fill="#1f1b16">Beyond dev, or someone</text>
+<text x="938.0" y="115.0" text-anchor="middle" font-size="13" fill="#1f1b16">else&#x27;s code: refused</text>
+<path d="M530 124 L530 142 M102.0 142 L958.0 142" fill="none" stroke="#1f1b16" stroke-width="1.5"/>
+<path d="M102.0 142 L102.0 158" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M316.0 142 L316.0 158" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M530.0 142 L530.0 158" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M744.0 142 L744.0 158" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M958.0 142 L958.0 158" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="12" y="160" width="180" height="52" rx="4" fill="#fff7da" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="102.0" y="182.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">3  A question</text>
+<text x="102.0" y="199.1" text-anchor="middle" font-size="13" fill="#1f1b16">anyone it answers</text>
+<path d="M102.0 212 L102.0 230" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="226" y="160" width="180" height="52" rx="4" fill="#fff7da" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="316.0" y="182.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">4  Research</text>
+<text x="316.0" y="199.1" text-anchor="middle" font-size="13" fill="#1f1b16">you, people you allow</text>
+<path d="M316.0 212 L316.0 230" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="440" y="160" width="180" height="52" rx="4" fill="#fff7da" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="530.0" y="182.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">5  Your own change</text>
+<text x="530.0" y="199.1" text-anchor="middle" font-size="13" fill="#1f1b16">you: self-DM or icon</text>
+<path d="M530.0 212 L530.0 230" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="654" y="160" width="180" height="52" rx="4" fill="#fff7da" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="744.0" y="182.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">6  Delivery</text>
+<text x="744.0" y="199.1" text-anchor="middle" font-size="13" fill="#1f1b16">you, people you allow</text>
+<path d="M744.0 212 L744.0 230" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="868" y="160" width="180" height="52" rx="4" fill="#fff7da" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="958.0" y="182.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">7  Dependency updates</text>
+<text x="958.0" y="199.1" text-anchor="middle" font-size="13" fill="#1f1b16">you, people you allow</text>
+<path d="M958.0 212 L958.0 230" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="12" y="232" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="102.0" y="250.1" text-anchor="middle" font-size="13" fill="#1f1b16">One bounded read:</text>
+<text x="102.0" y="267.1" text-anchor="middle" font-size="13" fill="#1f1b16">a file, ticket or doc</text>
+<path d="M102.0 276 L102.0 294" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="12" y="296" width="180" height="44" rx="4" fill="#d7eef0" stroke="#0b6a77" stroke-width="1.5"/>
+<text x="102.0" y="314.1" text-anchor="middle" font-size="13" fill="#1f1b16">Marked answer</text>
+<text x="102.0" y="331.1" text-anchor="middle" font-size="13" fill="#1f1b16">naming its source</text>
+<path d="M192 254.0 L204 254.0 L204 382.0 L194 382.0" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="12" y="360" width="180" height="44" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
+<text x="102.0" y="378.1" text-anchor="middle" font-size="13" fill="#1f1b16">More needed, no work</text>
+<text x="102.0" y="395.1" text-anchor="middle" font-size="13" fill="#1f1b16">access: passed to you</text>
+<rect x="226" y="232" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="316.0" y="250.1" text-anchor="middle" font-size="13" fill="#1f1b16">A research worker reads</text>
+<text x="316.0" y="267.1" text-anchor="middle" font-size="13" fill="#1f1b16">code, tickets and logs</text>
+<path d="M316.0 276 L316.0 294" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="226" y="296" width="180" height="44" rx="4" fill="#d7eef0" stroke="#0b6a77" stroke-width="1.5"/>
+<text x="316.0" y="314.1" text-anchor="middle" font-size="13" fill="#1f1b16">Answer with sources</text>
+<text x="316.0" y="331.1" text-anchor="middle" font-size="13" fill="#1f1b16">and what&#x27;s uncertain</text>
+<path d="M406 254.0 L418 254.0 L418 382.0 L408 382.0" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="226" y="360" width="180" height="44" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
+<text x="316.0" y="378.1" text-anchor="middle" font-size="13" fill="#1f1b16">Access missing: you hear</text>
+<text x="316.0" y="395.1" text-anchor="middle" font-size="13" fill="#1f1b16">what to reconnect</text>
+<path d="M406 254.0 L418 254.0 L418 446.0 L408 446.0" fill="none" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="226" y="424" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="316.0" y="442.1" text-anchor="middle" font-size="13" fill="#1f1b16">A change is needed:</text>
+<text x="316.0" y="459.1" text-anchor="middle" font-size="13" fill="#1f1b16">delivery takes it on</text>
+<rect x="440" y="232" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="530.0" y="250.1" text-anchor="middle" font-size="13" fill="#1f1b16">The clone changes the</text>
+<text x="530.0" y="267.1" text-anchor="middle" font-size="13" fill="#1f1b16">Doc, Sheet, ticket or page</text>
+<path d="M530.0 276 L530.0 294" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="440" y="296" width="180" height="44" rx="4" fill="#d7eef0" stroke="#0b6a77" stroke-width="1.5"/>
+<text x="530.0" y="314.1" text-anchor="middle" font-size="13" fill="#1f1b16">Its reply says</text>
+<text x="530.0" y="331.1" text-anchor="middle" font-size="13" fill="#1f1b16">what changed</text>
+<path d="M620 254.0 L632 254.0 L632 382.0 L622 382.0" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="440" y="360" width="180" height="44" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
+<text x="530.0" y="378.1" text-anchor="middle" font-size="13" fill="#1f1b16">Anyone else asks:</text>
+<text x="530.0" y="395.1" text-anchor="middle" font-size="13" fill="#1f1b16">nothing changes</text>
+<rect x="654" y="232" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="744.0" y="250.1" text-anchor="middle" font-size="13" fill="#1f1b16">Analysis when needed,</text>
+<text x="744.0" y="267.1" text-anchor="middle" font-size="13" fill="#1f1b16">then a Jira ticket</text>
+<path d="M744.0 276 L744.0 294" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="654" y="296" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="744.0" y="314.1" text-anchor="middle" font-size="13" fill="#1f1b16">GPT reviews a ticket</text>
+<text x="744.0" y="331.1" text-anchor="middle" font-size="13" fill="#1f1b16">it wrote or rewrote</text>
+<path d="M744.0 340 L744.0 358" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="654" y="360" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="744.0" y="378.1" text-anchor="middle" font-size="13" fill="#1f1b16">Implementation on a</text>
+<text x="744.0" y="395.1" text-anchor="middle" font-size="13" fill="#1f1b16">branch, a pull request</text>
+<path d="M744.0 404 L744.0 422" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="654" y="424" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="744.0" y="442.1" text-anchor="middle" font-size="13" fill="#1f1b16">GPT reviews the</text>
+<text x="744.0" y="459.1" text-anchor="middle" font-size="13" fill="#1f1b16">pull request</text>
+<path d="M744.0 468 L744.0 486" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="654" y="488" width="180" height="44" rx="4" fill="#d7eef0" stroke="#0b6a77" stroke-width="1.5"/>
+<text x="744.0" y="506.1" text-anchor="middle" font-size="13" fill="#1f1b16">Reviewed pull request,</text>
+<text x="744.0" y="523.0" text-anchor="middle" font-size="13" fill="#1f1b16">not merged</text>
+<path d="M834 446.0 L846 446.0 L846 574.0 L836 574.0" fill="none" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="654" y="552" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="744.0" y="570.0" text-anchor="middle" font-size="13" fill="#1f1b16">Repository may merge and</text>
+<text x="744.0" y="587.0" text-anchor="middle" font-size="13" fill="#1f1b16">has an execute command</text>
+<path d="M744.0 596 L744.0 614" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="654" y="616" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="744.0" y="634.0" text-anchor="middle" font-size="13" fill="#1f1b16">Merge, deploy to dev,</text>
+<text x="744.0" y="651.0" text-anchor="middle" font-size="13" fill="#1f1b16">check the change there</text>
+<path d="M744.0 660 L744.0 678" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="654" y="680" width="180" height="44" rx="4" fill="#d7eef0" stroke="#0b6a77" stroke-width="1.5"/>
+<text x="744.0" y="706.5" text-anchor="middle" font-size="13" fill="#1f1b16">Checked on dev</text>
+<rect x="654" y="744" width="180" height="44" rx="4" fill="#ffdcc0" stroke="#8a3d00" stroke-width="1.5"/>
+<text x="744.0" y="762.0" text-anchor="middle" font-size="13" fill="#1f1b16">No GPT: the review</text>
+<text x="744.0" y="779.0" text-anchor="middle" font-size="13" fill="#1f1b16">waits, no substitute</text>
+<rect x="654" y="808" width="180" height="44" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
+<text x="744.0" y="826.0" text-anchor="middle" font-size="13" fill="#1f1b16">Ticket reassigned or</text>
+<text x="744.0" y="843.0" text-anchor="middle" font-size="13" fill="#1f1b16">auto label gone: stops</text>
+<rect x="654" y="872" width="180" height="44" rx="4" fill="#ffeeb0" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="744.0" y="890.0" text-anchor="middle" font-size="13" fill="#1f1b16">Missing decision:</text>
+<text x="744.0" y="907.0" text-anchor="middle" font-size="13" fill="#1f1b16">a question to you</text>
+<text x="744.0" y="738" text-anchor="middle" font-size="12" fill="#5b5346">At any step</text>
+<rect x="868" y="232" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="958.0" y="250.1" text-anchor="middle" font-size="13" fill="#1f1b16">One orchestrator worker</text>
+<text x="958.0" y="267.1" text-anchor="middle" font-size="13" fill="#1f1b16">runs the queue</text>
+<path d="M958.0 276 L958.0 294" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="868" y="296" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="958.0" y="314.1" text-anchor="middle" font-size="13" fill="#1f1b16">GPT reviews each pull</text>
+<text x="958.0" y="331.1" text-anchor="middle" font-size="13" fill="#1f1b16">request before it merges</text>
+<path d="M958.0 340 L958.0 358" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="868" y="360" width="180" height="44" rx="4" fill="#d7eef0" stroke="#0b6a77" stroke-width="1.5"/>
+<text x="958.0" y="378.1" text-anchor="middle" font-size="13" fill="#1f1b16">Merged one at a time,</text>
+<text x="958.0" y="395.1" text-anchor="middle" font-size="13" fill="#1f1b16">each dev deploy checked</text>
+<path d="M1048 318.0 L1060 318.0 L1060 446.0 L1050 446.0" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M1048 318.0 L1060 318.0 L1060 510.0 L1050 510.0" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M1048 318.0 L1060 318.0 L1060 574.0 L1050 574.0" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="868" y="424" width="180" height="44" rx="4" fill="#d7eef0" stroke="#0b6a77" stroke-width="1.5"/>
+<text x="958.0" y="442.1" text-anchor="middle" font-size="13" fill="#1f1b16">Reviewed, not merged:</text>
+<text x="958.0" y="459.1" text-anchor="middle" font-size="13" fill="#1f1b16">no merging, or beyond dev</text>
+<rect x="868" y="488" width="180" height="44" rx="4" fill="#ffeeb0" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="958.0" y="506.1" text-anchor="middle" font-size="13" fill="#1f1b16">Dangerous update:</text>
+<text x="958.0" y="523.0" text-anchor="middle" font-size="13" fill="#1f1b16">flagged for you</text>
+<rect x="868" y="552" width="180" height="44" rx="4" fill="#ffdcc0" stroke="#8a3d00" stroke-width="1.5"/>
+<text x="958.0" y="570.0" text-anchor="middle" font-size="13" fill="#1f1b16">No GPT: the pull</text>
+<text x="958.0" y="587.0" text-anchor="middle" font-size="13" fill="#1f1b16">request waits</text>
+<path d="M958.0 596 L958.0 614" fill="none" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="868" y="616" width="180" height="44" rx="4" fill="#d7eef0" stroke="#0b6a77" stroke-width="1.5"/>
+<text x="958.0" y="634.0" text-anchor="middle" font-size="13" fill="#1f1b16">A report: merged, flagged,</text>
+<text x="958.0" y="651.0" text-anchor="middle" font-size="13" fill="#1f1b16">open, and proposals</text>
+<rect x="12" y="944" width="30" height="22" rx="4" fill="#d7eef0" stroke="#0b6a77" stroke-width="1.5"/>
+<text x="27.0" y="959.5" text-anchor="middle" font-size="13" fill="#1f1b16"></text>
+<text x="50" y="959" text-anchor="start" font-size="13" fill="#1f1b16">Ends here</text>
+<rect x="153.5" y="944" width="30" height="22" rx="4" fill="#ffdcc0" stroke="#8a3d00" stroke-width="1.5"/>
+<text x="168.5" y="959.5" text-anchor="middle" font-size="13" fill="#1f1b16"></text>
+<text x="191.5" y="959" text-anchor="start" font-size="13" fill="#1f1b16">Waits</text>
+<rect x="265.0" y="944" width="30" height="22" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
+<text x="280.0" y="959.5" text-anchor="middle" font-size="13" fill="#1f1b16"></text>
+<text x="303.0" y="959" text-anchor="start" font-size="13" fill="#1f1b16">Stops</text>
+<rect x="376.5" y="944" width="30" height="22" rx="4" fill="#ffeeb0" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="391.5" y="959.5" text-anchor="middle" font-size="13" fill="#1f1b16"></text>
+<text x="414.5" y="959" text-anchor="start" font-size="13" fill="#1f1b16">Your decision</text>
+<rect x="548.0" y="944" width="30" height="22" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="563.0" y="959.5" text-anchor="middle" font-size="13" fill="#1f1b16"></text>
+<text x="586.0" y="959" text-anchor="start" font-size="13" fill="#1f1b16">Only when it applies</text>
+</svg>

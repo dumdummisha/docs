@@ -34,17 +34,18 @@ const PLACE_LABELS: Readonly<Record<string, string>> = {
   summon: 'Any conversation, with the icon',
 }
 
-// Who carries out a request or workflow, and who may ask for it, as the capability and workflow tables say it.
+// Who carries out a request, and who may ask for it, as the capability table says it.
 const ACTOR_LABELS: Readonly<Record<(typeof ACTORS)[number], string>> = {
-  clone: 'The clone',
-  worker: 'A worker',
-  'your-agent': 'Your own agent',
+  clone: 'Clone',
+  worker: 'Worker',
+  'your-agent': 'Your agent',
 }
+// The owner's own turn is a message in their self-DM or one starting with their icon, which the pages explain.
 const ACCESS_LABELS: Readonly<Record<(typeof ACCESS)[number], string>> = {
-  anyone: 'Anyone the clone answers',
-  owner: 'You, in your self-DM or with your icon',
-  allowed: 'You and the people you allow',
-  session: 'You, in your agent session',
+  anyone: 'Anyone',
+  owner: 'You',
+  allowed: 'You and those you allow',
+  session: 'You',
 }
 const ENDPOINT_LABELS: Readonly<Record<(typeof ENDPOINT_KINDS)[number], string>> = {
   result: 'Ends with',
@@ -292,28 +293,6 @@ const capabilitiesTable = (facts: TableFacts, ids: readonly string[]): string =>
     )
   )
 
-// Every workflow, or the ones named: when it applies, who may ask, what it needs (the repository commands it uses
-// included), its review and the results it can end with.
-const workflowsTable = (facts: TableFacts, ids: readonly string[]): string =>
-  table(
-    ['Workflow', 'When', 'Who may ask', 'Needs', 'Review', 'Ends with'],
-    picked(facts.workflows.workflows, ({ id }) => id, ids, 'workflow').map(
-      ({ name, trigger, access, needs, projectCommands, review, endpoints }) => [
-        `**${text(name)}**`,
-        text(trigger),
-        ACCESS_LABELS[access],
-        [
-          ...needs.map(text),
-          ...projectCommands.map(
-            ({ name: command, role }) => `Optional ${code(command)} command in the repository: ${text(role)}`
-          ),
-        ].join('<br>'),
-        review === null ? NONE : text(review),
-        listCell(endpoints.filter(({ kind }) => kind === 'result').map(({ outcome }) => outcome)),
-      ]
-    )
-  )
-
 // Every way one workflow can end, in the record's order.
 const endpointsTable = (facts: TableFacts, id: string): string => {
   const workflow = facts.workflows.workflows.find((each) => each.id === id)
@@ -371,8 +350,6 @@ export const factTableMarkdown = (facts: TableFacts, marker: string): string => 
       return retentionTable(facts, rest)
     case 'capabilities':
       return capabilitiesTable(facts, rest)
-    case 'workflows':
-      return workflowsTable(facts, rest)
     case 'endpoints': {
       const [workflow, ...extra] = rest
       if (workflow === undefined || extra.length > 0) {
@@ -383,7 +360,7 @@ export const factTableMarkdown = (facts: TableFacts, marker: string): string => 
     }
     default:
       throw new FactTableError(
-        `There is no facts table ${name}; use command-terms, commands, settings, surfaces, setup-commands, detection, retention, capabilities, workflows or endpoints`
+        `There is no facts table ${name}; use command-terms, commands, settings, surfaces, setup-commands, detection, retention, capabilities or endpoints`
       )
   }
 }

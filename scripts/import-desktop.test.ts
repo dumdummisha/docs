@@ -22,6 +22,7 @@ import { importDesktop } from './import-desktop.ts'
 const directories: string[] = []
 // Built from parts so this file itself passes the public-data scan.
 const EMAIL = ['jonas.weber', 'shop.example'].join('@')
+const OUTSIDER = ['Alex', 'Morgan'].join(' ')
 
 const temporaryDirectory = async (prefix: string): Promise<string> => {
   const directory = await mkdtemp(join(tmpdir(), prefix))
@@ -162,14 +163,14 @@ describe('[scripts] Import - importDesktop', () => {
       )
     })
 
-    it('should refuse a capture that names a cast member its people leave out', async () => {
+    it('should refuse a capture whose text names someone outside the cast', async () => {
       // Arrange
-      const capture = { ...HOME_CAPTURE, text: 'Listening as Sam Rivera, answering Jonas' }
+      const capture = { ...HOME_CAPTURE, text: `Listening as Sam Rivera, answering ${OUTSIDER}` }
       const bundle = await writeBundle({ ...EXPORT_FILES, 'captures.json': capturesJson([capture]) })
 
       // Act + Assert
-      await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toThrow(
-        'The capture home names Jonas Weber in its text or alt but not in its people'
+      await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toStrictEqual(
+        new BundleError('The bundle fails the public-data scan:\nfacts/captures.json:1 unapproved name-shaped phrase')
       )
     })
 

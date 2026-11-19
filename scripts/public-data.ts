@@ -95,7 +95,7 @@ const SLACK_ID_LOOKALIKES: readonly { words: readonly string[]; within: readonly
 ]
 
 // The made-up people public examples may name, in full and by first name.
-export const CAST_FULL_NAMES: readonly string[] = ['Sam Rivera', 'Priya Nair', 'Jonas Weber']
+const CAST_FULL_NAMES: readonly string[] = ['Sam Rivera', 'Priya Nair', 'Jonas Weber']
 const CAST: ReadonlySet<string> = new Set([...CAST_FULL_NAMES, ...CAST_FULL_NAMES.map((name) => name.split(' ')[0] ?? name)])
 
 // JSON keys that hold a person, compared lowercase without separators and a plural s. Every string anywhere below such a
@@ -144,6 +144,7 @@ const NAME_SHAPED_PHRASES: ReadonlySet<string> = new Set([
   'Ask Priya',
   'Claude Code',
   'Connect Figma',
+  'Google Workspace',
   'No Slack',
   'Open Slack',
   'Opens Slack',

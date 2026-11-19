@@ -107,7 +107,14 @@
         {
           "page": "Get started",
           "section": "Give me a face",
-          "control": "Save and start, or Keep the defaults"
+          "control": "Save and start",
+          "note": null
+        },
+        {
+          "page": "Get started",
+          "section": "Give me a face",
+          "control": "Keep the defaults",
+          "note": null
         }
       ],
       "slackCommands": [],
@@ -121,7 +128,14 @@
         {
           "page": "Settings",
           "section": "Who I ignore",
-          "control": "Find someone in Slack, then Ignore or Soft-ignore"
+          "control": "Ignore",
+          "note": "On someone Find someone in Slack found."
+        },
+        {
+          "page": "Settings",
+          "section": "Who I ignore",
+          "control": "Soft-ignore",
+          "note": "On someone Find someone in Slack found."
         }
       ],
       "slackCommands": [
@@ -138,7 +152,8 @@
         {
           "page": "Settings",
           "section": "Who I ignore",
-          "control": "Stop ignoring"
+          "control": "Stop ignoring",
+          "note": null
         }
       ],
       "slackCommands": [
@@ -154,7 +169,8 @@
         {
           "page": "Settings",
           "section": "Who may ask me for work",
-          "control": "Find someone in Slack, then Allow"
+          "control": "Allow",
+          "note": "On someone Find someone in Slack found."
         }
       ],
       "slackCommands": [
@@ -170,7 +186,8 @@
         {
           "page": "Settings",
           "section": "Who may ask me for work",
-          "control": "Stop allowing"
+          "control": "Stop allowing",
+          "note": null
         }
       ],
       "slackCommands": [],
@@ -184,7 +201,8 @@
         {
           "page": "Settings",
           "section": "Channels I watch",
-          "control": "Find a channel in Slack, then Watch"
+          "control": "Watch",
+          "note": "On a channel Find a channel in Slack found."
         }
       ],
       "slackCommands": [
@@ -200,7 +218,8 @@
         {
           "page": "Settings",
           "section": "Channels I watch",
-          "control": "Stop watching"
+          "control": "Stop watching",
+          "note": null
         }
       ],
       "slackCommands": [],
@@ -214,7 +233,8 @@
         {
           "page": "Settings",
           "section": "Repositories",
-          "control": "May merge"
+          "control": "May merge",
+          "note": null
         }
       ],
       "slackCommands": [
@@ -231,12 +251,14 @@
         {
           "page": "Settings",
           "section": "Repositories",
-          "control": "Add"
+          "control": "Add",
+          "note": "After writing owner/name."
         },
         {
           "page": "Get started",
           "section": "Show me your code",
-          "control": "Add"
+          "control": "Add",
+          "note": "Once the face is saved, after writing owner/name."
         }
       ],
       "slackCommands": [],
@@ -250,7 +272,8 @@
         {
           "page": "Settings",
           "section": "Repositories",
-          "control": "Remove"
+          "control": "Remove",
+          "note": null
         }
       ],
       "slackCommands": [],
@@ -264,7 +287,8 @@
         {
           "page": "Settings",
           "section": "What I remember",
-          "control": "Remember"
+          "control": "Remember",
+          "note": "After writing the note."
         }
       ],
       "slackCommands": [
@@ -280,7 +304,8 @@
         {
           "page": "Settings",
           "section": "What I remember",
-          "control": "Forget"
+          "control": "Forget",
+          "note": null
         }
       ],
       "slackCommands": [],
@@ -294,7 +319,8 @@
         {
           "page": "Settings",
           "section": "Start fresh",
-          "control": "Start fresh…"
+          "control": "Start fresh…",
+          "note": "Under More, then Start fresh in the dialog it opens."
         }
       ],
       "slackCommands": [
@@ -310,7 +336,8 @@
         {
           "page": "Settings",
           "section": "Icon",
-          "control": "Save icon"
+          "control": "Save icon",
+          "note": null
         }
       ],
       "slackCommands": [],
@@ -324,7 +351,8 @@
         {
           "page": "Settings",
           "section": "Personality",
-          "control": "Save personality"
+          "control": "Save personality",
+          "note": null
         }
       ],
       "slackCommands": [],
@@ -337,8 +365,21 @@
       "window": [
         {
           "page": "Set up",
+          "section": "What I think with",
+          "control": "I use it",
+          "note": "On each integration's row."
+        },
+        {
+          "page": "Set up",
+          "section": "How I work in your code",
+          "control": "I use it",
+          "note": "On each integration's row."
+        },
+        {
+          "page": "Set up",
           "section": "What I can read",
-          "control": "I use it, on each integration's row (OpenCode's and the GitHub CLI's too)"
+          "control": "I use it",
+          "note": "On each integration's row."
         }
       ],
       "slackCommands": [],
@@ -352,7 +393,8 @@
         {
           "page": "Settings",
           "section": "When I tidy my conversation",
-          "control": "Save"
+          "control": "Save",
+          "note": "Under More."
         }
       ],
       "slackCommands": [],
@@ -390,7 +432,7 @@
     },
     {
       "type": "hands-off",
-      "description": "Keep the clone out of a thread or DM.",
+      "description": "Keep the clone from answering others in a thread or a DM conversation.",
       "setting": null,
       "window": [],
       "slackCommands": [
@@ -400,7 +442,7 @@
     },
     {
       "type": "hands-on",
-      "description": "Let the clone answer in a thread or DM again.",
+      "description": "Let the clone answer others again where hands off kept it out.",
       "setting": null,
       "window": [],
       "slackCommands": [
@@ -415,8 +457,9 @@
       "window": [
         {
           "page": "rail",
-          "section": "The account",
-          "control": "Pause Misha"
+          "section": null,
+          "control": "Pause Misha",
+          "note": null
         }
       ],
       "slackCommands": [
@@ -431,13 +474,15 @@
       "window": [
         {
           "page": "rail",
-          "section": "The account",
-          "control": "Resume Misha"
+          "section": null,
+          "control": "Resume Misha",
+          "note": null
         },
         {
           "page": "Home",
           "section": "I'm paused.",
-          "control": "Resume"
+          "control": "Resume",
+          "note": null
         }
       ],
       "slackCommands": [

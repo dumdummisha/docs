@@ -5,12 +5,11 @@ import { join } from 'node:path'
 import { z } from 'zod'
 
 import { type IPngSize, pngSizeOf } from './png.ts'
-import { CAST_FULL_NAMES } from './public-data.ts'
 
 const MANIFEST_FILE = 'manifest.json'
 const CAPTURES_FILE = 'captures.json'
 const CAPTURE_PATH = /^captures\/[a-z0-9]+(?:-[a-z0-9]+)*\.png$/u
-const EXPORT_SCHEMA_VERSION = 1
+const EXPORT_SCHEMA_VERSION = 2
 
 // Where the import writes each export file, relative to the repository root.
 export const DESKTOP_FACTS_DIRECTORY = 'facts/desktop'
@@ -47,40 +46,23 @@ const RECIPE_SCHEMA = z.strictObject({
 })
 
 // One committed screenshot of the desktop app, as the export describes it and <Shot> shows it. The region is the whole
-// page, the window's first screen, or one element of the page by its id. People lists the cast in the scenario, so it
-// holds everyone the text or alt names.
-const CAPTURE_SCHEMA = z
-  .strictObject({
-    id: SLUG,
-    scenario: SLUG,
-    page: SLUG,
-    region: z.discriminatedUnion('kind', [
-      z.strictObject({ kind: z.literal('page') }),
-      z.strictObject({ kind: z.literal('window') }),
-      z.strictObject({ kind: z.literal('element'), id: SLUG }),
-    ]),
-    file: z.string().regex(CAPTURE_PATH),
-    width: z.int().positive(),
-    height: z.int().positive(),
-    sha256: SHA256,
-    alt: TEXT,
-    people: z.array(TEXT),
-    text: z.string(),
-  })
-  .superRefine((capture, context) => {
-    const visible = `${capture.text}\n${capture.alt}`
-    const unlisted = CAST_FULL_NAMES.filter(
-      (name) =>
-        new RegExp(`(?<!\\p{L})${name.split(' ')[0] ?? name}(?!\\p{L})`, 'u').test(visible) &&
-        !capture.people.includes(name)
-    )
-    if (unlisted.length > 0) {
-      context.addIssue({
-        code: 'custom',
-        message: `The capture ${capture.id} names ${unlisted.join(', ')} in its text or alt but not in its people`,
-      })
-    }
-  })
+// page, the window's first screen, or one element of the page by its id.
+const CAPTURE_SCHEMA = z.strictObject({
+  id: SLUG,
+  scenario: SLUG,
+  page: SLUG,
+  region: z.discriminatedUnion('kind', [
+    z.strictObject({ kind: z.literal('page') }),
+    z.strictObject({ kind: z.literal('window') }),
+    z.strictObject({ kind: z.literal('element'), id: SLUG }),
+  ]),
+  file: z.string().regex(CAPTURE_PATH),
+  width: z.int().positive(),
+  height: z.int().positive(),
+  sha256: SHA256,
+  alt: TEXT,
+  text: z.string(),
+})
 
 const CAPTURES_SCHEMA = z
   .strictObject({ recipe: RECIPE_SCHEMA, captures: z.array(CAPTURE_SCHEMA) })
@@ -136,7 +118,7 @@ const FACT_SCHEMAS = {
         type: SLUG,
         description: TEXT,
         setting: SETTING_FIELD.nullable(),
-        window: z.array(z.strictObject({ page: TEXT, section: TEXT, control: TEXT })),
+        window: z.array(z.strictObject({ page: TEXT, section: TEXT.nullable(), control: TEXT, note: TEXT.nullable() })),
         slackCommands: z.array(SLUG),
         setupTool: z.string().regex(/^misha_[a-z_]+$/u).nullable(),
       })

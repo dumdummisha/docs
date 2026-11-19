@@ -44,7 +44,7 @@
         "dm-with-owner"
       ],
       "effect": "The clone treats you like everyone else again. While it soft-ignores you, write the clone's icon in the message too, or the message never reaches it.",
-      "example": "stop ignoring me",
+      "example": ":misha: stop ignoring me",
       "mutation": "stop-ignoring-me"
     },
     {
@@ -54,8 +54,8 @@
       "places": [
         "summon"
       ],
-      "effect": "The clone stays out of the thread the message is in (in a DM, the whole DM) for 14 days, or until hands on. Refused in your self-DM.",
-      "example": "hands off",
+      "effect": "For 14 days, or until hands on, the clone answers nobody else in one place: in a thread, that thread; in a channel's main conversation, the thread under your message; in a DM's main conversation, that conversation but not its threads. What others wrote there that waits for it is dropped. Your own messages with the clone's icon still reach it. Write the icon in the command, or the clone never sees it. Refused in your self-DM.",
+      "example": ":misha: hands off",
       "mutation": "hands-off"
     },
     {
@@ -65,8 +65,8 @@
       "places": [
         "summon"
       ],
-      "effect": "The clone may answer again in the thread the message is in (in a DM, the whole DM).",
-      "example": "hands on",
+      "effect": "The clone may answer others again in the place hands off named, the one this message is in: the same thread, or a DM's main conversation. Write the clone's icon in the command, or the clone never sees it.",
+      "example": ":misha: hands on",
       "mutation": "hands-on"
     },
     {
@@ -76,7 +76,7 @@
       "places": [
         "self-dm"
       ],
-      "effect": "The clone never answers the person, they can't call it, and it doesn't read their messages.",
+      "effect": "The clone stops answering the person: their messages no longer reach it as something to answer, they can't call it, and what of theirs waits for it is dropped. It can still see their messages in a thread or conversation it reads to answer someone else, and nothing they wrote is deleted.",
       "example": "ignore @Jonas Weber",
       "mutation": "set-rule"
     },
@@ -175,7 +175,7 @@
       "places": [
         "self-dm"
       ],
-      "effect": "Misha pauses: the clone stops its workers, starts nothing new and answers only your commands in your self-DM until you resume. It still sees what arrives in Slack.",
+      "effect": "Misha pauses: the clone tries to stop its workers, starts nothing new and answers only your commands in your self-DM until you resume. It still sees what arrives in Slack. A worker it could not stop may still run: Home names it, and you stop it by hand.",
       "example": "pause",
       "mutation": "pause"
     },

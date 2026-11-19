@@ -34,7 +34,6 @@ export const HOME_CAPTURE = {
   height: 760,
   sha256: sha256(HOME_PNG),
   alt: 'Misha is listening as Sam Rivera; Pause Misha is in the rail.',
-  people: ['Sam Rivera', 'Priya Nair'],
   text: 'Listening as Sam Rivera',
 }
 
@@ -55,7 +54,14 @@ export const EXPORT_FILES: ExportFiles = {
   'facts/settings.json': JSON.stringify({
     fields: [{ field: 'personality', description: 'How the clone sounds.', default: 'Empty.', limits: { maxCharacters: 2000 } }],
     mutations: [
-      { type: 'pause', description: 'Pause Misha.', setting: null, window: [], slackCommands: ['pause'], setupTool: 'misha_pause' },
+      {
+        type: 'pause',
+        description: 'Pause Misha.',
+        setting: null,
+        window: [{ page: 'rail', section: null, control: 'Pause Misha', note: null }],
+        slackCommands: ['pause'],
+        setupTool: 'misha_pause',
+      },
     ],
   }),
   'facts/detection.json': JSON.stringify({
@@ -99,7 +105,7 @@ export const withManifest = (files: ExportFiles, listed?: readonly IManifestEntr
       .sort(([first], [second]) => first.localeCompare(second))
       .map(([path, content]) => ({ path, bytes: Buffer.from(content).length, sha256: sha256(Buffer.from(content)) }))
   const manifest = {
-    exportSchemaVersion: 1,
+    exportSchemaVersion: 2,
     productVersion: '0.1.0',
     evidenceDate: '2026-11-19',
     captureRecipeVersion: 1,

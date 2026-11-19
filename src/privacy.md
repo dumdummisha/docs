@@ -8,7 +8,7 @@ outline: [2, 3]
 
 # Privacy and security
 
-**Effective 19 November 2026.** Misha has no server of its own. It runs on your Mac and works through your own accounts: your Claude Code sends what the clone reads and writes to Anthropic, OpenCode sends GPT reviews to OpenAI if you use it, and Slack and the services you connect receive what Misha sends them. Misha keeps its own records on your Mac, some of them with no age limit.
+**Effective 19 November 2026.** Misha has no server of its own. It runs on your Mac and works through your own accounts: your Claude Code sends what the clone reads and writes to Anthropic, OpenCode sends whatever you run on another model (GPT workers, for example) to that model's provider, and Slack and the services you connect receive what Misha sends them. Misha keeps its own records on your Mac, some of them with no age limit.
 
 This page covers the Misha app for macOS, the Misha Browser extension and its native host, the Claude Code and OpenCode sessions Misha starts, this documentation site and the landing page at [dumdummisha.ai](https://dumdummisha.ai). It is the privacy policy for all of them, including the extension's Chrome Web Store listing.
 
@@ -18,36 +18,37 @@ Each row links to the section that holds its evidence.
 
 | Question | Answer |
 | --- | --- |
-| [What leaves the Mac](#data-flows) | Slack messages, files, tool results and the clone's conversation go to Anthropic through your Claude Code. GPT reviews go to OpenAI through OpenCode if you use it. Replies go to Slack; queries and changes go to the services you connect. Nothing goes to a Misha server: there is none. |
+| [What leaves the Mac](#data-flows) | Slack messages that need the clone, their conversation, files and tool results go to Anthropic through your Claude Code. A Slack image the clone reads goes to a separate model call, Claude by default. Workers send their work to their model's provider: Anthropic, or through OpenCode any provider it is set up for (OpenAI for GPT). Replies go to Slack; queries and changes to the services you connect. There is no Misha server. |
 | [Accounts and terms](#recipients) | Every recipient works under your own account and its terms. These docs do not establish any provider's retention or your organisation's terms. |
 | [Slack identity](#slack-identity) | Misha acts as you through your signed-in Slack web session, not as a Slack app. What a workspace administrator sees, and whether this fits Slack's terms for your workspace, is not established here. |
-| [Credentials](#credentials) | The Slack token is used only inside your Slack tab. Claude Code keeps its own sign-in. Integration tokens sit in their own stores, and Misha's modules read them to call those services. |
-| [Browser access](/reference/permissions) | Access to all sites, observation of the requests every tab sends, and native messaging. What it observes stays in browser memory; new Slack messages wait in a bounded queue on disk. [Browser storage](#browser-storage) lists both. |
-| [Machine authority](#authority) | The clone is restricted Claude Code with read-only tools for other people. Workers run your own Claude Code or OpenCode with a shell, limited by their instructions, your permission rules and your accounts, not by an operating system sandbox. |
+| [Credentials](#credentials) | The Slack token is used only inside your Slack tab. Claude Code keeps its own sign-in. Integration tokens sit in their own stores; Misha's modules read them to call those services, and read every stored credential they know of to check outgoing text on the Mac. |
+| [Browser access](/reference/permissions) | Access to all sites, automatic recording of every tab's fetch and XHR requests, and native messaging. The request log stays in browser memory until `tab_network` returns it, redacted only by name and pattern, to a local agent that can send it to its model provider. New Slack messages wait in a bounded queue on disk. [Browser storage](#browser-storage) lists both. |
+| [Machine authority](#authority) | The clone is restricted Claude Code with read-only tools for other people. Workers run Claude Code or OpenCode with a shell. Claude workers keep your Claude Code permission rules; GPT workers run on Misha's own OpenCode configuration, which grants a shell and outside-folder access and approves requests left at ask. No operating system sandbox. |
 | [Updates](#updates-and-audit) | One owner-operated unsigned local build. No public download, updater, pinning or rollback. |
 | [Audit](#updates-and-audit) | A ledger of every Slack post, edit, upload and reaction, never deleted. No record of every shell or cloud command. |
 | [Stopping](#authority) | Pause starts nothing new and tries to stop workers; a worker it could not stop is named for you to stop by hand. It does not undo anything already done. |
-| [Removal](#deletion) | Deleting `~/.misha` removes Misha's own files only. Claude Code and OpenCode transcripts, browser storage, Slack posts and connected services' records stay. |
-| [Residual risks](#residual-risks) | Confident wrong replies posted as you, instructions hidden in content, one clone session across conversations, broad browser observation, workers acting as your Mac user. |
+| [Removal](#deletion) | Deleting the Misha home (normally `~/.misha`) removes Misha's own files only. Claude Code and OpenCode transcripts, browser storage, Slack posts and connected services' records stay. |
+| [Residual risks](#residual-risks) | Confident wrong replies posted as you, instructions hidden in content, one clone session across conversations, broad browser observation, workers acting as your Mac user, work records with no age limit. |
 
 ## Privacy policy {#privacy-policy}
 
 ### Where data goes {#data-flows}
 
-[![Diagram: inside your Mac, the Slack tab, the Misha Browser extension, the native host, the Misha app, the clone and workers; outside it Slack, Anthropic, optional OpenAI, the services you connect and the sites your tabs have open. Numbered arrows match the list below.](/diagrams/where-data-goes.svg)](/diagrams/where-data-goes.svg)
+[![Diagram: inside your Mac, the Slack tab, the Misha Browser extension, the native host, the Misha app, the clone, the image-reading call, workers and optional agents with the misha-browser tools; outside it Slack, Anthropic, OpenAI or another provider set up in OpenCode, the services you connect and the sites your tabs have open. Numbered arrows match the list below.](/diagrams/where-data-goes.svg)](/diagrams/where-data-goes.svg)
 
 Select the diagram to open it full size.
 
-1. In your signed-in Slack tab, the extension reads each new message from Slack's own connection, cut down to [fixed fields](/reference/permissions#slack-transport-limits).
-2. The extension passes it through the native host, a small program that connects the extension to Misha on the same Mac, to the Misha app, which saves it in `~/.misha/misha.db`. Replies and Slack requests travel back the same way. The host stores nothing.
-3. The app gives the message and the conversation it belongs to, your settings and notes to the clone: Claude Code started in its restricted mode.
-4. Claude Code sends that conversation, any file or image the clone reads and every tool result to Anthropic, under your Claude subscription.
+1. Your signed-in Slack tab receives messages over Slack's own connection. The extension reads every new message that arrives there, in any conversation, cut down to [fixed fields](/reference/permissions#slack-transport-limits), and queues it in the browser.
+2. The extension passes each message through the native host, a small program that connects the extension to Misha on the same Mac, to the Misha app. The host stores nothing. The app records that the event arrived and decides from your settings whether the message needs the clone. Only a message that does is saved with its text in `misha.db`, to wait for the clone; for any other it keeps bookkeeping only, such as the receipt and the threads you reply in.
+3. For a waiting message, the app gives the clone (Claude Code started in its restricted mode) the message, the conversation it belongs to, your settings and notes.
+4. Claude Code sends that conversation, any file it reads and every tool result to Anthropic, under your Claude subscription.
 5. The clone and the workers read from the services you connected and, where you or your settings allow, change things there.
-6. When you, or someone you allowed, asks for work, the app starts workers: separate Claude Code or OpenCode sessions that do one task.
-7. Workers send their task, the code and their tool results to Anthropic, or to OpenAI for a GPT review.
-8. The extension posts the clone's and workers' messages and makes its allowlisted Slack calls from inside your Slack tab, as you.
-9. Optional and separate from the clone: if you register the misha-browser tools with your own Claude Code or OpenCode, or an extension grants them to a worker, they read and drive your other tabs through the same host and extension. The extension observes the requests every tab sends whether or not a tool is in use.
-10. Those sessions send what the tools return to their own model provider.
+6. When the clone reads an image posted in Slack, a separate one-shot model call answers its question about the image: by default Claude Haiku through your Claude Code, with no tools and no saved session, or a model the clone names, which runs through your OpenCode's `vision` agent when it is another provider's. The image and the question go to that model's provider, and the answer joins the clone's conversation.
+7. When you, or someone you allowed, asks for work, the app starts workers: separate Claude Code or OpenCode sessions that do one task.
+8. A worker sends its task, the code and its tool results to the provider of the model it runs on: Anthropic for a Claude model, OpenAI for a GPT model, or any other provider your OpenCode is set up for, which the code does not rule out.
+9. The extension posts the clone's and workers' messages and makes its allowlisted Slack calls from a function it runs inside your signed-in Slack page, so the calls reach Slack from that page, as you. A file upload's bytes go to the upload address Slack's answer names, whose host the extension does not check.
+10. Optional and separate from the clone: if you register the misha-browser tools with your own Claude Code or OpenCode, or an extension grants them to a worker, they send requests through the same host and extension to your other tabs and get back page text, screenshots and the request log. Their desktop tools capture your screen and move the mouse and keyboard through macOS, without the extension. The extension records the fetch and XHR requests every tab sends whether or not a tool is in use.
+11. Those sessions send what the tools return to their own model provider.
 
 Three configurations reach different data, and no single Slack message uses all of it: a baseline clone turn uses the tools and services above, a worker given an extension's extra tools reaches whatever those tools reach, and the standalone browser and desktop tools reach your tabs, screen and keyboard for the agent you register them with. Personalising the clone, adding extensions or using the browser tools adds no confidentiality guarantee. [Customise and reuse Misha](/reference/extensions) explains where additions run.
 
@@ -55,8 +56,9 @@ Three configurations reach different data, and no single Slack message uses all 
 
 | Recipient | What it receives | Under |
 | --- | --- | --- |
-| Anthropic | Messages the clone considers, their conversation, your personality and notes, files and images it reads, tool results, workers' tasks and code | Your Claude subscription in Claude Code, and Anthropic's terms for it |
-| OpenAI, if you use it | What a GPT worker reviews: tickets, diffs and code | Your OpenAI sign-in in OpenCode |
+| Anthropic | Messages the clone considers, their conversation, your personality and notes, files it reads, tool results; Claude workers' tasks, code and tool results; Slack images and questions sent to a Claude model, the default | Your Claude subscription in Claude Code, and Anthropic's terms for it |
+| OpenAI, if you use it | Everything a GPT worker is given and produces, for a review or any other task: its task, code, tool results and what it reads; a Slack image and question the clone sends to a GPT model | Your OpenAI sign-in in OpenCode |
+| Another provider set up in OpenCode | The same, for a worker or image read run on that provider's model. Misha's intended workflow uses Claude and GPT models; the code does not enforce that | Your sign-in to that provider in OpenCode |
 | Slack | Posts, edits, uploads and reactions, and the Web API reads the clone makes | Your Slack account, through your web session |
 | GitHub | Clones, branches, pull requests and merges where you allowed them | Your GitHub CLI sign-in |
 | Atlassian, Google, Figma, Fireflies, AWS | Queries, and the tickets, pages, Docs and Sheets workers or your own turns create or change; Figma and Fireflies are read only | Your sign-in to each, where you connected it |
@@ -78,18 +80,36 @@ Misha has no Slack app, bot user or token of its own. It posts from your account
 | --- | --- | --- |
 | Slack session token and cookie | Slack's saved client state in your tab, and the browser's cookie store | The extension's function inside the Slack page reads the token for each call the app asks for and sends it only to your workspace's address on Slack's domain. It never returns the token. The network observer sees request credentials briefly and redacts the ones it recognises. |
 | Claude sign-in | Claude Code | The app runs `claude auth status` to see whether you are signed in, and `claude auth login` when you sign in from the window. It does not read the token. |
-| OpenAI sign-in | OpenCode | Used by OpenCode when a GPT worker runs. |
+| OpenAI and other provider sign-ins | OpenCode | Used by OpenCode when a worker or image read runs on that provider's model. |
 | Figma and Fireflies keys | OpenCode's credential store, where you paste them | Misha's Figma and Fireflies tools read the key there to call that service. |
 | Atlassian and Google sign-ins | Token files in your user state folder, written when you sign in from Misha | Misha's tools for those services read and refresh them to make their calls. |
 | GitHub and AWS | The GitHub CLI's and AWS CLI's own stores | Misha runs the CLIs; it does not read their stores. |
 
-Messages, files, pages and tool results can contain secrets themselves, and nothing on this page detects every secret. The checks that exist match known shapes: a clone reply has text shaped like a known token redacted, a worker's Slack message holding one is refused, and the Jira, Confluence and Google Workspace tools refuse to send text holding a stored credential or a known token shape. The extension's own credential handling is set out under [Where Slack's credentials go](/reference/permissions#where-slack-credentials-go).
+#### The outgoing-text check {#outgoing-check}
+
+Before the Jira, Confluence and Google Workspace write tools send text, Misha reads, on your Mac, every stored credential value it knows of and compares the text against them. It reads every entry in OpenCode's credential store, including integrations you do not use; Atlassian and mail token files; the OAuth client secrets for Atlassian, Google mail and Google Workspace; Google Workspace token files, including retired gcloud sign-in data; database passwords in the project's database configuration; and two client secrets from its environment. The comparison happens locally and sends none of these values anywhere. A match refuses the whole send, as does text shaped like a known token (Slack, GitHub, AWS, Anthropic, OpenAI or Google keys, private keys and web tokens).
+
+The check covers only stored values of at least eight characters from stores it could read: a store it cannot read, or a malformed entry, is skipped with a warning in Misha's log, and a shorter value is not checked. Messages, files, pages and tool results can contain secrets themselves, and nothing on this page detects every secret. Elsewhere, a clone reply has text shaped like a known token redacted, and a worker's Slack message holding one is refused. The extension's own credential handling is set out under [Where Slack's credentials go](/reference/permissions#where-slack-credentials-go).
 
 ### What is stored, and for how long {#storage}
 
 Misha's own files on your Mac:
 
 <!--@generated: desktop-paths-->
+
+What the less obvious of these hold, and what else Misha's code writes:
+
+| Store | What it holds | How long it stays |
+| --- | --- | --- |
+| `misha.db` settings and notes | Your settings, the clone's personality and your notes | Until you change them; starting fresh keeps them |
+| Workers' runs | Each run's task prompt, model, profile, working folder, who asked and how it ended | No age limit: Misha's code never prunes it |
+| Workers' logs | What the run's harness streamed: its messages, tool calls and tool results | No age limit |
+| Workers' working copies | Git worktrees of your repositories with the worker's changes | Misha's code does not remove them |
+| GPT workers' run settings | The task prompt and the OpenCode configuration Misha wrote for the run | Kept after a run starts; removed only when a launch fails before the run starts |
+| `~/.misha/app/pause.json` | Whether Misha is paused | Until you pause or resume |
+| Clone outbox | Files a reply attaches | Removed once the reply's deliveries are done. A folder a crash leaves behind stays: nothing sweeps it |
+| Image reading | The Slack image, and a scaled-down copy, for the model call | Deleted once the model answered; a failed deletion is only logged, and the file stays |
+| Desktop screen capture (misha-browser's `macos_screen_capture`) | A PNG of your primary screen, in a `misha-browser` folder in macOS's temporary folder, outside the Misha home | Deleted once it is read into the tool result; a failed deletion is only logged |
 
 #### Retention {#retention}
 
@@ -105,34 +125,41 @@ The extension writes only its queue of new Slack messages to disk; everything el
 
 #### Outside Misha's folders {#other-records}
 
-Claude Code keeps the clone's and Claude workers' session transcripts with your other Claude Code sessions, and OpenCode keeps GPT workers' sessions with yours. Installing an extension writes skills, commands, agent profiles and tool registrations into your Claude Code and OpenCode configuration. Slack, the model providers and each connected service keep their own records under their own rules.
+Claude Code keeps the clone's and Claude workers' session transcripts with your other Claude Code sessions, and OpenCode keeps GPT workers' sessions with yours. Installing an extension writes skills, commands, agent profiles and tool registrations into your Claude Code and OpenCode configuration. The browser repository's installer registers the native host with Chrome and Brave in `~/Library/Application Support/Google/Chrome/NativeMessagingHosts` and `~/Library/Application Support/BraveSoftware/Brave-Browser/NativeMessagingHosts`, and writes its launcher to `~/.misha/browser-bridge`, which stays there even when `MISHA_HOME` moves the app's files. Slack, the model providers and each connected service keep their own records under their own rules.
 
 ### Deleting your data {#deletion}
 
-Quitting Misha and deleting `~/.misha` removes the files in the paths table above, including the ledger, and the native host launcher the browser repository installs in `~/.misha/browser-bridge`. It does not remove Claude Code or OpenCode transcripts, the files extensions installed into your harnesses, the extension's storage in your browser profile, the host's registration with your browsers, your sign-ins to connected services, what Misha already posted or uploaded to Slack, or anything a provider or service keeps. Removing Misha in the documented order, so workers stop and saved copies survive first, is on [Control and maintain Misha](/operate/manage). There is no Misha account to close.
+There is no Misha account to close; everything Misha keeps is on your Mac. Pause Misha first and stop any worker it names as still running, so nothing writes while you delete. Then:
+
+- **The app's files:** quit Misha and delete the Misha home, `~/.misha` or the folder `MISHA_HOME` names. That removes the files above that live there, the ledger and the workers' records included; the screen capture folder in macOS's temporary folder is not in it. The install records under `extensions` list what extensions installed into your harnesses, so read them first if you want to remove those files too.
+- **The browser extension:** remove it on the browser's extensions page (Manage Extensions in Chrome's or Brave's menu); the browser deletes the storage it keeps for the extension, the message queue included. Delete `misha.browser_bridge.json` from the two `NativeMessagingHosts` folders above and the `~/.misha/browser-bridge` folder.
+- **Elsewhere:** Claude Code and OpenCode transcripts, the files extensions installed into your harnesses, what Misha posted or uploaded to Slack, and what providers and services keep are not removed by any of this. Deleting local files also signs you out of nothing: revoke Misha's tokens at each service, or sign out there, to end its access. These docs make no promise about what a provider or service erases.
+
+[Control and maintain Misha](/operate/manage) does not cover removal yet; this section is the complete list of what Misha writes.
 
 ### What Misha may do {#authority}
 
 | Who acts | What it can do | What limits it |
 | --- | --- | --- |
-| The clone, answering anyone but you | Read connected services and its own read-only copies of your repositories. No shell and nothing that reaches the web. | Code: Claude Code's restricted mode, a per-turn list of callable read tools, and Misha's bridge refusing anything else |
-| The clone, on your own turn | Also the services' write tools and the command-line tools your permission rules allow | Code: the same per-turn list; your own permission rules |
+| The clone, answering anyone but you | Read connected services through Misha's tools, which call those services over the network, and its own read-only copies of your repositories. No shell and no general web browsing or search. | Code: Claude Code's restricted mode with no settings files loaded, a per-turn list of callable read tools, every other tool refused, and Misha's bridge refusing it again |
+| The clone, on your own turn | Also the services' write tools, and any `gh` or `aws` command when GitHub or AWS is connected, with what those CLIs can do under your sign-in | Code: the same per-turn list, with command rules Misha supplies for those two CLIs. Your own Claude Code settings and permission rules are not loaded. |
 | The clone, asked for work by you or someone you allowed | Start workers | Code: the requester must be you or on your allowed list |
-| Workers | Your own Claude Code or OpenCode with a profile's tools: a shell, file edits, git, the GitHub CLI and cloud CLIs, as far as your accounts allow | Instructions, your harness permission rules and your accounts. No operating system sandbox. |
+| Claude workers | `claude -p` with a profile's tools: a shell, file edits, git, the GitHub CLI and cloud CLIs, as far as your accounts allow | Code: the profile names the tools the worker sees, and Misha's bridge is the only MCP server it loads; your Claude Code settings, your permission rules included, load as usual. Instructions and your accounts. No operating system sandbox. |
+| GPT workers (OpenCode) | The same tools through OpenCode | Code: Misha writes the run's whole OpenCode configuration, and yours, global and project, does not load. Each profile denies everything, then grants its tools; the implementer and reviewer profiles both grant every shell command and access outside the working folder, so a reviewer is not read-only in code. Misha approves at once any request a rule leaves at ask; a deny still refuses. Instructions and your accounts. No operating system sandbox. |
 | Merging | Workers merge a reviewed pull request only in a repository whose **May merge** is on | Instructions: the clone is told which repositories allow it. Your GitHub permissions are the hard limit. |
 | Deploying | Only to dev, never to staging, production or a release | Instructions only; the app's code does not check where a deploy goes |
-| Pause | Starts nothing new, tries to stop workers, answers only your commands in your self-DM | Code. A worker it could not stop keeps running until you stop it, and pause undoes nothing. [Control and maintain Misha](/operate/manage) has the procedure. |
+| Pause | Starts nothing new, tries to stop workers, answers only your commands in your self-DM | Code. A worker it could not stop keeps running until you stop it, and pause undoes nothing. |
 
 [How Misha works](/understand/how-it-works) explains the runtime behind this table, and [Settings and commands](/reference/settings) lists who may change each setting.
 
 ### Residual risks {#residual-risks}
 
 - The clone can be wrong and confident, in public, as you. Its marker does not stop that; correct it as yourself.
-- Messages, tickets, pages and files are input to the model, and text in them can try to steer it. Other people's turns can only read, but workers' limits are instructions.
+- Messages, tickets, pages and files are input to the model, and text in them can try to steer it. Other people's turns can only read, but workers' limits are instructions and their profiles' grants.
 - One clone session spans your conversations, so something said in one conversation can reach a reply in another.
-- The extension observes the requests every tab sends and redacts credentials only by name and pattern; the rest of a request body is kept in memory as sent.
+- The extension records the fetch and XHR requests every tab sends and redacts credentials only by name and pattern; the rest of a request body is kept in memory as sent and returned to an agent that asks.
 - Workers act with your Mac user's authority and your accounts' permissions.
-- Waiting messages and the ledger have no age limit.
+- Waiting messages, the ledger, workers' prompts, logs and working copies have no age limit.
 
 ### Updates and audit {#updates-and-audit}
 

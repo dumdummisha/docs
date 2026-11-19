@@ -160,17 +160,23 @@ const FACT_SCHEMAS = {
   }),
 } as const satisfies Record<string, z.ZodType>
 
-const FACT_FILES = Object.keys(FACT_SCHEMAS) as (keyof typeof FACT_SCHEMAS)[]
+type FactFile = keyof typeof FACT_SCHEMAS
+const FACT_FILES = Object.keys(FACT_SCHEMAS) as FactFile[]
 
 type Manifest = z.infer<typeof MANIFEST_SCHEMA>
 export type Capture = z.infer<typeof CAPTURE_SCHEMA>
 type CaptureList = z.infer<typeof CAPTURES_SCHEMA>
 
-// A verified export: its manifest, capture list and fact documents by name (commands, settings and so on).
+// The fact documents by name, facts/commands.json as commands and so on, each in its schema's shape.
+export type DesktopFacts = {
+  [TFile in FactFile as TFile extends `facts/${infer TName}.json` ? TName : never]: z.infer<(typeof FACT_SCHEMAS)[TFile]>
+}
+
+// A verified export: its manifest, capture list and fact documents by name.
 interface IDesktopExport {
   manifest: Manifest
   captureList: CaptureList
-  facts: Record<string, unknown>
+  facts: DesktopFacts
 }
 
 export class BundleError extends Error {
@@ -262,12 +268,13 @@ export const verifiedExportOf = (bytesByFile: ReadonlyMap<string, Buffer>): IDes
     throw new BundleError(`The digest in ${MANIFEST_FILE} does not match its file list`)
   }
 
+  // Each document parsed by its own file's schema under its file's name, which is what DesktopFacts maps.
   const facts = Object.fromEntries(
     FACT_FILES.map((file) => [
       file.replace(/^facts\//u, '').replace(/\.json$/u, ''),
       parsedDocument(file, read(file), FACT_SCHEMAS[file]),
     ])
-  )
+  ) as DesktopFacts
   const captureList = parsedDocument(CAPTURES_FILE, read(CAPTURES_FILE), CAPTURES_SCHEMA)
   if (captureList.recipe.version !== manifest.captureRecipeVersion) {
     throw new BundleError(

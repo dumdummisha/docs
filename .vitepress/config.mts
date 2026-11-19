@@ -3,6 +3,8 @@ import { fileURLToPath } from 'node:url'
 
 import { type DefaultTheme, defineConfig, type MarkdownEnv, type MarkdownRenderer } from 'vitepress'
 
+import { committedExportOf } from '../scripts/desktop-export.ts'
+import { expandFactTables } from '../scripts/fact-tables.ts'
 import { checkPageComponents, type ISiteFacts, loadSiteFacts } from '../scripts/site-facts.ts'
 import {
   BROWSER_REPOSITORY_URL,
@@ -101,14 +103,21 @@ const footerMessage = (site: ISiteFacts): string => {
 }
 
 const description = readmeFirstLine(await readFile(new URL('../README.md', import.meta.url), 'utf8'))
-const site = await loadSiteFacts(fileURLToPath(new URL('..', import.meta.url)))
+const root = fileURLToPath(new URL('..', import.meta.url))
+const site = await loadSiteFacts(root)
+const { facts } = await committedExportOf(root)
 
 export default defineConfig({
   title: 'Dumdum Misha',
   description,
   lang: 'en',
   srcDir: 'src',
-  markdown: { config: checkComponents(site) },
+  markdown: {
+    config: (md) => {
+      expandFactTables(facts)(md)
+      checkComponents(site)(md)
+    },
+  },
   base: '/',
   cleanUrls: true,
   // The brand defines a light theme only; the screenshots are light too.

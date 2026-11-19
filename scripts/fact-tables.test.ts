@@ -48,8 +48,9 @@ const COMMANDS = {
 
 const SETTINGS = {
   fields: [
-    { field: 'icon', description: 'The emoji.', default: ':misha:', limits: { pattern: '^[a-z]+$' } },
+    { field: 'icon', description: 'The emoji.', default: ':misha:', limits: { name: { pattern: '^[a-z]+$', flags: 'iu' } } },
     { field: 'notes', description: 'What it remembers.', default: 'None.', limits: { maxNotes: 200, maxCharactersEach: 1000 } },
+    { field: 'compactAtTokens', description: 'When the clone compacts.', default: '150000', limits: { isWholeNumber: true, minTokens: 1 } },
     { field: 'sessionEpoch', description: 'Moves on with start fresh.', default: '0', limits: {} },
   ],
   mutations: [
@@ -206,7 +207,7 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     ])
   })
 
-  it('should state count limits, say a format is checked rather than print its pattern, and leave no listed limit empty', () => {
+  it('should state count and number limits, say a format is checked rather than print its pattern, and leave no listed limit empty', () => {
     // Act
     const markdown = factTableMarkdown(FACTS, '<!-- facts settings -->')
 
@@ -214,6 +215,7 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     expect(markdown.split('\n').slice(2)).toStrictEqual([
       '| `icon` | The emoji. | :misha: | Format checked when saved |',
       '| `notes` | What it remembers. | None. | Up to 200 notes; 1,000 characters each |',
+      '| `compactAtTokens` | When the clone compacts. | 150000 | Whole number; at least 1 token |',
       '| `sessionEpoch` | Moves on with start fresh. | 0 |  |',
     ])
   })

@@ -2,13 +2,13 @@
   "exportSchemaVersion": 2,
   "productVersion": "0.1.0",
   "evidenceDate": "2026-11-19",
-  "captureRecipeVersion": 2,
-  "digest": "caeac4a4212344762dedc5c2477b81d00bac46d8645543bce8c236e9ad40e33e",
+  "captureRecipeVersion": 3,
+  "digest": "42316a798e04c1f11016b0719c0df4dced7b63f1403dee146d3c33ae9c39e757",
   "files": [
     {
       "path": "captures.json",
-      "bytes": 20949,
-      "sha256": "42998cc17fde1f13661966aa04f3ebd82a2f68cda4ff5685df8ae1c9b0be7a8d"
+      "bytes": 20624,
+      "sha256": "b703aaab868dbed3ef6481bd0fa695c91654694e6a1c7654a1069b96762fceb0"
     },
     {
       "path": "captures/claude-limit.png",
@@ -27,8 +27,8 @@
     },
     {
       "path": "captures/home.png",
-      "bytes": 334545,
-      "sha256": "2d325e22c48136264e45874377e1409f5ca01349d67efc29239ccd611bd97c66"
+      "bytes": 334579,
+      "sha256": "5b75e987239d1cb9a8205a7c3892d925d683cb96adda29db97cfd23398dd36a1"
     },
     {
       "path": "captures/paused.png",
@@ -87,13 +87,13 @@
     },
     {
       "path": "captures/worker-unstopped.png",
-      "bytes": 209140,
-      "sha256": "3e2c78d74d9993a897c6c5140aba5bee539a4d895b1dec6cdb85bbbd8ab53ca9"
+      "bytes": 209095,
+      "sha256": "efad56e3c89b8ee820a501f3c731d6acb80cc6bc9c120d62967fc005ab4eeb59"
     },
     {
       "path": "captures/workers-stopping.png",
-      "bytes": 198606,
-      "sha256": "909705eec150a7a29014a25f8a47f00f611909b3408cf590a8a716ea32c80cb7"
+      "bytes": 198568,
+      "sha256": "9531cff3095c88561f832370a48725b13fc00865d6725d3455819c04830753f7"
     },
     {
       "path": "facts/commands.json",
@@ -107,8 +107,8 @@
     },
     {
       "path": "facts/paths.json",
-      "bytes": 2642,
-      "sha256": "8cb2b9aadeb86ee59cfac6ebdb3180acf71e3993f9b9b8defb4a512b62556970"
+      "bytes": 5889,
+      "sha256": "92d5636bd79f148319bf0a99bdd338c3f3afc7ee67e3420023976951131eb68e"
     },
     {
       "path": "facts/retention.json",
@@ -117,8 +117,8 @@
     },
     {
       "path": "facts/settings.json",
-      "bytes": 12699,
-      "sha256": "790f4833ecedeae6a965c84e6cf075fd92f299ca8f268c05a268be066669da28"
+      "bytes": 12987,
+      "sha256": "137353780a7aa8d6fe273a4c93c6b6025082163e5fccee1bdd4514a84db2208b"
     },
     {
       "path": "facts/setup-commands.json",

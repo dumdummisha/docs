@@ -278,9 +278,9 @@ const labelOf = (labels: Readonly<Record<string, string>>, place: string): strin
 const placeLabel = (place: string): string => labelOf(PLACE_LABELS, place)
 
 // Each limit a setting can carry, in the order a cell lists them. Every key of the schema's limits is here, so a key
-// the export adds fails the typecheck until this says how to show it. Format patterns are exported without their
-// regular-expression flags, so printing one could misstate it (the case-insensitive repository owner and name would read
-// as lowercase only): a cell says a format is checked instead.
+// the export adds fails the typecheck until this says how to show it. A format is a regular expression with flags that
+// change what it accepts (the repository owner and name match in any case), so a cell says a format is checked rather
+// than print an expression the reader would have to decode.
 const LIMIT_TEXT: Readonly<Record<keyof Limits, (limits: Limits) => string | undefined>> = {
   maxCharacters: ({ maxCharacters }) =>
     maxCharacters === undefined ? undefined : `up to ${NUMBER_FORMAT.format(maxCharacters)} characters`,
@@ -291,7 +291,9 @@ const LIMIT_TEXT: Readonly<Record<keyof Limits, (limits: Limits) => string | und
     maxNameCharacters === undefined ? undefined : `names up to ${NUMBER_FORMAT.format(maxNameCharacters)} characters`,
   levels: ({ levels }) => (levels === undefined ? undefined : `levels ${codes(levels)}`),
   names: ({ names }) => (names === undefined ? undefined : `each one of ${codes(names)}`),
-  pattern: ({ pattern }) => (pattern === undefined ? undefined : FORMAT_CHECKED),
+  isWholeNumber: ({ isWholeNumber }) => (isWholeNumber === undefined ? undefined : 'whole number'),
+  minTokens: ({ minTokens }) =>
+    minTokens === undefined ? undefined : `at least ${NUMBER_FORMAT.format(minTokens)} ${minTokens === 1 ? 'token' : 'tokens'}`,
   channelId: ({ channelId }) => (channelId === undefined ? undefined : FORMAT_CHECKED),
   owner: ({ owner }) => (owner === undefined ? undefined : FORMAT_CHECKED),
   name: ({ name }) => (name === undefined ? undefined : FORMAT_CHECKED),

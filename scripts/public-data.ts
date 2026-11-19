@@ -135,16 +135,19 @@ const NON_PERSON_LOCATIONS: readonly { file: string; path: string }[] = [
   { file: 'facts/desktop/commands.json', path: 'senders.*.id' },
   { file: 'facts/desktop/commands.json', path: 'senders.*.description' },
   { file: 'facts/desktop/commands.json', path: 'commands.*.sender' },
-  // The pattern a repository's GitHub owner must match.
-  { file: 'facts/desktop/settings.json', path: 'fields.*.limits.owner' },
+  // The format a repository's GitHub owner must match: its regular expression and flags.
+  { file: 'facts/desktop/settings.json', path: 'fields.*.limits.owner.pattern' },
+  { file: 'facts/desktop/settings.json', path: 'fields.*.limits.owner.flags' },
   // The browser disclosures' sentence on where the extension sends data.
   { file: 'facts/browser/store-disclosures.json', path: 'dataUsage.recipients' },
 ]
 
-// JSON keys with a credential-like name that hold prose about credentials, not a credential, each at its exact location.
+// JSON keys with a credential-like name that hold no credential, each at its exact location; * stands for an array index.
 const REVIEWED_CREDENTIAL_KEYS: readonly { file: string; path: string }[] = [
   // The browser disclosures' account of where Slack's session credentials go.
   { file: 'facts/browser/store-disclosures.json', path: 'credentialHandling' },
+  // The fewest model tokens a setting accepts, a count.
+  { file: 'facts/desktop/settings.json', path: 'fields.*.limits.minTokens' },
 ]
 
 // JSON keys whose string values are visible text, where two capitalised words in a row must be a cast name or one of
@@ -366,8 +369,13 @@ const jsonStringsOf = (text: string): IJsonString[] => {
 
 const normalisedKey = (key: string): string => key.toLowerCase().replaceAll(/[\s_-]/gu, '').replace(/s$/u, '')
 
-const isNonPersonLocation = (file: string, path: readonly (string | number)[]): boolean =>
-  NON_PERSON_LOCATIONS.some((location) => {
+// Whether a decoded string sits at one of the locations, an array index matching *.
+const isAtLocation = (
+  locations: readonly { file: string; path: string }[],
+  file: string,
+  path: readonly (string | number)[]
+): boolean =>
+  locations.some((location) => {
     const pattern = location.path.split('.')
 
     return (
@@ -381,15 +389,13 @@ const isNonPersonLocation = (file: string, path: readonly (string | number)[]): 
 
 const structureRulesOf = (file: string, string: IJsonString): PublicDataRule[] => {
   if (string.isKey) {
-    const isReviewed = REVIEWED_CREDENTIAL_KEYS.some(
-      (location) => location.file === file && location.path === string.path.join('.')
-    )
-
-    return CREDENTIAL_KEY.test(string.value) && !isReviewed ? ['credential field'] : []
+    return CREDENTIAL_KEY.test(string.value) && !isAtLocation(REVIEWED_CREDENTIAL_KEYS, file, string.path)
+      ? ['credential field']
+      : []
   }
   const isPersonValue =
     string.path.some((segment) => typeof segment === 'string' && PERSON_KEYS.has(normalisedKey(segment))) &&
-    !isNonPersonLocation(file, string.path)
+    !isAtLocation(NON_PERSON_LOCATIONS, file, string.path)
   const lastSegment = string.path.at(-1)
   const phrases =
     typeof lastSegment === 'string' && FREE_TEXT_KEYS.has(lastSegment)

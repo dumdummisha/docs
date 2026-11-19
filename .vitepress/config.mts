@@ -4,9 +4,14 @@ import { fileURLToPath } from 'node:url'
 import { type DefaultTheme, defineConfig, type MarkdownEnv, type MarkdownRenderer } from 'vitepress'
 
 import { checkPageComponents, type ISiteFacts, loadSiteFacts } from '../scripts/site-facts.ts'
+import {
+  BROWSER_REPOSITORY_URL,
+  DOWNLOADS_REPOSITORY_URL,
+  LANDING_URL,
+  REPOSITORY_URL,
+  SITE_URL,
+} from '../scripts/site.ts'
 
-const SITE_URL = 'https://docs.dumdummisha.ai'
-const REPOSITORY = 'https://github.com/dumdummisha/misha'
 const HEADING = /^#{1,6}\s/u
 
 // Start, the owner's journey, the colleague's own entrance, operating Misha, then looking things up.
@@ -74,14 +79,36 @@ const checkComponents =
     })
   }
 
+// The landing page, the canonical privacy policy, the browser extension's source and where availability is published,
+// with the desktop app version and evidence day the site's facts describe.
+const footerMessage = (site: ISiteFacts): string => {
+  const fact = (name: string): string => {
+    const value = site.facts[name]
+    if (value === undefined) {
+      throw new Error(`The footer needs the fact ${name}, which facts/ does not hold`)
+    }
+
+    return String(value)
+  }
+
+  return [
+    `<a href="${LANDING_URL}">Dumdum Misha</a>`,
+    '<a href="/privacy">Privacy</a>',
+    `<a href="${BROWSER_REPOSITORY_URL}">Browser extension source</a>`,
+    `<a href="${DOWNLOADS_REPOSITORY_URL}">Downloads and availability</a>`,
+    `Describes the desktop app ${fact('desktop.manifest.productVersion')} as of ${fact('desktop.manifest.evidenceDate')}`,
+  ].join(' · ')
+}
+
 const description = readmeFirstLine(await readFile(new URL('../README.md', import.meta.url), 'utf8'))
+const site = await loadSiteFacts(fileURLToPath(new URL('..', import.meta.url)))
 
 export default defineConfig({
   title: 'Dumdum Misha',
   description,
   lang: 'en',
   srcDir: 'src',
-  markdown: { config: checkComponents(await loadSiteFacts(fileURLToPath(new URL('..', import.meta.url)))) },
+  markdown: { config: checkComponents(site) },
   base: '/',
   cleanUrls: true,
   // The brand defines a light theme only; the screenshots are light too.
@@ -111,14 +138,15 @@ export default defineConfig({
       { text: 'Talking with a clone', link: '/understand/slack' },
       { text: 'Privacy', link: '/privacy' },
       { text: 'Reference', link: '/reference/settings' },
-      { text: 'GitHub', link: REPOSITORY },
+      { text: 'GitHub', link: REPOSITORY_URL },
     ],
     sidebar: SIDEBAR,
     // The index ships with the site, so a query never leaves the reader's browser.
     search: { provider: 'local' },
-    editLink: { pattern: `${REPOSITORY}/edit/main/src/:path`, text: 'Suggest a change to this page' },
+    editLink: { pattern: `${REPOSITORY_URL}/edit/main/src/:path`, text: 'Suggest a change to this page' },
     footer: {
-      message:
+      message: footerMessage(site),
+      copyright:
         'Code and prose under Apache-2.0, fonts under OFL-1.1. The Dumdum Misha name, mascot and app icon are brand artwork.',
     },
   },

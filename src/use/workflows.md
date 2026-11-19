@@ -4,9 +4,7 @@ description: "What you can ask Misha to do, what it needs for each request, and 
 prev:
   text: Make it yours
   link: /use/make-it-yours
-next:
-  text: How Misha works
-  link: /understand/how-it-works
+next: false
 ---
 
 # Put Misha to work
@@ -16,3 +14,11 @@ This page will show the requests Misha handles, from a quick sourced answer to r
 ::: info Being written
 This page is an outline for now. The full page is being written.
 :::
+
+## Where to go next
+
+Getting started ends here. Read on only if you want to:
+
+- see how a Slack message reaches your clone and how workers take on longer jobs: [How Misha works](/understand/how-it-works)
+- add your own skills and tools, or reuse Misha's parts: [Customise and reuse Misha](/reference/extensions)
+- pause Misha, change what it may do, or update and remove it: [Control and maintain Misha](/operate/manage)

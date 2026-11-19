@@ -3,6 +3,9 @@ import { fileURLToPath } from 'node:url'
 
 import { type DefaultTheme, defineConfig, type MarkdownEnv, type MarkdownRenderer } from 'vitepress'
 
+import { committedBrowserFactsOf } from '../scripts/browser-facts.ts'
+import { committedExportOf } from '../scripts/desktop-export.ts'
+import { expandFragments, fragmentsOf } from '../scripts/fact-includes.ts'
 import { checkPageComponents, type ISiteFacts, loadSiteFacts } from '../scripts/site-facts.ts'
 import {
   BROWSER_REPOSITORY_URL,
@@ -79,6 +82,16 @@ const checkComponents =
     })
   }
 
+// Each <!--@generated: name--> line of a page becomes its fragment before the page is parsed, so the fragment's
+// headings get anchors, enter the outline and reach the local search index, which renders pages with this same setup.
+const placeFragments =
+  (fragments: Readonly<Record<string, string>>) =>
+  (md: MarkdownRenderer): void => {
+    md.core.ruler.before('normalize', 'generated-fragments', (state) => {
+      state.src = expandFragments(state.src, fragments, (state.env as MarkdownEnv).relativePath)
+    })
+  }
+
 // The landing page, the canonical privacy policy, the browser extension's source and where availability is published,
 // with the desktop app version and evidence day the site's facts describe.
 const footerMessage = (site: ISiteFacts): string => {
@@ -101,14 +114,21 @@ const footerMessage = (site: ISiteFacts): string => {
 }
 
 const description = readmeFirstLine(await readFile(new URL('../README.md', import.meta.url), 'utf8'))
-const site = await loadSiteFacts(fileURLToPath(new URL('..', import.meta.url)))
+const root = fileURLToPath(new URL('..', import.meta.url))
+const site = await loadSiteFacts(root)
+const fragments = fragmentsOf((await committedExportOf(root)).facts, await committedBrowserFactsOf(root))
 
 export default defineConfig({
   title: 'Dumdum Misha',
   description,
   lang: 'en',
   srcDir: 'src',
-  markdown: { config: checkComponents(site) },
+  markdown: {
+    config: (md) => {
+      placeFragments(fragments)(md)
+      checkComponents(site)(md)
+    },
+  },
   base: '/',
   cleanUrls: true,
   // The brand defines a light theme only; the screenshots are light too.

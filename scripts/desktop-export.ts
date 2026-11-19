@@ -162,6 +162,11 @@ const FACT_SCHEMAS = {
 
 const FACT_FILES = Object.keys(FACT_SCHEMAS) as (keyof typeof FACT_SCHEMAS)[]
 
+type FactFile = keyof typeof FACT_SCHEMAS
+type FactName<TFile extends FactFile> = TFile extends `facts/${infer TName}.json` ? TName : never
+// The fact documents by name (commands, settings and so on), each as its schema parsed it.
+export type DesktopFacts = { [TFile in FactFile as FactName<TFile>]: z.infer<(typeof FACT_SCHEMAS)[TFile]> }
+
 type Manifest = z.infer<typeof MANIFEST_SCHEMA>
 export type Capture = z.infer<typeof CAPTURE_SCHEMA>
 type CaptureList = z.infer<typeof CAPTURES_SCHEMA>
@@ -170,7 +175,7 @@ type CaptureList = z.infer<typeof CAPTURES_SCHEMA>
 interface IDesktopExport {
   manifest: Manifest
   captureList: CaptureList
-  facts: Record<string, unknown>
+  facts: DesktopFacts
 }
 
 export class BundleError extends Error {
@@ -262,12 +267,13 @@ export const verifiedExportOf = (bytesByFile: ReadonlyMap<string, Buffer>): IDes
     throw new BundleError(`The digest in ${MANIFEST_FILE} does not match its file list`)
   }
 
+  // Each document is parsed by the schema of its own file, so the entries hold DesktopFacts' types by construction.
   const facts = Object.fromEntries(
     FACT_FILES.map((file) => [
       file.replace(/^facts\//u, '').replace(/\.json$/u, ''),
       parsedDocument(file, read(file), FACT_SCHEMAS[file]),
     ])
-  )
+  ) as DesktopFacts
   const captureList = parsedDocument(CAPTURES_FILE, read(CAPTURES_FILE), CAPTURES_SCHEMA)
   if (captureList.recipe.version !== manifest.captureRecipeVersion) {
     throw new BundleError(
@@ -295,17 +301,20 @@ export const verifiedExportOf = (bytesByFile: ReadonlyMap<string, Buffer>): IDes
   return { manifest, captureList, facts }
 }
 
+// What facts/ holds: the desktop export's capture list and facts, and the browser facts pnpm import:browser writes.
+const FACTS_ENTRIES: readonly string[] = [CAPTURES_FILE, 'desktop', 'browser']
+
 // The imported export as the repository holds it, checked again like a bundle, so a capture or fact edited or replaced
-// after the import fails the build. facts/ holds only the export, and facts/desktop/ only the export and its README.
+// after the import fails the build. facts/desktop/ holds only the export and its README.
 export const committedExportOf = async (root: string): Promise<IDesktopExport> => {
   const [factsEntries, desktopEntries, captureEntries] = await Promise.all([
     readdir(join(root, 'facts')),
     readdir(join(root, DESKTOP_FACTS_DIRECTORY)),
     readdir(join(root, SITE_CAPTURES_DIRECTORY)),
   ])
-  const unexpected = factsEntries.filter((name) => name !== CAPTURES_FILE && name !== 'desktop')
+  const unexpected = factsEntries.filter((name) => !FACTS_ENTRIES.includes(name))
   if (unexpected.length > 0) {
-    throw new Error(`facts/ holds ${unexpected.join(', ')}, which is not part of the desktop export`)
+    throw new Error(`facts/ holds ${unexpected.join(', ')}, which is neither the desktop export nor the browser facts`)
   }
   const files = [
     CAPTURES_FILE,

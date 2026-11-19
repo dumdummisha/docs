@@ -59,11 +59,14 @@ const APPROVED_URLS: readonly IApprovedUrl[] = [
   { host: 'claude.com', path: '/product/claude-code', within: ANYWHERE },
   { host: 'opencode.ai', path: '/', within: ANYWHERE },
   { host: 'cli.github.com', path: '/', within: ANYWHERE },
+  // Slack's web client origin, which the browser extension's disclosures and manifest name as the pages its content
+  // scripts run on. Quoted from the imported facts and on the pages that render them, never linked.
+  { host: 'app.slack.com', path: '/', within: ['facts/browser/', '.vitepress/dist/'] },
   // XML namespaces: SVG in the artwork and the built CSS and JavaScript, MathML and XLink in the bundled Vue runtime,
-  // XHTML and the sitemap schemas in the sitemap, and the vercel.json schema.
+  // XLink in the rendered diagrams, XHTML and the sitemap schemas in the sitemap, and the vercel.json schema.
   { host: 'www.w3.org', path: '/2000/svg', within: ['src/public/', '.vitepress/dist/'] },
   { host: 'www.w3.org', path: '/1998/Math/MathML', within: BUILT_ASSETS },
-  { host: 'www.w3.org', path: '/1999/xlink', within: BUILT_ASSETS },
+  { host: 'www.w3.org', path: '/1999/xlink', within: [...BUILT_ASSETS, 'src/public/diagrams/', '.vitepress/dist/diagrams/'] },
   { host: 'www.w3.org', path: '/1999/xhtml', within: SITEMAP },
   { host: 'www.sitemaps.org', path: '/schemas/', within: SITEMAP },
   { host: 'www.google.com', path: '/schemas/', within: SITEMAP },
@@ -99,7 +102,7 @@ const CAST_FULL_NAMES: readonly string[] = ['Sam Rivera', 'Priya Nair', 'Jonas W
 const CAST: ReadonlySet<string> = new Set([...CAST_FULL_NAMES, ...CAST_FULL_NAMES.map((name) => name.split(' ')[0] ?? name)])
 
 // JSON keys that hold a person, compared lowercase without separators and a plural s. Every string anywhere below such a
-// key must name the cast, unless its exact location is a role id listed in ROLE_ID_LOCATIONS.
+// key must name the cast, unless its exact location is listed in NON_PERSON_LOCATIONS.
 const PERSON_KEYS: ReadonlySet<string> = new Set([
   'asker',
   'assignee',
@@ -126,14 +129,22 @@ const PERSON_KEYS: ReadonlySet<string> = new Set([
   'username',
 ])
 
-// Where the desktop export's facts hold a role id, not a person, under a person key; * stands for an array index.
-const ROLE_ID_LOCATIONS: readonly { file: string; path: string }[] = [
+// Where the imported facts hold a role id or prose, not a person, under a person key; * stands for an array index.
+const NON_PERSON_LOCATIONS: readonly { file: string; path: string }[] = [
   // The two sender roles, owner and colleague, each with its description.
   { file: 'facts/desktop/commands.json', path: 'senders.*.id' },
   { file: 'facts/desktop/commands.json', path: 'senders.*.description' },
   { file: 'facts/desktop/commands.json', path: 'commands.*.sender' },
   // The pattern a repository's GitHub owner must match.
   { file: 'facts/desktop/settings.json', path: 'fields.*.limits.owner' },
+  // The browser disclosures' sentence on where the extension sends data.
+  { file: 'facts/browser/store-disclosures.json', path: 'dataUsage.recipients' },
+]
+
+// JSON keys with a credential-like name that hold prose about credentials, not a credential, each at its exact location.
+const REVIEWED_CREDENTIAL_KEYS: readonly { file: string; path: string }[] = [
+  // The browser disclosures' account of where Slack's session credentials go.
+  { file: 'facts/browser/store-disclosures.json', path: 'credentialHandling' },
 ]
 
 // JSON keys whose string values are visible text, where two capitalised words in a row must be a cast name or one of
@@ -355,8 +366,8 @@ const jsonStringsOf = (text: string): IJsonString[] => {
 
 const normalisedKey = (key: string): string => key.toLowerCase().replaceAll(/[\s_-]/gu, '').replace(/s$/u, '')
 
-const isRoleIdLocation = (file: string, path: readonly (string | number)[]): boolean =>
-  ROLE_ID_LOCATIONS.some((location) => {
+const isNonPersonLocation = (file: string, path: readonly (string | number)[]): boolean =>
+  NON_PERSON_LOCATIONS.some((location) => {
     const pattern = location.path.split('.')
 
     return (
@@ -370,11 +381,15 @@ const isRoleIdLocation = (file: string, path: readonly (string | number)[]): boo
 
 const structureRulesOf = (file: string, string: IJsonString): PublicDataRule[] => {
   if (string.isKey) {
-    return CREDENTIAL_KEY.test(string.value) ? ['credential field'] : []
+    const isReviewed = REVIEWED_CREDENTIAL_KEYS.some(
+      (location) => location.file === file && location.path === string.path.join('.')
+    )
+
+    return CREDENTIAL_KEY.test(string.value) && !isReviewed ? ['credential field'] : []
   }
   const isPersonValue =
     string.path.some((segment) => typeof segment === 'string' && PERSON_KEYS.has(normalisedKey(segment))) &&
-    !isRoleIdLocation(file, string.path)
+    !isNonPersonLocation(file, string.path)
   const lastSegment = string.path.at(-1)
   const phrases =
     typeof lastSegment === 'string' && FREE_TEXT_KEYS.has(lastSegment)

@@ -1,0 +1,37 @@
+flowchart TB
+  subgraph mac["Your Mac"]
+    direction TB
+    subgraph browser["Chrome or Brave"]
+      tab["Your signed-in Slack tab"]
+      ext["Misha Browser extension"]
+      tabs["Your other open tabs"]
+    end
+    host["Native host"]
+    app["Misha app and ~/.misha"]
+    clone["Clone turn: restricted Claude Code"]
+    workers["Workers: Claude Code or OpenCode"]
+    own["Optional: your own Claude Code or OpenCode<br/>with the misha-browser tools"]
+  end
+  subgraph outside["Outside your Mac, under your accounts"]
+    slack["Slack"]
+    anthropic["Anthropic"]
+    openai["OpenAI, optional"]
+    services["Services you connect:<br/>GitHub, Atlassian, Google,<br/>Figma, Fireflies, AWS"]
+    sites["Sites your tabs have open"]
+  end
+
+  tab -- "1" --> ext
+  ext <-->|"2"| host
+  host <-->|"2"| app
+  app -- "3" --> clone
+  clone -- "4" --> anthropic
+  clone -- "5" --> services
+  app -- "6" --> workers
+  workers -- "7" --> anthropic
+  workers -- "7" --> openai
+  workers -- "5" --> services
+  ext -- "8" --> slack
+  own -. "9" .-> host
+  ext -. "9" .-> tabs
+  tabs -.- sites
+  own -. "10" .-> anthropic

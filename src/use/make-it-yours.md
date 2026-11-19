@@ -21,7 +21,7 @@ You can tell the state at a glance. The foot of the sidebar reads "Shop · I ans
 
 ## Voice and marker {#voice-and-marker}
 
-Your clone's posts can start with its icon, followed by the text in italics, so people can tell them apart from what you type yourself. That marker is optional. On **Settings › Icon**, the preview "How a message starts" shows a post as Slack will. The icon also calls the clone: a message you write with your icon in it reaches the clone as yours, wherever you write it.
+Your clone's posts can start with its icon, followed by the text in italics, so people can tell them apart from what you type yourself. That marker is the default; stealth mode drops it. On **Settings › Icon**, the preview "How a message starts" shows a post as Slack will. The icon also calls the clone: a message you write with your icon in it reaches the clone as yours, wherever you write it.
 
 <Shot id="settings-icon" caption="The icon card, with a preview of how a post by Sam Rivera's clone starts. Made-up example." />
 

@@ -102,7 +102,7 @@ The Get started screen has no Pause button of its own. Pause appears once the fa
 **Give me a face** saves your first settings:
 
 - **The Slack account.** With several accounts signed in, Misha asks which one it answers as. That choice is for good: Misha serves one Slack account, and no control changes it after this save.
-- **The icon**, the emoji its posts can start with, followed by the text in italics. It starts as `:misha:`, and the marker is optional. Writing the icon in a message also calls the clone.
+- **The icon**, the emoji its posts can start with, followed by the text in italics. It starts as `:misha:`, and stealth mode drops the marker. Writing the icon in a message also calls the clone.
 - **How it sounds**, optional, in up to <Fact name="desktop.settings.fields.personality.limits.maxCharacters" /> characters. Left empty, the clone is plain, short and polite.
 
 **Save and start** saves your choices, and **Keep the defaults** saves `:misha:` with no tone. Either one makes the clone live at once. [Make it yours](/use/make-it-yours#voice-and-marker) is where you refine both.

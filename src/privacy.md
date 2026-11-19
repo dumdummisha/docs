@@ -72,7 +72,7 @@ Each recipient's own retention, training and administrator-access rules apply to
 
 ### Slack identity {#slack-identity}
 
-Misha has no Slack app, bot user or token of its own. It posts from your account through the Slack tab you are signed in to, so in Slack its posts are yours. A clone reply can start with your chosen emoji and be set in italics; that marker is optional, and it is a label, not authentication: anyone can type the same emoji. These docs do not establish whether Slack's terms or your organisation allow a personal agent to post this way: that is for you and your organisation to decide.
+Misha has no Slack app, bot user or token of its own. It posts from your account through the Slack tab you are signed in to, so in Slack its posts are yours. A clone reply can start with your chosen emoji and be set in italics; that marker is the default, stealth mode drops it, and it is a label, not authentication: anyone can type the same emoji. These docs do not establish whether Slack's terms or your organisation allow a personal agent to post this way: that is for you and your organisation to decide.
 
 ### Credentials {#credentials}
 

@@ -9,7 +9,7 @@ next:
 
 # Talking with a clone
 
-Some colleagues run a clone: an AI that answers routine Slack messages for them while they're busy. It posts from the person's own Slack account, so the name and picture are theirs. A clone reply can start with an emoji the person chose, with its text in italics. That marker is optional, so a reply without it may still be the clone's, and it's a label, not proof: anyone can type the same emoji in italics.
+Some colleagues run a clone: an AI that answers routine Slack messages for them while they're busy. It posts from the person's own Slack account, so the name and picture are theirs. A clone reply can start with an emoji the person chose, with its text in italics. The person can switch it off with stealth mode, so a reply without it may still be the clone's, and it's a label, not proof: anyone can type the same emoji in italics.
 
 Jump to [your messages](#your-messages), [work requests](#questions-and-work), [stopping replies](#stop-replies) or [if something is wrong](#if-something-is-wrong).
 

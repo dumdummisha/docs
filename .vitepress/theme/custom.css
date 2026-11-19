@@ -117,3 +117,57 @@
   font-size: 14px;
   line-height: 22px;
 }
+
+/* A made-up Slack exchange drawn in HTML, labelled as an illustration so nobody takes it for a screenshot. Square, on
+   the soft brand ground, with its messages as an ordered list a screen reader announces in order. */
+.vp-doc .chat-illustration {
+  margin: 24px 0;
+  padding: 16px;
+  border: 1px solid var(--vp-c-divider);
+  background-color: var(--dm-surface-300);
+}
+
+.vp-doc .chat-illustration__label {
+  margin-bottom: 12px;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.vp-doc .chat-illustration__messages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vp-doc .chat-message {
+  margin: 0;
+  padding: 8px 12px;
+  background-color: var(--dm-surface-200);
+}
+
+.vp-doc .chat-message + .chat-message {
+  margin-top: 8px;
+}
+
+.vp-doc .chat-message p {
+  margin: 0;
+}
+
+.vp-doc .chat-message__meta {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc .chat-message__meta strong {
+  color: var(--vp-c-text-1);
+}
+
+.vp-doc .chat-message__note {
+  font-style: italic;
+}
+
+.vp-doc .chat-message__emoji {
+  display: inline;
+  vertical-align: -3px;
+}

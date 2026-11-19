@@ -11,11 +11,11 @@ next:
 
 # Make it yours
 
-Your clone is live with the face you saved on Get started. This page makes it sound like you, gives it context, and decides who can ask it for work and what it can reach. Everything here is on **Settings** and **Set up** in the Misha window. The first two sections suit everyone; take the rest as your first task needs them.
+Your clone is live with the face you saved on Get started. Here you give it your voice and the context a colleague would ask you for, then decide who can ask it for work and what it can reach. Everything here is on **Settings** and **Set up** in the Misha window. The first two sections suit everyone; take the rest as your first task needs them.
 
 ## Voice and marker {#voice-and-marker}
 
-By default, your clone's posts start with its icon and are set in italics, so people can tell them from what you type; stealth mode drops the marker. On **Settings › Icon**, the preview shows how a post starts in Slack. Writing your icon in a message also calls the clone, wherever you write it.
+By default, your clone's posts start with its icon and are set in italics, so people can tell them from what you type; stealth mode drops the marker. On **Settings › Icon**, the preview shows how a post starts in Slack. Your icon in any message you write also calls the clone.
 
 <Shot id="settings-icon" caption="The icon card, with a preview of how a post by Leo Novak's clone starts. Made-up example." />
 
@@ -41,7 +41,7 @@ Three cards on Settings decide who gets what. Each is separate, and leaving one 
 | **Channels I watch** | The clone reads every message there and answers what asks something of you or your work. | It answers only DMs to you, mentions of you and threads you're in. |
 | **Who I ignore** | **Ignore**: the clone never answers them. **Soft-ignore**: it answers only when they call it with your icon. | Nobody is ignored. |
 
-Each entry has **Stop allowing**, **Stop watching** or **Stop ignoring** beside it, and a change counts from the clone's next turn. [Settings and commands](/reference/settings#surfaces) lists the Slack commands that make the same changes.
+Each entry has **Stop allowing**, **Stop watching** or **Stop ignoring** beside it. A change counts from the clone's next turn, and [Settings and commands](/reference/settings#surfaces) lists the Slack commands that make the same changes.
 
 <Shot id="settings-allowed" caption="Emma Lee and Max Becker may ask Leo's clone for work, each with Stop allowing. Made-up example." />
 
@@ -49,7 +49,7 @@ How Leo might begin depends on the role. As a developer, Leo allows Emma Lee, wh
 
 ## Connect for a task {#connect-for-a-task}
 
-Pick a first task from [Put Misha to work](/use/workflows#choose-a-first-task), then connect only what it needs on **Set up**: sign in on the service's row, then turn on **I use it**.
+Pick a first task from [Put Misha to work](/use/workflows#choose-a-first-task), then connect only what it needs on **Set up**: sign in on the service's row and turn on **I use it**.
 
 | For a task like | Turn on |
 | --- | --- |
@@ -62,7 +62,7 @@ Pick a first task from [Put Misha to work](/use/workflows#choose-a-first-task), 
 | Answering from a meeting's transcript | **Fireflies** |
 | GPT reviews of tickets and pull requests | **OpenCode**, signed in to OpenAI |
 
-Figma and Fireflies need OpenCode installed: you paste their key into OpenCode, never into Misha. As a PM, Leo might start with Jira and Confluence and Fireflies; as a designer, with Figma; as a developer, with the GitHub CLI and a repository.
+Figma and Fireflies need OpenCode installed: you paste their key into OpenCode, never into Misha. Leo the PM might start with Jira, Confluence and Fireflies, Leo the designer with Figma, and Leo the developer with the GitHub CLI and a repository.
 
 Colleagues still get reads only: changes in a service, and the GitHub and AWS command lines, are for your own messages ([who may ask for what](/use/workflows#who-may-ask)).
 

@@ -1,0 +1,49 @@
+{
+  "rule": "Misha's cleanup deletes these from misha.db once they are older than shown; each other store has its own rule.",
+  "stores": [
+    {
+      "id": "event-receipts",
+      "keptDays": 7,
+      "description": "That an event from Slack, or a worker's report, was taken in, so a repeat of it changes nothing."
+    },
+    {
+      "id": "outcomes",
+      "keptDays": 30,
+      "description": "How the clone closed each message it considered: replied, reacted, let it be, stayed out or failed."
+    },
+    {
+      "id": "threads",
+      "keptDays": 14,
+      "description": "The threads you're in, counted from their last message."
+    },
+    {
+      "id": "hands-off",
+      "keptDays": 14,
+      "description": "The threads and DMs you told the clone hands off, counted from when you said it."
+    },
+    {
+      "id": "sessions",
+      "keptDays": 14,
+      "description": "Which Claude session a conversation continues, counted from its last use. Claude Code's own transcript is not part of this."
+    },
+    {
+      "id": "reply-budget",
+      "keptDays": 1,
+      "description": "The clone's replies to each person, counted against that person's reply budget."
+    },
+    {
+      "id": "pending-deliveries",
+      "keptDays": null,
+      "description": "A message waiting for the clone never expires: it waits until it is closed, paused or not."
+    },
+    {
+      "id": "ledger",
+      "keptDays": null,
+      "description": "The record of every post, edit, upload and reaction the clone and its workers made in Slack: never deleted."
+    }
+  ],
+  "overwrittenBatches": {
+    "kept": 10,
+    "description": "What the extension installers moved aside before writing over a file in your Claude Code or OpenCode configuration, one batch per install run: the newest batches are kept and older ones deleted."
+  }
+}

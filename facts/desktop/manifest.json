@@ -1,0 +1,124 @@
+{
+  "exportSchemaVersion": 1,
+  "productVersion": "0.1.0",
+  "evidenceDate": "2026-11-19",
+  "captureRecipeVersion": 1,
+  "digest": "278d3047b77d13b33b219e650ef3bab80b26b2f215bc633920bcf1b4cd512c78",
+  "files": [
+    {
+      "path": "captures.json",
+      "bytes": 20716,
+      "sha256": "6399a2dbbc157027e0e5a3b01669ff5c9481f5ee05edd8a82975b77e87bce4f0"
+    },
+    {
+      "path": "captures/claude-limit.png",
+      "bytes": 205668,
+      "sha256": "5aae744e5d450a01b1a3160343924c5d396b6b885fae05c60bd5fb7b2cb81904"
+    },
+    {
+      "path": "captures/claude-signed-out.png",
+      "bytes": 218289,
+      "sha256": "cd78891b07a080c13dc6b74d3494d02cf375ff4e583266905f472b2bce22ccd1"
+    },
+    {
+      "path": "captures/first-run.png",
+      "bytes": 426438,
+      "sha256": "ed6db46403c4bf64a5d2f131042815bc1650272b330e64d62aef563cd84510e5"
+    },
+    {
+      "path": "captures/home.png",
+      "bytes": 334188,
+      "sha256": "59746fd489d3985cfe11e1b574b45815cd5e2f85847b60042db68fb8c7ecc477"
+    },
+    {
+      "path": "captures/paused.png",
+      "bytes": 195642,
+      "sha256": "ad708adea17787ce54f37f009ceed702d0d7ded7f39f9eb3031c34ab13d7dd73"
+    },
+    {
+      "path": "captures/settings-allowed.png",
+      "bytes": 51132,
+      "sha256": "9516f0d24afad30fe825e54ec4d2120f0e388ab150260995207d94ec72951057"
+    },
+    {
+      "path": "captures/settings-icon.png",
+      "bytes": 77662,
+      "sha256": "5c4ccc30dce88a228e1d65f2b0e4f30d91b87a2e065cc1b0ddc2bb7727be78e4"
+    },
+    {
+      "path": "captures/settings-notes.png",
+      "bytes": 65093,
+      "sha256": "f89e1b8b9414075b670e38a45d72bcc15b96d6a339bcddc16e84242b1299e594"
+    },
+    {
+      "path": "captures/settings-personality.png",
+      "bytes": 43130,
+      "sha256": "e2dda16809f40e03fc42a9185b4958d7a04698b6634eda220f3479dfb2bae79b"
+    },
+    {
+      "path": "captures/settings-repositories.png",
+      "bytes": 53142,
+      "sha256": "934c2e461659452da82b390ccb0bb0e0fc2bc22e582204aa1604766a02766e1b"
+    },
+    {
+      "path": "captures/settings-rules.png",
+      "bytes": 40795,
+      "sha256": "0c84e53a6eeeb7bfe717b5d8df9e7203d4c82e4ca0b64649675cabe74b89553a"
+    },
+    {
+      "path": "captures/settings-watched.png",
+      "bytes": 43860,
+      "sha256": "3dbfe0880da8f84b11d5a85424b7c7a551a9353e9564d6272ee1f720df79cf79"
+    },
+    {
+      "path": "captures/settings.png",
+      "bytes": 555069,
+      "sha256": "641bdb4bc5930c31a3ee73796cbfb4a69c5d45d32dd8c09ff7f01b8f012173b2"
+    },
+    {
+      "path": "captures/setup.png",
+      "bytes": 502360,
+      "sha256": "56e1ca6721dc8b498402893270d13e568f0b3a75d9f197a5e49168b3254d662a"
+    },
+    {
+      "path": "captures/slack-deaf.png",
+      "bytes": 210420,
+      "sha256": "f68564766015606d6f3d10e7a7d837a4ac90622322aabdc516dd25379cff253c"
+    },
+    {
+      "path": "captures/workers-stopping.png",
+      "bytes": 196994,
+      "sha256": "7e40e88d4b20a7510a36c52cef87ad1bbfd207c6c38eb20a7e42d650ae819313"
+    },
+    {
+      "path": "facts/commands.json",
+      "bytes": 6175,
+      "sha256": "2cf785cd5c59848a3704cda58ee11790384c0e0073faf7666ef6cd671fac2fe5"
+    },
+    {
+      "path": "facts/detection.json",
+      "bytes": 4082,
+      "sha256": "d79a37db48bda944f0ebdff75b23a7e8c63f71e80b73e19485343a013b8ef468"
+    },
+    {
+      "path": "facts/paths.json",
+      "bytes": 2642,
+      "sha256": "8cb2b9aadeb86ee59cfac6ebdb3180acf71e3993f9b9b8defb4a512b62556970"
+    },
+    {
+      "path": "facts/retention.json",
+      "bytes": 1821,
+      "sha256": "45ae611e715088cf23d1799c45c90707efceeebf971833314d08d8901a21c1c3"
+    },
+    {
+      "path": "facts/settings.json",
+      "bytes": 11372,
+      "sha256": "493d4b7aab27b7a1e42e571b60a32b191fd3616ffbe86d3acd18f0c83f6f2e1e"
+    },
+    {
+      "path": "facts/setup-commands.json",
+      "bytes": 251,
+      "sha256": "82407e89af2c6b338471dfd5476305a1270b8e52ad935b952db081f3153dfbc8"
+    }
+  ]
+}

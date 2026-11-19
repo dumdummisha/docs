@@ -1,0 +1,205 @@
+{
+  "rule": "A command is the whole message, in any letter case. The clone's icon written on its own anywhere in it is left out, so a command may carry it. Anything else is ordinary conversation.",
+  "senders": [
+    {
+      "id": "owner",
+      "description": "The person whose clone it is."
+    },
+    {
+      "id": "colleague",
+      "description": "Anyone in the workspace but the owner."
+    }
+  ],
+  "places": [
+    {
+      "id": "self-dm",
+      "description": "The owner's direct message to themselves in Slack."
+    },
+    {
+      "id": "dm-with-owner",
+      "description": "A colleague's one-to-one DM with the owner."
+    },
+    {
+      "id": "summon",
+      "description": "Any conversation the clone hears, with the clone's icon in the message."
+    }
+  ],
+  "commands": [
+    {
+      "id": "soft-ignore-me",
+      "syntax": "soft-ignore me",
+      "sender": "colleague",
+      "places": [
+        "dm-with-owner"
+      ],
+      "effect": "The clone answers you only when you call it with its icon.",
+      "example": "soft-ignore me",
+      "mutation": "soft-ignore-me"
+    },
+    {
+      "id": "stop-ignoring-me",
+      "syntax": "stop ignoring me",
+      "sender": "colleague",
+      "places": [
+        "dm-with-owner"
+      ],
+      "effect": "The clone treats you like everyone else again. While it soft-ignores you, write the clone's icon in the message too, or the message never reaches it.",
+      "example": "stop ignoring me",
+      "mutation": "stop-ignoring-me"
+    },
+    {
+      "id": "hands-off",
+      "syntax": "hands off",
+      "sender": "owner",
+      "places": [
+        "summon"
+      ],
+      "effect": "The clone stays out of the thread the message is in (in a DM, the whole DM) for 14 days, or until hands on. Refused in your self-DM.",
+      "example": "hands off",
+      "mutation": "hands-off"
+    },
+    {
+      "id": "hands-on",
+      "syntax": "hands on",
+      "sender": "owner",
+      "places": [
+        "summon"
+      ],
+      "effect": "The clone may answer again in the thread the message is in (in a DM, the whole DM).",
+      "example": "hands on",
+      "mutation": "hands-on"
+    },
+    {
+      "id": "ignore",
+      "syntax": "ignore <@person>",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The clone never answers the person, they can't call it, and it doesn't read their messages.",
+      "example": "ignore @Jonas Weber",
+      "mutation": "set-rule"
+    },
+    {
+      "id": "soft-ignore",
+      "syntax": "soft-ignore <@person>",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The clone answers the person only when they call it with its icon.",
+      "example": "soft-ignore @Jonas Weber",
+      "mutation": "set-rule"
+    },
+    {
+      "id": "stop-ignoring",
+      "syntax": "stop ignoring <@person>",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The clone treats the person like everyone else again, whether it ignored or soft-ignored them.",
+      "example": "stop ignoring @Jonas Weber",
+      "mutation": "remove-rule"
+    },
+    {
+      "id": "allow",
+      "syntax": "allow <@person> [<@person> ...]",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The people named may ask the clone for work besides you: tickets, implementation and reviews.",
+      "example": "allow @Priya Nair @Jonas Weber",
+      "mutation": "allow"
+    },
+    {
+      "id": "watch",
+      "syntax": "watch <#channel> [<#channel> ...]",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The clone reads every message in the channels named, and answers what asks something of you or your work.",
+      "example": "watch #shop-backend",
+      "mutation": "watch"
+    },
+    {
+      "id": "allow-merging",
+      "syntax": "allow merging <owner>/<name>",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "Workers may merge reviewed pull requests in the repository. Refused for a repository your settings don't list.",
+      "example": "allow merging shop/shop-backend",
+      "mutation": "set-merging"
+    },
+    {
+      "id": "stop-merging",
+      "syntax": "stop merging <owner>/<name>",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "Workers stop at a reviewed pull request in the repository. Refused for a repository your settings don't list.",
+      "example": "stop merging shop/shop-backend",
+      "mutation": "set-merging"
+    },
+    {
+      "id": "remember",
+      "syntax": "remember <text>",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The clone keeps your words as your next numbered note.",
+      "example": "remember Releases go out on Tuesdays.",
+      "mutation": "remember"
+    },
+    {
+      "id": "start-fresh",
+      "syntax": "start fresh",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The clone's next message starts a new Claude session. The old session's transcript stays, and so do your settings and notes.",
+      "example": "start fresh",
+      "mutation": "start-fresh"
+    },
+    {
+      "id": "pause",
+      "syntax": "pause",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "Misha pauses: the clone stops its workers, starts nothing new and answers only your commands in your self-DM until you resume. It still sees what arrives in Slack.",
+      "example": "pause",
+      "mutation": "pause"
+    },
+    {
+      "id": "resume",
+      "syntax": "resume",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "Misha answers again.",
+      "example": "resume",
+      "mutation": "resume"
+    },
+    {
+      "id": "settings",
+      "syntax": "settings",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The clone answers with your settings: its icon, personality, who it ignores, who may ask for work, the channels it watches, where workers merge, and your notes.",
+      "example": "settings",
+      "mutation": "describe"
+    }
+  ]
+}

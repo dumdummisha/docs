@@ -1,1 +1,324 @@
-{ "captures": [] }
+{
+  "recipe": {
+    "version": 1,
+    "browser": "Brave, headless",
+    "window": {
+      "width": 1100,
+      "height": 760,
+      "scale": 2
+    },
+    "clock": "14:14 on 19 November 2026, local time",
+    "data": "Made-up docs fixtures: Sam Rivera, Priya Nair and Jonas Weber in the Shop workspace."
+  },
+  "captures": [
+    {
+      "id": "first-run",
+      "scenario": "first-run",
+      "page": "start",
+      "region": {
+        "kind": "page"
+      },
+      "file": "captures/first-run.png",
+      "width": 2200,
+      "height": 3270,
+      "sha256": "ed6db46403c4bf64a5d2f131042815bc1650272b330e64d62aef563cd84510e5",
+      "alt": "Get started before anything is saved: Claude Code and Slack are done, and the next steps are giving the clone a face and showing it your code.",
+      "people": [
+        "Sam Rivera"
+      ],
+      "text": "Misha\nGet started\nSet up\nSettings\nNot answering yet\nFinish getting started\nGet started\nTwo more and I'm useful. Next, give me a face, then show me your code.\nI read your Slack\nThrough my extension, in the browser you already use. I see only what you see.\nI answer as you\nIn your DMs, mentions and threads, with my emoji in front, so nobody mistakes me for you.\nI work on this Mac\nOn your own Claude Code. Work goes to workers in their own copies of your code.\nSo I can be you\nClaude is enough. Add GPT, and a second AI checks my homework.\nGive me consciousness\nClaude Code is signed in on this Mac. I think with your own subscription.\nDone\nLet me hear Slack\nMy extension is running, and Slack is signed in to Shop.\nDone\n3\nGive me a face\nPick the emoji I start every message with, and how I sound. Skip the tone and I'm plain, short and polite.\nTo do\nAbout a minute\nIcon\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow should I sound?\nOptional\nTone and wording only. Up to 2,000 characters.\nSave and start\nKeep the defaults\nSo I can join your team\nI can't fix what I can't read.\n4\nShow me your code\nGive me a face first.\nTo do\nAbout 2 minutes\nSo I have context\nOptional\nSkip any. I'll just ask you instead.\nOpenCode\nSigned in to OpenAI, so GPT can review my work.\nSigned in\nJira and Confluence\nYour tickets and pages. Works, as Sam Rivera.\nWorks\nSo I stay up\nOptional\nI'm offline while this Mac sleeps.\nOpen at login\nI start when you log in to this Mac.\nOn"
+    },
+    {
+      "id": "home",
+      "scenario": "home",
+      "page": "home",
+      "region": {
+        "kind": "page"
+      },
+      "file": "captures/home.png",
+      "width": 2200,
+      "height": 2214,
+      "sha256": "59746fd489d3985cfe11e1b574b45815cd5e2f85847b60042db68fb8c7ecc477",
+      "alt": "Home while Misha listens as Sam Rivera in Shop: it is answering Priya's thread in #shop-backend, two workers are running, and what it posted and decided lately is listed below.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · I answer as you\nPause Misha\nListening\nShop, as Sam Rivera\nI'm listening in Slack.\nI answer your DMs, mentions and threads you're in, as you, with my emoji in front. Work that the people you allow ask for goes to workers on your own Claude Code, here on this Mac.\nNothing needs you right now.\nWorking on now\nOne answer and two workers.\nAnswering in #shop-backend\nA thread you're in, from Priya Nair\nAnswering\nfor 20 seconds\nSHOP-142: discounts missing from the checkout total\nA worker, asked for by Priya Nair in #shop-backend\nWorking\nfor 2 minutes\nReview of shop/shop-web pull request 88\nA worker, asked for by Sam Rivera in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nJonas Weber\n."
+    },
+    {
+      "id": "setup",
+      "scenario": "setup",
+      "page": "setup",
+      "region": {
+        "kind": "page"
+      },
+      "file": "captures/setup.png",
+      "width": 2200,
+      "height": 4156,
+      "sha256": "56e1ca6721dc8b498402893270d13e568f0b3a75d9f197a5e49168b3254d662a",
+      "alt": "Set up with two things that need you: Google's sign-in ended, and this Mac sleeps after 10 idle minutes. Everything else is found and ready.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Misha\nHome\n1\nneed you\nSet up\n2\nneed you\nSettings\nSam Rivera\nShop · I answer as you\nPause Misha\nSet up\nCheck again\nWhat I found on this Mac, checked each time you open this page. Two things need you; the rest is ready.\nNeeds you\nEach one is a click. A sign-in opens where it belongs; you never paste a password or key into me.\nGoogle\nYour Docs and Sheets. The sign-in ended.\nNeeds sign-in\nSign in to Google\nI use it\nSleep\nThis Mac sleeps after 10 idle minutes, and I'm offline while it does. Set it to never in System Settings, under Battery or Energy.\nSleeps after 10 min\nWhat I think with\nClaude Code\nSigned in. I answer and run workers on your own subscription.\nSigned in\nOpenCode\nSigned in to OpenAI, so GPT can review my work.\nSigned in\nI use it\nHow I hear Slack\nBrowser extension\nRunning in your browser. It reads Slack for me and posts what I write.\nRunning\nBrowser native host\nInstalled on this Mac. It connects the browser extension to me.\nInstalled\nSlack\nSigned in to Shop. That's where I answer as you.\nSigned in\nHow I work in your code\ngit\nCommits as Sam Rivera.\nFound\nGitHub CLI\nSigned in as sam-rivera on github.com.\nSigned in\nI use it\nWhat I can read\nOptional. Skip any, and I ask you instead.\nJira and Confluence\nYour tickets and pages. Works, as Sam Rivera.\nWorks\nI use it\nAWS\nLogs in your AWS accounts. Works, as shop-dev, shop-staging.\nWorks\nI use it\nFigma\nYour design files, read only. Figma gives you a key, and you paste it into OpenCode, never into me.\nNot connected\nConnect Figma\nI use it\nFireflies\nYour meeting notes. Works, as Sam Rivera.\nWorks\nI use it\nSo I stay up\nI answer only while this app runs and the Mac is awake.\nOpen at login\nI start when you log in to this Mac.\nOn"
+    },
+    {
+      "id": "settings",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "page"
+      },
+      "file": "captures/settings.png",
+      "width": 2200,
+      "height": 5996,
+      "sha256": "641bdb4bc5930c31a3ee73796cbfb4a69c5d45d32dd8c09ff7f01b8f012173b2",
+      "alt": "Settings for Sam Rivera's clone: its icon and personality, who may ask for work, the channel it watches, its repositories, who it ignores and what it remembers.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · I answer as you\nPause Misha\nSettings\nHow I sound, who I listen to and where I may work. Each change counts from my next message.\nIcon\nPersonality\nWho may ask for work\nChannels\nRepositories\nWho I ignore\nWhat I remember\nMore\nIcon\nEvery message I post starts with this emoji, so nobody mistakes me for you. Using it in a message calls me.\nIcon\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow a message starts\nSR\nSam Rivera\nI'm on it, SHOP-142. I'll post here when it's ready for review.\nSave icon\nPersonality\nTone and wording only. It never changes what I may do.\nHow should I sound?\n105 of 2,000 characters\nSave personality\nWho may ask me for work\nBesides you, these people can ask me for changes: I ticket, implement and review them. Everyone else gets answers only.\nPriya Nair\nStop allowing\nJonas Weber\nStop allowing\nFind\nChannels I watch\nI read every message in these and answer what asks something of you or your work. Anywhere else, I answer only DMs, mentions of you and threads you're in.\n#shop-backend\nStop watching\nFind\nRepositories\nI keep my own copies of these on this Mac and never touch your checkouts. Workers open pull requests here; where you allow it, they merge them once reviewed.\nshop/shop-backend\nMay merge\nRemove\nshop/shop-web\nMay merge\nRemove\nAdd\nWho I ignore\nIgnored people get nothing from me, ever. Soft-ignored people get an answer only when they call me with my icon.\nJonas Weber\n· soft-ignored\nStop ignoring\nFind\nWhat I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nPriya owns payments. Ask Priya before touching the checkout.\nForget\nRemember\nMore\nStart fresh"
+    },
+    {
+      "id": "settings-icon",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "icon"
+      },
+      "file": "captures/settings-icon.png",
+      "width": 1544,
+      "height": 960,
+      "sha256": "5c4ccc30dce88a228e1d65f2b0e4f30d91b87a2e065cc1b0ddc2bb7727be78e4",
+      "alt": "The icon card: the emoji every post starts with, and a preview of a post by Sam Rivera.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Icon\nEvery message I post starts with this emoji, so nobody mistakes me for you. Using it in a message calls me.\nIcon\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow a message starts\nSR\nSam Rivera\nI'm on it, SHOP-142. I'll post here when it's ready for review.\nSave icon"
+    },
+    {
+      "id": "settings-personality",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "personality"
+      },
+      "file": "captures/settings-personality.png",
+      "width": 1544,
+      "height": 736,
+      "sha256": "e2dda16809f40e03fc42a9185b4958d7a04698b6634eda220f3479dfb2bae79b",
+      "alt": "The personality card with Sam's words on how the clone sounds.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Personality\nTone and wording only. It never changes what I may do.\nHow should I sound?\n105 of 2,000 characters\nSave personality"
+    },
+    {
+      "id": "settings-allowed",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "allowed"
+      },
+      "file": "captures/settings-allowed.png",
+      "width": 1544,
+      "height": 688,
+      "sha256": "9516f0d24afad30fe825e54ec4d2120f0e388ab150260995207d94ec72951057",
+      "alt": "Who may ask for work besides Sam: Priya Nair and Jonas Weber.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Who may ask me for work\nBesides you, these people can ask me for changes: I ticket, implement and review them. Everyone else gets answers only.\nPriya Nair\nStop allowing\nJonas Weber\nStop allowing\nFind"
+    },
+    {
+      "id": "settings-watched",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "watched"
+      },
+      "file": "captures/settings-watched.png",
+      "width": 1544,
+      "height": 548,
+      "sha256": "3dbfe0880da8f84b11d5a85424b7c7a551a9353e9564d6272ee1f720df79cf79",
+      "alt": "The channel the clone reads in full: #shop-backend.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Channels I watch\nI read every message in these and answer what asks something of you or your work. Anywhere else, I answer only DMs, mentions of you and threads you're in.\n#shop-backend\nStop watching\nFind"
+    },
+    {
+      "id": "settings-repositories",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "repositories"
+      },
+      "file": "captures/settings-repositories.png",
+      "width": 1544,
+      "height": 688,
+      "sha256": "934c2e461659452da82b390ccb0bb0e0fc2bc22e582204aa1604766a02766e1b",
+      "alt": "The repositories the clone keeps copies of: workers may merge in shop/shop-backend, not in shop/shop-web.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Repositories\nI keep my own copies of these on this Mac and never touch your checkouts. Workers open pull requests here; where you allow it, they merge them once reviewed.\nshop/shop-backend\nMay merge\nRemove\nshop/shop-web\nMay merge\nRemove\nAdd"
+    },
+    {
+      "id": "settings-rules",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "rules"
+      },
+      "file": "captures/settings-rules.png",
+      "width": 1544,
+      "height": 548,
+      "sha256": "0c84e53a6eeeb7bfe717b5d8df9e7203d4c82e4ca0b64649675cabe74b89553a",
+      "alt": "Who the clone ignores: Jonas Weber is soft-ignored.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Who I ignore\nIgnored people get nothing from me, ever. Soft-ignored people get an answer only when they call me with my icon.\nJonas Weber\n· soft-ignored\nStop ignoring\nFind"
+    },
+    {
+      "id": "settings-notes",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "notes"
+      },
+      "file": "captures/settings-notes.png",
+      "width": 1544,
+      "height": 784,
+      "sha256": "f89e1b8b9414075b670e38a45d72bcc15b96d6a339bcddc16e84242b1299e594",
+      "alt": "What the clone remembers: three numbered notes in your words.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "What I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nPriya owns payments. Ask Priya before touching the checkout.\nForget\nRemember"
+    },
+    {
+      "id": "paused",
+      "scenario": "paused",
+      "page": "home",
+      "region": {
+        "kind": "window"
+      },
+      "file": "captures/paused.png",
+      "width": 2200,
+      "height": 1520,
+      "sha256": "ad708adea17787ce54f37f009ceed702d0d7ded7f39f9eb3031c34ab13d7dd73",
+      "alt": "Home while Misha is paused: its workers stopped, and it answers only Sam's commands in the self-DM until Resume.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI still see what arrives in Slack, but I stopped my workers and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread."
+    },
+    {
+      "id": "workers-stopping",
+      "scenario": "workers-stopping",
+      "page": "home",
+      "region": {
+        "kind": "window"
+      },
+      "file": "captures/workers-stopping.png",
+      "width": 2200,
+      "height": 1520,
+      "sha256": "7e40e88d4b20a7510a36c52cef87ad1bbfd207c6c38eb20a7e42d650ae819313",
+      "alt": "Home a moment after pausing: Misha is still stopping its two workers, which show as working until they stop.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI still see what arrives in Slack. I'm stopping my workers, start no new ones and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nTwo workers.\nSHOP-142: discounts missing from the checkout total\nA worker, asked for by Priya Nair in #shop-backend\nWorking\nfor 2 minutes\nReview of shop/shop-web pull request 88\nA worker, asked for by Sam Rivera in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review."
+    },
+    {
+      "id": "slack-deaf",
+      "scenario": "slack-deaf",
+      "page": "home",
+      "region": {
+        "kind": "window"
+      },
+      "file": "captures/slack-deaf.png",
+      "width": 2200,
+      "height": 1520,
+      "sha256": "f68564766015606d6f3d10e7a7d837a4ac90622322aabdc516dd25379cff253c",
+      "alt": "Home when no Slack tab is signed in: nothing reaches the clone, and it offers to open Slack in Chrome or Brave, the browsers with its native host.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Misha\nHome\n1\nneed you\nSet up\nSettings\nSam Rivera\nI can't hear Slack\nPause Misha\nNot hearing Slack\nSam Rivera\nI can't hear Slack.\nNo Slack tab is open and signed in to your workspace, so nothing anyone writes reaches me, and I answer nothing. Open Slack in your browser and I'm back as soon as it loads.\nOpen Slack in Chrome\nOpen Slack in Brave\nOpens Slack in your browser.\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nJonas Weber\n."
+    },
+    {
+      "id": "claude-limit",
+      "scenario": "claude-limit",
+      "page": "home",
+      "region": {
+        "kind": "window"
+      },
+      "file": "captures/claude-limit.png",
+      "width": 2200,
+      "height": 1520,
+      "sha256": "5aae744e5d450a01b1a3160343924c5d396b6b885fae05c60bd5fb7b2cb81904",
+      "alt": "Home when the Claude plan's usage limit ran out: the clone answers nothing until 18:00, and nothing runs.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · out of Claude usage\nPause Misha\nOut of Claude usage\nShop, as Sam Rivera\nI'm out of Claude usage until 18:00.\nYour Claude plan's usage limit ran out, so I answer nothing until it resets. I still hear Slack, and there's nothing for you to do.\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nJonas Weber\n."
+    },
+    {
+      "id": "claude-signed-out",
+      "scenario": "claude-signed-out",
+      "page": "home",
+      "region": {
+        "kind": "window"
+      },
+      "file": "captures/claude-signed-out.png",
+      "width": 2200,
+      "height": 1520,
+      "sha256": "cd78891b07a080c13dc6b74d3494d02cf375ff4e583266905f472b2bce22ccd1",
+      "alt": "Home when Claude Code signed out on this Mac: nothing runs until Sam signs in again with Sign in to Claude.",
+      "people": [
+        "Jonas Weber",
+        "Priya Nair",
+        "Sam Rivera"
+      ],
+      "text": "Misha\nHome\n1\nneed you\nSet up\nSettings\nSam Rivera\nShop · Claude Code signed out\nPause Misha\nClaude Code signed out\nI can't think: Claude Code is signed out.\nI run on your own Claude Code, and it signed out on this Mac. Sign in again and I answer again.\nSign in to Claude\nOpens Terminal with claude auth login.\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nJonas Weber\n."
+    }
+  ]
+}

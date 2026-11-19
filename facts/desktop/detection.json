@@ -1,0 +1,145 @@
+{
+  "items": [
+    {
+      "item": "claude-code",
+      "name": "Claude Code",
+      "about": "I answer and run workers on it, on your own subscription.",
+      "readyLabel": "Signed in",
+      "isRequired": true,
+      "group": "What I think with",
+      "signIn": "claude-code",
+      "signInLabel": "Sign in to Claude",
+      "getIt": {
+        "label": "Get Claude Code",
+        "url": "https://claude.com/product/claude-code"
+      }
+    },
+    {
+      "item": "opencode",
+      "name": "OpenCode",
+      "about": "Signed in to OpenAI, it lets GPT review my work.",
+      "readyLabel": "Signed in",
+      "isRequired": false,
+      "group": "What I think with",
+      "signIn": "opencode",
+      "signInLabel": "Sign in to OpenCode",
+      "getIt": {
+        "label": "Get OpenCode",
+        "url": "https://opencode.ai/"
+      }
+    },
+    {
+      "item": "git",
+      "name": "git",
+      "about": "I keep my copies of your repositories with it.",
+      "readyLabel": "Found",
+      "isRequired": true,
+      "group": "How I work in your code",
+      "signIn": null,
+      "signInLabel": null,
+      "getIt": null
+    },
+    {
+      "item": "github",
+      "name": "GitHub CLI",
+      "about": "I clone and open pull requests with it.",
+      "readyLabel": "Signed in",
+      "isRequired": false,
+      "group": "How I work in your code",
+      "signIn": "github",
+      "signInLabel": "Sign in to GitHub",
+      "getIt": {
+        "label": "Get the GitHub CLI",
+        "url": "https://cli.github.com/"
+      }
+    },
+    {
+      "item": "browser-extension",
+      "name": "Browser extension",
+      "about": "It reads Slack for me in your browser, and posts what I write.",
+      "readyLabel": "Running",
+      "isRequired": true,
+      "group": "How I hear Slack",
+      "signIn": "browser-extension",
+      "signInLabel": "Show the extension",
+      "getIt": null
+    },
+    {
+      "item": "native-host",
+      "name": "Browser native host",
+      "about": "A small program that connects the browser extension to me on this Mac.",
+      "readyLabel": "Installed",
+      "isRequired": true,
+      "group": "How I hear Slack",
+      "signIn": "native-host",
+      "signInLabel": "Install the native host",
+      "getIt": null
+    },
+    {
+      "item": "slack",
+      "name": "Slack",
+      "about": "Where I answer as you.",
+      "readyLabel": "Signed in",
+      "isRequired": true,
+      "group": "How I hear Slack",
+      "signIn": "slack",
+      "signInLabel": "Open Slack",
+      "getIt": null
+    },
+    {
+      "item": "atlassian",
+      "name": "Jira and Confluence",
+      "about": "Your tickets and pages.",
+      "readyLabel": "Works",
+      "isRequired": false,
+      "group": "What I can read",
+      "signIn": "atlassian",
+      "signInLabel": "Sign in to Jira",
+      "getIt": null
+    },
+    {
+      "item": "google",
+      "name": "Google",
+      "about": "Your Docs and Sheets.",
+      "readyLabel": "Works",
+      "isRequired": false,
+      "group": "What I can read",
+      "signIn": "google",
+      "signInLabel": "Sign in to Google",
+      "getIt": null
+    },
+    {
+      "item": "aws",
+      "name": "AWS",
+      "about": "Logs in your AWS accounts.",
+      "readyLabel": "Works",
+      "isRequired": false,
+      "group": "What I can read",
+      "signIn": "aws",
+      "signInLabel": "Sign in to AWS",
+      "getIt": null
+    },
+    {
+      "item": "figma",
+      "name": "Figma",
+      "about": "Your design files, read only. Figma gives you a key, and you paste it into OpenCode, never into me.",
+      "readyLabel": "Works",
+      "isRequired": false,
+      "group": "What I can read",
+      "signIn": "figma",
+      "signInLabel": "Connect Figma",
+      "getIt": null
+    },
+    {
+      "item": "fireflies",
+      "name": "Fireflies",
+      "about": "Your meeting notes. Fireflies gives you a key, and you paste it into OpenCode, never into me.",
+      "readyLabel": "Works",
+      "isRequired": false,
+      "group": "What I can read",
+      "signIn": "fireflies",
+      "signInLabel": "Connect Fireflies",
+      "getIt": null
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+/* The Dumdum Misha light tokens (the brand's tokens.json, version 3) mapped onto the default theme's variables. The
+   brand has no line colour, so dividers and borders are ink at low opacity. */
+:root {
+  --dm-surface-100: #fffef8;
+  --dm-surface-200: #ffffff;
+  --dm-surface-300: #fff7da;
+  --dm-ink: #1f1b16;
+  --dm-ink-muted: #5b5346;
+  --dm-ink-dim: #6b6350;
+  --dm-misha: #ffcf4a;
+  --dm-misha-deep: #f5b800;
+  --dm-misha-tint: #ffeeb0;
+  --dm-link: #0b6a77;
+  --dm-status-ok-tint: #d9f0f2;
+  --dm-status-wait: #8a3d00;
+  --dm-status-wait-tint: #ffdcc0;
+  --dm-status-bad: #a82a1a;
+  --dm-status-bad-tint: #fbd5ce;
+  --dm-size-reading: 680px;
+
+  --vp-c-bg: var(--dm-surface-100);
+  --vp-c-bg-alt: var(--dm-surface-300);
+  --vp-c-bg-elv: var(--dm-surface-200);
+  --vp-c-bg-soft: var(--dm-surface-300);
+
+  --vp-c-text-1: var(--dm-ink);
+  --vp-c-text-2: var(--dm-ink-muted);
+  --vp-c-text-3: var(--dm-ink-dim);
+
+  --vp-c-border: rgb(31 27 22 / 32%);
+  --vp-c-divider: rgb(31 27 22 / 12%);
+  --vp-c-gutter: rgb(31 27 22 / 12%);
+
+  --vp-c-brand-1: var(--dm-link);
+  --vp-c-brand-2: var(--dm-link);
+  --vp-c-brand-3: var(--dm-link);
+  --vp-c-brand-soft: var(--dm-misha-tint);
+
+  --vp-c-default-1: var(--dm-misha-deep);
+  --vp-c-default-2: var(--dm-misha-tint);
+  --vp-c-default-3: var(--dm-surface-300);
+  --vp-c-default-soft: var(--dm-surface-300);
+
+  --vp-c-tip-1: var(--dm-link);
+  --vp-c-tip-2: var(--dm-link);
+  --vp-c-tip-3: var(--dm-link);
+  --vp-c-tip-soft: var(--dm-status-ok-tint);
+  --vp-c-warning-1: var(--dm-status-wait);
+  --vp-c-warning-2: var(--dm-status-wait);
+  --vp-c-warning-3: var(--dm-status-wait);
+  --vp-c-warning-soft: var(--dm-status-wait-tint);
+  --vp-c-danger-1: var(--dm-status-bad);
+  --vp-c-danger-2: var(--dm-status-bad);
+  --vp-c-danger-3: var(--dm-status-bad);
+  --vp-c-danger-soft: var(--dm-status-bad-tint);
+
+  --vp-font-family-base: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --dm-font-display: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif;
+
+  --vp-code-color: var(--dm-ink);
+  --vp-code-bg: var(--dm-misha-tint);
+  --vp-code-block-bg: var(--dm-surface-300);
+
+  /* Brand buttons are yellow with ink text; the alternative is a white panel with an ink border. */
+  --vp-button-brand-border: var(--dm-ink);
+  --vp-button-brand-text: var(--dm-ink);
+  --vp-button-brand-bg: var(--dm-misha);
+  --vp-button-brand-hover-border: var(--dm-ink);
+  --vp-button-brand-hover-text: var(--dm-ink);
+  --vp-button-brand-hover-bg: var(--dm-misha-deep);
+  --vp-button-brand-active-border: var(--dm-ink);
+  --vp-button-brand-active-text: var(--dm-ink);
+  --vp-button-brand-active-bg: var(--dm-misha-deep);
+  --vp-button-alt-border: var(--dm-ink);
+  --vp-button-alt-text: var(--dm-ink);
+  --vp-button-alt-bg: var(--dm-surface-200);
+  --vp-button-alt-hover-border: var(--dm-ink);
+  --vp-button-alt-hover-text: var(--dm-ink);
+  --vp-button-alt-hover-bg: var(--dm-misha-tint);
+  --vp-button-alt-active-border: var(--dm-ink);
+  --vp-button-alt-active-text: var(--dm-ink);
+  --vp-button-alt-active-bg: var(--dm-misha-tint);
+
+  --vp-home-hero-name-color: var(--dm-ink);
+  --vp-home-hero-name-background: none;
+}

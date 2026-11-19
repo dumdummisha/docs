@@ -1,0 +1,25 @@
+{
+  "licence": "Brand artwork of Dumdum Misha. Shown on this site and in this repository; not licensed for reuse as a brand (see NOTICE).",
+  "files": [
+    {
+      "file": "src/public/logo.svg",
+      "source": "Dumdum Misha design system, Mascot/dumdum.svg, unchanged"
+    },
+    {
+      "file": "src/public/favicon.svg",
+      "source": "Dumdum Misha landing site, public/favicon.svg, unchanged"
+    },
+    {
+      "file": "src/public/favicon-32.png",
+      "source": "Dumdum Misha landing site, public/favicon-32.png, unchanged"
+    },
+    {
+      "file": "src/public/apple-touch-icon-180.png",
+      "source": "Dumdum Misha landing site, public/apple-touch-icon-180.png, unchanged"
+    },
+    {
+      "file": "src/public/app-icon-512.png",
+      "source": "Dumdum Misha desktop app icon master (1024px), resized to 512px with its metadata chunks removed"
+    }
+  ]
+}

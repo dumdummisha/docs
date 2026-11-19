@@ -3,6 +3,7 @@ title: Privacy and security
 description: "The Dumdum Misha privacy policy and security summary: what data goes where, who receives it, which credentials Misha touches, how long it keeps data and what it may do on your Mac."
 prev: false
 next: false
+outline: [2, 3]
 ---
 
 # Privacy and security
@@ -33,9 +34,11 @@ Each row links to the section that holds its evidence.
 
 ### Where data goes {#data-flows}
 
-![Diagram: inside your Mac, the Slack tab, the Misha Browser extension, the native host, the Misha app, the clone and workers; outside it Slack, Anthropic, optional OpenAI, the services you connect and the sites your tabs have open. Numbered arrows match the list below.](/diagrams/where-data-goes.svg)
+[![Diagram: inside your Mac, the Slack tab, the Misha Browser extension, the native host, the Misha app, the clone and workers; outside it Slack, Anthropic, optional OpenAI, the services you connect and the sites your tabs have open. Numbered arrows match the list below.](/diagrams/where-data-goes.svg)](/diagrams/where-data-goes.svg)
 
-1. In your signed-in Slack tab, the extension reads each new message from Slack's own connection, cut down to [fixed fields](/reference/permissions).
+Select the diagram to open it full size.
+
+1. In your signed-in Slack tab, the extension reads each new message from Slack's own connection, cut down to [fixed fields](/reference/permissions#slack-transport-limits).
 2. The extension passes it through the native host, a small program that connects the extension to Misha on the same Mac, to the Misha app, which saves it in `~/.misha/misha.db`. Replies and Slack requests travel back the same way. The host stores nothing.
 3. The app gives the message and the conversation it belongs to, your settings and notes to the clone: Claude Code started in its restricted mode.
 4. Claude Code sends that conversation, any file or image the clone reads and every tool result to Anthropic, under your Claude subscription.
@@ -80,7 +83,7 @@ Misha has no Slack app, bot user or token of its own. It posts from your account
 | Atlassian and Google sign-ins | Token files in your user state folder, written when you sign in from Misha | Misha's tools for those services read and refresh them to make their calls. |
 | GitHub and AWS | The GitHub CLI's and AWS CLI's own stores | Misha runs the CLIs; it does not read their stores. |
 
-Messages, files, pages and tool results can contain secrets themselves, and nothing on this page detects every secret. The checks that exist match known shapes: a clone reply has text shaped like a known token redacted, a worker's Slack message holding one is refused, and the Jira, Confluence and Google Workspace tools refuse to send text holding a stored credential or a known token shape. The extension's own credential handling is set out on [Browser permissions](/reference/permissions).
+Messages, files, pages and tool results can contain secrets themselves, and nothing on this page detects every secret. The checks that exist match known shapes: a clone reply has text shaped like a known token redacted, a worker's Slack message holding one is refused, and the Jira, Confluence and Google Workspace tools refuse to send text holding a stored credential or a known token shape. The extension's own credential handling is set out under [Where Slack's credentials go](/reference/permissions#where-slack-credentials-go).
 
 ### What is stored, and for how long {#storage}
 

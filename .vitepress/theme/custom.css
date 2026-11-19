@@ -117,3 +117,19 @@
   font-size: 14px;
   line-height: 22px;
 }
+
+/* Printed, a page is its content alone, and the privacy page's assessment fills the first sheet by itself. */
+@media print {
+  .VPNav,
+  .VPLocalNav,
+  .VPSidebar,
+  .VPDocAside,
+  .VPDocFooter,
+  .VPFooter {
+    display: none !important;
+  }
+
+  .vp-doc h2#privacy-policy {
+    break-before: page;
+  }
+}

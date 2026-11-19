@@ -2,7 +2,7 @@ Dumdum Misha: your Slack clone, on your Mac. Documentation site.
 
 <img src="src/public/logo.svg" alt="The Dumdum Misha mascot" width="96" height="96">
 
-Misha is a Mac app that answers routine Slack questions through your own Slack account, as a clone whose replies start with the emoji you chose and are set in italics. Work you allow, such as research, a ticket or a code change, goes to workers in your own Claude Code on the same Mac, and GPT through OpenCode reviews the tickets and pull requests they write.
+Misha is a Mac app that answers routine Slack questions through your own Slack account, as a clone whose replies can start with an emoji you choose and be set in italics. Work you allow, such as research, a ticket or a code change, goes to workers in your own Claude Code on the same Mac, and GPT through OpenCode reviews the tickets and pull requests they write.
 
 This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.ai). The docs are for colleagues who got a reply from someone's clone, people deciding whether to try one, owners setting one up, and developers and security reviewers checking how it works.
 

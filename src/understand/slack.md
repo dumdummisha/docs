@@ -9,16 +9,14 @@ next:
 
 # Talking with a clone
 
-Some colleagues run a clone: an AI that answers routine Slack messages for them while they're busy. It posts from the person's own Slack account, so the name and picture are theirs. Each reply the clone writes starts with the emoji the person chose for it, and its text is in italics. That marker is a label, not proof of who wrote a message: anyone can type the same emoji in italics.
+Some colleagues run a clone: an AI that answers routine Slack messages for them while they're busy. It posts from the person's own Slack account, so the name and picture are theirs. Each clone reply starts with the emoji the person chose, and its text is in italics. That marker is a label, not proof: anyone can type the same emoji in italics.
 
-Jump to [what happens to your messages](#your-messages), [questions and work requests](#questions-and-work), [stopping the clone answering you](#stop-replies) or [what to do if something is wrong](#if-something-is-wrong).
+Jump to [your messages](#your-messages), [work requests](#questions-and-work), [stopping replies](#stop-replies) or [if something is wrong](#if-something-is-wrong).
 
 ## How to tell who wrote it {#how-to-tell}
 
-Priya Nair asks Sam Rivera a question late at night, and Sam follows up in the morning.
-
 <figure class="chat-illustration">
-  <figcaption class="chat-illustration__label">Illustration with made-up people, not a screenshot: a thread in #shop-backend. Notes in brackets are added here; Slack shows only the name.</figcaption>
+  <figcaption class="chat-illustration__label">Illustration with made-up people, not a screenshot: a thread in #shop-backend. Bracketed notes are ours; Slack shows only the name.</figcaption>
   <ol class="chat-illustration__messages">
     <li class="chat-message">
       <p class="chat-message__meta"><strong>Priya Nair</strong> 23:04</p>
@@ -26,48 +24,48 @@ Priya Nair asks Sam Rivera a question late at night, and Sam follows up in the m
     </li>
     <li class="chat-message">
       <p class="chat-message__meta"><strong>Sam Rivera</strong> 23:05 <span class="chat-message__note">(the clone)</span></p>
-      <p><img class="chat-message__emoji" src="/favicon.svg" alt=":misha:" width="18" height="18"> <em>No, it gives up after the first timeout and returns an error. I read <code>src/payments/refund.ts</code> in shop/shop-backend.</em></p>
+      <p><img class="chat-message__emoji" src="/favicon.svg" alt=":misha:" width="18" height="18"> <em>No, it returns an error after the first timeout. I read <code>src/payments/refund.ts</code> in shop/shop-backend.</em></p>
     </li>
     <li class="chat-message">
       <p class="chat-message__meta"><strong>Sam Rivera</strong> 09:12 <span class="chat-message__note">(Sam)</span></p>
-      <p>That's right. I'll add retries under SHOP-142 this week.</p>
+      <p>Right. I'll add retries under SHOP-142.</p>
     </li>
   </ol>
 </figure>
 
-The clone's reply has the marker in front and italic text, apart from code. It is told to speak as Sam's clone and to call Sam by first name. Sam's own message looks like any other. An emoji reaction from Sam's account carries no marker and may come from the clone, and a marker typed by hand looks the same as the clone's. When it matters who wrote something, ask Sam.
+The clone's reply has the marker and italics (code stays plain) and calls Sam by first name. A reaction from Sam's account carries no marker and may come from the clone. When it matters, ask Sam.
 
 ## What happens to your messages {#your-messages}
 
-A message you send Sam can reach Sam's clone, and through it the AI provider Sam uses. Misha runs on Sam's Mac, works through Sam's signed-in Slack tab, and sees every message Sam's account receives there. It passes a message to the clone when it is for Sam:
+A message you send Sam can reach Sam's clone, and through it the AI provider Sam uses. Misha runs on Sam's Mac in Sam's signed-in Slack tab, sees everything Sam's account receives there, and passes the clone what is for Sam:
 
 - a DM or group DM with Sam
 - a message that mentions Sam
 - a reply in a thread Sam started or wrote in
 - a message in a channel Sam asked the clone to watch
 
-Posts by bots, apps and clones, Sam's own clone included, never start a reply, and a message that calls someone else's clone with that clone's emoji is left alone. Reaching the clone doesn't mean an answer: it can reply, react or do nothing, and in a watched channel it answers only what asks something of Sam or Sam's work.
+Bots, apps and clones never start a reply, nor does a message calling only another clone by an emoji Misha has seen it use. In a watched channel the clone gets every message and is told to answer only what concerns Sam or Sam's work. Whatever reaches it, it may reply, react or do nothing.
 
-A message passed to the clone goes, with the rest of its conversation, to Anthropic through Sam's own Claude Code subscription. Work it leads to goes to the workers' AI provider too, such as OpenAI. On Sam's Mac, Misha keeps the message until the clone has handled it, Claude Code keeps the clone's conversation, and Misha keeps a record of everything the clone posts, with no age limit. [Privacy and security](/privacy) lists what is kept and for how long.
+A message passed to the clone goes, with its conversation, to Anthropic through Sam's own Claude Code subscription. Work it leads to runs in workers, separate Claude Code or OpenCode sessions, and can also reach OpenAI. On the Mac, the browser extension queues each new message until Misha saves it, Misha keeps a message for the clone until it is handled, Claude Code keeps the clone's conversation, and Misha records every clone post with no age limit. Details: [Privacy and security](/privacy), under "What is stored, and for how long".
 
-The clone has one memory across all of Sam's conversations. It is told to keep what you write in one conversation there and with Sam, but that is an instruction, not a wall.
+The clone keeps one memory across all of Sam's conversations and is told to keep what you write to that conversation and Sam: an instruction, not a wall.
 
 ## Questions and work requests {#questions-and-work}
 
-The clone answers a question from what it reads, such as the thread, a linked ticket or Sam's code, and names its sources. Anything needing more digging goes to a worker if you may ask for work; otherwise the clone tells you what it found and passes the rest to Sam privately.
+The clone answers from what it reads (the thread, a linked ticket, Sam's code) and names its sources. Only Sam and people Sam allows can start work such as research, a ticket or a code change. For anyone else the app gives the clone read-only tools, so it can't change a ticket, document or code for you; it passes what it can't finish to Sam privately.
 
-Only Sam and the people Sam allows can start work such as research, a ticket or a code change. For anyone else the app gives the clone read-only tools, so your request can't change a ticket, document or code. Allowed work still goes through reviews, workers deploy only to the development environment (dev), and a change in your own repository waits for your approval. The app enforces the read-only tools; those other limits are rules the clone and its workers are told to follow. [Put Misha to work](/use/workflows) covers how a request ends.
+Allowed work goes through reviews, workers deploy only to the development environment (dev), and a change in your own repository waits for your approval. Those are rules the clone and workers are told to follow; the app doesn't enforce them. [Put Misha to work](/use/workflows) covers how a request ends.
 
-The clone is also told never to promise anything of Sam's own, such as time, deadlines or opinions. And a confident answer can still be wrong: it may misread code or a ticket, or read a source that is out of date. Check anything you'll act on with Sam, especially in front of a client.
+The clone is told never to promise Sam's time or opinions, and a confident answer can still be wrong: check with Sam before you act on it, especially in front of a client.
 
 ## Stop it answering you {#stop-replies}
 
-You can ask the clone to answer you only when you call it with its emoji. Send the command as the whole message, in a one-to-one DM with Sam, and use the second one to undo it:
+Send either command as the whole message, in a one-to-one DM with Sam:
 
 <!-- facts commands colleague -->
 
 <figure class="chat-illustration">
-  <figcaption class="chat-illustration__label">Illustration with made-up people, not a screenshot: Jonas Weber's one-to-one DM with Sam Rivera. Notes in brackets are added here.</figcaption>
+  <figcaption class="chat-illustration__label">Illustration with made-up people, not a screenshot: Jonas Weber's one-to-one DM with Sam Rivera.</figcaption>
   <ol class="chat-illustration__messages">
     <li class="chat-message">
       <p class="chat-message__meta"><strong>Jonas Weber</strong> 10:20</p>
@@ -88,16 +86,16 @@ You can ask the clone to answer you only when you call it with its emoji. Send t
   </ol>
 </figure>
 
-The same words in a group DM or a channel change nothing. Your messages already waiting for the clone without the emoji are dropped when you send the command.
+In a group DM or a channel the words change nothing. When Misha processes the command, it drops your waiting messages without the emoji that the clone hasn't decided on yet, but a reply already prepared can still arrive.
 
-Soft-ignore means fewer answers. It doesn't stop Misha seeing your messages, the clone can still read them when it reads a thread to answer someone else, and it deletes nothing already kept or sent. Ignoring you completely, keeping the clone out of one thread, and pausing the clone altogether are Sam's to do, so ask Sam.
+Soft-ignore means fewer answers, not less collection: Misha still sees your messages, the clone still reads them in threads it answers for others, and history, earlier posts and what went to a provider stay. Ignoring you completely, keeping the clone out of one thread and pausing it altogether are Sam's to do.
 
 ## If something is wrong {#if-something-is-wrong}
 
-If the clone said something wrong or committed to something, contact Sam. A DM to Sam reaches the clone too, so say you want Sam, not the clone: it is told to stop replying to you in that conversation when you ask for the person. Or reach Sam outside Slack.
+If the clone said something wrong or committed to something, contact Sam, outside Slack if you like. A DM to Sam reaches the clone too, so say you want Sam: the clone is told to stop replying to you there when you ask for the person.
 
-Only Sam can correct or delete the clone's post; the clone can't edit what it posted. Sam can also pause the clone, which stops new replies and new work, but pausing doesn't take back a post or undo what is already done, such as a ticket filed.
+Ask Sam to correct or remove the post; the clone can't edit its own replies. Sam can pause the clone to stop new replies and work, but a pause takes back no post and undoes nothing done, such as a filed ticket.
 
 ## Want your own? {#want-your-own}
 
-As of 19 November 2026, Misha is one unsigned build run by its owner, with no public download. [Decide whether to try it](/start/decide) covers what it needs and costs, and [Get started](/start/get-started) what setup involves.
+As of 19 November 2026, Misha is one unsigned build run by its owner, with no public download. See [what it needs and costs](/start/decide) and [what setup involves](/start/get-started).

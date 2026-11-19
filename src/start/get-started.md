@@ -23,7 +23,7 @@ Misha is in an invite-only pilot. There is no public download, Chrome Web Store 
 
 ## The setup sequence {#setup}
 
-The first time Misha opens, its window shows **Get started**, a checklist that ticks itself from what it finds on your Mac. Only two of its steps ask you for anything: your clone's face and your code. The whole sequence, from signing in to a first reply:
+The first time Misha opens, its window shows **Get started**, a checklist that ticks itself from what it finds on your Mac. Four steps take you from signing in to a first reply:
 
 <ol class="steps">
   <li class="step">
@@ -43,16 +43,9 @@ The first time Misha opens, its window shows **Get started**, a checklist that t
   <li class="step">
     <div class="step__body">
       <p class="step__title">Give me a face</p>
-      <p class="step__line">Choose the icon and a tone, and the Slack account if several are signed in. Saving makes the clone live.</p>
+      <p class="step__line">Click <strong>Keep the defaults</strong>, or pick your own icon and tone first. Saving makes the clone live.</p>
     </div>
-    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--field"><img src="/favicon.svg" alt="" width="16" height="16">:misha:</span><span class="mini-control mini-control--button">Save and start</span></div>
-  </li>
-  <li class="step">
-    <div class="step__body">
-      <p class="step__title">Show me your code</p>
-      <p class="step__line">Sign in the GitHub CLI and add a repository, or skip it if your work isn't code.</p>
-    </div>
-    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--field">shop/shop-backend</span></div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--button">Keep the defaults</span></div>
   </li>
   <li class="step">
     <div class="step__body">
@@ -61,14 +54,9 @@ The first time Misha opens, its window shows **Get started**, a checklist that t
     </div>
     <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--message"><strong>Sam Rivera</strong> hi</span></div>
   </li>
-  <li class="step">
-    <div class="step__body">
-      <p class="step__title"><a href="/operate/manage#pause">Find the brake</a></p>
-      <p class="step__line">To stop it, Pause Misha is in the sidebar and the menu bar, and <code>pause</code> works in your self-DM.</p>
-    </div>
-    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--quiet">Pause Misha</span></div>
-  </li>
 </ol>
+
+The checklist also offers **Show me your code**, which adds a repository the clone can read. It's optional: the clone answers without one. To pause the clone, see [Pause Misha](/operate/manage#pause).
 
 ## Check your first reply {#first-reply}
 

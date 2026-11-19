@@ -9,7 +9,7 @@ next:
 
 # Control and maintain Misha
 
-Pause is the brake: the clone stops answering and its workers stop, while Slack messages keep arriving and wait for you to resume. Below are pausing, changing what Misha may do, reading what it did, and what is known today about updating and removing it. For a problem Misha shows you, see [Troubleshooting](/operate/troubleshooting).
+Pause is the brake: the clone stops answering, no new worker starts and Misha tries to stop the ones running, while Slack messages keep arriving and wait for you to resume. Below are pausing, changing what Misha may do, reading what it did, and what is known today about updating and removing it. For a problem Misha shows you, see [Troubleshooting](/operate/troubleshooting).
 
 ## Pause Misha {#pause}
 
@@ -20,24 +20,26 @@ The window's sidebar, the menu bar's Misha menu (**Pause Misha**, **Resume Misha
 While Misha is paused:
 
 - The answer being written is cancelled. The clone answers only your self-DM commands, such as `settings` and `resume`, and posts nothing else in Slack; a worker's post is refused.
-- No worker starts, and Misha stops every worker it started that still runs, including the workers those started.
+- No worker starts, and Misha tries to stop every worker it started that still runs, including the workers those started. Home says how that went.
 - Messages from Slack keep arriving and wait, with no age limit, so after a long pause the clone may answer requests that are days old.
-- The pause survives quitting: Misha starts paused and stops any of its workers still running.
+- The pause survives quitting: Misha starts paused and, once it runs, tries again to stop any of its workers still running.
 
-Home shows how the stop is going:
+Home's paused card shows how the stop is going:
 
 | Home says | What it means | What to do |
 | --- | --- | --- |
-| "I'm stopping my workers, start no new ones..." | They show under **Working on now** until they stop. | Wait. |
-| "...but I stopped my workers..." | Every worker Misha started has stopped. | Nothing. |
-| "I couldn't stop one of my workers (...)" | Misha couldn't verify the process as its worker, so it didn't signal it. The card and a desktop notification name the run. | Quit that Claude Code or OpenCode process yourself, for example in Activity Monitor. |
-| "I couldn't stop my workers, so they may still run; my log says why." | The stop itself failed. | Treat every running worker as unstopped. |
+| "I'm stopping my workers, start no new ones..." | The stop is under way. The workers show under **Working on now** until they end. | Wait. |
+| "...but I stopped my workers..." | Every worker Misha started has ended: Misha counts one as stopped only once its processes are gone. | Nothing. |
+| "I couldn't stop one of my workers (...)" | Misha couldn't confirm that this worker stopped. It may have refused to signal a process it couldn't verify as the worker's, or the worker's processes didn't end after it signalled them; its log says which. The card and a desktop notification name the run by its id, not by a process. | Keep Misha paused. The worker stays under **Working on now** while its processes may still run. The window doesn't show which process on your Mac belongs to the run, so [ask for help](/operate/troubleshooting#asking-for-help) with the run id rather than quitting a process that only looks like it. |
+| "I couldn't stop my workers, so they may still run; my log says why." | The stop failed as a whole, so Misha can't say which workers ended. | Keep Misha paused. Quit and open Misha again, which starts paused and tries the stop again. If workers are still listed under **Working on now**, [ask for help](/operate/troubleshooting#asking-for-help). |
 
 <Shot id="paused" caption="Paused, with the workers stopped and Resume on the card. Made-up example." />
 
 <Shot id="workers-stopping" caption="A moment after pausing: two workers are still listed while Misha stops them. Made-up example." />
 
-<Shot id="worker-unstopped" caption="A worker Misha couldn't stop, named on Home for you to stop by hand. Made-up example." />
+<Shot id="worker-unstopped" caption="A worker Misha couldn't confirm stopped, named on Home by its run id. Made-up example." />
+
+Home shows these lines only while the paused card is the one on top. "Something's wrong on my side." and "I can't hear Slack." take its place, and the pause stays in force under them ([which card Home shows](/operate/troubleshooting#which-card)). With Slack lost, Misha still tries to stop the workers; while its runtime has failed, it isn't running to stop them. Either way **Working on now** is the check: a worker stays listed there while its processes may still run, so once no worker is listed, none of Misha's workers is running. If workers stay listed, keep the pause and [ask for help](/operate/troubleshooting#asking-for-help).
 
 Pause can't reach what has left your Mac. A posted message, a merged pull request, an edited ticket or a dev deploy stays as it is, and a build or CI run a worker started may still finish. To correct something in public, write there yourself.
 
@@ -45,12 +47,12 @@ Pause can't reach what has left your Mac. A posted message, a merged pull reques
 
 | You | The clone | Workers | Slack messages |
 | --- | --- | --- | --- |
-| Pause | Answers only your self-DM commands | Stopped; none start | Taken in; they wait |
+| Pause | Answers only your self-DM commands | Misha tries to stop them (check Home); none start | Taken in; they wait |
 | Close the window | Keeps answering: Misha stays in the menu bar | Keep running | Taken in as usual |
 | Quit Misha | Stops | Keep running: they are separate processes | Not taken in. While the browser runs, the extension queues up to 2,000 until Misha takes them in again |
 | Close Slack or the browser | Hears nothing and answers nothing | Keep running; their Slack posts fail | Not captured; see [Troubleshooting](/operate/troubleshooting#slack-unheard) |
 
-To stop work, pause and wait for Home to say the workers stopped. Quit after that, not instead.
+To stop work, pause and wait until no worker is listed under **Working on now**. Quit after that, not instead: quitting alone leaves the workers running.
 
 ## Change what Misha may do {#scope}
 
@@ -78,16 +80,21 @@ What a newer build does when it starts is known from the code. It updates misha-
 
 ## Remove Misha {#remove}
 
-::: warning Not yet exercised
-Misha has no uninstall button or command yet, and this order hasn't been tried on a clean installation. It covers what Misha puts on your Mac, in an order that keeps the records you need until you've used them. Deleting <code><Fact name="desktop.paths.home" /></code> first would throw away the install records that say what to remove from Claude Code and OpenCode.
+::: warning Not a complete procedure yet
+Misha has no uninstall button or command yet, and removing what it installed in Claude Code and OpenCode isn't available as a documented procedure. The steps below are the parts that are safe today. They leave Misha's additions in Claude Code and OpenCode, the app and its data folder in place, because the data folder holds what a later removal needs.
 :::
 
-1. **Pause, and wait for Home to say the workers stopped.** Stop any it names by hand.
-2. **Keep what you want.** Workers change code in <code><Fact name="desktop.paths.paths.9.path" /></code>, which may hold work you haven't pushed. Copies of what the installers wrote over are in <code><Fact name="desktop.paths.paths.14.path" /></code>. The post record is in <code><Fact name="desktop.paths.paths.0.path" /></code>.
-3. **Turn off Open at login, then quit.** Use the menu bar's **Open at login** or the switch on **Set up**, then **Quit Misha**. Quit before the next step, because Misha installs misha-core again in each harness when it starts and finds no install record.
-4. **Remove what Misha installed in Claude Code and OpenCode.** Each extension's install record, in <code><Fact name="desktop.paths.paths.12.path" /></code> and <code><Fact name="desktop.paths.paths.13.path" /></code>, lists the files, folders, settings, MCP servers, marketplaces and plugins it added. Remove any other Misha extension before misha-core, the order Misha's own installer enforces, since other extensions install only beside misha-core. Then put back what you want from the overwritten copies, which nothing restores automatically: each batch's `manifest.json` names where a file or folder came from, and its `members.json` holds settings' earlier values.
-5. **Remove the browser parts.** Remove the Misha Browser extension on your browser's Extensions page. Its queue of up to 2,000 messages not yet handed to Misha is in the extension's own browser storage, which the browser deletes with the extension. Then remove the native host: its registration as `misha.browser_bridge` in Chrome's and Brave's native messaging folders, and its launcher. The [browser extension's README](https://github.com/dumdummisha/misha-browser) says where its installer writes both.
-6. **Delete the Misha app.**
-7. **Delete Misha's data folder,** <code><Fact name="desktop.paths.home" /></code>, or the folder the `MISHA_HOME` environment variable names. It holds the settings, waiting messages and post record, the clone's copies of your repositories, the workers' logs and working copies, the install records and the overwritten copies.
+1. **Pause, and wait until Working on now lists no worker.** If a worker stays listed, see [Pause Misha](#pause).
+2. **Keep what you want.** Workers change code in <code><Fact name="desktop.paths.paths.9.path" /></code>, which may hold work you haven't pushed. The post record is in <code><Fact name="desktop.paths.paths.0.path" /></code>.
+3. **Turn off Open at login, then quit.** Use the menu bar's **Open at login** or the switch on **Set up**, then **Quit Misha**.
+4. **Remove the browser parts.** Remove the Misha Browser extension on your browser's Extensions page. Its queue of up to 2,000 messages not yet handed to Misha is in the extension's own browser storage, which the browser deletes with the extension. Then remove the native host, which the [browser extension's installer](https://github.com/dumdummisha/misha-browser) wrote: delete the file `misha.browser_bridge.json` where it exists in `~/Library/Application Support/Google/Chrome/NativeMessagingHosts/` and `~/Library/Application Support/BraveSoftware/Brave-Browser/NativeMessagingHosts/`, and the launcher `~/.misha/browser-bridge/native-host`, whose place is fixed even when `MISHA_HOME` names another folder. Delete only those files: the folders can hold other programs' registrations.
+
+What Misha installed in Claude Code and OpenCode stays for now. Each extension's install record, in <code><Fact name="desktop.paths.paths.12.path" /></code> and <code><Fact name="desktop.paths.paths.13.path" /></code>, names the files, folders, settings and Claude Code registrations it added, but turning that list into deletions by hand isn't safe. A record can name a whole configuration file or folder that Misha created and you've since added your own settings or files to, and Claude Code's registrations are removed through Claude Code's own commands, not by deleting files. Misha's own uninstall handles this: it undoes the newest addition first, leaves anything you changed since, removes a folder only once it's empty and removes a setting rather than the file it sits in. That uninstall isn't available to you yet. Until it is:
+
+- Don't delete the files, folders or settings an install record names.
+- Don't delete the Misha app or its data folder, <code><Fact name="desktop.paths.home" /></code> (or the folder the `MISHA_HOME` environment variable names). Claude Code starts Misha's tool server from the app itself and loads Misha's extensions from <code><Fact name="desktop.paths.paths.11.path" /></code> inside the data folder, and the install records there are what a removal needs.
+- Treat <code><Fact name="desktop.paths.paths.14.path" /></code> as yours. It holds your own originals, the files and settings the installers moved aside before writing over them, and nothing restores them automatically. Copy back what you want: each batch's `manifest.json` names where an entry came from, and its `members.json` holds settings' earlier values.
+
+If you need Misha gone before its uninstall is available, [ask for help](/operate/troubleshooting#asking-for-help).
 
 Some records live outside Misha and need their own clean-up. Claude Code keeps the transcripts of the clone's session and of Claude workers in its own data on your Mac, and GPT workers' sessions appear among your OpenCode sessions. What the clone and its workers did in Slack, GitHub, Jira and other services stays there, and model providers keep records under your own accounts as [Privacy and security](/privacy) describes.

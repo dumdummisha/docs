@@ -13,6 +13,7 @@ To stop replies or work right now, [pause Misha](/operate/manage#pause) first an
 
 Each heading is a problem as Misha words it, mostly on Home's status card, with what it means, the one thing to do, how you know it worked and what may have been missed.
 
+- [Which card Home shows](#which-card)
 - [I can't hear Slack](#slack-unheard)
 - [I'm paused](#paused)
 - [Claude Code is signed out](#claude-signed-out)
@@ -27,26 +28,30 @@ Each heading is a problem as Misha words it, mostly on Home's status card, with 
 - [A post is Not confirmed or Didn't go out](#send-not-confirmed)
 - [Asking for help](#asking-for-help)
 
+## Which card Home shows {#which-card}
+
+Home shows one status card at a time, the first that applies in this order: "Something's wrong on my side.", "I can't hear Slack.", "I'm paused.", "I can't think: Claude Code is signed out." and "I'm out of Claude usage until...". Fixing one problem can uncover the next. A pause you set stays until you resume it: signing in again, getting Slack back or waiting out a usage limit doesn't resume Misha. "I'm listening in Slack." comes back only once none of these is left.
+
 ## "I can't hear Slack." {#slack-unheard}
 
-Home's card says **Not hearing Slack** and gives one of four reasons. Nothing anyone writes reaches the clone, so it answers nothing. Misha also shows a desktop notification, "Misha can't hear Slack", and, when it can still post, a notice in your self-DM. The card waits out a short grace period, so starting Misha or reloading Slack doesn't raise it.
+Home's card says **Not hearing Slack** and gives one of four reasons. While it shows, the clone answers nothing. Misha also shows a desktop notification, "Misha can't hear Slack", and, when it can still post, a notice in your self-DM. The card waits out a short grace period, so starting Misha or reloading Slack doesn't raise it.
 
 | The card says | Do this |
 | --- | --- |
 | "No Slack tab is open and signed in to Shop..." | Click **Open Slack** (or **Open Slack in Chrome** or **in Brave**) and sign in. |
-| "Slack is open, but I lost my hold on its tab..." | Open a fresh Slack tab, or reload the one you have. |
+| "Slack is open, but I lost my hold on its tab..." | Open a fresh Slack tab, or reload the one you have. The same words show when the extension's own storage is failing, so if the card stays, [ask for help](#asking-for-help). |
 | "Your browser isn't running, or my extension in it isn't..." | Open Slack in the browser that has the Misha Browser extension. |
 | "Slack in your browser is signed in as someone else, so I stopped rather than answer as them." | Sign in to Slack as yourself again. Misha serves one Slack account, chosen at setup, and won't answer as anyone else. |
 
 <Shot id="slack-deaf" caption="Home when no Slack tab is signed in, offering to open Slack in either browser with the native host. Made-up example." />
 
-It worked when the card goes back to "I'm listening in Slack." and a notification says "Misha hears Slack again", with how long the outage lasted. A fresh tab or a reload restores a capture the tab lost; it can't fix a change Slack made to its web app.
+It worked when the Slack card leaves Home and a notification says "Misha hears Slack again", with how long the outage lasted.
 
-Messages written while Misha couldn't hear Slack were never captured, and Misha doesn't go back for them: it sees them only when it reads that conversation to answer something new there. That differs from quitting Misha with the browser still open, where the extension keeps up to 2,000 messages until Misha takes them in.
+Only messages the extension captured can reach Misha later. While no Slack tab was signed in as you, the browser was closed or a tab's capture was lost, the extension captured nothing, and Misha doesn't go back for those messages: it sees them only when it reads that conversation to answer something new there. When the extension kept capturing but couldn't hand messages over, or its storage was failing, it holds what it captured and hands it over once Misha hears it again, though a browser restart while its storage fails can lose some. The card can't tell you which messages were kept, so after an outage check Slack for requests that matter and ask again where the clone hasn't answered. Quitting Misha with the browser still open is different: the extension keeps up to 2,000 messages until Misha takes them in.
 
 ## "I'm paused." {#paused}
 
-The clone answers only your self-DM commands, and its workers are stopped or stopping. The window, the menu bar, `pause` in your self-DM and Misha's setup tool in Claude Code or OpenCode can all pause it. Click **Resume** on Home, or send `resume`. It worked when the card says "I'm listening in Slack." Messages that arrived meanwhile waited and are answered now. If the card says a worker couldn't be stopped, see [Pause Misha](/operate/manage#pause).
+The clone answers only your self-DM commands, starts no workers and tries to stop the ones running. The window, the menu bar, `pause` in your self-DM and Misha's setup tool in Claude Code or OpenCode can all pause it. Click **Resume** on Home, or send `resume`. It worked when the paused card leaves Home: it shows "I'm listening in Slack." or the next problem in [the order above](#which-card). Messages that arrived meanwhile waited and are answered now. If the card says a worker couldn't be stopped, see [Pause Misha](/operate/manage#pause).
 
 ## "I can't think: Claude Code is signed out." {#claude-signed-out}
 
@@ -54,7 +59,7 @@ The clone runs on your own Claude Code, and its sign-in on this Mac ended, so th
 
 <Shot id="claude-signed-out" caption="Home after Claude Code signed out, with the button that opens Terminal to sign in. Made-up example." />
 
-It worked when the card goes back to "I'm listening in Slack." Nothing was lost: messages that arrived meanwhile waited and are answered after you sign in.
+It worked when **Set up** shows Claude Code as **Signed in** and the card leaves Home. Nothing was lost: messages that arrived meanwhile waited and are answered once the clone can think again, after you resume if you paused it.
 
 ## "I'm out of Claude usage until..." {#claude-usage}
 
@@ -62,7 +67,7 @@ Your Claude plan's usage limit ran out, and the card shows when it resets. There
 
 <Shot id="claude-limit" caption="Home while the Claude plan's limit has run out, with the reset time. Made-up example." />
 
-It worked when the reset time passes and the card goes back to "I'm listening in Slack." The messages that waited are answered then, possibly hours after they were written.
+It worked when the reset time passes and the card leaves Home. The messages that waited are answered then, possibly hours after they were written, or after you resume if you paused Misha meanwhile.
 
 ## "Something's wrong on my side." {#something-wrong}
 
@@ -78,7 +83,7 @@ After you install a program while Misha runs, its row says "I found it, but I st
 
 Home lists, for example, "Jira needs you to sign in again" with "I can't read or write your tickets until you do.", and its row on **Set up** shows **Needs sign-in**. This shows only for an integration whose **I use it** switch is on. Click the button beside it, such as **Sign in to Jira** or **Open Set up**; the sign-in happens in that service's own program or browser page, never in Misha.
 
-Set up checks again every few seconds for two minutes after a sign-in starts, and when you click **Check again**. It worked when the row shows **Works** and the item leaves Home. Requests that needed the service meanwhile may have been answered without it; ask again.
+Set up checks again every few seconds for two minutes after a sign-in starts, and when you click **Check again**. It worked when the row shows its ready word, **Signed in** for OpenCode and GitHub or **Works** for the other integrations, and the item leaves Home. Requests that needed the service meanwhile may have been answered without it; ask again.
 
 ## A tool isn't available {#tool-not-available}
 
@@ -96,9 +101,13 @@ A Slack command or the setup command changed your settings after the window load
 
 ## "I couldn't set myself up in Claude Code or OpenCode" {#install-refused}
 
-Each time Misha starts, it installs or updates misha-core, its bundled extension, in Claude Code and OpenCode, and Home and the menu bar show what failed. When the message says an update was refused "because you changed" a folder of the installed version, you replaced that folder with a symlink or a file. Misha doesn't write through your replacement, so the earlier version stays installed and keeps working. Any other message is the installer's own error.
+Each time Misha starts, it installs misha-core, its bundled extension, in Claude Code and OpenCode where it isn't installed yet, and updates it where another version is installed. Home and the menu bar show what failed in that start. The message's wording says which case you're in:
 
-To take the new version, move your own files out of the way and put the folder named in the message back as a real folder, then quit and reopen Misha, which tries again as it starts. It worked when the message no longer shows. Until then, Claude Code or OpenCode keeps the earlier misha-core.
+| The message says | What it means | What to do |
+| --- | --- | --- |
+| "misha-core ... was not installed and ... stays, because you changed the folder ..." | The update was refused because you replaced a folder of the installed version with a symlink or a file, and Misha doesn't write through your replacement. The installed version stays in place and recorded; Misha doesn't check that it still works with your replacement. | Move your own files out of the way, put the named folder back as a real folder, then quit and reopen Misha, which tries the update again as it starts. It worked when the message doesn't come back. |
+| "...'s agents keep their earlier tools, because you changed ..." or "...'s agents were not re-rendered: ..." | misha-core installed or updated, but another Misha extension's agents weren't brought up to date with it. | [Ask for help](#asking-for-help). Reopening Misha doesn't retry this: once misha-core is up to date, the next start skips it, so the message going away proves nothing. |
+| Anything else | The installer's own error, on a first install or an update. | Quit and reopen Misha, which tries again as it starts. If the message comes back, [ask for help](#asking-for-help) with its wording. |
 
 ## A post is Not confirmed or Didn't go out {#send-not-confirmed}
 

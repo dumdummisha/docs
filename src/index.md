@@ -6,7 +6,7 @@ description: "The Dumdum Misha docs start at Try it."
 head:
   - - meta
     - http-equiv: refresh
-      content: "0; url=/start/why"
+      content: "0; url=/start/try"
 search: false
 sidebar: false
 aside: false
@@ -17,4 +17,4 @@ next: false
 
 # Dumdum Misha
 
-The docs start at [Try it](/start/why).
+The docs start at [Try it](/start/try).

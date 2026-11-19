@@ -4,7 +4,7 @@ description: "How to tell a person's reply from their clone's, what happens to m
 prev: false
 next:
   text: Want your own? Try it
-  link: /start/why
+  link: /start/try
 ---
 
 # Talking with a clone
@@ -98,4 +98,4 @@ Ask Sam to correct or remove the post; the clone can't edit its own replies. Sam
 
 ## Want your own? {#want-your-own}
 
-As of 19 November 2026, Misha is one unsigned build run by its owner, with no public download. See [why to try it and what it needs](/start/why) and [what setup involves](/start/get-started).
+As of 19 November 2026, Misha is one unsigned build run by its owner, with no public download. See [why to try it](/start/try) and [what setup involves](/start/get-started).

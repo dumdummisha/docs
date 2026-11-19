@@ -10,7 +10,7 @@ This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.
 
 - **[Read the docs](https://docs.dumdummisha.ai)**
 - **[Was that the person or their clone?](https://docs.dumdummisha.ai/understand/slack)**
-- **[Try it](https://docs.dumdummisha.ai/start/why)**
+- **[Try it](https://docs.dumdummisha.ai/start/try)**
 - **[Privacy and security](https://docs.dumdummisha.ai/privacy)**
 
 Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/start/get-started) through [Make it yours](https://docs.dumdummisha.ai/use/make-it-yours) to [Put Misha to work](https://docs.dumdummisha.ai/use/workflows). [How Misha works](https://docs.dumdummisha.ai/understand/how-it-works) explains the architecture, and [Customise and reuse Misha](https://docs.dumdummisha.ai/reference/extensions) what you can add or reuse.

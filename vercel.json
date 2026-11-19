@@ -7,8 +7,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/", "destination": "/start/why", "permanent": true },
-    { "source": "/start/decide", "destination": "/start/why", "permanent": true }
+    { "source": "/", "destination": "/start/try", "permanent": true },
+    { "source": "/start/why", "destination": "/start/try", "permanent": true },
+    { "source": "/start/decide", "destination": "/start/try", "permanent": true }
   ],
   "headers": [
     {

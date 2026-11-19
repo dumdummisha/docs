@@ -23,7 +23,7 @@ const SIDEBAR: DefaultTheme.SidebarItem[] = [
   {
     text: 'Start',
     items: [
-      { text: 'Try it', link: '/start/why' },
+      { text: 'Try it', link: '/start/try' },
       { text: 'Get started', link: '/start/get-started' },
     ],
   },
@@ -162,7 +162,7 @@ export default defineConfig({
   themeConfig: {
     logo: { src: '/logo.svg', alt: '' },
     // The wordmark goes straight to the first page rather than through the redirect at /.
-    logoLink: '/start/why',
+    logoLink: '/start/try',
     sidebar: SIDEBAR,
     editLink: { pattern: `${REPOSITORY_URL}/edit/main/src/:path`, text: 'Suggest a change to this page' },
     footer: {

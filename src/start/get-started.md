@@ -28,8 +28,6 @@ There's no Misha fee in the invite-only pilot. You pay for your own Claude, and 
 
 <!-- facts detection -->
 
-<Shot id="setup" caption="Set up with three things to do: Google and Figma aren't signed in, and this Mac sleeps after 10 idle minutes. Made-up example." />
-
 ## What setup changes on your Mac {#before-you-install}
 
 Each time Misha starts, it installs misha-core, its bundled Misha extension, into Claude Code and OpenCode wherever it finds them: skills, commands, agent profiles and Misha's tools. When a file is already where it writes, Misha first moves it into <code><Fact name="desktop.paths.paths.overwritten.path" /></code>, which keeps the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> batches. Nothing puts those files back for you. The browser part adds the Misha Browser extension and the native host, a small program that connects the extension to Misha on this Mac; [Browser permissions](/reference/permissions) explains what each can do.
@@ -38,9 +36,52 @@ There is no uninstall yet. [Remove Misha](/operate/manage#remove) says what is s
 
 ## The setup sequence {#setup}
 
-The first time Misha opens, its window shows **Get started**, a checklist that ticks itself from what it finds on your Mac. Only two steps ask you for anything: your clone's face and your code.
+The first time Misha opens, its window shows **Get started**, a checklist that ticks itself from what it finds on your Mac. Only two of its steps ask you for anything: your clone's face and your code. The whole sequence, from signing in to a first reply:
 
-<Shot id="first-run" caption="Get started with Claude Code and Slack done, and the face and the code still to do. Made-up example." />
+<ol class="steps">
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#sign-in">Give me consciousness</a></p>
+      <p class="step__line">Claude Code is on the Mac and signed in.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--button">Sign in to Claude</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#sign-in">Let me hear Slack</a></p>
+      <p class="step__line">Load the extension, install the native host and open Slack in Chrome or Brave.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--button">Load unpacked</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#before-you-save">Find the brake</a></p>
+      <p class="step__line">Once you save, Pause Misha is in the sidebar and the menu bar, and <code>pause</code> works in your self-DM.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--quiet">Pause Misha</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#face">Give me a face</a></p>
+      <p class="step__line">Choose the icon and a tone, and the Slack account if several are signed in. Saving makes the clone live.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--field"><img src="/favicon.svg" alt="" width="16" height="16">:misha:</span><span class="mini-control mini-control--button">Save and start</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#code">Show me your code</a></p>
+      <p class="step__line">Sign in the GitHub CLI and add a repository, or skip it if your work isn't code.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--field">shop/shop-backend</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#first-reply">Say hi</a></p>
+      <p class="step__line">Write to yourself in Slack and the clone answers there.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--message"><strong>Sam Rivera</strong> hi</span></div>
+  </li>
+</ol>
 
 ### Sign in to Claude Code and Slack {#sign-in}
 

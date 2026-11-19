@@ -116,6 +116,126 @@
   vertical-align: -3px;
 }
 
+/* A numbered sequence of steps, each a short title, one line and an optional drawing of the one control it is about.
+   The list stays an ordered list for screen readers; the number is drawn from a CSS counter, and the drawing is
+   aria-hidden because the line names the control. On a phone the drawing sits under the line, beside it on wider
+   screens. */
+.vp-doc .steps {
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.vp-doc .step {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  column-gap: 16px;
+  row-gap: 8px;
+  align-items: center;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--vp-c-divider);
+  background-color: var(--dm-surface-300);
+  counter-increment: step;
+}
+
+.vp-doc .step + .step {
+  margin-top: 8px;
+}
+
+.vp-doc .step::before {
+  content: counter(step);
+  grid-row: 1 / span 2;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--dm-ink);
+  background-color: var(--dm-misha);
+  color: var(--dm-ink);
+  font-family: var(--dm-font-display);
+  font-weight: 600;
+}
+
+.vp-doc .step__body p {
+  margin: 0;
+}
+
+.vp-doc .step__title {
+  font-family: var(--dm-font-display);
+  font-weight: 600;
+}
+
+.vp-doc .step__title a {
+  color: var(--dm-ink);
+}
+
+.vp-doc .step__line {
+  color: var(--vp-c-text-2);
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.vp-doc .step__visual {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .vp-doc .step {
+    grid-template-columns: 32px 1fr auto;
+  }
+
+  .vp-doc .step::before {
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .vp-doc .step__visual {
+    grid-column: 3;
+    justify-content: flex-end;
+  }
+}
+
+/* A small drawing of one control in the Misha window or in Slack, square like the brand. */
+.vp-doc .mini-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--vp-c-border);
+  background-color: var(--dm-surface-200);
+  color: var(--dm-ink);
+  font-size: 13px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.vp-doc .mini-control--button {
+  border: 2px solid var(--dm-ink);
+  background-color: var(--dm-misha);
+  font-weight: 600;
+}
+
+.vp-doc .mini-control--quiet {
+  border: 2px solid var(--dm-ink);
+  font-weight: 600;
+}
+
+.vp-doc .mini-control--field {
+  min-width: 120px;
+  font-family: var(--vp-font-family-mono);
+}
+
+.vp-doc .mini-control--message strong {
+  font-weight: 700;
+}
+
 /* Printed, a page is its content alone, and the privacy page's assessment fills the first sheet by itself. */
 @media print {
   .VPNav,

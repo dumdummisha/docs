@@ -3,12 +3,14 @@ import { type Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme-without-fonts'
 
 import { Fact, Shot } from './components.ts'
+import { Layout } from './layout.ts'
 import './fonts.css'
 import './tokens.css'
 import './custom.css'
 
 export default {
   extends: DefaultTheme,
+  Layout,
   enhanceApp({ app }) {
     app.component('Fact', Fact)
     app.component('Shot', Shot)

@@ -55,6 +55,8 @@ const SIDEBAR: DefaultTheme.SidebarItem[] = [
       { text: 'Browser permissions', link: '/reference/permissions' },
     ],
   },
+  // The sidebar is the site's only navigation, so the repository link closes it.
+  { text: 'GitHub', link: REPOSITORY_URL },
 ]
 
 // The README's first line, so the README and the site describe Misha in the same sentence.
@@ -138,6 +140,13 @@ export default defineConfig({
   // The page hash map and site data load as a script file, not an inline script, so the CSP needs no hash that changes
   // with every page edit.
   metaChunk: true,
+  // The sidebar is the only chrome, so no page has the top bar; only the 404 page, which is not one of them and has no
+  // sidebar, keeps it. The phone's menu bar is then the one thing that can cover a heading the outline scrolls to;
+  // where it is hidden, the selector measures nothing and only the padding is kept.
+  transformPageData: (pageData) => {
+    pageData.frontmatter.navbar = false
+  },
+  scrollOffset: { selector: '.VPLocalNav', padding: 24 },
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' }],
@@ -154,13 +163,6 @@ export default defineConfig({
     logo: { src: '/logo.svg', alt: '' },
     // The wordmark goes straight to the first page rather than through the redirect at /.
     logoLink: '/start/why',
-    nav: [
-      { text: 'Start', link: '/start/why' },
-      { text: 'Talking with a clone', link: '/understand/slack' },
-      { text: 'Privacy', link: '/privacy' },
-      { text: 'Reference', link: '/reference/settings' },
-      { text: 'GitHub', link: REPOSITORY_URL },
-    ],
     sidebar: SIDEBAR,
     // The index ships with the site, so a query never leaves the reader's browser.
     search: { provider: 'local' },

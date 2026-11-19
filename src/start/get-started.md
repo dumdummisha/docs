@@ -11,25 +11,15 @@ next:
 
 # Get started
 
-Misha is in an invite-only pilot: to try it, ask for an invite on [dumdummisha.ai](https://dumdummisha.ai). There is no public download, Chrome Web Store listing or invite key yet, so the steps below begin with Misha already running on a Mac. They follow setup as the Misha window walks through it today, so you know what it takes and what happens when your clone goes live.
+Misha is in an invite-only pilot. There is no public download, Chrome Web Store listing or invite key yet, so the steps below begin with Misha already running on a Mac.
 
 ## What you need {#requirements}
 
-- Slack, the only chat Misha works with today; adapters for Microsoft Teams and Discord are in progress.
-- A Mac with Chrome or Brave, and Slack open and signed in there.
+- A Mac with a Chromium browser (Chrome or Brave).
 - Claude Code, signed in with your own Claude subscription.
 - git, and the GitHub CLI if your clone should read code.
-- Optional: OpenCode signed in to OpenAI, so GPT can review tickets and pull requests, and the services your tasks need. [Put Misha to work](/use/workflows#review-requirements) explains why delivery waits without GPT.
-
-Misha is free during the pilot: you pay for your own Claude subscription, and OpenAI if you add it. Misha's **Set up** page checks each item and offers the one action that fixes it:
-
-<!-- facts detection -->
-
-## What setup changes on your Mac {#before-you-install}
-
-Each time Misha starts, it installs misha-core, its bundled Misha extension, into Claude Code and OpenCode wherever it finds them: skills, commands, agent profiles and Misha's tools. When a file is already where it writes, Misha first moves it into <code><Fact name="desktop.paths.paths.overwritten.path" /></code>, which keeps the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> batches. Nothing puts those files back for you. The browser part adds the Misha Browser extension and the native host, a small program that connects the extension to Misha on this Mac; [Browser permissions](/reference/permissions) explains what each can do.
-
-There is no uninstall yet. [Remove Misha](/operate/manage#remove) says what is safe to remove today and what has to stay.
+- Your Slack workspace, signed in in that browser (adapters for Microsoft Teams and Discord are in progress).
+- Optional but recommended: OpenCode signed in to OpenAI, so GPT can review tickets and pull requests, and the services your tasks need. [Put Misha to work](/use/workflows#review-requirements) explains why delivery waits without GPT.
 
 ## The setup sequence {#setup}
 
@@ -38,35 +28,28 @@ The first time Misha opens, its window shows **Get started**, a checklist that t
 <ol class="steps">
   <li class="step">
     <div class="step__body">
-      <p class="step__title"><a href="#sign-in">Give me consciousness</a></p>
+      <p class="step__title">Give me consciousness</p>
       <p class="step__line">Claude Code is on the Mac and signed in.</p>
     </div>
     <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--button">Sign in to Claude</span></div>
   </li>
   <li class="step">
     <div class="step__body">
-      <p class="step__title"><a href="#sign-in">Let me hear Slack</a></p>
-      <p class="step__line">Load the extension, install the native host and open Slack in Chrome or Brave.</p>
+      <p class="step__title">Let me hear Slack</p>
+      <p class="step__line">Load the extension, install the native host and open Slack in your browser.</p>
     </div>
     <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--button">Load unpacked</span></div>
   </li>
   <li class="step">
     <div class="step__body">
-      <p class="step__title"><a href="#before-you-save">Find the brake</a></p>
-      <p class="step__line">Once you save, Pause Misha is in the sidebar and the menu bar, and <code>pause</code> works in your self-DM.</p>
-    </div>
-    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--quiet">Pause Misha</span></div>
-  </li>
-  <li class="step">
-    <div class="step__body">
-      <p class="step__title"><a href="#face">Give me a face</a></p>
+      <p class="step__title">Give me a face</p>
       <p class="step__line">Choose the icon and a tone, and the Slack account if several are signed in. Saving makes the clone live.</p>
     </div>
     <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--field"><img src="/favicon.svg" alt="" width="16" height="16">:misha:</span><span class="mini-control mini-control--button">Save and start</span></div>
   </li>
   <li class="step">
     <div class="step__body">
-      <p class="step__title"><a href="#code">Show me your code</a></p>
+      <p class="step__title">Show me your code</p>
       <p class="step__line">Sign in the GitHub CLI and add a repository, or skip it if your work isn't code.</p>
     </div>
     <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--field">shop/shop-backend</span></div>
@@ -78,45 +61,14 @@ The first time Misha opens, its window shows **Get started**, a checklist that t
     </div>
     <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--message"><strong>Sam Rivera</strong> hi</span></div>
   </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="/operate/manage#pause">Find the brake</a></p>
+      <p class="step__line">To stop it, Pause Misha is in the sidebar and the menu bar, and <code>pause</code> works in your self-DM.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--quiet">Pause Misha</span></div>
+  </li>
 </ol>
-
-### Sign in to Claude Code and Slack {#sign-in}
-
-**Give me consciousness** ticks once Claude Code is on the Mac and signed in. Its button is **Get Claude Code** or **Sign in to Claude**, which opens Terminal to sign in.
-
-**Let me hear Slack** ticks once the browser extension runs and a Slack tab is signed in. The extension is loaded unpacked for now: **Show the extension** shows its folder in Finder, and on your browser's extensions page you turn on Developer mode, choose **Load unpacked** and pick that folder. **Install the native host** on **Set up** runs the native host's installer in Terminal. Then open Slack in Chrome or Brave.
-
-### Before you save: find the brake {#before-you-save}
-
-::: warning Saving starts live replies
-<!--@include: ../_includes/first-control.md-->
-:::
-
-The Get started screen has no Pause button of its own. Pause appears once the face below is saved.
-
-### Give your clone a face {#face}
-
-**Give me a face** saves your first settings:
-
-- **The Slack account.** With several accounts signed in, Misha asks which one it answers as. That choice is for good: Misha serves one Slack account, and no control changes it after this save.
-- **The icon**, the emoji its posts can start with, followed by the text in italics. It starts as `:misha:`, and stealth mode drops the marker. Writing the icon in a message also calls the clone.
-- **How it sounds**, optional, in up to <Fact name="desktop.settings.fields.personality.limits.maxCharacters" /> characters. Left empty, the clone is plain, short and polite.
-
-**Save and start** saves your choices, and **Keep the defaults** saves `:misha:` with no tone. Either one makes the clone live at once. [Make it yours](/use/make-it-yours#voice-and-marker) is where you refine both.
-
-### Show it your code {#code}
-
-**Show me your code** signs in the GitHub CLI and adds a repository as `owner/name`, which the clone keeps its own read-only copy of. Until a repository is added, the window keeps opening on Get started instead of Home, but the clone already answers. If your work isn't code, there's no need to add one just to finish the list.
-
-The optional groups under it, **So I have context** and **So I stay up**, can wait: the first is covered in [Make it yours](/use/make-it-yours#connect-for-a-task), the second [below](#keep-it-running).
-
-### Or use the setup command {#setup-command}
-
-The same setup runs in Claude Code or OpenCode, and the Misha menu in the menu bar has an item that copies the command for each one it found:
-
-<!-- facts setup-commands -->
-
-OpenCode can run setup, but the clone still answers on Claude Code.
 
 ## Check your first reply {#first-reply}
 
@@ -126,10 +78,16 @@ This isn't a trial confined to your self-DM. From the save on, the clone answers
 
 ## Keep it running {#keep-it-running}
 
-- **The Mac stays awake.** The clone is offline while the Mac sleeps. Set up shows when it sleeps, but Misha changes no system setting, so change it in System Settings.
+- **The Mac stays awake.** The clone is offline while the Mac sleeps. Set up shows when it sleeps, but Misha changes no system setting: change it in System Settings, or run `caffeinate -d` in Terminal, which keeps the display, and with it the Mac, awake for as long as it runs. Closing a laptop's lid still puts it to sleep.
 - **Open at login** is a switch on Set up, so Misha starts when you log in.
 - **The browser stays open with Slack signed in.** Without a signed-in Slack tab, nothing reaches the clone. If Slack is signed in as someone else, Misha stops rather than answer as them.
 - **Closing the window doesn't stop Misha.** It keeps answering from the menu bar. Quitting stops the clone but not its workers ([pause, close or quit](/operate/manage#pause-close-quit)).
+
+## What setup changes on your Mac {#before-you-install}
+
+Each time Misha starts, it installs misha-core, its bundled Misha extension, into Claude Code and OpenCode wherever it finds them: skills, commands, agent profiles and Misha's tools. When a file is already where it writes, Misha first moves it into <code><Fact name="desktop.paths.paths.overwritten.path" /></code>, which keeps the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> batches. Nothing puts those files back for you. The browser part adds the Misha Browser extension and the native host, a small program that connects the extension to Misha on this Mac; [Browser permissions](/reference/permissions) explains what each can do.
+
+There is no uninstall yet. [Remove Misha](/operate/manage#remove) says what is safe to remove today and what has to stay.
 
 ## Next: make it yours {#next}
 

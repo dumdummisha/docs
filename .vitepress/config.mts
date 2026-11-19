@@ -81,7 +81,7 @@ export default defineConfig({
   description,
   lang: 'en',
   srcDir: 'src',
-  markdown: { config: checkComponents(await loadSiteFacts(fileURLToPath(new URL('../facts', import.meta.url)))) },
+  markdown: { config: checkComponents(await loadSiteFacts(fileURLToPath(new URL('..', import.meta.url)))) },
   base: '/',
   cleanUrls: true,
   // The brand defines a light theme only; the screenshots are light too.

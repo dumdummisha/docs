@@ -1,59 +1,27 @@
-import { createHash } from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
-import { dirname, join } from 'node:path'
+import { join } from 'node:path'
 
 import { afterEach, describe, expect, it } from 'vitest'
 
-import { BundleError, importDesktop } from './import-desktop.ts'
-import { pngFixture } from './png-fixture.ts'
+import { BundleError } from './desktop-export.ts'
+import {
+  capturesJson,
+  EXPORT_FILES,
+  type ExportFiles,
+  HOME_CAPTURE,
+  HOME_PNG,
+  type IManifestEntry,
+  sha256,
+  withManifest,
+  writeFiles,
+} from './export-fixture.ts'
+import { importDesktop } from './import-desktop.ts'
 
 const directories: string[] = []
-const HOME_PNG = pngFixture(1100, 760)
 // Built from parts so this file itself passes the public-data scan.
 const EMAIL = ['jonas.weber', 'shop.example'].join('@')
-
-const sha256 = (bytes: Buffer): string => createHash('sha256').update(bytes).digest('hex')
-
-const RECIPE = {
-  version: 1,
-  browser: 'Brave, headless',
-  window: { width: 1100, height: 760, scale: 2 },
-  clock: '14:14 on 19 November 2026, local time',
-  data: 'Made-up docs fixtures: Sam Rivera, Priya Nair and Jonas Weber in the Shop workspace.',
-}
-
-const capturesJson = (file: string, bytes: Buffer, width = 1100): string =>
-  JSON.stringify({
-    recipe: RECIPE,
-    captures: [
-      {
-        id: 'home',
-        scenario: 'home',
-        page: 'home',
-        region: { kind: 'window' },
-        file,
-        width,
-        height: 760,
-        sha256: sha256(bytes),
-        alt: 'Misha is listening as Sam Rivera; Pause Misha is in the rail.',
-        people: ['Sam Rivera', 'Priya Nair'],
-        text: 'Listening as Sam Rivera',
-      },
-    ],
-  })
-
-const VALID_FILES: Readonly<Record<string, string | Buffer>> = {
-  'captures.json': capturesJson('captures/home.png', HOME_PNG),
-  'captures/home.png': HOME_PNG,
-  'facts/commands.json': JSON.stringify({ commands: [{ name: 'pause', actor: 'owner' }] }),
-  'facts/settings.json': JSON.stringify({ owner: 'Sam Rivera', personalityLimit: 500 }),
-  'facts/detection.json': JSON.stringify({ items: ['claude', 'slack'] }),
-  'facts/retention.json': JSON.stringify({ outcomeDays: 30 }),
-  'facts/paths.json': JSON.stringify({ database: '~/.misha/misha.db' }),
-  'facts/setup-commands.json': JSON.stringify({ claudeCode: '/misha-core:misha-setup' }),
-}
 
 const temporaryDirectory = async (prefix: string): Promise<string> => {
   const directory = await mkdtemp(join(tmpdir(), prefix))
@@ -62,40 +30,10 @@ const temporaryDirectory = async (prefix: string): Promise<string> => {
   return directory
 }
 
-interface IManifestEntry {
-  path: string
-  bytes: number
-  sha256: string
-}
-
-const digestOf = (entries: readonly IManifestEntry[]): string =>
-  sha256(Buffer.from(entries.map((entry) => `${entry.sha256}  ${entry.path}`).join('\n')))
-
 // A bundle holding the files, with a manifest listing them unless the test supplies its own list.
-const writeBundle = async (
-  files: Readonly<Record<string, string | Buffer>>,
-  listed?: readonly IManifestEntry[]
-): Promise<string> => {
+const writeBundle = async (files: ExportFiles, listed?: readonly IManifestEntry[]): Promise<string> => {
   const bundle = await temporaryDirectory('desktop-bundle-')
-  const entries =
-    listed ??
-    Object.entries(files)
-      .sort(([first], [second]) => first.localeCompare(second))
-      .map(([path, content]) => ({ path, bytes: Buffer.from(content).length, sha256: sha256(Buffer.from(content)) }))
-  const manifest = {
-    exportSchemaVersion: 1,
-    productVersion: '0.1.0',
-    evidenceDate: '2026-11-19',
-    captureRecipeVersion: 1,
-    digest: digestOf(entries),
-    files: entries,
-  }
-  await Promise.all(
-    Object.entries({ ...files, 'manifest.json': JSON.stringify(manifest) }).map(async ([file, content]) => {
-      await mkdir(dirname(join(bundle, file)), { recursive: true })
-      await writeFile(join(bundle, file), content)
-    })
-  )
+  await writeFiles(bundle, withManifest(files, listed))
 
   return bundle
 }
@@ -108,7 +46,7 @@ describe('[scripts] Import - importDesktop', () => {
   describe('success', () => {
     it('should copy facts, the capture list and PNGs, replacing the previous import', async () => {
       // Arrange
-      const bundle = await writeBundle(VALID_FILES)
+      const bundle = await writeBundle(EXPORT_FILES)
       const root = await temporaryDirectory('docs-root-')
       await mkdir(join(root, 'src/public/captures'), { recursive: true })
       await writeFile(join(root, 'src/public/captures/old.png'), HOME_PNG)
@@ -129,7 +67,7 @@ describe('[scripts] Import - importDesktop', () => {
         'src/public/captures/home.png',
       ])
       expect(await readFile(join(root, 'src/public/captures/home.png'))).toStrictEqual(HOME_PNG)
-      expect(await readFile(join(root, 'facts/desktop/retention.json'), 'utf8')).toBe('{"outcomeDays":30}')
+      expect(await readFile(join(root, 'facts/desktop/retention.json'), 'utf8')).toBe(EXPORT_FILES['facts/retention.json'])
       expect(existsSync(join(root, 'src/public/captures/old.png'))).toBe(false)
     })
   })
@@ -137,7 +75,7 @@ describe('[scripts] Import - importDesktop', () => {
   describe('refusal', () => {
     it('should refuse a file the import does not know and write nothing', async () => {
       // Arrange
-      const bundle = await writeBundle({ ...VALID_FILES, 'notes.txt': 'scratch' })
+      const bundle = await writeBundle({ ...EXPORT_FILES, 'notes.txt': 'scratch' })
       const root = await temporaryDirectory('docs-root-')
 
       // Act + Assert
@@ -149,7 +87,7 @@ describe('[scripts] Import - importDesktop', () => {
 
     it('should refuse a symlink', async () => {
       // Arrange
-      const bundle = await writeBundle(VALID_FILES)
+      const bundle = await writeBundle(EXPORT_FILES)
       await symlink(join(bundle, 'captures/home.png'), join(bundle, 'captures/link.png'))
 
       // Act + Assert
@@ -160,7 +98,7 @@ describe('[scripts] Import - importDesktop', () => {
 
     it('should refuse a missing fact file', async () => {
       // Arrange
-      const { 'facts/paths.json': _paths, ...withoutPaths } = VALID_FILES
+      const { 'facts/paths.json': _paths, ...withoutPaths } = EXPORT_FILES
       const bundle = await writeBundle(withoutPaths)
 
       // Act + Assert
@@ -171,8 +109,8 @@ describe('[scripts] Import - importDesktop', () => {
 
     it('should refuse a file whose hash differs from the manifest', async () => {
       // Arrange
-      const bundle = await writeBundle(VALID_FILES)
-      await writeFile(join(bundle, 'facts/retention.json'), JSON.stringify({ outcomeDays: 31 }))
+      const bundle = await writeBundle(EXPORT_FILES)
+      await writeFile(join(bundle, 'facts/retention.json'), '{}')
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toStrictEqual(
@@ -182,7 +120,7 @@ describe('[scripts] Import - importDesktop', () => {
 
     it('should refuse a manifest that hashes a file outside the bundle', async () => {
       // Arrange
-      const bundle = await writeBundle(VALID_FILES, [{ path: '../outside.json', bytes: 2, sha256: sha256(Buffer.from('{}')) }])
+      const bundle = await writeBundle(EXPORT_FILES, [{ path: '../outside.json', bytes: 2, sha256: sha256(Buffer.from('{}')) }])
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toThrow(
@@ -192,7 +130,7 @@ describe('[scripts] Import - importDesktop', () => {
 
     it('should refuse a manifest whose digest does not match its file list', async () => {
       // Arrange
-      const bundle = await writeBundle(VALID_FILES)
+      const bundle = await writeBundle(EXPORT_FILES)
       const manifest = JSON.parse(await readFile(join(bundle, 'manifest.json'), 'utf8')) as Record<string, unknown>
       await writeFile(join(bundle, 'manifest.json'), JSON.stringify({ ...manifest, digest: 'f'.repeat(64) }))
 
@@ -202,19 +140,43 @@ describe('[scripts] Import - importDesktop', () => {
       )
     })
 
-    it('should refuse a capture whose file climbs out of the captures folder', async () => {
+    it('should refuse a fact file with a field its schema does not hold, even with valid hashes', async () => {
       // Arrange
-      const bundle = await writeBundle({ ...VALID_FILES, 'captures.json': capturesJson('captures/../../evil.png', HOME_PNG) })
+      const settings = JSON.parse(String(EXPORT_FILES['facts/settings.json'])) as Record<string, unknown>
+      const bundle = await writeBundle({ ...EXPORT_FILES, 'facts/settings.json': JSON.stringify({ ...settings, accountNumber: 4021 }) })
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toThrow(
-        'captures.json is not a valid capture list'
+        'facts/settings.json does not match its schema'
+      )
+    })
+
+    it('should refuse a capture whose file climbs out of the captures folder', async () => {
+      // Arrange
+      const capture = { ...HOME_CAPTURE, file: 'captures/../../evil.png' }
+      const bundle = await writeBundle({ ...EXPORT_FILES, 'captures.json': capturesJson([capture]) })
+
+      // Act + Assert
+      await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toThrow(
+        'captures.json does not match its schema'
+      )
+    })
+
+    it('should refuse a capture that names a cast member its people leave out', async () => {
+      // Arrange
+      const capture = { ...HOME_CAPTURE, text: 'Listening as Sam Rivera, answering Jonas' }
+      const bundle = await writeBundle({ ...EXPORT_FILES, 'captures.json': capturesJson([capture]) })
+
+      // Act + Assert
+      await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toThrow(
+        'The capture home names Jonas Weber in its text or alt but not in its people'
       )
     })
 
     it('should refuse a capture whose size differs from its PNG', async () => {
       // Arrange
-      const bundle = await writeBundle({ ...VALID_FILES, 'captures.json': capturesJson('captures/home.png', HOME_PNG, 1200) })
+      const capture = { ...HOME_CAPTURE, width: 1200 }
+      const bundle = await writeBundle({ ...EXPORT_FILES, 'captures.json': capturesJson([capture]) })
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toStrictEqual(
@@ -222,16 +184,14 @@ describe('[scripts] Import - importDesktop', () => {
       )
     })
 
-    it('should refuse a bundle that fails the public-data scan', async () => {
+    it('should refuse a bundle that fails the public-data scan, naming the repository path', async () => {
       // Arrange
-      const settings = JSON.stringify({ personName: 'Sam Rivera', contact: EMAIL })
-      const bundle = await writeBundle({ ...VALID_FILES, 'facts/settings.json': settings })
+      const paths = JSON.parse(String(EXPORT_FILES['facts/paths.json'])) as Record<string, unknown>
+      const bundle = await writeBundle({ ...EXPORT_FILES, 'facts/paths.json': JSON.stringify({ ...paths, rule: `Ask ${EMAIL}.` }) })
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toStrictEqual(
-        new BundleError(
-          'The bundle fails the public-data scan:\nfacts/settings.json:1 email address\nfacts/settings.json:1 person outside the cast'
-        )
+        new BundleError('The bundle fails the public-data scan:\nfacts/desktop/paths.json:1 email address')
       )
     })
   })

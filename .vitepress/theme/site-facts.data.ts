@@ -7,10 +7,10 @@ import { type ISiteFacts, loadSiteFacts } from '../../scripts/site-facts.ts'
 declare const data: ISiteFacts
 export { data }
 
-const FACTS_DIRECTORY = fileURLToPath(new URL('../../facts', import.meta.url))
+const ROOT = fileURLToPath(new URL('../..', import.meta.url))
 
-// The committed facts and capture list that <Fact> and <Shot> read, reloaded when an import changes them.
+// The committed facts and capture list that <Fact> and <Shot> read, revalidated and reloaded when an import changes them.
 export default defineLoader({
-  watch: ['../../facts/**/*.json'],
-  load: () => loadSiteFacts(FACTS_DIRECTORY),
+  watch: ['../../facts/**/*', '../../src/public/captures/*'],
+  load: () => loadSiteFacts(ROOT),
 })

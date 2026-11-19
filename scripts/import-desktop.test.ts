@@ -152,6 +152,20 @@ describe('[scripts] Import - importDesktop', () => {
       )
     })
 
+    it('should refuse a setting format whose pattern does not compile with its flags', async () => {
+      // Arrange
+      const settings = {
+        fields: [{ field: 'icon', description: 'The emoji.', default: ':misha:', limits: { name: { pattern: '^[a-z]{1,64}$', flags: 'uv' } } }],
+        mutations: [],
+      }
+      const bundle = await writeBundle({ ...EXPORT_FILES, 'facts/settings.json': JSON.stringify(settings) })
+
+      // Act + Assert
+      await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toThrow(
+        'The pattern does not compile with its flags'
+      )
+    })
+
     it('should refuse a capture whose file climbs out of the captures folder', async () => {
       // Arrange
       const capture = { ...HOME_CAPTURE, file: 'captures/../../evil.png' }

@@ -59,13 +59,24 @@ const builtFilesOf = async (root: string): Promise<string[]> => {
 const findingsInFiles = async (root: string, files: readonly string[]): Promise<IPublicDataFinding[]> =>
   (await Promise.all(files.map(async (file) => findingsInFile(file, await readFile(join(root, file)))))).flat()
 
+const hasOriginMain = (root: string): boolean =>
+  git(root, ['for-each-ref', '--format=%(refname)', ORIGIN_MAIN]).toString('utf8').trim() !== ''
+
 // The revisions a push of HEAD would publish: the commits not yet on origin's main, or the whole history when origin
 // has no main.
-const outgoingRangeOf = (root: string): string[] => {
-  const hasOriginMain = git(root, ['for-each-ref', '--format=%(refname)', ORIGIN_MAIN]).toString('utf8').trim() !== ''
+const outgoingRangeOf = (root: string): string[] => (hasOriginMain(root) ? ['HEAD', '--not', ORIGIN_MAIN] : ['HEAD'])
 
-  return hasOriginMain ? ['HEAD', '--not', ORIGIN_MAIN] : ['HEAD']
-}
+// Every object origin's main already holds. A push cannot publish these again or take them back, so a rule added
+// since they were pushed has nothing to stop in them.
+const publishedObjectsOf = (root: string): ReadonlySet<string> =>
+  hasOriginMain(root)
+    ? new Set(
+        git(root, ['rev-list', '--objects', '--no-object-names', ORIGIN_MAIN])
+          .toString('utf8')
+          .split('\n')
+          .filter((id) => id !== '')
+      )
+    : new Set()
 
 const treeEntriesOf = (root: string, commit: string): ITreeEntry[] =>
   git(root, ['ls-tree', '-r', '-z', '--full-tree', commit])
@@ -120,13 +131,16 @@ const commitsOf = (root: string, range: readonly string[]): ICommit[] =>
     })
 
 // The public-data findings in what a push of HEAD would publish: every blob of HEAD's tree and of each outgoing commit
-// under each path it has there, and each outgoing commit's message and author and committer identities.
+// that origin's main does not already hold, under each path it has there, and each outgoing commit's message and author
+// and committer identities.
 const outgoingFindingsOf = (root: string): IPublicDataFinding[] => {
   const range = outgoingRangeOf(root)
   const commits = commitsOf(root, range)
+  const published = publishedObjectsOf(root)
   const entries = new Map(
     ['HEAD', ...commits.map((commit) => commit.sha)]
       .flatMap((commit) => treeEntriesOf(root, commit))
+      .filter((entry) => !published.has(entry.blob))
       .map((entry) => [`${entry.blob} ${entry.path}`, entry])
   )
   const bytesByBlob = blobsOf(root, [...new Set([...entries.values()].map((entry) => entry.blob))])

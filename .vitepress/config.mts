@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 
 import { type DefaultTheme, defineConfig, type MarkdownEnv, type MarkdownRenderer } from 'vitepress'
 
+import { committedBrowserFactsOf } from '../scripts/browser-facts.ts'
 import { committedExportOf } from '../scripts/desktop-export.ts'
 import { expandFactTables } from '../scripts/fact-tables.ts'
 import { committedReviewedFactsOf } from '../scripts/reviewed-facts.ts'
@@ -106,8 +107,12 @@ const footerMessage = (site: ISiteFacts): string => {
 const description = readmeFirstLine(await readFile(new URL('../README.md', import.meta.url), 'utf8'))
 const root = fileURLToPath(new URL('..', import.meta.url))
 const site = await loadSiteFacts(root)
-const { manifest, facts } = await committedExportOf(root)
-const reviewed = await committedReviewedFactsOf(root, manifest.productVersion)
+const { manifest, facts: desktop } = await committedExportOf(root)
+const facts = {
+  desktop,
+  browser: await committedBrowserFactsOf(root),
+  reviewed: await committedReviewedFactsOf(root, manifest.productVersion),
+}
 
 export default defineConfig({
   title: 'Dumdum Misha',
@@ -119,7 +124,7 @@ export default defineConfig({
   srcExclude: ['_includes/**'],
   markdown: {
     config: (md) => {
-      expandFactTables({ ...facts, ...reviewed })(md)
+      expandFactTables(facts)(md)
       checkComponents(site)(md)
     },
   },

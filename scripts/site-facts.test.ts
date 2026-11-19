@@ -26,7 +26,7 @@ afterEach(async () => {
 })
 
 describe('[scripts] Site facts - loadSiteFacts and checkPageComponents', () => {
-  it('should name each scalar fact by its document and key path, and list captures by id', async () => {
+  it('should name each scalar fact by its document and key path, an item with an id by its id, and list captures by id', async () => {
     // Act
     const site = await loadSiteFacts(await committedRoot())
 
@@ -35,11 +35,12 @@ describe('[scripts] Site facts - loadSiteFacts and checkPageComponents', () => {
       home: { file: 'captures/home.png', width: 1100, height: 760, alt: HOME_CAPTURE.alt },
     })
     expect(site.facts).toMatchObject({
-      'desktop.retention.stores.0.keptDays': 30,
+      'desktop.retention.stores.outcomes.keptDays': 30,
       'desktop.detection.items.0.isRequired': true,
       'desktop.manifest.productVersion': '0.1.0',
     })
     expect(site.facts['desktop.detection.items.0.signIn']).toBeUndefined()
+    expect(site.facts['desktop.retention.stores.0.keptDays']).toBeUndefined()
   })
 
   it('should refuse a committed capture whose bytes were replaced after the import', async () => {
@@ -62,7 +63,7 @@ describe('[scripts] Site facts - loadSiteFacts and checkPageComponents', () => {
 
     // Act + Assert
     await expect(loadSiteFacts(withProductFacts)).rejects.toThrow(
-      'facts/ holds product-status.json, which is neither the desktop export nor the reviewed records'
+      'facts/ holds product-status.json, which is neither the desktop export, the browser facts nor the reviewed records'
     )
     await expect(loadSiteFacts(withExtraCapture)).rejects.toThrow('manifest.json lists')
   })
@@ -75,10 +76,24 @@ describe('[scripts] Site facts - loadSiteFacts and checkPageComponents', () => {
     await expect(loadSiteFacts(root)).rejects.toThrow('captures.json lists the capture home more than once')
   })
 
+  it('should refuse an array whose items repeat an id, since a fact named by that id would be ambiguous', async () => {
+    // Arrange
+    const store = { id: 'outcomes', keptDays: 30, description: 'How the clone closed each message.' }
+    const retention = {
+      rule: 'Deleted when the app starts.',
+      stores: [store, { ...store, keptDays: 7 }],
+      overwrittenBatches: { kept: 10, description: 'What the installers moved aside.' },
+    }
+    const root = await committedRoot({ ...EXPORT_FILES, 'facts/retention.json': JSON.stringify(retention) })
+
+    // Act + Assert
+    await expect(loadSiteFacts(root)).rejects.toThrow('desktop.retention.stores holds the id outcomes more than once')
+  })
+
   it('should pass known components and refuse an unknown capture or fact, naming the page', async () => {
     // Arrange
     const site = await loadSiteFacts(await committedRoot())
-    const known = '<Shot id="home" caption="Home." /> kept for <Fact name="desktop.retention.stores.0.keptDays" /> days'
+    const known = '<Shot id="home" caption="Home." /> kept for <Fact name="desktop.retention.stores.outcomes.keptDays" /> days'
 
     // Act + Assert
     expect(() => {

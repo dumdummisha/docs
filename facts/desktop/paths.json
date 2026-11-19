@@ -1,81 +1,86 @@
 {
   "home": "~/.misha",
-  "rule": "Everything below lives under ~/.misha, unless the MISHA_HOME environment variable names another folder. These are the paths Misha's code builds; Claude Code, OpenCode, the browser and the browser extension keep their own data elsewhere.",
+  "rule": "Everything below lives under ~/.misha, unless the MISHA_HOME environment variable names another folder. These are the paths Misha's code builds; Claude Code, OpenCode, the browser and the browser extension keep their own data elsewhere. Each description says what the store holds and how long it stays; \"never deleted\" means Misha has no cleanup for it, so it stays until you delete it.",
   "paths": [
     {
       "id": "database",
       "path": "~/.misha/misha.db",
-      "description": "The settings, inbox, outbox and ledger."
+      "description": "One SQLite file with the settings and your notes, the inbox of Slack messages waiting for the clone, the outbox and the ledger of what the clone and its workers did in Slack. The file stays; how long each kind of record in it is kept is in the retention facts."
     },
     {
       "id": "control-socket",
       "path": "~/.misha/app/control.sock",
-      "description": "Where your Claude Code or OpenCode reaches the running app; only you may open it."
+      "description": "The socket your Claude Code or OpenCode reaches the running app through; only you may open it. It holds no data, and one a previous run of the app left is replaced as the app starts."
     },
     {
       "id": "clone-work",
       "path": "~/.misha/clone/work",
-      "description": "The clone's empty work folder."
+      "description": "The empty folder the clone's Claude Code runs in. Claude Code keeps the clone's session transcripts in its own folder, outside this one."
     },
     {
       "id": "clone-repositories",
       "path": "~/.misha/clone/repos",
-      "description": "The clone's own read-only copies of your repositories."
+      "description": "The clone's own read-only git copies of the repositories in the settings, with their whole history, brought up to date as a run starts. A repository taken out of the settings has its copy deleted as the clone's next run starts."
     },
     {
       "id": "clone-outbox",
       "path": "~/.misha/clone/outbox",
-      "description": "The files a reply of the clone attaches, kept until they are posted."
+      "description": "Copies of the files a reply of the clone attaches, one folder per reply, so they outlast the run's scratch. A folder is deleted once its reply has gone out. Nothing else sweeps the outbox: a folder staged for an answer that was never saved, because the app stopped first or the answer was dropped or sent back for repair, is never deleted."
     },
     {
       "id": "clone-scratch",
       "path": "~/.misha/clone/scratch",
-      "description": "What one run's tools write, emptied as a run starts and ends."
+      "description": "What the tools of one clone run write, such as a design's render, and the only place a reply attaches files from. Emptied as each run starts and ends; a run stopped before its end leaves it until the next run starts."
     },
     {
       "id": "vision-scratch",
       "path": "~/.misha/vision",
-      "description": "A Slack image read for the model, deleted once it answered."
+      "description": "A Slack image downloaded for a vision model to read, and its downscaled copy when it is too large. Each file is deleted once the model answered or the call failed. Nothing sweeps the folder: a file whose deletion failed (logged as a warning), or written by a process killed before the call ended, is never deleted."
+    },
+    {
+      "id": "pause-state",
+      "path": "~/.misha/app/pause.json",
+      "description": "Whether Misha is paused, kept across restarts. Absent until you first pause; from then on rewritten by each pause and resume and never deleted."
     },
     {
       "id": "workers-registry",
       "path": "~/.misha/workers/runs.json",
-      "description": "The workers' runs."
+      "description": "One record per worker run: the prompt and any slash command it was given, the model, effort and agent, its label, the conversation it was started for and who asked, the folder it worked in, its Claude or OpenCode session id, process id, start and end times, status and exit code, and the path of its log. Records are never deleted, so the file grows with every run."
     },
     {
       "id": "workers-logs",
       "path": "~/.misha/workers/logs",
-      "description": "The workers' logs."
+      "description": "One file per worker run: a header with the command it was started with (the prompt left out), then the events its Claude Code or OpenCode session streamed, the worker's messages, its tool calls and their results, and its reply. Never deleted."
     },
     {
       "id": "workers-worktrees",
       "path": "~/.misha/workers/worktrees",
-      "description": "The working copies workers change code in."
+      "description": "A git worktree per piece of work a clone turn's worker is given, made from the clone's copy of the repository, with the code the worker changed, committed or not. Never deleted."
     },
     {
       "id": "workers-opencode",
       "path": "~/.misha/workers/opencode",
-      "description": "Each GPT worker's run settings."
+      "description": "One folder per GPT worker run: its spec, which holds the run's prompt, and the OpenCode configuration and skills it runs with. Deleted only when the launch fails before the worker starts; the folder of a run that started is never deleted."
     },
     {
       "id": "extensions",
       "path": "~/.misha/extensions",
-      "description": "What the extension installers keep per harness."
+      "description": "What the extension installers keep per harness: their install records and the files they generate for a harness to read, such as Claude Code's local marketplace. Uninstalling an extension removes its record and the files it added, leaving any you changed since."
     },
     {
       "id": "install-records-claude-code",
       "path": "~/.misha/extensions/claude-code/records",
-      "description": "What was installed into Claude Code, per extension."
+      "description": "What was installed into Claude Code: one record per extension of every addition it made, so an uninstall undoes exactly those. A record is deleted when its extension is uninstalled."
     },
     {
       "id": "install-records-opencode",
       "path": "~/.misha/extensions/opencode/records",
-      "description": "What was installed into OpenCode, per extension."
+      "description": "What was installed into OpenCode: one record per extension of every addition it made, so an uninstall undoes exactly those. A record is deleted when its extension is uninstalled."
     },
     {
       "id": "overwritten",
       "path": "~/.misha/overwritten",
-      "description": "What the extension installers moved aside before writing over it."
+      "description": "What the extension installers moved aside before writing over a file or setting of yours, one batch per install or update that overwrote something. The newest 10 batches are kept and older ones deleted; an uninstall restores nothing from them."
     }
   ]
 }

@@ -24,6 +24,16 @@ const TEXT = z.string().min(1)
 const SENDER_ROLE = z.enum(['owner', 'colleague'])
 const SETTING_FIELD = z.string().regex(/^[a-z][A-Za-z]*$/u)
 const HOME_RELATIVE_PATH = z.string().regex(/^~\/\.misha(?:\/[a-z0-9._-]+)*$/u)
+// A format a setting's value must match: a regular expression and its flags, refused unless they compile together.
+const FORMAT = z
+  .strictObject({ pattern: TEXT, flags: z.string().regex(/^[dimsuvy]*$/u) })
+  .superRefine(({ pattern, flags }, context) => {
+    try {
+      RegExp(pattern, flags)
+    } catch (error) {
+      context.addIssue({ code: 'custom', message: `The pattern does not compile with its flags: ${String(error)}` })
+    }
+  })
 
 // The export's manifest: versions, the evidence day, and every other file with its size and hash. The digest is the
 // SHA-256 of one "<sha256>  <path>" line per listed file, in the listed order, joined with newlines.
@@ -100,16 +110,17 @@ const FACT_SCHEMAS = {
         description: TEXT,
         default: TEXT,
         limits: z.strictObject({
-          pattern: TEXT.optional(),
           maxCharacters: z.int().positive().optional(),
           maxNotes: z.int().positive().optional(),
           maxCharactersEach: z.int().positive().optional(),
           maxNameCharacters: z.int().positive().optional(),
           levels: z.array(SLUG).optional(),
-          channelId: TEXT.optional(),
-          owner: TEXT.optional(),
-          name: TEXT.optional(),
+          channelId: FORMAT.optional(),
+          owner: FORMAT.optional(),
+          name: FORMAT.optional(),
           names: z.array(SLUG).optional(),
+          isWholeNumber: z.literal(true).optional(),
+          minTokens: z.int().positive().optional(),
         }),
       })
     ),
@@ -302,8 +313,9 @@ export const verifiedExportOf = (bytesByFile: ReadonlyMap<string, Buffer>): IDes
   return { manifest, captureList, facts }
 }
 
-// What facts/ holds: the desktop export's capture list and facts, and the records reviewed by hand (reviewed-facts.ts).
-const FACTS_ENTRIES: readonly string[] = [CAPTURES_FILE, 'desktop', 'reviewed']
+// What facts/ holds: the desktop export's capture list and facts, the browser facts pnpm import:browser writes, and
+// the records reviewed by hand (reviewed-facts.ts).
+const FACTS_ENTRIES: readonly string[] = [CAPTURES_FILE, 'desktop', 'browser', 'reviewed']
 
 // The imported export as the repository holds it, checked again like a bundle, so a capture or fact edited or replaced
 // after the import fails the build. facts/desktop/ holds only the export and its README.
@@ -315,7 +327,9 @@ export const committedExportOf = async (root: string): Promise<IDesktopExport> =
   ])
   const unexpected = factsEntries.filter((name) => !FACTS_ENTRIES.includes(name))
   if (unexpected.length > 0) {
-    throw new Error(`facts/ holds ${unexpected.join(', ')}, which is neither the desktop export nor the reviewed records`)
+    throw new Error(
+      `facts/ holds ${unexpected.join(', ')}, which is neither the desktop export, the browser facts nor the reviewed records`
+    )
   }
   const files = [
     CAPTURES_FILE,

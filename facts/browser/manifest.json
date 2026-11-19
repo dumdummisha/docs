@@ -1,0 +1,40 @@
+{
+  "version": "0.1.0",
+  "minimum_chrome_version": "140",
+  "permissions": [
+    "nativeMessaging",
+    "scripting",
+    "alarms",
+    "unlimitedStorage",
+    "tabs",
+    "webRequest",
+    "downloads"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://app.slack.com/*"
+      ],
+      "js": [
+        "observer.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://app.slack.com/*"
+      ],
+      "js": [
+        "relay.js"
+      ],
+      "run_at": "document_start",
+      "world": "ISOLATED",
+      "all_frames": false
+    }
+  ]
+}

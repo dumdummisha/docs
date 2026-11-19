@@ -46,7 +46,7 @@ A message you send Sam can reach Sam's clone, and through it the AI provider Sam
 
 Bots, apps and clones never start a reply, nor does a message calling only another clone by an emoji Misha has seen it use. In a watched channel the clone gets every message and is told to answer only what concerns Sam or Sam's work. Whatever reaches it, it may reply, react or do nothing.
 
-A message passed to the clone goes, with its conversation, to Anthropic through Sam's own Claude Code subscription. Work it leads to runs in workers, separate Claude Code or OpenCode sessions, and can also reach OpenAI. On the Mac, the browser extension queues each new message until Misha saves it, Misha keeps a message for the clone until it is handled, Claude Code keeps the clone's conversation, and Misha records every clone post with no age limit. Details: [Privacy and security](/privacy), under "What is stored, and for how long".
+A message passed to the clone goes, with its conversation, to Anthropic through Sam's own Claude Code subscription. Work it leads to runs in workers, separate Claude Code or OpenCode sessions, and can also reach OpenAI. On the Mac, the browser extension queues each new message until Misha saves it, Misha keeps a message for the clone until it is handled, Claude Code keeps the clone's conversation, and Misha records every clone post with no age limit. Details: [What is stored, and for how long](/privacy#storage).
 
 The clone keeps one memory across all of Sam's conversations and is told to keep what you write to that conversation and Sam: an instruction, not a wall.
 

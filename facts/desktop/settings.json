@@ -11,7 +11,10 @@
       "description": "The emoji every post of the clone starts with. Writing it in a message calls the clone.",
       "default": ":misha:",
       "limits": {
-        "pattern": "^[a-z0-9_+-]{1,64}$"
+        "name": {
+          "pattern": "^[a-z0-9_+-]{1,64}$",
+          "flags": "u"
+        }
       }
     },
     {
@@ -56,7 +59,10 @@
       "description": "The channels the clone reads in full.",
       "default": "None.",
       "limits": {
-        "channelId": "^[CG][A-Z0-9]{2,}$",
+        "channelId": {
+          "pattern": "^[CG][A-Z0-9]{2,}$",
+          "flags": "u"
+        },
         "maxNameCharacters": 80
       }
     },
@@ -65,8 +71,14 @@
       "description": "The GitHub repositories the clone keeps read-only copies of, and where its workers may merge.",
       "default": "None.",
       "limits": {
-        "owner": "^[a-z0-9-]{1,39}$",
-        "name": "^(?!\\.{1,2}$)[a-z0-9._-]{1,100}$"
+        "owner": {
+          "pattern": "^[a-z0-9-]{1,39}$",
+          "flags": "iu"
+        },
+        "name": {
+          "pattern": "^(?!\\.{1,2}$)[a-z0-9._-]{1,100}$",
+          "flags": "iu"
+        }
       }
     },
     {
@@ -89,7 +101,10 @@
       "field": "compactAtTokens",
       "description": "How many tokens the clone's Claude session grows to before it is compacted.",
       "default": "Empty, so 750000 tokens.",
-      "limits": {}
+      "limits": {
+        "isWholeNumber": true,
+        "minTokens": 1
+      }
     },
     {
       "field": "sessionEpoch",

@@ -64,13 +64,13 @@ The Get started screen has no Pause button of its own. Pause appears once the fa
 - **The icon**, the emoji every one of its posts starts with, followed by the text in italics. It's required and starts as `:misha:`. Writing it in a message also calls the clone.
 - **How it sounds**, optional, in up to <Fact name="desktop.settings.fields.2.limits.maxCharacters" /> characters. Left empty, the clone is plain, short and polite.
 
-**Save and start** saves your choices, and **Keep the defaults** saves `:misha:` with no tone. Either one makes the clone live at once. [Make it yours](/use/make-it-yours) is where you refine both.
+**Save and start** saves your choices, and **Keep the defaults** saves `:misha:` with no tone. Either one makes the clone live at once. [Make it yours](/use/make-it-yours#voice-and-marker) is where you refine both.
 
 ### Show it your code {#code}
 
 **Show me your code** signs in the GitHub CLI and adds a repository as `owner/name`, which the clone keeps its own read-only copy of. Until a repository is added, the window keeps opening on Get started instead of Home, but the clone already answers. If your work isn't code, there's no need to add one just to finish the list.
 
-The optional groups under it, **So I have context** and **So I stay up**, can wait: the first is covered in [Make it yours](/use/make-it-yours), the second [below](#keep-it-running).
+The optional groups under it, **So I have context** and **So I stay up**, can wait: the first is covered in [Make it yours](/use/make-it-yours#connect-for-a-task), the second [below](#keep-it-running).
 
 ### Or use the setup command {#setup-command}
 

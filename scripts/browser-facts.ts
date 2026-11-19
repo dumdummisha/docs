@@ -7,8 +7,9 @@ import { z } from 'zod'
 import { BROWSER_REPOSITORY_URL, SITE_URL } from './site.ts'
 
 // The public browser repository's reviewed disclosures and manifest declarations, copied at one named commit by
-// pnpm import:browser into facts/browser/. The schemas mirror misha-browser's own (src/disclosures/store-disclosures.ts)
-// and are strict, so a field the browser repository adds fails here until this repository reviews it.
+// pnpm import:browser into facts/browser/. The disclosure schemas mirror misha-browser's own
+// (src/disclosures/store-disclosures.ts); every schema here is strict, the source manifest's included, which is stricter
+// than misha-browser's parser, so a field the browser repository adds fails here until this repository reviews it.
 
 export const BROWSER_FACTS_DIRECTORY = 'facts/browser'
 // The one repository-owned file beside the imported facts.
@@ -106,13 +107,20 @@ const MANIFEST_SCHEMA = z.strictObject({
   content_scripts: z.array(CONTENT_SCRIPT_SCHEMA),
 })
 
-// The browser's manifest as its repository holds it. Only the declaration fields are read; a declaration form the
-// disclosures have no text for (optional permissions, other content script scope fields) fails the parse, as it does
-// in misha-browser, so it cannot reach this site undisclosed.
+// The browser's manifest as its repository holds it, every top-level field named. The declaration fields are exported;
+// the metadata fields (manifest_version, name, description, key, background) are reviewed as granting nothing the
+// disclosures do not cover and are not exported. Any other field (externally_connectable, web_accessible_resources,
+// commands and so on) fails the parse until it is reviewed here, and so does a declaration form the disclosures have no
+// text for (optional permissions, other content script scope fields), so neither reaches this site undisclosed.
 const undisclosed = (field: string): z.ZodOptional<z.ZodNever> =>
   z.never({ error: `The disclosures cover no ${field}` }).optional()
 
-const SOURCE_MANIFEST_SCHEMA = z.object({
+const SOURCE_MANIFEST_SCHEMA = z.strictObject({
+  manifest_version: z.literal(3),
+  name: TEXT,
+  description: TEXT,
+  key: TEXT,
+  background: z.strictObject({ service_worker: TEXT, type: z.literal('module') }),
   version: MANIFEST_SCHEMA.shape.version,
   minimum_chrome_version: MANIFEST_SCHEMA.shape.minimum_chrome_version,
   permissions: z.array(TEXT),

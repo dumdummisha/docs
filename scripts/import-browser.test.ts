@@ -8,13 +8,11 @@ import { afterEach, describe, expect, it } from 'vitest'
 
 import { BrowserFactsError, committedBrowserFactsOf, slackTransportOf } from './browser-facts.ts'
 import { importBrowser } from './import-browser.ts'
-import { BROWSER_REPOSITORY_URL } from './site.ts'
 
 const directories: string[] = []
 // Built from parts so this file itself passes the public-data scan.
 const COMMITTER_EMAIL = ['sam.rivera', 'shop.example'].join('@')
 const SLACK_MATCH = ['https:', '', 'app.slack.com', '*'].join('/')
-const OTHER_ORIGIN = ['https:', '', 'github.com', 'someone', 'misha-browser.git'].join('/')
 
 // The committed disclosures, a valid source for the browser repository's own file.
 const COMMITTED_DISCLOSURES = await readFile(new URL('../facts/browser/store-disclosures.json', import.meta.url))
@@ -22,7 +20,10 @@ const COMMITTED_DISCLOSURES = await readFile(new URL('../facts/browser/store-dis
 const MANIFEST = {
   manifest_version: 3,
   name: 'Misha Browser',
+  description: 'Reads Slack and drives tabs.',
   version: '0.1.0',
+  key: 'public-key',
+  background: { service_worker: 'background.js', type: 'module' },
   minimum_chrome_version: '140',
   permissions: ['nativeMessaging', 'scripting', 'alarms', 'unlimitedStorage', 'tabs', 'webRequest', 'downloads'],
   host_permissions: ['<all_urls>'],
@@ -51,38 +52,37 @@ const temporaryDirectory = async (prefix: string): Promise<string> => {
   return directory
 }
 
-const git = (checkout: string, args: readonly string[]): string =>
-  execFileSync('git', ['-C', checkout, '-c', 'commit.gpgsign=false', '-c', 'user.name=Sam Rivera', '-c', `user.email=${COMMITTER_EMAIL}`, ...args])
+const git = (repository: string, args: readonly string[]): string =>
+  execFileSync('git', ['-C', repository, '-c', 'commit.gpgsign=false', '-c', 'user.name=Sam Rivera', '-c', `user.email=${COMMITTER_EMAIL}`, ...args])
     .toString('utf8')
     .trim()
 
-// A browser checkout with one commit of the three source files, its origin and, unless told otherwise, that commit
-// on origin's main.
-const browserCheckout = async (
+// A browser repository, the remote the import fetches from, with one commit of the three source files on main or,
+// told otherwise, on a side branch while main holds another commit.
+const browserRemote = async (
   files: Readonly<Record<string, string | Buffer>> = {},
-  { origin = `${BROWSER_REPOSITORY_URL}.git`, isOnMain = true } = {}
-): Promise<{ checkout: string; commit: string }> => {
-  const checkout = await temporaryDirectory('browser-checkout-')
+  { isOnMain = true } = {}
+): Promise<{ remote: string; commit: string }> => {
+  const remote = await temporaryDirectory('browser-remote-')
   const contents = {
     'docs/store-disclosures.json': COMMITTED_DISCLOSURES,
     'src/extension/manifest.json': JSON.stringify(MANIFEST),
     'docs/store-permissions.md': STORE_PERMISSIONS,
     ...files,
   }
-  git(checkout, ['init', '-q'])
+  git(remote, ['init', '-q', '-b', 'main'])
+  if (!isOnMain) {
+    git(remote, ['commit', '-q', '--allow-empty', '-m', 'main'])
+    git(remote, ['switch', '-q', '-c', 'side'])
+  }
   for (const [path, content] of Object.entries(contents)) {
-    await mkdir(dirname(join(checkout, path)), { recursive: true })
-    await writeFile(join(checkout, path), content)
+    await mkdir(dirname(join(remote, path)), { recursive: true })
+    await writeFile(join(remote, path), content)
   }
-  git(checkout, ['add', '.'])
-  git(checkout, ['commit', '-q', '-m', 'disclosures'])
-  git(checkout, ['remote', 'add', 'origin', origin])
-  const commit = git(checkout, ['rev-parse', 'HEAD'])
-  if (isOnMain) {
-    git(checkout, ['update-ref', 'refs/remotes/origin/main', commit])
-  }
+  git(remote, ['add', '.'])
+  git(remote, ['commit', '-q', '-m', 'disclosures'])
 
-  return { checkout, commit }
+  return { remote, commit: git(remote, ['rev-parse', 'HEAD']) }
 }
 
 afterEach(async () => {
@@ -93,11 +93,11 @@ describe('[scripts] Import - importBrowser', () => {
   describe('success', () => {
     it('should copy the disclosures, the manifest declarations and the Slack transport limits at the commit', async () => {
       // Arrange
-      const { checkout, commit } = await browserCheckout()
+      const { remote, commit } = await browserRemote()
       const root = await temporaryDirectory('docs-root-')
 
       // Act
-      const written = await importBrowser(checkout, commit.slice(0, 7), root)
+      const written = await importBrowser(commit.slice(0, 7), root, remote)
 
       // Assert
       expect(written).toStrictEqual([
@@ -123,52 +123,61 @@ describe('[scripts] Import - importBrowser', () => {
   describe('refusal', () => {
     it('should refuse a branch name instead of a commit hash', async () => {
       // Arrange
-      const { checkout } = await browserCheckout()
+      const { remote } = await browserRemote()
 
       // Act + Assert
-      await expect(importBrowser(checkout, 'main', await temporaryDirectory('docs-root-'))).rejects.toStrictEqual(
+      await expect(importBrowser('main', await temporaryDirectory('docs-root-'), remote)).rejects.toStrictEqual(
         new BrowserFactsError('Name the commit by its hash, not main')
       )
     })
 
-    it('should refuse a checkout whose origin is not the public browser repository', async () => {
+    it('should refuse a hash that names no commit the remote publishes', async () => {
       // Arrange
-      const { checkout, commit } = await browserCheckout({}, { origin: OTHER_ORIGIN })
+      const { remote } = await browserRemote()
 
       // Act + Assert
-      await expect(importBrowser(checkout, commit, await temporaryDirectory('docs-root-'))).rejects.toThrow(
-        `origin is ${OTHER_ORIGIN}, not ${BROWSER_REPOSITORY_URL}`
+      await expect(importBrowser('0000000', await temporaryDirectory('docs-root-'), remote)).rejects.toStrictEqual(
+        new BrowserFactsError(`0000000 is not a commit on the main branch of ${remote}`)
       )
     })
 
-    it('should refuse a commit that is not on the public main branch and write nothing', async () => {
+    it('should refuse a commit the remote holds on another branch than main and write nothing', async () => {
       // Arrange
-      const { checkout, commit } = await browserCheckout({}, { isOnMain: false })
+      const { remote, commit } = await browserRemote({}, { isOnMain: false })
       const root = await temporaryDirectory('docs-root-')
 
       // Act + Assert
-      await expect(importBrowser(checkout, commit, root)).rejects.toThrow(`${commit} is not on refs/remotes/origin/main`)
+      await expect(importBrowser(commit, root, remote)).rejects.toThrow(`${commit} is not a commit on the main branch of ${remote}`)
       expect(existsSync(join(root, 'facts'))).toBe(false)
     })
 
     it('should refuse a manifest permission the disclosures do not explain', async () => {
       // Arrange
       const manifest = { ...MANIFEST, permissions: [...MANIFEST.permissions, 'cookies'] }
-      const { checkout, commit } = await browserCheckout({ 'src/extension/manifest.json': JSON.stringify(manifest) })
+      const { remote, commit } = await browserRemote({ 'src/extension/manifest.json': JSON.stringify(manifest) })
 
       // Act + Assert
-      await expect(importBrowser(checkout, commit, await temporaryDirectory('docs-root-'))).rejects.toThrow(
+      await expect(importBrowser(commit, await temporaryDirectory('docs-root-'), remote)).rejects.toThrow(
         "the manifest's permission cookies has no disclosure; cookies is listed as not requested, but the manifest requests it"
       )
+    })
+
+    it('should refuse a top-level manifest field no one has reviewed', async () => {
+      // Arrange
+      const manifest = { ...MANIFEST, externally_connectable: { matches: [SLACK_MATCH] } }
+      const { remote, commit } = await browserRemote({ 'src/extension/manifest.json': JSON.stringify(manifest) })
+
+      // Act + Assert
+      await expect(importBrowser(commit, await temporaryDirectory('docs-root-'), remote)).rejects.toThrow('externally_connectable')
     })
 
     it('should refuse an optional permission, which the disclosures cannot describe', async () => {
       // Arrange
       const manifest = { ...MANIFEST, optional_permissions: ['history'] }
-      const { checkout, commit } = await browserCheckout({ 'src/extension/manifest.json': JSON.stringify(manifest) })
+      const { remote, commit } = await browserRemote({ 'src/extension/manifest.json': JSON.stringify(manifest) })
 
       // Act + Assert
-      await expect(importBrowser(checkout, commit, await temporaryDirectory('docs-root-'))).rejects.toThrow(
+      await expect(importBrowser(commit, await temporaryDirectory('docs-root-'), remote)).rejects.toThrow(
         'The disclosures cover no optional_permissions'
       )
     })
@@ -186,9 +195,9 @@ describe('[scripts] Browser facts - slackTransportOf and committedBrowserFactsOf
 
   it('should refuse a committed fact edited after the import', async () => {
     // Arrange
-    const { checkout, commit } = await browserCheckout()
+    const { remote, commit } = await browserRemote()
     const root = await temporaryDirectory('docs-root-')
-    await importBrowser(checkout, commit, root)
+    await importBrowser(commit, root, remote)
     const path = join(root, 'facts/browser/slack-transport.json')
     await writeFile(path, (await readFile(path, 'utf8')).replace('auth.test', 'admin.users.list'))
 
@@ -198,9 +207,9 @@ describe('[scripts] Browser facts - slackTransportOf and committedBrowserFactsOf
 
   it('should refuse a file in facts/browser/ the import does not write', async () => {
     // Arrange
-    const { checkout, commit } = await browserCheckout()
+    const { remote, commit } = await browserRemote()
     const root = await temporaryDirectory('docs-root-')
-    await importBrowser(checkout, commit, root)
+    await importBrowser(commit, root, remote)
     await writeFile(join(root, 'facts/browser/extra.json'), '{}')
 
     // Act + Assert

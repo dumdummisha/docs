@@ -78,6 +78,17 @@ describe('[scripts] Fact includes - fragmentsOf and expandFragments', () => {
     expect(details).toContain('- Matches \\<all\\_urls\\>, `a\\|b` and \\*this\\*.')
   })
 
+  it('should summarise each declaration by its first sentence and link each quoted limit to its declaration', () => {
+    // Act
+    const fragments = fragmentsOf(DESKTOP, BROWSER)
+
+    // Assert
+    const permissionTable = fragmentOf(fragments, 'browser-permission-table')
+    const exceptions = fragmentOf(fragments, 'browser-exceptions')
+    expect(permissionTable).toContain("| [Content script `observer.js`](#observer-js) | Watches Slack's own real-time socket. | On a Slack tab |")
+    expect(exceptions).toContain('| The pending Slack queue | A stored event has no age limit. It stays, and is forwarded again, until the Misha app acknowledges it. | [`unlimitedStorage`](#unlimited-storage) |')
+  })
+
   it('should refuse a disclosure whose quoted limit no longer starts as the storage table expects', () => {
     // Arrange
     const facts = withLimits('webRequest', ['It only observes, and never blocks or changes a request.'])

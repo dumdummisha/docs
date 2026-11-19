@@ -18,6 +18,8 @@ const MARKDOWN_SPECIAL = /[\\*_[\]<>|]/gu
 const CODE_SPAN = /(`[^`]*`)/u
 // Vue reads a double brace in a page as an expression.
 const VUE_INTERPOLATION = '{{'
+// A full stop that ends a sentence, outside a code span or a name such as misha.browser_bridge.
+const SENTENCE_END = /(?<=\.) (?=[A-Z])/u
 
 const TRIGGER_LABELS: Readonly<Record<CollectionTrigger, string>> = {
   'automatic': 'automatic',
@@ -31,53 +33,120 @@ const WORLD_TEXT: Readonly<Record<ContentScript['world'], string>> = {
   MAIN: "the page's own world",
 }
 
+type DisclosureGroup = 'permissions' | 'hostPermissions' | 'contentScripts'
+
+// Disclosure limits a table quotes, found by how they start in one declaration's limits. A sentence that no longer
+// starts that way, or two that do, stops the build, so a reworded disclosure cannot leave a table quoting the wrong
+// limit.
+interface IQuotedLimits {
+  item: string
+  group: DisclosureGroup
+  key: string
+  starts: readonly string[]
+}
+
 // What the browser extension keeps between requests, each with the disclosure sentences that say where and for how
-// long, found by how they start. A sentence that no longer starts that way, or two that do, stops the build, so a
-// reworded disclosure cannot leave this table quoting the wrong limit.
-const BROWSER_HOLDINGS: readonly { item: string; from: (facts: IBrowserFacts) => Disclosure; starts: readonly string[] }[] = [
+// long.
+const BROWSER_HOLDINGS: readonly IQuotedLimits[] = [
   {
     item: 'New Slack messages waiting for the Misha app to save them',
-    from: ({ disclosures }) => disclosureOf(disclosures.permissions, 'unlimitedStorage'),
+    group: 'permissions',
+    key: 'unlimitedStorage',
     starts: ['The durable queue holds', 'A stored event has no age limit', 'A stored event holds the account'],
   },
   {
     item: 'New Slack messages while writes to that queue fail',
-    from: ({ disclosures }) => disclosureOf(disclosures.permissions, 'unlimitedStorage'),
+    group: 'permissions',
+    key: 'unlimitedStorage',
     starts: ['While writes to the database fail', 'A service worker or browser restart'],
   },
   {
     item: 'New Slack messages no relay has taken yet',
-    from: ({ disclosures }) => disclosureOf(disclosures.contentScripts, 'observer.js'),
+    group: 'contentScripts',
+    key: 'observer.js',
     starts: ['It holds up to'],
   },
   {
     item: 'The network request log',
-    from: ({ disclosures }) => disclosureOf(disclosures.permissions, 'webRequest'),
+    group: 'permissions',
+    key: 'webRequest',
     starts: ['The log holds the latest', 'The log lives only in'],
   },
   {
     item: 'The page outline recorded before an action',
-    from: ({ disclosures }) => disclosureOf(disclosures.permissions, 'scripting'),
+    group: 'permissions',
+    key: 'scripting',
     starts: ['Before a click, a drag'],
   },
   {
     item: 'Slack file downloads and uploads in progress',
-    from: ({ disclosures }) => disclosureOf(disclosures.permissions, 'scripting'),
+    group: 'permissions',
+    key: 'scripting',
     starts: ["A downloaded Slack file's bytes"],
   },
   {
     item: 'The last value read from each password field',
-    from: ({ disclosures }) => disclosureOf(disclosures.permissions, 'scripting'),
+    group: 'permissions',
+    key: 'scripting',
     starts: ["A password field's value comes back"],
   },
   {
     item: 'The latest pointer position in a page',
-    from: ({ disclosures }) => disclosureOf(disclosures.permissions, 'scripting'),
+    group: 'permissions',
+    key: 'scripting',
     starts: ['The first time a browser tool locates a target'],
   },
   {
     item: 'Anything the native host relays',
-    from: ({ disclosures }) => disclosureOf(disclosures.permissions, 'nativeMessaging'),
+    group: 'permissions',
+    key: 'nativeMessaging',
+    starts: ['The host only relays'],
+  },
+]
+
+// The limits a quick security or store review most needs, quoted at the top of the permissions page, each linked to
+// its declaration's full disclosure.
+const BROWSER_EXCEPTIONS: readonly IQuotedLimits[] = [
+  {
+    item: 'Request recording and its redaction',
+    group: 'permissions',
+    key: 'webRequest',
+    starts: ["Chrome exposes each request's body", 'The redaction looks for credentials only'],
+  },
+  {
+    item: 'What a page shows',
+    group: 'hostPermissions',
+    key: '<all_urls>',
+    starts: ['Page text, control names'],
+  },
+  {
+    item: 'Password fields',
+    group: 'permissions',
+    key: 'scripting',
+    starts: ["A password field's value comes back"],
+  },
+  {
+    item: 'The pending Slack queue',
+    group: 'permissions',
+    key: 'unlimitedStorage',
+    starts: ['A stored event has no age limit'],
+  },
+  {
+    item: 'Download reports',
+    group: 'permissions',
+    key: 'downloads',
+    starts: ['The search covers the whole browser'],
+  },
+  {
+    item: 'Slack calls and uploads',
+    group: 'permissions',
+    key: 'scripting',
+    starts: ['Slack calls are limited to the Web API methods'],
+  },
+  {
+    item: 'The native host',
+    group: 'permissions',
+    key: 'nativeMessaging',
     starts: ['The host only relays'],
   },
 ]
@@ -156,8 +225,10 @@ const declarationsOf = ({ disclosures, manifest }: IBrowserFacts): { heading: st
   })),
 ]
 
-const holdingText = (disclosure: Disclosure, starts: readonly string[]): string =>
-  starts
+const quotedLimits = (browser: IBrowserFacts, { group, key, starts }: IQuotedLimits): string => {
+  const disclosure = disclosureOf(browser.disclosures[group], key)
+
+  return starts
     .map((start) => {
       const [limit, ...others] = disclosure.limits.filter((each) => each.startsWith(start))
       if (limit === undefined || others.length > 0) {
@@ -167,6 +238,10 @@ const holdingText = (disclosure: Disclosure, starts: readonly string[]): string 
       return inline(limit)
     })
     .join(' ')
+}
+
+// The first sentence of a disclosure's text, for a one-line summary that quotes it rather than rewording it.
+const firstSentence = (text: string): string => text.split(SENTENCE_END)[0] ?? text
 
 const days = (count: number): string => (count === 1 ? '1 day' : `${count} days`)
 
@@ -202,7 +277,15 @@ export const fragmentsOf = (desktop: DesktopFacts, browser: IBrowserFacts): Reco
     ].join('\n\n'),
     'browser-holdings': table(
       ['What the extension keeps', 'Where, and for how long'],
-      BROWSER_HOLDINGS.map(({ item, from, starts }) => [item, holdingText(from(browser), starts)])
+      BROWSER_HOLDINGS.map((holding) => [holding.item, quotedLimits(browser, holding)])
+    ),
+    'browser-exceptions': table(
+      ['Limit', 'What the disclosure says', 'Full disclosure'],
+      BROWSER_EXCEPTIONS.map((exception) => [
+        exception.item,
+        quotedLimits(browser, exception),
+        `[${code(exception.key)}](#${anchorOf(exception.key)})`,
+      ])
     ),
     'browser-recipients': inline(disclosures.dataUsage.recipients),
     'browser-single-purpose': `> ${inline(disclosures.singlePurpose)}`,
@@ -217,7 +300,7 @@ export const fragmentsOf = (desktop: DesktopFacts, browser: IBrowserFacts): Reco
       ['Declaration', 'What it lets the extension do', 'When data flows'],
       declarationsOf(browser).map(({ heading, anchor, disclosure }) => [
         `[${heading.replaceAll('|', '\\|')}](#${anchor})`,
-        inline(disclosure.capability),
+        inline(firstSentence(disclosure.capability)),
         triggersOf(disclosure),
       ])
     ),

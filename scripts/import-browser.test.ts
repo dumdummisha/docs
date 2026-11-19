@@ -53,7 +53,7 @@ const temporaryDirectory = async (prefix: string): Promise<string> => {
 }
 
 const git = (repository: string, args: readonly string[]): string =>
-  execFileSync('git', ['-C', repository, '-c', 'commit.gpgsign=false', '-c', 'user.name=Sam Rivera', '-c', `user.email=${COMMITTER_EMAIL}`, ...args])
+  execFileSync('git', ['-C', repository, '-c', 'commit.gpgsign=false', '-c', 'user.name=Leo Novak', '-c', `user.email=${COMMITTER_EMAIL}`, ...args])
     .toString('utf8')
     .trim()
 

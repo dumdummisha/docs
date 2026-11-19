@@ -15,9 +15,9 @@ This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.
 
 Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/start/get-started) through [Make it yours](https://docs.dumdummisha.ai/use/make-it-yours) to [Put Misha to work](https://docs.dumdummisha.ai/use/workflows). [How Misha works](https://docs.dumdummisha.ai/understand/how-it-works) explains the architecture, and [Customise and reuse Misha](https://docs.dumdummisha.ai/reference/extensions) what you can add or reuse.
 
-<img src="https://docs.dumdummisha.ai/captures/home.png" alt="Misha's Home window, listening in Slack as Sam Rivera: it is answering Priya Nair's thread in #shop-backend, two workers are running, and its recent posts are listed below. Pause Misha sits in the sidebar." width="640">
+<img src="https://docs.dumdummisha.ai/captures/home.png" alt="Misha's Home window, listening in Slack as Leo Novak: it is answering Emma Lee's thread in #shop-backend, two workers are running, and its recent posts are listed below. Pause Misha sits in the sidebar." width="640">
 
-*Home while the clone answers Priya Nair in #shop-backend and two workers run. Made-up example.*
+*Home while the clone answers Emma Lee in #shop-backend and two workers run. Made-up example.*
 
 ## Repositories
 
@@ -59,7 +59,7 @@ The browser extension's permissions and data disclosures come from the public [b
 
 Diagrams are Mermaid sources in `diagrams/`. Rendering needs a headless browser that the deployment's build does not have, so `pnpm render:diagrams` renders them locally to static SVG in `src/public/diagrams/`, each SVG naming the hash of its source, and the build refuses an SVG rendered from an older source. Readers get the SVG and no Mermaid runtime. An SVG in `src/public/diagrams/` without that header was drawn by hand; the check and the render leave it alone.
 
-Everything here is public. Examples use made-up people only (Sam Rivera, the owner; Priya Nair and Jonas Weber, colleagues) in a made-up Shop workspace and `#shop-backend`. No email addresses, internal ids, private URLs or personal file paths, and nothing copied from private source code. The build enforces what the scans can on every pull request and Vercel deployment; run `pnpm check:privacy` before each push, because a pushed commit cannot be taken back.
+Everything here is public. Examples use made-up people only (Leo Novak, the owner; Emma Lee and Max Becker, colleagues) in a made-up Shop workspace and `#shop-backend`. No email addresses, internal ids, private URLs or personal file paths, and nothing copied from private source code. The build enforces what the scans can on every pull request and Vercel deployment; run `pnpm check:privacy` before each push, because a pushed commit cannot be taken back.
 
 <!-- CSP in vercel.json, checked against the 1.6.4 build: script-src is 'self' plus the hash of the one inline script VitePress emits (check-mac-os, constant); metaChunk moves the page hash map into a script file, and pnpm check:csp fails when the built inline scripts and the listed hashes differ. style-src keeps 'unsafe-inline' because the server-rendered pages carry style attributes (position:relative, --vp-vh) that only 'unsafe-hashes' could list. img-src keeps data: for the theme's inline SVG icons in CSS. -->
 

@@ -15,7 +15,7 @@ Each row names the control in the Misha window, where the sidebar is the window'
 
 <!-- facts surfaces pause resume allow disallow set-merging forget hands-off soft-ignore-me -->
 
-**None** in the Slack column means no command exists: typing "stop allowing Priya" in your self-DM is ordinary conversation and changes nothing. [Control and maintain Misha](/operate/manage) explains what Pause stops and what it can't.
+**None** in the Slack column means no command exists: typing "stop allowing Emma" in your self-DM is ordinary conversation and changes nothing. [Control and maintain Misha](/operate/manage) explains what Pause stops and what it can't.
 
 ## Slack commands {#commands}
 

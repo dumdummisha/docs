@@ -77,7 +77,7 @@
         "self-dm"
       ],
       "effect": "The clone stops answering the person: their messages no longer reach it as something to answer, they can't call it, and what of theirs waits for it is dropped. It can still see their messages in a thread or conversation it reads to answer someone else, and nothing they wrote is deleted.",
-      "example": "ignore @Jonas Weber",
+      "example": "ignore @Max Becker",
       "mutation": "set-rule"
     },
     {
@@ -88,7 +88,7 @@
         "self-dm"
       ],
       "effect": "The clone answers the person only when they call it with its icon.",
-      "example": "soft-ignore @Jonas Weber",
+      "example": "soft-ignore @Max Becker",
       "mutation": "set-rule"
     },
     {
@@ -99,7 +99,7 @@
         "self-dm"
       ],
       "effect": "The clone treats the person like everyone else again, whether it ignored or soft-ignored them.",
-      "example": "stop ignoring @Jonas Weber",
+      "example": "stop ignoring @Max Becker",
       "mutation": "remove-rule"
     },
     {
@@ -110,7 +110,7 @@
         "self-dm"
       ],
       "effect": "The people named may ask the clone for work besides you: tickets, implementation and reviews.",
-      "example": "allow @Priya Nair @Jonas Weber",
+      "example": "allow @Emma Lee @Max Becker",
       "mutation": "allow"
     },
     {

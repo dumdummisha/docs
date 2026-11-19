@@ -111,7 +111,7 @@ Each time Misha starts, it installs misha-core, its bundled extension, in Claude
 
 ## A post is Not confirmed or Didn't go out {#send-not-confirmed}
 
-In Home's **Recently**, a post marked **Not confirmed** went out without a reply from Slack that proves it arrived, or Misha stopped while sending it. Misha never sends it again by itself. Open the conversation in Slack and look. If the message is there, it arrived, whatever the mark says; if not, say it yourself or ask the clone again. **Didn't go out** means Slack refused the post, or no Slack tab was signed in to send it, so nothing was posted. "Couldn't answer Priya Nair in #shop-backend" means the clone gave up on a message. In both cases, the person is still waiting for an answer.
+In Home's **Recently**, a post marked **Not confirmed** went out without a reply from Slack that proves it arrived, or Misha stopped while sending it. Misha never sends it again by itself. Open the conversation in Slack and look. If the message is there, it arrived, whatever the mark says; if not, say it yourself or ask the clone again. **Didn't go out** means Slack refused the post, or no Slack tab was signed in to send it, so nothing was posted. "Couldn't answer Emma Lee in #shop-backend" means the clone gave up on a message. In both cases, the person is still waiting for an answer.
 
 ## Asking for help {#asking-for-help}
 

@@ -30,7 +30,7 @@ describe('[scripts] Public data - findingsInFile', () => {
     it('should pass the cast, approved URLs, licence words in licence files and ordinary capitals', async () => {
       // Arrange
       const markdown = [
-        'Sam Rivera asked Priya Nair and Jonas Weber in #shop-backend; ask @Jonas Weber or @Priya.',
+        'Leo Novak asked Emma Lee and Max Becker in #shop-backend; ask @Max Becker or @Emma.',
         'Read https://docs.dumdummisha.ai/privacy#data, https://github.com/dumdummisha/docs/edit/main/src/index.md and',
         'https://github.com/dumdummisha/browser-extension. SHOP-142 IS DONE.',
       ].join('\n')
@@ -135,10 +135,10 @@ describe('[scripts] Public data - findingsInFile', () => {
       // Arrange
       const commands = JSON.stringify({
         senders: [{ id: 'owner', description: 'The person whose clone it is.' }],
-        commands: [{ id: 'pause', sender: 'owner', example: 'allow @Priya Nair' }],
+        commands: [{ id: 'pause', sender: 'owner', example: 'allow @Emma Lee' }],
       })
       const captures = JSON.stringify({
-        captures: [{ people: ['Sam Rivera'], alt: 'Home while Misha listens as Sam Rivera.', text: 'Pause Misha\nClaude Code' }],
+        captures: [{ people: ['Leo Novak'], alt: 'Home while Misha listens as Leo Novak.', text: 'Pause Misha\nClaude Code' }],
       })
 
       // Act
@@ -198,7 +198,7 @@ describe('[scripts] Public data - findingsInFile', () => {
 
     it('should fail a name-shaped phrase in capture text or alt that is neither the cast nor reviewed', () => {
       // Arrange
-      const json = JSON.stringify({ captures: [{ alt: 'Sam Rivera reads Slack.', text: `From ${OUTSIDER}` }] })
+      const json = JSON.stringify({ captures: [{ alt: 'Leo Novak reads Slack.', text: `From ${OUTSIDER}` }] })
 
       // Act
       const findings = findingsInFile('facts/captures.json', text(json))

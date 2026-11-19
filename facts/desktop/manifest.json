@@ -3,22 +3,22 @@
   "productVersion": "0.1.0",
   "evidenceDate": "2026-11-19",
   "captureRecipeVersion": 3,
-  "digest": "42316a798e04c1f11016b0719c0df4dced7b63f1403dee146d3c33ae9c39e757",
+  "digest": "d4bfe85b07f6349070b283a6b4cd2b8be70d3df0f8938dc4c6bd31846f321f94",
   "files": [
     {
       "path": "captures.json",
-      "bytes": 20624,
-      "sha256": "b703aaab868dbed3ef6481bd0fa695c91654694e6a1c7654a1069b96762fceb0"
+      "bytes": 20564,
+      "sha256": "8debe68139f83fd6059803b80a3f8c06a6a8f955a668262e840a56c74bae74fa"
     },
     {
       "path": "captures/claude-limit.png",
-      "bytes": 205420,
-      "sha256": "6c0d9626ae466a3fef7f0fbbe3c834d06032d0ce5317f5b45e8e564f307e3651"
+      "bytes": 203706,
+      "sha256": "d50864da29a1eaae197c8382f9e27069e6b8050c554ad2762fdb0016f59e4963"
     },
     {
       "path": "captures/claude-signed-out.png",
-      "bytes": 218035,
-      "sha256": "c34d66594b5f78f720f8bd19b5f95b9f99c5a336fdabbdb653408d9c6df918ff"
+      "bytes": 216097,
+      "sha256": "4073fe37a9f4aaed4cd2ac9dd1783d1491e13dd7830f596c703c0a38bbe02cef"
     },
     {
       "path": "captures/first-run.png",
@@ -27,28 +27,28 @@
     },
     {
       "path": "captures/home.png",
-      "bytes": 334579,
-      "sha256": "5b75e987239d1cb9a8205a7c3892d925d683cb96adda29db97cfd23398dd36a1"
+      "bytes": 331799,
+      "sha256": "23f7c7102c06a88baf749c9b37715e5c3408f7308ef65c484cd62017267281f1"
     },
     {
       "path": "captures/paused.png",
-      "bytes": 195690,
-      "sha256": "eac2e13c25de9e7e8d2dd7a0199bec2d6054a36417bb9c4a0fb99d887ded3921"
+      "bytes": 194230,
+      "sha256": "ab3835c6130b9c872f263205ac307b203b513f5101bb92e7d229ae5c7f247004"
     },
     {
       "path": "captures/settings-allowed.png",
-      "bytes": 51118,
-      "sha256": "b18250e8170494a8d4e1e1beaa134d069c245ed666a89685e1788b7fafa86df7"
+      "bytes": 50941,
+      "sha256": "1b1840863d959f4f2cdc0e10de0cd9d4d2c4e97b733159bc3ced27bae9685e9a"
     },
     {
       "path": "captures/settings-icon.png",
-      "bytes": 77202,
-      "sha256": "13058c4df137e14aa4c86d03976a6dfedfb346535f870d5a5ea01d492e510dc7"
+      "bytes": 76221,
+      "sha256": "c51e64bff533038b94690a89b68efabba64fe9a173e70a7296dd6ec1a86b4705"
     },
     {
       "path": "captures/settings-notes.png",
-      "bytes": 64857,
-      "sha256": "47b06156aa5ba397e2ebf90251f868e492230b8681ebacacc9c439d93160d7af"
+      "bytes": 64226,
+      "sha256": "0c80898324ff2b0ef9fc2c2c6405ead86bce60334cecf49a0861c58cec016d9e"
     },
     {
       "path": "captures/settings-personality.png",
@@ -62,8 +62,8 @@
     },
     {
       "path": "captures/settings-rules.png",
-      "bytes": 40760,
-      "sha256": "b26f27a6197769479275f1d91e862eb8ca9201a02fe129b09fb7b57d76686afb"
+      "bytes": 40515,
+      "sha256": "f7eb7bac71088f67d3847819841c8c300a15fe5fa1e184f9d2c40867f5b7c8cf"
     },
     {
       "path": "captures/settings-watched.png",
@@ -72,33 +72,33 @@
     },
     {
       "path": "captures/settings.png",
-      "bytes": 555506,
-      "sha256": "2d87569ffb362dfe67360bd6d941bcccfcbb9da15a2334cd1422dd48b7cb1d53"
+      "bytes": 552638,
+      "sha256": "ca38ce69b0d787419020b641c2221ca97bf8c52c10ee1e1ac93431af4b620065"
     },
     {
       "path": "captures/setup.png",
-      "bytes": 486934,
-      "sha256": "af370a1dfee60302444a17c53df813d5a85ba6d8ab85a1c3a5fa5c1678b5b1df"
+      "bytes": 483758,
+      "sha256": "ff858cb40c9e03569ffeab1a0da18f18b20bfed0f3f05f90d22152ae4c9e464a"
     },
     {
       "path": "captures/slack-deaf.png",
-      "bytes": 210995,
-      "sha256": "7645943887846f25e607dbd96655edd32127b32a53a246d68e966396dbdf1adc"
+      "bytes": 209424,
+      "sha256": "a12c8ed594a51aecf316c061573f14fc346810b98f3584ebb1b96f8a0d68b3a6"
     },
     {
       "path": "captures/worker-unstopped.png",
-      "bytes": 209095,
-      "sha256": "efad56e3c89b8ee820a501f3c731d6acb80cc6bc9c120d62967fc005ab4eeb59"
+      "bytes": 207383,
+      "sha256": "83bbc69c56f9f4a8f203c4af772ae4de53b0e72c92bcda5a46b1c73b16fbb243"
     },
     {
       "path": "captures/workers-stopping.png",
-      "bytes": 198568,
-      "sha256": "9531cff3095c88561f832370a48725b13fc00865d6725d3455819c04830753f7"
+      "bytes": 198272,
+      "sha256": "8df3dc3c912bc4b65528b4ebe8a9e5e3dd17dd822594137ec8ef3f94e48bdecb"
     },
     {
       "path": "facts/commands.json",
-      "bytes": 6902,
-      "sha256": "0bc24afc5aa578a4f6b5771e27799a327cc6a4aea1c52d1dc7f6e6707b5f632a"
+      "bytes": 6896,
+      "sha256": "87accacc0471472bc2c7efc70abc87bcb51f10da946e9b0ec10689d8b8d5abdb"
     },
     {
       "path": "facts/detection.json",

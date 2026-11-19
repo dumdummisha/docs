@@ -52,7 +52,7 @@ The first time Misha opens, its window shows **Get started**, a checklist that t
       <p class="step__title"><a href="#first-reply">Say hi</a></p>
       <p class="step__line">Write to yourself in Slack and the clone answers there. It answers your colleagues too from the moment you save.</p>
     </div>
-    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--message"><strong>Sam Rivera</strong> hi</span></div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--message"><strong>Leo Novak</strong> hi</span></div>
   </li>
 </ol>
 

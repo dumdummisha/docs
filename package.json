@@ -1,0 +1,30 @@
+{
+  "name": "misha-docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=24.18.0 <25"
+  },
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check:privacy": "node scripts/check-public.ts",
+    "check:links": "node scripts/check-links.ts",
+    "check:csp": "node scripts/check-csp.ts",
+    "import:desktop": "node scripts/import-desktop.ts"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2",
+    "vitepress": "1.6.4",
+    "vitest": "5.1.1",
+    "vue": "3.5.45",
+    "zod": "4.6.7"
+  }
+}

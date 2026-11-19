@@ -29,7 +29,8 @@
       "endpoints": [
         { "kind": "result", "outcome": "An answer from the worker's report, with its sources and what stays uncertain", "when": "The worker could read what it needed" },
         { "kind": "result", "outcome": "The change goes on to delivery", "when": "The report shows a change is needed" },
-        { "kind": "stop", "outcome": "A blocked report, and you hear which connection to reconnect", "when": "A sign-in is missing or expired, or the worker lacks access" }
+        { "kind": "stop", "outcome": "A blocked report, and you hear which connection to reconnect on Set up", "when": "A sign-in is missing, expired or invalid" },
+        { "kind": "stop", "outcome": "A blocked report naming the missing tool, permission or environment access, which signing in again does not fix", "when": "The worker lacks a tool, a grant or access to that environment" }
       ]
     },
     {

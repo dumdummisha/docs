@@ -6,137 +6,194 @@
     {
       "id": "slack-context",
       "request": "Read the whole thread, a Slack message someone links, or an image someone posted, before answering",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "anyone",
       "needs": ["Nothing beyond setup"],
+      "result": "An answer that takes in the whole thread and any message or image it links to",
       "limit": "Reads as you, through your Slack tab. The clone posts only through Misha, never with a Slack tool of its own."
     },
     {
       "id": "code-question",
-      "request": "Answer what code does, naming the files it read",
-      "actor": "clone",
+      "request": "Answer what code does",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "anyone",
       "needs": ["The repository added on Settings"],
+      "result": "A marked answer naming the files it read",
       "limit": "Reads Misha's own copies of your repositories. One bounded read; tracing behaviour across the code is research."
     },
     {
       "id": "code-history",
       "request": "Say who changed something, when and why, from the commits",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "owner",
       "needs": ["The repository added on Settings"],
+      "result": "Who changed it, when and why, naming each commit by its short hash",
       "limit": "The default branch only: a pull request that was never merged is not in it."
     },
     {
       "id": "ticket-read",
       "request": "Read Jira tickets and Confluence pages",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "anyone",
       "needs": ["Jira and Confluence on Set up"],
+      "result": "An answer naming the ticket or page it read",
       "limit": "Whoever the clone answers may get what it read."
     },
     {
       "id": "ticket-change",
       "request": "Create, edit, comment on, link or move Jira tickets and Confluence pages",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "owner",
       "needs": ["Jira and Confluence on Set up"],
+      "result": "The change, and a reply saying what changed",
       "limit": "Only what your own messages in that turn ask for. Someone you allow to ask for work does not get these tools."
     },
     {
       "id": "docs-read",
       "request": "Read Google Docs and Sheets, comments included",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "anyone",
       "needs": ["Google on Set up"],
+      "result": "An answer naming the Doc or Sheet it read",
       "limit": "Whoever the clone answers may get what it read."
     },
     {
       "id": "docs-change",
       "request": "Create a Doc from text, edit a Doc, write to a Sheet, or comment on either",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "owner",
       "needs": ["Google on Set up"],
+      "result": "The change, and a reply saying what changed",
       "limit": "Only what your own messages in that turn ask for."
     },
     {
       "id": "meeting-notes",
       "request": "Find a meeting's transcript and answer from it",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "anyone",
       "needs": ["Fireflies on Set up"],
+      "result": "An answer naming the meeting it read",
       "limit": "Reads transcripts Fireflies already has. It does not join or record meetings."
     },
     {
       "id": "design-read",
       "request": "Find a Figma screen, read its text and specs, or render it as an image in the reply",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "anyone",
       "needs": ["Figma on Set up"],
+      "result": "The screen's text and specs, or its image attached to the reply",
       "limit": "Reads and renders only. It cannot change a design."
     },
     {
       "id": "github-cli",
       "request": "Run GitHub CLI commands, such as reading a pull request's checks",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "owner",
       "needs": ["GitHub CLI on Set up"],
+      "result": "What the command showed, or what it changed",
       "limit": "One command at a time, as your GitHub account. Never a staging or production deployment or a release."
     },
     {
       "id": "aws-cli",
       "request": "Run AWS CLI commands in a session for the environments a question needs, such as reading logs",
-      "actor": "clone",
+      "routes": [
+        {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
+      ],
       "access": "owner",
       "needs": ["AWS on Set up"],
+      "result": "What the commands showed, or what they changed",
       "limit": "One command at a time, as your AWS access. Never a staging or production deployment or a release."
     },
     {
       "id": "research",
       "request": "Investigate a question a quick read can't answer, and report with sources",
-      "actor": "worker",
+      "routes": [
+        {"availability": "included", "actor": "worker", "surface": "started by the clone, which reports in Slack"}
+      ],
       "access": "allowed",
       "needs": ["The repository added on Settings", "For an incident, read access to that environment's logs and data"],
+      "result": "An answer from the worker's report, with its sources and what stays uncertain",
       "limit": "Read-only because its brief says so, not because the system prevents writes. It reports what stays uncertain."
     },
     {
       "id": "delivery",
       "request": "Carry a change from a ticket to a reviewed pull request, and to dev where allowed",
-      "actor": "worker",
+      "routes": [
+        {"availability": "included", "actor": "worker", "surface": "started by the clone, which reports in Slack"}
+      ],
       "access": "allowed",
       "needs": ["The repository added on Settings", "GitHub CLI on Set up", "Jira and Confluence on Set up", "OpenCode signed in to OpenAI, for the GPT reviews"],
+      "result": "A reviewed pull request, or a change merged and checked on dev",
       "limit": "Dev is the furthest it goes. It stops at a reviewed pull request unless the repository may merge and has its own delivery command."
     },
     {
       "id": "dependency-updates",
       "request": "Work through dependency pull requests, a security update or a version bump",
-      "actor": "worker",
+      "routes": [
+        {"availability": "included", "actor": "worker", "surface": "started by the clone, which reports in Slack"}
+      ],
       "access": "allowed",
       "needs": ["The repository added on Settings", "GitHub CLI on Set up", "OpenCode signed in to OpenAI, for the GPT reviews"],
+      "result": "Reviewed or merged pull requests, updates flagged for you, and a report",
       "limit": "Merges one at a time, only where the repository may merge and only when the merge deploys no further than dev."
     },
     {
       "id": "browser-read",
       "request": "List, open and read your signed-in browser tabs as compact outlines, wait for a page, screenshot a tab, or list the requests it sent",
-      "actor": "your-agent",
+      "routes": [
+        {"availability": "standalone", "actor": "your-agent", "surface": "through the misha-browser MCP server"},
+        {"availability": "optional", "actor": "your-agent", "surface": "through an extension module built on the package's browserModule export, which you can't install from a release yet"},
+        {"availability": "optional", "actor": "worker", "surface": "through that module served to workers, when a grant names the worker's profile"}
+      ],
       "access": "session",
-      "needs": ["The misha-browser MCP server registered in your agent", "The Misha Browser extension and native host in Chrome or Brave"],
+      "needs": ["The misha-browser MCP server registered in your agent, or an extension module that serves the tools", "The Misha Browser extension and native host in Chrome or Brave"],
+      "result": "Page outlines, screenshots and request lists in the agent's session",
       "limit": "Acts through your signed-in sessions on any site the browser has open. The extension records every tab's requests while it runs, with credentials redacted by name and pattern."
     },
     {
       "id": "browser-act",
       "request": "Click, drag, type, fill forms, press keys and scroll in a tab with real input",
-      "actor": "your-agent",
+      "routes": [
+        {"availability": "standalone", "actor": "your-agent", "surface": "through the misha-browser MCP server"},
+        {"availability": "optional", "actor": "your-agent", "surface": "through an extension module built on the package's browserModule export, which you can't install from a release yet"},
+        {"availability": "optional", "actor": "worker", "surface": "through that module served to workers, when a grant names the worker's profile"}
+      ],
       "access": "session",
-      "needs": ["The misha-browser MCP server registered in your agent", "The Misha Browser extension and native host in Chrome or Brave", "Accessibility and Screen Recording for the app that runs your agent"],
+      "needs": ["The misha-browser MCP server registered in your agent, or an extension module that serves the tools", "The Misha Browser extension and native host in Chrome or Brave", "Accessibility and Screen Recording for the app that runs your agent"],
+      "result": "The input made, and what changed on the page",
       "limit": "The input is a real mouse and keyboard on your Mac, so it acts wherever the pointer and focus are."
     },
     {
       "id": "desktop-control",
       "request": "Move the Mac's mouse, type and press keys, capture the screen, list apps and bring one to the front",
-      "actor": "your-agent",
+      "routes": [
+        {"availability": "standalone", "actor": "your-agent", "surface": "through the misha-browser MCP server"},
+        {"availability": "optional", "actor": "your-agent", "surface": "through an extension module built on the package's desktopModule export, which you can't install from a release yet"},
+        {"availability": "optional", "actor": "worker", "surface": "through that module served to workers, when a grant names the worker's profile"}
+      ],
       "access": "session",
-      "needs": ["The misha-browser MCP server registered in your agent", "Accessibility and Screen Recording for the app that runs your agent, except to list and focus apps"],
+      "needs": ["The misha-browser MCP server registered in your agent, or an extension module that serves the tools", "Accessibility and Screen Recording for the app that runs your agent, except to list and focus apps"],
+      "result": "The input made, a screen capture, or the list of apps",
       "limit": "macOS only. A screen capture shows whatever is on screen."
     }
   ]

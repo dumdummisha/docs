@@ -14,12 +14,14 @@ const PRODUCT_VERSION = z.string().regex(/^\d+\.\d+\.\d+$/u)
 // A commit of the public misha-browser repository.
 const GIT_REVISION = z.string().regex(/^[0-9a-f]{7,40}$/u)
 
-// Who carries the work out: the clone in its own turn, a worker it starts, or the reader's own agent with the public
-// browser package's MCP server.
+// Who carries the work out: the clone in its own turn, a worker it starts, or the reader's own agent session.
 export const ACTORS = ['clone', 'worker', 'your-agent'] as const
 // Who may cause it: anyone the clone answers, the owner in their self-DM or with their icon, the owner and the people
 // they allow to ask for work, or the reader in their own agent session.
 export const ACCESS = ['anyone', 'owner', 'allowed', 'session'] as const
+// How a capability reaches its user: included with Misha (the app and its bundled misha-core extension, though it may
+// need a connection), an optional extension module that serves it, or the public browser package used standalone.
+export const AVAILABILITY = ['included', 'optional', 'standalone'] as const
 // How a workflow can end: with a result, waiting, stopped, or with a decision only the owner makes.
 export const ENDPOINT_KINDS = ['result', 'wait', 'stop', 'decision'] as const
 
@@ -43,9 +45,13 @@ const CAPABILITIES_SCHEMA = z.strictObject({
       z.strictObject({
         id: SLUG,
         request: TEXT,
-        actor: z.enum(ACTORS),
+        // Each way to get it: whether it is included, optional or standalone, who carries it out, and where.
+        routes: z
+          .array(z.strictObject({ availability: z.enum(AVAILABILITY), actor: z.enum(ACTORS), surface: TEXT }))
+          .min(1),
         access: z.enum(ACCESS),
         needs: z.array(TEXT).min(1),
+        result: TEXT,
         limit: TEXT,
       })
     )

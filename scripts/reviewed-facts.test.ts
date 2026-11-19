@@ -9,9 +9,10 @@ import { committedReviewedFactsOf, REVIEWED_FACTS_DIRECTORY } from './reviewed-f
 const FIGMA_READ = {
   id: 'design-read',
   request: 'Render a Figma screen',
-  actor: 'clone',
+  routes: [{ availability: 'included', actor: 'clone', surface: 'in its own turn' }],
   access: 'anyone',
   needs: ['Figma on Set up'],
+  result: 'The image in the reply',
   limit: 'Reads and renders only.',
 }
 
@@ -81,7 +82,22 @@ describe('[scripts] Reviewed facts - committedReviewedFactsOf', () => {
     ['an unknown file', { 'product-status.json': '{}' }, 'holds product-status.json, which is not a reviewed record'],
     [
       'a field the schema does not know',
-      { 'capabilities.json': { ...CAPABILITY_RECORD, capabilities: [{ ...FIGMA_READ, status: 'included' }] } },
+      { 'capabilities.json': { ...CAPABILITY_RECORD, capabilities: [{ ...FIGMA_READ, actor: 'clone' }] } },
+      'capabilities.json does not match its schema',
+    ],
+    [
+      'a capability with no route',
+      { 'capabilities.json': { ...CAPABILITY_RECORD, capabilities: [{ ...FIGMA_READ, routes: [] }] } },
+      'capabilities.json does not match its schema',
+    ],
+    [
+      'an availability the schema does not know',
+      {
+        'capabilities.json': {
+          ...CAPABILITY_RECORD,
+          capabilities: [{ ...FIGMA_READ, routes: [{ ...FIGMA_READ.routes[0], availability: 'bundled' }] }],
+        },
+      },
       'capabilities.json does not match its schema',
     ],
     [

@@ -1,12 +1,13 @@
 import { type MarkdownEnv, type MarkdownRenderer } from 'vitepress'
 
 import { type DesktopFacts } from './desktop-export.ts'
-import { type ACTORS, type ACCESS, type ENDPOINT_KINDS, type ReviewedFacts } from './reviewed-facts.ts'
+import { type ACCESS, type ACTORS, type AVAILABILITY, type ENDPOINT_KINDS, type ReviewedFacts } from './reviewed-facts.ts'
 
 // What the tables render from: the desktop export's documents and the reviewed records, by name.
 export type TableFacts = DesktopFacts & ReviewedFacts
 
 type Command = DesktopFacts['commands']['commands'][number]
+type Workflow = ReviewedFacts['workflows']['workflows'][number]
 type Mutation = DesktopFacts['settings']['mutations'][number]
 type WindowControl = Mutation['window'][number]
 type Limits = DesktopFacts['settings']['fields'][number]['limits']
@@ -39,6 +40,11 @@ const ACTOR_LABELS: Readonly<Record<(typeof ACTORS)[number], string>> = {
   clone: 'Clone',
   worker: 'Worker',
   'your-agent': 'Your agent',
+}
+const AVAILABILITY_LABELS: Readonly<Record<(typeof AVAILABILITY)[number], string>> = {
+  included: 'Included',
+  optional: 'Optional extension',
+  standalone: 'Standalone',
 }
 // The owner's own turn is a message in their self-DM or one with their icon in it, which the pages explain.
 const ACCESS_LABELS: Readonly<Record<(typeof ACCESS)[number], string>> = {
@@ -278,27 +284,46 @@ const retentionTable = (facts: DesktopFacts, ids: readonly string[]): string =>
 
 const listCell = (items: readonly string[]): string => items.map(text).join('<br>')
 
-// Every request, or the ones named, with who carries it out, who may ask, what it needs and its limit.
+// Every request, or the ones named, with each way to get it (whether it is included, optional or standalone, who
+// carries it out and where), who may ask, what it needs, what it gives and its limit.
 const capabilitiesTable = (facts: TableFacts, ids: readonly string[]): string =>
   table(
-    ['Request', 'Done by', 'Who may ask', 'Needs', 'Limit'],
+    ['Request', 'Available as', 'Who may ask', 'Needs', 'Gives', 'Limit'],
     picked(facts.capabilities.capabilities, ({ id }) => id, ids, 'capability').map(
-      ({ request, actor, access, needs, limit }) => [
+      ({ request, routes, access, needs, result, limit }) => [
         text(request),
-        ACTOR_LABELS[actor],
+        routes
+          .map(
+            ({ availability, actor, surface }) =>
+              `${AVAILABILITY_LABELS[availability]}: ${ACTOR_LABELS[actor]}, ${text(surface)}`
+          )
+          .join('<br>'),
         ACCESS_LABELS[access],
         listCell(needs),
+        text(result),
         text(limit),
       ]
     )
   )
 
-// Every way one workflow can end, in the record's order.
-const endpointsTable = (facts: TableFacts, id: string): string => {
+const workflowById = (facts: TableFacts, id: string): Workflow => {
   const workflow = facts.workflows.workflows.find((each) => each.id === id)
   if (workflow === undefined) {
     throw new FactTableError(`There is no workflow ${id} in the facts`)
   }
+
+  return workflow
+}
+
+// What one workflow needs, one item per line.
+const needsList = (facts: TableFacts, id: string): string =>
+  workflowById(facts, id)
+    .needs.map((need) => `- ${text(need)}`)
+    .join('\n')
+
+// Every way one workflow can end, in the record's order.
+const endpointsTable = (facts: TableFacts, id: string): string => {
+  const workflow = workflowById(facts, id)
 
   return table(
     ['Outcome', 'What happens', 'When'],
@@ -358,9 +383,17 @@ export const factTableMarkdown = (facts: TableFacts, marker: string): string => 
 
       return endpointsTable(facts, workflow)
     }
+    case 'needs': {
+      const [workflow, ...extra] = rest
+      if (workflow === undefined || extra.length > 0) {
+        throw new FactTableError('needs takes exactly one workflow')
+      }
+
+      return needsList(facts, workflow)
+    }
     default:
       throw new FactTableError(
-        `There is no facts table ${name}; use command-terms, commands, settings, surfaces, setup-commands, detection, retention, capabilities or endpoints`
+        `There is no facts table ${name}; use command-terms, commands, settings, surfaces, setup-commands, detection, retention, capabilities, endpoints or needs`
       )
   }
 }

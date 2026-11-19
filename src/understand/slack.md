@@ -19,68 +19,68 @@ Jump to [your messages](#your-messages), [work requests](#questions-and-work), [
   <figcaption class="chat-illustration__label">Illustration with made-up people, not a screenshot: a thread in #shop-backend. Bracketed notes are ours; Slack shows only the name.</figcaption>
   <ol class="chat-illustration__messages">
     <li class="chat-message">
-      <p class="chat-message__meta"><strong>Priya Nair</strong> 23:04</p>
-      <p>@Sam Rivera does the refund call retry when the payment provider times out?</p>
+      <p class="chat-message__meta"><strong>Emma Lee</strong> 23:04</p>
+      <p>@Leo Novak does the refund call retry when the payment provider times out?</p>
     </li>
     <li class="chat-message">
-      <p class="chat-message__meta"><strong>Sam Rivera</strong> 23:05 <span class="chat-message__note">(the clone)</span></p>
+      <p class="chat-message__meta"><strong>Leo Novak</strong> 23:05 <span class="chat-message__note">(the clone)</span></p>
       <p><img class="chat-message__emoji" src="/favicon.svg" alt=":misha:" width="18" height="18"> <em>No, it returns an error after the first timeout. I read <code>src/payments/refund.ts</code> in shop/shop-backend.</em></p>
     </li>
     <li class="chat-message">
-      <p class="chat-message__meta"><strong>Sam Rivera</strong> 09:12 <span class="chat-message__note">(Sam)</span></p>
+      <p class="chat-message__meta"><strong>Leo Novak</strong> 09:12 <span class="chat-message__note">(Leo)</span></p>
       <p>Right. I'll add retries under SHOP-142.</p>
     </li>
   </ol>
 </figure>
 
-The clone's reply has the marker and italics (code stays plain) and calls Sam by first name. A reaction from Sam's account carries no marker and may come from the clone. When it matters, ask Sam.
+The clone's reply has the marker and italics (code stays plain) and calls Leo by first name. A reaction from Leo's account carries no marker and may come from the clone. When it matters, ask Leo.
 
 ## What happens to your messages {#your-messages}
 
-A message you send Sam can reach Sam's clone, and through it the AI provider Sam uses. Misha runs on Sam's Mac in Sam's signed-in Slack tab, sees everything Sam's account receives there, and passes the clone what is for Sam:
+A message you send Leo can reach Leo's clone, and through it the AI provider Leo uses. Misha runs on Leo's Mac in Leo's signed-in Slack tab, sees everything Leo's account receives there, and passes the clone what is for Leo:
 
-- a DM or group DM with Sam
-- a message that mentions Sam
-- a reply in a thread Sam started or wrote in
-- a message in a channel Sam asked the clone to watch
+- a DM or group DM with Leo
+- a message that mentions Leo
+- a reply in a thread Leo started or wrote in
+- a message in a channel Leo asked the clone to watch
 
-Bots, apps and clones never start a reply, nor does a message calling only another clone by an emoji Misha has seen it use. In a watched channel the clone gets every message and is told to answer only what concerns Sam or Sam's work. Whatever reaches it, it may reply, react or do nothing.
+Bots, apps and clones never start a reply, nor does a message calling only another clone by an emoji Misha has seen it use. In a watched channel the clone gets every message and is told to answer only what concerns Leo or Leo's work. Whatever reaches it, it may reply, react or do nothing.
 
-A message passed to the clone goes, with its conversation, to Anthropic through Sam's own Claude Code subscription. Work it leads to runs in workers, separate Claude Code or OpenCode sessions, and can also reach OpenAI. On the Mac, the browser extension queues each new message until Misha saves it, Misha keeps a message for the clone until it is handled, Claude Code keeps the clone's conversation, and Misha records every clone post with no age limit. Details: [What is stored, and for how long](/privacy#storage).
+A message passed to the clone goes, with its conversation, to Anthropic through Leo's own Claude Code subscription. Work it leads to runs in workers, separate Claude Code or OpenCode sessions, and can also reach OpenAI. On the Mac, the browser extension queues each new message until Misha saves it, Misha keeps a message for the clone until it is handled, Claude Code keeps the clone's conversation, and Misha records every clone post with no age limit. Details: [What is stored, and for how long](/privacy#storage).
 
-The clone keeps one memory across all of Sam's conversations and is told to keep what you write to that conversation and Sam: an instruction, not a wall.
+The clone keeps one memory across all of Leo's conversations and is told to keep what you write to that conversation and Leo: an instruction, not a wall.
 
 ## Questions and work requests {#questions-and-work}
 
-The clone answers from what it reads (the thread, a linked ticket, Sam's code) and names its sources. Only Sam and people Sam allows can start work such as research, a ticket or a code change. For anyone else the app gives the clone read-only tools, so it can't change a ticket, document or code for you; it passes what it can't finish to Sam privately.
+The clone answers from what it reads (the thread, a linked ticket, Leo's code) and names its sources. Only Leo and people Leo allows can start work such as research, a ticket or a code change. For anyone else the app gives the clone read-only tools, so it can't change a ticket, document or code for you; it passes what it can't finish to Leo privately.
 
 Allowed work goes through reviews, workers deploy only to the development environment (dev), and a change in your own repository waits for your approval. Those are rules the clone and workers are told to follow; the app doesn't enforce them. [Put Misha to work](/use/workflows) covers how a request ends.
 
-The clone is told never to promise Sam's time or opinions, and a confident answer can still be wrong: check with Sam before you act on it, especially in front of a client.
+The clone is told never to promise Leo's time or opinions, and a confident answer can still be wrong: check with Leo before you act on it, especially in front of a client.
 
 ## Stop it answering you {#stop-replies}
 
-Send either command as the whole message, in a one-to-one DM with Sam:
+Send either command as the whole message, in a one-to-one DM with Leo:
 
 <!-- facts commands colleague -->
 
 <figure class="chat-illustration">
-  <figcaption class="chat-illustration__label">Illustration with made-up people, not a screenshot: Jonas Weber's one-to-one DM with Sam Rivera.</figcaption>
+  <figcaption class="chat-illustration__label">Illustration with made-up people, not a screenshot: Max Becker's one-to-one DM with Leo Novak.</figcaption>
   <ol class="chat-illustration__messages">
     <li class="chat-message">
-      <p class="chat-message__meta"><strong>Jonas Weber</strong> 10:20</p>
+      <p class="chat-message__meta"><strong>Max Becker</strong> 10:20</p>
       <p>soft-ignore me</p>
     </li>
     <li class="chat-message">
-      <p class="chat-message__meta"><strong>Sam Rivera</strong> 10:20 <span class="chat-message__note">(the clone)</span></p>
+      <p class="chat-message__meta"><strong>Leo Novak</strong> 10:20 <span class="chat-message__note">(the clone)</span></p>
       <p><img class="chat-message__emoji" src="/favicon.svg" alt=":misha:" width="18" height="18"> <em>Soft-ignoring you: I answer you only when you call me with :misha:.</em></p>
     </li>
     <li class="chat-message">
-      <p class="chat-message__meta"><strong>Jonas Weber</strong> two weeks later</p>
+      <p class="chat-message__meta"><strong>Max Becker</strong> two weeks later</p>
       <p><img class="chat-message__emoji" src="/favicon.svg" alt=":misha:" width="18" height="18"> stop ignoring me</p>
     </li>
     <li class="chat-message">
-      <p class="chat-message__meta"><strong>Sam Rivera</strong> <span class="chat-message__note">(the clone)</span></p>
+      <p class="chat-message__meta"><strong>Leo Novak</strong> <span class="chat-message__note">(the clone)</span></p>
       <p><img class="chat-message__emoji" src="/favicon.svg" alt=":misha:" width="18" height="18"> <em>You are like everyone else again.</em></p>
     </li>
   </ol>
@@ -88,13 +88,13 @@ Send either command as the whole message, in a one-to-one DM with Sam:
 
 In a group DM or a channel the words change nothing. When Misha processes the command, it drops your waiting messages without the emoji that the clone hasn't decided on yet, but a reply already prepared can still arrive.
 
-Soft-ignore means fewer answers, not less collection: Misha still sees your messages, the clone still reads them in threads it answers for others, and history, earlier posts and what went to a provider stay. Ignoring you completely, keeping the clone out of one thread and pausing it altogether are Sam's to do.
+Soft-ignore means fewer answers, not less collection: Misha still sees your messages, the clone still reads them in threads it answers for others, and history, earlier posts and what went to a provider stay. Ignoring you completely, keeping the clone out of one thread and pausing it altogether are Leo's to do.
 
 ## If something is wrong {#if-something-is-wrong}
 
-If the clone said something wrong or committed to something, contact Sam, outside Slack if you like. A DM to Sam reaches the clone too, so say you want Sam: the clone is told to stop replying to you there when you ask for the person.
+If the clone said something wrong or committed to something, contact Leo, outside Slack if you like. A DM to Leo reaches the clone too, so say you want Leo: the clone is told to stop replying to you there when you ask for the person.
 
-Ask Sam to correct or remove the post; the clone can't edit its own replies. Sam can pause the clone to stop new replies and work, but a pause takes back no post and undoes nothing done, such as a filed ticket.
+Ask Leo to correct or remove the post; the clone can't edit its own replies. Leo can pause the clone to stop new replies and work, but a pause takes back no post and undoes nothing done, such as a filed ticket.
 
 ## Want your own? {#want-your-own}
 

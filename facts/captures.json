@@ -3,7 +3,7 @@
     "version": 3,
     "browser": "Brave, headless, a fresh profile, en-US, UTC",
     "clock": "14:14 on 19 November 2026",
-    "data": "Made-up docs fixtures: Sam Rivera, Priya Nair and Jonas Weber in the Shop workspace.",
+    "data": "Made-up docs fixtures: Leo Novak, Emma Lee and Max Becker in the Shop workspace.",
     "window": {
       "width": 1100,
       "height": 760,
@@ -32,12 +32,12 @@
       "region": {
         "kind": "page"
       },
-      "alt": "Home while Misha listens as Sam Rivera in Shop: it is answering Priya's thread in #shop-backend, two workers are running, and what it posted and decided lately is listed below.",
+      "alt": "Home while Misha listens as Leo Novak in Shop: it is answering Emma's thread in #shop-backend, two workers are running, and what it posted and decided lately is listed below.",
       "file": "captures/home.png",
       "width": 2200,
       "height": 2214,
-      "sha256": "5b75e987239d1cb9a8205a7c3892d925d683cb96adda29db97cfd23398dd36a1",
-      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · I answer as you\nPause Misha\nListening\nShop, as Sam Rivera\nI'm listening in Slack.\nI answer your DMs, mentions and threads you're in, as you, with my emoji in front. Work that the people you allow ask for goes to workers on your own Claude Code, here on this Mac.\nNothing needs you right now.\nWorking on now\nOne answer and two workers.\nAnswering in #shop-backend\nA thread you're in, from Priya Nair\nAnswering\nfor 20 seconds\nSHOP-142: discounts missing from the checkout total\nA worker, asked for by Priya Nair in #shop-backend\nWorking\nfor 2 minutes\nReview of shop/shop-web pull request 88\nA worker, asked for by Sam Rivera in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nJonas Weber\n."
+      "sha256": "23f7c7102c06a88baf749c9b37715e5c3408f7308ef65c484cd62017267281f1",
+      "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · I answer as you\nPause Misha\nListening\nShop, as Leo Novak\nI'm listening in Slack.\nI answer your DMs, mentions and threads you're in, as you, with my emoji in front. Work that the people you allow ask for goes to workers on your own Claude Code, here on this Mac.\nNothing needs you right now.\nWorking on now\nOne answer and two workers.\nAnswering in #shop-backend\nA thread you're in, from Emma Lee\nAnswering\nfor 20 seconds\nSHOP-142: discounts missing from the checkout total\nA worker, asked for by Emma Lee in #shop-backend\nWorking\nfor 2 minutes\nReview of shop/shop-web pull request 88\nA worker, asked for by Leo Novak in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review.\n14:08\nReacted in a DM with Max Becker\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nMax Becker\n."
     },
     {
       "id": "setup",
@@ -50,8 +50,8 @@
       "file": "captures/setup.png",
       "width": 2200,
       "height": 4156,
-      "sha256": "af370a1dfee60302444a17c53df813d5a85ba6d8ab85a1c3a5fa5c1678b5b1df",
-      "text": "Misha\nHome\n1\nSet up\n3\nSettings\nSam Rivera\nShop · I answer as you\nPause Misha\nSet up\nCheck again\nWhat I found on this Mac, checked each time you open this page. Three things need you; the rest is ready.\nNeeds you\nEach one is a click. A sign-in opens where it belongs; you never paste a password or key into me.\nGoogle\nGoogle Workspace is not signed in\nNeeds sign-in\nSign in to Google\nI use it\nFigma\nFigma is not signed in\nNeeds sign-in\nConnect Figma\nI use it\nSleep\nThis Mac sleeps after 10 idle minutes, and I'm offline while it does. Set it to never in System Settings, under Battery or Energy.\nSleeps after 10 min\nWhat I think with\nClaude Code\nSigned in. I answer and run workers on your own subscription.\nSigned in\nOpenCode\nSigned in to OpenAI, so GPT can review my work.\nSigned in\nI use it\nHow I hear Slack\nBrowser extension\nRunning in your browser. It reads Slack for me and posts what I write.\nRunning\nBrowser native host\nInstalled on this Mac. It connects the browser extension to me.\nInstalled\nSlack\nSigned in to Shop. That's where I answer as you.\nSigned in\nHow I work in your code\ngit\nCommits as Sam Rivera.\nFound\nGitHub CLI\nSigned in as sam-rivera on github.com.\nSigned in\nI use it\nWhat I can read\nOptional. Skip any, and I ask you instead.\nJira and Confluence\nYour tickets and pages. Works, as Sam Rivera.\nWorks\nI use it\nAWS\nLogs in your AWS accounts. Works, as shop-dev, shop-staging.\nWorks\nI use it\nFireflies\nYour meeting notes. Works, as Sam Rivera.\nWorks\nI use it\nSo I stay up\nI answer only while this app runs and the Mac is awake.\nOpen at login\nI start when you log in to this Mac.\nOn"
+      "sha256": "ff858cb40c9e03569ffeab1a0da18f18b20bfed0f3f05f90d22152ae4c9e464a",
+      "text": "Misha\nHome\n1\nSet up\n3\nSettings\nLeo Novak\nShop · I answer as you\nPause Misha\nSet up\nCheck again\nWhat I found on this Mac, checked each time you open this page. Three things need you; the rest is ready.\nNeeds you\nEach one is a click. A sign-in opens where it belongs; you never paste a password or key into me.\nGoogle\nGoogle Workspace is not signed in\nNeeds sign-in\nSign in to Google\nI use it\nFigma\nFigma is not signed in\nNeeds sign-in\nConnect Figma\nI use it\nSleep\nThis Mac sleeps after 10 idle minutes, and I'm offline while it does. Set it to never in System Settings, under Battery or Energy.\nSleeps after 10 min\nWhat I think with\nClaude Code\nSigned in. I answer and run workers on your own subscription.\nSigned in\nOpenCode\nSigned in to OpenAI, so GPT can review my work.\nSigned in\nI use it\nHow I hear Slack\nBrowser extension\nRunning in your browser. It reads Slack for me and posts what I write.\nRunning\nBrowser native host\nInstalled on this Mac. It connects the browser extension to me.\nInstalled\nSlack\nSigned in to Shop. That's where I answer as you.\nSigned in\nHow I work in your code\ngit\nCommits as Leo Novak.\nFound\nGitHub CLI\nSigned in as sam-rivera on github.com.\nSigned in\nI use it\nWhat I can read\nOptional. Skip any, and I ask you instead.\nJira and Confluence\nYour tickets and pages. Works, as Leo Novak.\nWorks\nI use it\nAWS\nLogs in your AWS accounts. Works, as shop-dev, shop-staging.\nWorks\nI use it\nFireflies\nYour meeting notes. Works, as Leo Novak.\nWorks\nI use it\nSo I stay up\nI answer only while this app runs and the Mac is awake.\nOpen at login\nI start when you log in to this Mac.\nOn"
     },
     {
       "id": "settings",
@@ -60,12 +60,12 @@
       "region": {
         "kind": "page"
       },
-      "alt": "Settings for Sam Rivera's clone: its icon and personality, who may ask for work, the channel it watches, its repositories, who it ignores and what it remembers.",
+      "alt": "Settings for Leo Novak's clone: its icon and personality, who may ask for work, the channel it watches, its repositories, who it ignores and what it remembers.",
       "file": "captures/settings.png",
       "width": 2200,
       "height": 5996,
-      "sha256": "2d87569ffb362dfe67360bd6d941bcccfcbb9da15a2334cd1422dd48b7cb1d53",
-      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · I answer as you\nPause Misha\nSettings\nHow I sound, who I listen to and where I may work. Each change counts from my next message.\nIcon\nPersonality\nWho may ask for work\nChannels\nRepositories\nWho I ignore\nWhat I remember\nMore\nIcon\nEvery message I post starts with this emoji, so nobody mistakes me for you. Using it in a message calls me.\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow a message starts\nSR\nSam Rivera\nI'm on it, SHOP-142. I'll post here when it's ready for review.\nSave icon\nPersonality\nTone and wording only. It never changes what I may do.\nHow should I sound?\nShort and friendly. Use first names. No exclamation marks, and never more than one emoji besides my icon.\n105 of 2,000 characters\nSave personality\nWho may ask me for work\nBesides you, these people can ask me for changes: I ticket, implement and review them. Everyone else gets answers only.\nPriya Nair\nStop allowing\nJonas Weber\nStop allowing\nFind someone in Slack\nFind\nChannels I watch\nI read every message in these and answer what asks something of you or your work. Anywhere else, I answer only DMs, mentions of you and threads you're in.\n#shop-backend\nStop watching\nFind a channel in Slack\nFind\nRepositories\nI keep my own copies of these on this Mac and never touch your checkouts. Workers open pull requests here; where you allow it, they merge them once reviewed.\nshop/shop-backend\nMay merge\nRemove\nshop/shop-web\nMay merge\nRemove\nowner/name\nAdd\nWho I ignore\nIgnored people get nothing from me, ever. Soft-ignored people get an answer only when they call me with my icon.\nJonas Weber\n· soft-ignored\nStop ignoring\nFind someone in Slack\nFind\nWhat I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nPriya owns payments. Ask Priya before touching the checkout.\nForget\nSomething I should keep in mind\nRemember\n\"+\"\nMore"
+      "sha256": "ca38ce69b0d787419020b641c2221ca97bf8c52c10ee1e1ac93431af4b620065",
+      "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · I answer as you\nPause Misha\nSettings\nHow I sound, who I listen to and where I may work. Each change counts from my next message.\nIcon\nPersonality\nWho may ask for work\nChannels\nRepositories\nWho I ignore\nWhat I remember\nMore\nIcon\nEvery message I post starts with this emoji, so nobody mistakes me for you. Using it in a message calls me.\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow a message starts\nLN\nLeo Novak\nI'm on it, SHOP-142. I'll post here when it's ready for review.\nSave icon\nPersonality\nTone and wording only. It never changes what I may do.\nHow should I sound?\nShort and friendly. Use first names. No exclamation marks, and never more than one emoji besides my icon.\n105 of 2,000 characters\nSave personality\nWho may ask me for work\nBesides you, these people can ask me for changes: I ticket, implement and review them. Everyone else gets answers only.\nEmma Lee\nStop allowing\nMax Becker\nStop allowing\nFind someone in Slack\nFind\nChannels I watch\nI read every message in these and answer what asks something of you or your work. Anywhere else, I answer only DMs, mentions of you and threads you're in.\n#shop-backend\nStop watching\nFind a channel in Slack\nFind\nRepositories\nI keep my own copies of these on this Mac and never touch your checkouts. Workers open pull requests here; where you allow it, they merge them once reviewed.\nshop/shop-backend\nMay merge\nRemove\nshop/shop-web\nMay merge\nRemove\nowner/name\nAdd\nWho I ignore\nIgnored people get nothing from me, ever. Soft-ignored people get an answer only when they call me with my icon.\nMax Becker\n· soft-ignored\nStop ignoring\nFind someone in Slack\nFind\nWhat I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nEmma owns payments. Ask Emma before touching the checkout.\nForget\nSomething I should keep in mind\nRemember\n\"+\"\nMore"
     },
     {
       "id": "settings-icon",
@@ -75,12 +75,12 @@
         "kind": "element",
         "id": "icon"
       },
-      "alt": "The icon card: the emoji every post starts with, and a preview of a post by Sam Rivera.",
+      "alt": "The icon card: the emoji every post starts with, and a preview of a post by Leo Novak.",
       "file": "captures/settings-icon.png",
       "width": 1544,
       "height": 960,
-      "sha256": "13058c4df137e14aa4c86d03976a6dfedfb346535f870d5a5ea01d492e510dc7",
-      "text": "Icon\nEvery message I post starts with this emoji, so nobody mistakes me for you. Using it in a message calls me.\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow a message starts\nSR\nSam Rivera\nI'm on it, SHOP-142. I'll post here when it's ready for review.\nSave icon"
+      "sha256": "c51e64bff533038b94690a89b68efabba64fe9a173e70a7296dd6ec1a86b4705",
+      "text": "Icon\nEvery message I post starts with this emoji, so nobody mistakes me for you. Using it in a message calls me.\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow a message starts\nLN\nLeo Novak\nI'm on it, SHOP-142. I'll post here when it's ready for review.\nSave icon"
     },
     {
       "id": "settings-personality",
@@ -90,7 +90,7 @@
         "kind": "element",
         "id": "personality"
       },
-      "alt": "The personality card with Sam's words on how the clone sounds.",
+      "alt": "The personality card with Leo's words on how the clone sounds.",
       "file": "captures/settings-personality.png",
       "width": 1544,
       "height": 736,
@@ -105,12 +105,12 @@
         "kind": "element",
         "id": "allowed"
       },
-      "alt": "Who may ask for work besides Sam: Priya Nair and Jonas Weber.",
+      "alt": "Who may ask for work besides Leo: Emma Lee and Max Becker.",
       "file": "captures/settings-allowed.png",
       "width": 1544,
       "height": 688,
-      "sha256": "b18250e8170494a8d4e1e1beaa134d069c245ed666a89685e1788b7fafa86df7",
-      "text": "Who may ask me for work\nBesides you, these people can ask me for changes: I ticket, implement and review them. Everyone else gets answers only.\nPriya Nair\nStop allowing\nJonas Weber\nStop allowing\nFind someone in Slack\nFind"
+      "sha256": "1b1840863d959f4f2cdc0e10de0cd9d4d2c4e97b733159bc3ced27bae9685e9a",
+      "text": "Who may ask me for work\nBesides you, these people can ask me for changes: I ticket, implement and review them. Everyone else gets answers only.\nEmma Lee\nStop allowing\nMax Becker\nStop allowing\nFind someone in Slack\nFind"
     },
     {
       "id": "settings-watched",
@@ -150,12 +150,12 @@
         "kind": "element",
         "id": "rules"
       },
-      "alt": "Who the clone ignores: Jonas Weber is soft-ignored.",
+      "alt": "Who the clone ignores: Max Becker is soft-ignored.",
       "file": "captures/settings-rules.png",
       "width": 1544,
       "height": 548,
-      "sha256": "b26f27a6197769479275f1d91e862eb8ca9201a02fe129b09fb7b57d76686afb",
-      "text": "Who I ignore\nIgnored people get nothing from me, ever. Soft-ignored people get an answer only when they call me with my icon.\nJonas Weber\n· soft-ignored\nStop ignoring\nFind someone in Slack\nFind"
+      "sha256": "f7eb7bac71088f67d3847819841c8c300a15fe5fa1e184f9d2c40867f5b7c8cf",
+      "text": "Who I ignore\nIgnored people get nothing from me, ever. Soft-ignored people get an answer only when they call me with my icon.\nMax Becker\n· soft-ignored\nStop ignoring\nFind someone in Slack\nFind"
     },
     {
       "id": "settings-notes",
@@ -169,8 +169,8 @@
       "file": "captures/settings-notes.png",
       "width": 1544,
       "height": 784,
-      "sha256": "47b06156aa5ba397e2ebf90251f868e492230b8681ebacacc9c439d93160d7af",
-      "text": "What I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nPriya owns payments. Ask Priya before touching the checkout.\nForget\nSomething I should keep in mind\nRemember"
+      "sha256": "0c80898324ff2b0ef9fc2c2c6405ead86bce60334cecf49a0861c58cec016d9e",
+      "text": "What I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nEmma owns payments. Ask Emma before touching the checkout.\nForget\nSomething I should keep in mind\nRemember"
     },
     {
       "id": "paused",
@@ -179,12 +179,12 @@
       "region": {
         "kind": "window"
       },
-      "alt": "Home while Misha is paused: its workers stopped, and it answers only Sam's commands in the self-DM until Resume.",
+      "alt": "Home while Misha is paused: its workers stopped, and it answers only Leo's commands in the self-DM until Resume.",
       "file": "captures/paused.png",
       "width": 2200,
       "height": 1520,
-      "sha256": "eac2e13c25de9e7e8d2dd7a0199bec2d6054a36417bb9c4a0fb99d887ded3921",
-      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI still see what arrives in Slack, but I stopped my workers and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread."
+      "sha256": "ab3835c6130b9c872f263205ac307b203b513f5101bb92e7d229ae5c7f247004",
+      "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI still see what arrives in Slack, but I stopped my workers and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review.\n14:08\nReacted in a DM with Max Becker\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread."
     },
     {
       "id": "workers-stopping",
@@ -197,8 +197,8 @@
       "file": "captures/workers-stopping.png",
       "width": 2200,
       "height": 1520,
-      "sha256": "9531cff3095c88561f832370a48725b13fc00865d6725d3455819c04830753f7",
-      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI still see what arrives in Slack. I'm stopping my workers, start no new ones and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nTwo workers.\nSHOP-142: discounts missing from the checkout total\nA worker, asked for by Priya Nair in #shop-backend\nWorking\nfor 2 minutes\nReview of shop/shop-web pull request 88\nA worker, asked for by Sam Rivera in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review."
+      "sha256": "8df3dc3c912bc4b65528b4ebe8a9e5e3dd17dd822594137ec8ef3f94e48bdecb",
+      "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI still see what arrives in Slack. I'm stopping my workers, start no new ones and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nTwo workers.\nSHOP-142: discounts missing from the checkout total\nA worker, asked for by Emma Lee in #shop-backend\nWorking\nfor 2 minutes\nReview of shop/shop-web pull request 88\nA worker, asked for by Leo Novak in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review."
     },
     {
       "id": "worker-unstopped",
@@ -207,12 +207,12 @@
       "region": {
         "kind": "window"
       },
-      "alt": "Home after a pause that could not stop a worker: Misha names the review's run, says it may still run, and asks Sam to stop it by hand.",
+      "alt": "Home after a pause that could not stop a worker: Misha names the review's run, says it may still run, and asks Leo to stop it by hand.",
       "file": "captures/worker-unstopped.png",
       "width": 2200,
       "height": 1520,
-      "sha256": "efad56e3c89b8ee820a501f3c731d6acb80cc6bc9c120d62967fc005ab4eeb59",
-      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI couldn't stop one of my workers (8d03e5b7-19a4-4f6e-b2c8-5a7f1e9d3c60), so it may still run: stop it by hand, as my notification said. I start no new ones and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nOne worker.\nReview of shop/shop-web pull request 88\nA worker, asked for by Sam Rivera in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review.\n14:08\nReacted in a DM with Jonas Weber"
+      "sha256": "83bbc69c56f9f4a8f203c4af772ae4de53b0e72c92bcda5a46b1c73b16fbb243",
+      "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI couldn't stop one of my workers (8d03e5b7-19a4-4f6e-b2c8-5a7f1e9d3c60), so it may still run: stop it by hand, as my notification said. I start no new ones and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nOne worker.\nReview of shop/shop-web pull request 88\nA worker, asked for by Leo Novak in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review.\n14:08\nReacted in a DM with Max Becker"
     },
     {
       "id": "slack-deaf",
@@ -225,8 +225,8 @@
       "file": "captures/slack-deaf.png",
       "width": 2200,
       "height": 1520,
-      "sha256": "7645943887846f25e607dbd96655edd32127b32a53a246d68e966396dbdf1adc",
-      "text": "Misha\nHome\n1\nSet up\nSettings\nSam Rivera\nI can't hear Slack\nPause Misha\nNot hearing Slack\nSam Rivera\nI can't hear Slack.\nNo Slack tab is open and signed in to your workspace, so nothing anyone writes reaches me, and I answer nothing. Open Slack in your browser and I'm back as soon as it loads.\nOpen Slack in Chrome\nOpen Slack in Brave\nOpens Slack in your browser.\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nJonas Weber\n."
+      "sha256": "a12c8ed594a51aecf316c061573f14fc346810b98f3584ebb1b96f8a0d68b3a6",
+      "text": "Misha\nHome\n1\nSet up\nSettings\nLeo Novak\nI can't hear Slack\nPause Misha\nNot hearing Slack\nLeo Novak\nI can't hear Slack.\nNo Slack tab is open and signed in to your workspace, so nothing anyone writes reaches me, and I answer nothing. Open Slack in your browser and I'm back as soon as it loads.\nOpen Slack in Chrome\nOpen Slack in Brave\nOpens Slack in your browser.\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:08\nReacted in a DM with Max Becker\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nMax Becker\n."
     },
     {
       "id": "claude-limit",
@@ -239,8 +239,8 @@
       "file": "captures/claude-limit.png",
       "width": 2200,
       "height": 1520,
-      "sha256": "6c0d9626ae466a3fef7f0fbbe3c834d06032d0ce5317f5b45e8e564f307e3651",
-      "text": "Misha\nHome\nSet up\nSettings\nSam Rivera\nShop · out of Claude usage\nPause Misha\nOut of Claude usage\nShop, as Sam Rivera\nI'm out of Claude usage until 18:00.\nYour Claude plan's usage limit ran out, so I answer nothing until it resets. I still hear Slack, and there's nothing for you to do.\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nJonas Weber\n."
+      "sha256": "d50864da29a1eaae197c8382f9e27069e6b8050c554ad2762fdb0016f59e4963",
+      "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · out of Claude usage\nPause Misha\nOut of Claude usage\nShop, as Leo Novak\nI'm out of Claude usage until 18:00.\nYour Claude plan's usage limit ran out, so I answer nothing until it resets. I still hear Slack, and there's nothing for you to do.\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:08\nReacted in a DM with Max Becker\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nMax Becker\n."
     },
     {
       "id": "claude-signed-out",
@@ -249,12 +249,12 @@
       "region": {
         "kind": "window"
       },
-      "alt": "Home when Claude Code signed out on this Mac: nothing runs until Sam signs in again with Sign in to Claude.",
+      "alt": "Home when Claude Code signed out on this Mac: nothing runs until Leo signs in again with Sign in to Claude.",
       "file": "captures/claude-signed-out.png",
       "width": 2200,
       "height": 1520,
-      "sha256": "c34d66594b5f78f720f8bd19b5f95b9f99c5a336fdabbdb653408d9c6df918ff",
-      "text": "Misha\nHome\n1\nSet up\nSettings\nSam Rivera\nShop · Claude Code signed out\nPause Misha\nClaude Code signed out\nI can't think: Claude Code is signed out.\nI run on your own Claude Code, and it signed out on this Mac. Sign in again and I answer again.\nSign in to Claude\nOpens Terminal with claude auth login.\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:08\nReacted in a DM with Jonas Weber\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nJonas Weber\n."
+      "sha256": "4073fe37a9f4aaed4cd2ac9dd1783d1491e13dd7830f596c703c0a38bbe02cef",
+      "text": "Misha\nHome\n1\nSet up\nSettings\nLeo Novak\nShop · Claude Code signed out\nPause Misha\nClaude Code signed out\nI can't think: Claude Code is signed out.\nI run on your own Claude Code, and it signed out on this Mac. Sign in again and I answer again.\nSign in to Claude\nOpens Terminal with claude auth login.\nWorking on now\nNothing right now.\nRecently\nWhat I posted and decided lately, newest first.\n14:08\nReacted in a DM with Max Becker\n13:58\nLet a message in #shop-backend be. It asked nothing of you.\n13:40\nPosted in #shop-backend\nSHOP-139 is merged. The pull request and its review are in the thread.\n13:31\nStayed out of #shop-backend. You told me to soft-ignore\nMax Becker\n."
     }
   ]
 }

@@ -21,7 +21,7 @@ const RECIPE = {
   browser: 'Brave, headless',
   window: { width: 1100, height: 760, scale: 2 },
   clock: '14:14 on 19 November 2026, local time',
-  data: 'Made-up docs fixtures: Sam Rivera, Priya Nair and Jonas Weber in the Shop workspace.',
+  data: 'Made-up docs fixtures: Leo Novak, Emma Lee and Max Becker in the Shop workspace.',
 }
 
 export const HOME_CAPTURE = {
@@ -33,8 +33,8 @@ export const HOME_CAPTURE = {
   width: 1100,
   height: 760,
   sha256: sha256(HOME_PNG),
-  alt: 'Misha is listening as Sam Rivera; Pause Misha is in the rail.',
-  text: 'Listening as Sam Rivera',
+  alt: 'Misha is listening as Leo Novak; Pause Misha is in the rail.',
+  text: 'Listening as Leo Novak',
 }
 
 export const capturesJson = (captures: readonly object[]): string => JSON.stringify({ recipe: RECIPE, captures })

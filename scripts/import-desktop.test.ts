@@ -179,7 +179,7 @@ describe('[scripts] Import - importDesktop', () => {
 
     it('should refuse a capture whose text names someone outside the cast', async () => {
       // Arrange
-      const capture = { ...HOME_CAPTURE, text: `Listening as Sam Rivera, answering ${OUTSIDER}` }
+      const capture = { ...HOME_CAPTURE, text: `Listening as Leo Novak, answering ${OUTSIDER}` }
       const bundle = await writeBundle({ ...EXPORT_FILES, 'captures.json': capturesJson([capture]) })
 
       // Act + Assert

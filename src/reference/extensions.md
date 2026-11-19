@@ -109,9 +109,9 @@ The public misha-browser package has tools that read and drive your own browser 
 
 These aren't clone tools. misha-core doesn't declare them, and the clone's connections don't include them. To use them, register the standalone MCP server in your own Claude Code or OpenCode, or serve them from an extension module through the package's `browserModule` and `desktopModule` exports, for your sessions and, with a grant, for workers. A worker that gets them acts in your signed-in browser and on your screen as you.
 
-Two made-up examples, both in Sam Rivera's own Claude Code session:
+Two made-up examples, both in Leo Novak's own Claude Code session:
 
-- **Browser:** "In my signed-in Shop admin tab, find this morning's order for Priya Nair and read me its refund status." This uses tab listing, reading and finding, and needs the extension and native host. It types into the search field, so it also needs Accessibility and Screen Recording for the terminal or app running Claude Code.
+- **Browser:** "In my signed-in Shop admin tab, find this morning's order for Emma Lee and read me its refund status." This uses tab listing, reading and finding, and needs the extension and native host. It types into the search field, so it also needs Accessibility and Screen Recording for the terminal or app running Claude Code.
 - **Desktop:** "Bring Simulator to the front and capture the screen." Focusing an app needs no grant; the capture needs both.
 
 The extension records every tab's fetch and XHR requests while it runs, not only during a tool call, with credentials redacted by name and pattern, which misses an opaque credential under an ordinary name. Page text, field values and screenshots come back as the page or screen shows them. [Browser permissions](/reference/permissions) explains each permission and which tools need the macOS grants, and [Privacy and security](/privacy) where the data goes.

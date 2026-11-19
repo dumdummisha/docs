@@ -98,7 +98,7 @@ const SLACK_ID_LOOKALIKES: readonly { words: readonly string[]; within: readonly
 ]
 
 // The made-up people public examples may name, in full and by first name.
-const CAST_FULL_NAMES: readonly string[] = ['Sam Rivera', 'Priya Nair', 'Jonas Weber']
+const CAST_FULL_NAMES: readonly string[] = ['Leo Novak', 'Emma Lee', 'Max Becker']
 const CAST: ReadonlySet<string> = new Set([...CAST_FULL_NAMES, ...CAST_FULL_NAMES.map((name) => name.split(' ')[0] ?? name)])
 
 // JSON keys that hold a person, compared lowercase without separators and a plural s. Every string anywhere below such a
@@ -155,7 +155,7 @@ const REVIEWED_CREDENTIAL_KEYS: readonly { file: string; path: string }[] = [
 const FREE_TEXT_KEYS: ReadonlySet<string> = new Set(['text', 'alt'])
 // The reviewed capitalised word pairs of the captures' text and alt that are not people.
 const NAME_SHAPED_PHRASES: ReadonlySet<string> = new Set([
-  'Ask Priya',
+  'Ask Emma',
   'Claude Code',
   'Connect Figma',
   'Google Workspace',

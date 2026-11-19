@@ -40,7 +40,7 @@ const COMMANDS = {
       sender: 'owner',
       places: ['self-dm'],
       effect: 'The people named may ask for *work*.',
-      example: 'allow @Priya Nair',
+      example: 'allow @Emma Lee',
       mutation: 'allow',
     },
   ],
@@ -190,7 +190,7 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
       [
         '| Command | Where | What it does | Example |',
         '| --- | --- | --- | --- |',
-        '| `allow <@person> [<@person> ...]` | Self-DM | The people named may ask for \\*work\\*. | `allow @Priya Nair` |',
+        '| `allow <@person> [<@person> ...]` | Self-DM | The people named may ask for \\*work\\*. | `allow @Emma Lee` |',
       ].join('\n')
     )
   })
@@ -203,7 +203,7 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     expect(markdown.split('\n').slice(2)).toStrictEqual([
       '| Pause Misha. | Sidebar › **Pause Misha** | None | `misha_pause` |',
       '| A colleague has the clone answer them less. | None | `soft-ignore me`<br>A colleague, in a one-to-one DM with you | None |',
-      '| Let people ask for work. | Settings › Who may ask me for work › **Allow** (On someone found.) | `allow @Priya Nair`<br>You, in your self-DM | `misha_apply_setting` |',
+      '| Let people ask for work. | Settings › Who may ask me for work › **Allow** (On someone found.) | `allow @Emma Lee`<br>You, in your self-DM | `misha_apply_setting` |',
     ])
   })
 

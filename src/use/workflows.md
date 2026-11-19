@@ -13,13 +13,13 @@ Ask your clone in Slack the way you'd ask a colleague. A question gets a marked 
 
 ## Choose a first task {#choose-a-first-task}
 
-Pick something you'd otherwise look up yourself, and connect only the service it needs on **Set up** ([Make it yours](/use/make-it-yours) shows how). Three made-up first tasks for an owner, Sam Rivera, in three roles, each sent in Sam's self-DM (the direct message to yourself in Slack):
+Pick something you'd otherwise look up yourself, and connect only the service it needs on **Set up** ([Make it yours](/use/make-it-yours) shows how). Three made-up first tasks for an owner, Leo Novak, in three roles, each sent in Leo's self-DM (the direct message to yourself in Slack):
 
 - **A developer:** "What does shop/shop-backend do when the payment call times out?" The clone reads its copy of the repository and answers, naming the files. It needs the repository added on **Settings**.
 - **A PM:** "What does SHOP-142 leave out of scope?" The clone reads the ticket and answers from it. It needs **Jira and Confluence** on Set up.
 - **A designer:** "Render the checkout screen from this Figma link and list its button labels." The clone renders the screen, attaches the image and lists the text. It needs **Figma** on Set up.
 
-Each is one bounded read, so none needs a worker or changes anything, and colleagues get the same reads: Priya Nair asking in a `#shop-backend` thread Sam is in gets the same kind of answer.
+Each is one bounded read, so none needs a worker or changes anything, and colleagues get the same reads: Emma Lee asking in a `#shop-backend` thread Leo is in gets the same kind of answer.
 
 ## Who may ask for what {#who-may-ask}
 
@@ -27,7 +27,7 @@ The app decides which of three groups each turn belongs to, and gives it only th
 
 - **Anyone** the clone answers (a DM to you, a mention, a thread you're in, a channel you have it watch) gets answers from reads only.
 - **You**, in your self-DM or in a message with your icon in it, also get changes in connected services, the GitHub and AWS command lines, and the repositories' commit history.
-- **You and those you allow** (Settings › **Who may ask me for work**) can start workers. Allowing Priya lets her ask for research or a fix, not use your direct change tools.
+- **You and those you allow** (Settings › **Who may ask me for work**) can start workers. Allowing Emma lets her ask for research or a fix, not use your direct change tools.
 
 A turn that answers several messages gets only what every one of them may ask for.
 
@@ -107,11 +107,11 @@ A run you ask for, such as "work through the open Dependabot pull requests in sh
 
 ## Follow the work and take it over {#follow-and-take-over}
 
-The requester hears in the thread when the clone takes the work, needs an answer, and finishes or stops. When the requester is someone else, you get a one-line brief in your self-DM at the start and when it lands, stops or needs you, and a question only you can answer never goes into their thread. A made-up exchange in `#shop-backend`, where `:misha:` is Sam's icon:
+The requester hears in the thread when the clone takes the work, needs an answer, and finishes or stops. When the requester is someone else, you get a one-line brief in your self-DM at the start and when it lands, stops or needs you, and a question only you can answer never goes into their thread. A made-up exchange in `#shop-backend`, where `:misha:` is Leo's icon:
 
-> **Priya Nair:** @Sam Rivera the checkout total drops discount codes again, can you take a look?
+> **Emma Lee:** @Leo Novak the checkout total drops discount codes again, can you take a look?
 >
-> **Sam Rivera:** :misha: *On it, SHOP-142. I'll post here when the fix is ready for review.*
+> **Leo Novak:** :misha: *On it, SHOP-142. I'll post here when the fix is ready for review.*
 
 Home in the Misha window lists what is in flight under **Working on now** and what the clone posted and decided under **Recently**:
 

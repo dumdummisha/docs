@@ -13,7 +13,7 @@ const EMAIL = ['priya.nair', 'shop.example'].join('@')
 const NOREPLY = ['1+sam-rivera', 'users.noreply.github.com'].join('@')
 
 const git = (root: string, args: readonly string[], email = NOREPLY): string =>
-  execFileSync('git', ['-c', 'user.name=Sam Rivera', '-c', `user.email=${email}`, '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null', ...args], {
+  execFileSync('git', ['-c', 'user.name=Leo Novak', '-c', `user.email=${email}`, '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null', ...args], {
     cwd: root,
     encoding: 'utf8',
   })
@@ -43,7 +43,7 @@ describe('[scripts] Public check - checkPublic outgoing', () => {
     // Arrange
     const root = await repository()
     await commit(root, 'page.md', `Mail ${EMAIL}`, 'docs: add the page')
-    await commit(root, 'page.md', 'Mail Sam Rivera', 'docs: drop the address')
+    await commit(root, 'page.md', 'Mail Leo Novak', 'docs: drop the address')
 
     // Act
     const findings = await checkPublic(root, 'outgoing')
@@ -57,7 +57,7 @@ describe('[scripts] Public check - checkPublic outgoing', () => {
     const root = await repository()
     const published = await commit(root, 'page.md', `Mail ${EMAIL}`, 'docs: add the page')
     git(root, ['update-ref', 'refs/remotes/origin/main', published])
-    await writeFile(join(root, 'page.md'), 'Mail Sam Rivera')
+    await writeFile(join(root, 'page.md'), 'Mail Leo Novak')
     const outgoing = await commit(root, 'other.md', 'Hello', `docs: thanks ${EMAIL}`, EMAIL)
 
     // Act
@@ -89,7 +89,7 @@ describe('[scripts] Public check - checkPublic outgoing', () => {
   it('should not scan an uncommitted working-tree file', async () => {
     // Arrange
     const root = await repository()
-    await commit(root, 'page.md', 'Mail Sam Rivera', 'docs: add the page')
+    await commit(root, 'page.md', 'Mail Leo Novak', 'docs: add the page')
     await writeFile(join(root, 'draft.md'), `Mail ${EMAIL}`)
 
     // Act

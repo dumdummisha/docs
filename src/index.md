@@ -23,16 +23,40 @@ hero:
       link: /start/get-started
 features:
   - title: Get a sourced answer.
-    details: Routine questions can be answered from code and the services you connect.
-    link: /use/workflows
+    details: >-
+      Ask what SHOP-142 leaves out of scope and, with Jira connected, your clone reads the ticket and answers from it.
+      Code questions need the repository added.
+    link: /use/workflows#question-to-answer
   - title: Carry permitted work forward.
-    details: Research, tickets and reviewed code work, ending at a reviewed pull request, or verified on dev when its prerequisites allow.
-    link: /use/workflows
+    details: >-
+      Research, then tickets and code changes that GPT reviews through OpenCode. A change ends at a reviewed pull
+      request, or is checked on dev when the repository may merge and has its own delivery command.
+    link: /use/workflows#delivery
   - title: Choose the scope and keep a brake.
-    details: Voice, requesters, channels and repositories are your choices, and Pause stops new work.
-    link: /use/make-it-yours
+    details: >-
+      Voice, who may ask for work, watched channels and repositories are <a href="/use/make-it-yours">your choices</a>.
+      <a href="/operate/manage#pause">Pause</a> stops new work and tries to stop running workers.
 ---
 
-::: info Being written
-This site is being written. The pages in the sidebar are outlines for now.
-:::
+<Shot id="home" caption="Home while the clone answers Priya Nair in #shop-backend and two workers run, with Pause Misha in the sidebar. Made-up example." />
+
+## What to know first {#what-to-know-first}
+
+- Your clone can be wrong, in a reply or an action, and it posts as you. Its marker says who wrote; it doesn't prevent mistakes, and pausing doesn't undo what's done.
+- What the clone reads and writes goes to Anthropic through your Claude Code, and GPT reviews go to OpenAI through OpenCode, each under your own account. [Privacy and security](/privacy) lists every recipient.
+- It answers only while your Mac is awake, the app runs and Slack is open in Chrome or Brave.
+- There is no public download yet. Access starts with the invite on [dumdummisha.ai](https://dumdummisha.ai).
+
+## The owner's route {#owner-route}
+
+1. [Decide whether to try it](/start/decide): what Misha does, needs and costs, and what can go wrong.
+2. [Get started](/start/get-started): setup, and when your clone goes live.
+3. [Make it yours](/use/make-it-yours): voice, notes and who may ask for work.
+4. [Put Misha to work](/use/workflows): what to ask and how each request ends.
+
+## Shortcuts {#shortcuts}
+
+- [The security assessment to forward to whoever approves tools](/privacy#assessment)
+- [Why the browser extension needs each permission](/reference/permissions)
+- [How Misha works without a Slack app](/understand/how-it-works#without-a-slack-app)
+- [Use the browser and desktop tools in your own Claude Code or OpenCode, without the Misha app](/reference/extensions#standalone)

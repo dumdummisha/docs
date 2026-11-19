@@ -5,6 +5,7 @@ import { type DefaultTheme, defineConfig, type MarkdownEnv, type MarkdownRendere
 
 import { committedExportOf } from '../scripts/desktop-export.ts'
 import { expandFactTables } from '../scripts/fact-tables.ts'
+import { committedReviewedFactsOf } from '../scripts/reviewed-facts.ts'
 import { checkPageComponents, type ISiteFacts, loadSiteFacts } from '../scripts/site-facts.ts'
 import {
   BROWSER_REPOSITORY_URL,
@@ -105,7 +106,8 @@ const footerMessage = (site: ISiteFacts): string => {
 const description = readmeFirstLine(await readFile(new URL('../README.md', import.meta.url), 'utf8'))
 const root = fileURLToPath(new URL('..', import.meta.url))
 const site = await loadSiteFacts(root)
-const { facts } = await committedExportOf(root)
+const { manifest, facts } = await committedExportOf(root)
+const reviewed = await committedReviewedFactsOf(root, manifest.productVersion)
 
 export default defineConfig({
   title: 'Dumdum Misha',
@@ -117,7 +119,7 @@ export default defineConfig({
   srcExclude: ['_includes/**'],
   markdown: {
     config: (md) => {
-      expandFactTables(facts)(md)
+      expandFactTables({ ...facts, ...reviewed })(md)
       checkComponents(site)(md)
     },
   },

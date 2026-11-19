@@ -302,17 +302,20 @@ export const verifiedExportOf = (bytesByFile: ReadonlyMap<string, Buffer>): IDes
   return { manifest, captureList, facts }
 }
 
+// What facts/ holds: the desktop export's capture list and facts, and the records reviewed by hand (reviewed-facts.ts).
+const FACTS_ENTRIES: readonly string[] = [CAPTURES_FILE, 'desktop', 'reviewed']
+
 // The imported export as the repository holds it, checked again like a bundle, so a capture or fact edited or replaced
-// after the import fails the build. facts/ holds only the export, and facts/desktop/ only the export and its README.
+// after the import fails the build. facts/desktop/ holds only the export and its README.
 export const committedExportOf = async (root: string): Promise<IDesktopExport> => {
   const [factsEntries, desktopEntries, captureEntries] = await Promise.all([
     readdir(join(root, 'facts')),
     readdir(join(root, DESKTOP_FACTS_DIRECTORY)),
     readdir(join(root, SITE_CAPTURES_DIRECTORY)),
   ])
-  const unexpected = factsEntries.filter((name) => name !== CAPTURES_FILE && name !== 'desktop')
+  const unexpected = factsEntries.filter((name) => !FACTS_ENTRIES.includes(name))
   if (unexpected.length > 0) {
-    throw new Error(`facts/ holds ${unexpected.join(', ')}, which is not part of the desktop export`)
+    throw new Error(`facts/ holds ${unexpected.join(', ')}, which is neither the desktop export nor the reviewed records`)
   }
   const files = [
     CAPTURES_FILE,

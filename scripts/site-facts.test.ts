@@ -62,7 +62,7 @@ describe('[scripts] Site facts - loadSiteFacts and checkPageComponents', () => {
 
     // Act + Assert
     await expect(loadSiteFacts(withProductFacts)).rejects.toThrow(
-      'facts/ holds product-status.json, which is not part of the desktop export'
+      'facts/ holds product-status.json, which is neither the desktop export nor the reviewed records'
     )
     await expect(loadSiteFacts(withExtraCapture)).rejects.toThrow('manifest.json lists')
   })

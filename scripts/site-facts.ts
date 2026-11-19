@@ -5,38 +5,61 @@ import { z } from 'zod'
 
 export const CAPTURES_FILE = 'captures.json'
 
-// One committed screenshot of the desktop app, as the export describes it and <Shot> shows it.
+const SHA256 = z.string().regex(/^[0-9a-f]{64}$/u)
+
+// How the desktop export took its screenshots: the browser, window size and scale, the frozen clock and the data set.
+const RECIPE_SCHEMA = z.strictObject({
+  version: z.int().positive(),
+  browser: z.string().min(1),
+  window: z.strictObject({ width: z.int().positive(), height: z.int().positive(), scale: z.int().positive() }),
+  clock: z.string().min(1),
+  data: z.string().min(1),
+})
+
+// One committed screenshot of the desktop app, as the export describes it and <Shot> shows it. The region is the whole
+// page, the window's first screen, or one element of the page by its id.
 export const CAPTURE_SCHEMA = z.strictObject({
   id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u),
   scenario: z.string().min(1),
-  file: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*\.png$/u),
+  page: z.string().min(1),
+  region: z.discriminatedUnion('kind', [
+    z.strictObject({ kind: z.literal('page') }),
+    z.strictObject({ kind: z.literal('window') }),
+    z.strictObject({ kind: z.literal('element'), id: z.string().min(1) }),
+  ]),
+  file: z.string().regex(/^captures\/[a-z0-9]+(?:-[a-z0-9]+)*\.png$/u),
   width: z.int().positive(),
   height: z.int().positive(),
-  sha256: z.string().regex(/^[0-9a-f]{64}$/u),
+  sha256: SHA256,
   alt: z.string().min(1),
-  visibleText: z.string(),
+  people: z.array(z.string().min(1)),
+  text: z.string(),
 })
 
-export const CAPTURES_SCHEMA = z.strictObject({ captures: z.array(CAPTURE_SCHEMA) })
+export const CAPTURES_SCHEMA = z.strictObject({ recipe: RECIPE_SCHEMA, captures: z.array(CAPTURE_SCHEMA) })
 
 export type Capture = z.infer<typeof CAPTURE_SCHEMA>
+export type CaptureList = z.infer<typeof CAPTURES_SCHEMA>
 export type FactValue = string | number | boolean
+
+// What a page needs to show a capture; the rest of its entry stays out of the client bundle.
+export type SiteShot = Pick<Capture, 'file' | 'width' | 'height' | 'alt'>
 
 // What pages can show: captures by id and every scalar fact by its dotted name.
 export interface ISiteFacts {
-  shots: Record<string, Capture>
+  shots: Record<string, SiteShot>
   facts: Record<string, FactValue>
 }
 
-export const capturesOf = (manifest: unknown): Capture[] => {
-  const { captures } = CAPTURES_SCHEMA.parse(manifest)
-  const ids = captures.map((capture) => capture.id)
+export const captureListOf = (manifest: unknown): CaptureList => {
+  const list = CAPTURES_SCHEMA.parse(manifest)
+  const ids = list.captures.map((capture) => capture.id)
   const duplicate = ids.find((id, index) => ids.indexOf(id) !== index)
   if (duplicate !== undefined) {
     throw new Error(`${CAPTURES_FILE} lists the capture ${duplicate} more than once`)
   }
 
-  return captures
+  return list
 }
 
 const scalarsOf = (prefix: string, value: unknown): [string, FactValue][] => {
@@ -54,7 +77,7 @@ const scalarsOf = (prefix: string, value: unknown): [string, FactValue][] => {
 // without .json, then its key path, joined with dots: retention.json under desktop/ holding { "outcomeDays": 30 } gives
 // desktop.retention.outcomeDays.
 export const loadSiteFacts = async (factsDirectory: string): Promise<ISiteFacts> => {
-  const captures = capturesOf(JSON.parse(await readFile(join(factsDirectory, CAPTURES_FILE), 'utf8')))
+  const { captures } = captureListOf(JSON.parse(await readFile(join(factsDirectory, CAPTURES_FILE), 'utf8')))
   const entries = await readdir(factsDirectory, { recursive: true, withFileTypes: true })
   const factFiles = entries
     .filter((entry) => entry.isFile() && entry.name.endsWith('.json'))
@@ -69,7 +92,9 @@ export const loadSiteFacts = async (factsDirectory: string): Promise<ISiteFacts>
   )
 
   return {
-    shots: Object.fromEntries(captures.map((capture) => [capture.id, capture])),
+    shots: Object.fromEntries(
+      captures.map(({ id, file, width, height, alt }) => [id, { file, width, height, alt }])
+    ),
     facts: Object.fromEntries(facts.flat()),
   }
 }

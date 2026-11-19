@@ -15,14 +15,14 @@ const OTHER_ORG_URL = ['https:', '', 'github.com', 'someone-else', 'misha'].join
 const text = (value: string): Buffer => Buffer.from(value, 'utf8')
 
 describe('[scripts] Public data - findingsInFile', () => {
-  it('should pass the cast, approved URLs and ordinary capitals', () => {
+  it('should pass the cast, role ids, approved URLs and ordinary capitals', () => {
     // Arrange
     const markdown = [
       'Sam Rivera asked Priya Nair and Jonas Weber in #shop-backend.',
       'Read https://docs.dumdummisha.ai/privacy and https://github.com/dumdummisha/misha.',
       'TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION',
     ].join('\n')
-    const json = JSON.stringify({ owner: 'Sam Rivera', colleagues: ['Priya Nair', 'Jonas'], name: 'pause' })
+    const json = JSON.stringify({ personName: 'Sam Rivera', people: ['Priya Nair', 'Jonas'], owner: 'allowed', name: 'pause' })
 
     // Act
     const findings = [...findingsInFile('src/page.md', text(markdown)), ...findingsInFile('facts/x.json', text(json))]
@@ -61,7 +61,7 @@ describe('[scripts] Public data - findingsInFile', () => {
 
   it('should fail a person field outside the cast in JSON', () => {
     // Arrange
-    const json = JSON.stringify({ owner: 'Sam Rivera', requesters: ['Priya Nair', 'Alex Morgan'] }, null, 2)
+    const json = JSON.stringify({ requesterName: 'Sam Rivera', people: ['Priya Nair', 'Alex Morgan'] }, null, 2)
 
     // Act
     const findings = findingsInFile('facts/desktop/settings.json', text(json))

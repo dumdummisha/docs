@@ -8,22 +8,33 @@ import { checkPageComponents, loadSiteFacts } from './site-facts.ts'
 
 const directories: string[] = []
 
+const RECIPE = {
+  version: 1,
+  browser: 'Brave, headless',
+  window: { width: 1100, height: 760, scale: 2 },
+  clock: '14:14 on 19 November 2026, local time',
+  data: 'Made-up docs fixtures.',
+}
+
 const HOME_CAPTURE = {
   id: 'home',
   scenario: 'home',
-  file: 'home.png',
-  width: 1100,
-  height: 760,
+  page: 'home',
+  region: { kind: 'element', id: 'icon' },
+  file: 'captures/home.png',
+  width: 2200,
+  height: 1520,
   sha256: 'a'.repeat(64),
   alt: 'Misha is listening as Sam Rivera.',
-  visibleText: 'Listening as Sam Rivera',
+  people: ['Sam Rivera'],
+  text: 'Listening as Sam Rivera',
 }
 
 const factsDirectory = async (captures: readonly unknown[]): Promise<string> => {
   const facts = await mkdtemp(join(tmpdir(), 'docs-facts-'))
   directories.push(facts)
   await mkdir(join(facts, 'desktop'))
-  await writeFile(join(facts, 'captures.json'), JSON.stringify({ captures }))
+  await writeFile(join(facts, 'captures.json'), JSON.stringify({ recipe: RECIPE, captures }))
   await writeFile(
     join(facts, 'desktop', 'retention.json'),
     JSON.stringify({ outcomeDays: 30, receipts: { days: 7, isAcknowledged: true }, kinds: ['outcome'], unset: null })
@@ -43,7 +54,7 @@ describe('[scripts] Site facts - loadSiteFacts and checkPageComponents', () => {
 
     // Assert
     expect(site).toStrictEqual({
-      shots: { home: HOME_CAPTURE },
+      shots: { home: { file: 'captures/home.png', width: 2200, height: 1520, alt: 'Misha is listening as Sam Rivera.' } },
       facts: {
         'desktop.retention.outcomeDays': 30,
         'desktop.retention.receipts.days': 7,

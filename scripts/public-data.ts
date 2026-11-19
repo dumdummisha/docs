@@ -33,6 +33,10 @@ const APPROVED_URLS: readonly IApprovedUrl[] = [
   { host: 'docs.dumdummisha.ai', path: '', within: '' },
   { host: 'dumdummisha.ai', path: '', within: '' },
   { host: 'github.com', path: '/dumdummisha/', within: '' },
+  // The home pages of the programs Misha needs, which the desktop export's detection facts link for installing them.
+  { host: 'claude.com', path: '/product/claude-code', within: '' },
+  { host: 'opencode.ai', path: '/', within: '' },
+  { host: 'cli.github.com', path: '/', within: '' },
   // Namespace and schema identifiers: SVG and MathML namespaces in markup, the vercel.json schema, the sitemap's schemas.
   { host: 'www.w3.org', path: '', within: '' },
   { host: 'openapi.vercel.sh', path: '', within: 'vercel.json' },
@@ -57,31 +61,19 @@ const APPROVED_URLS: readonly IApprovedUrl[] = [
 
 // The made-up people public examples may name.
 const CAST: ReadonlySet<string> = new Set(['Sam Rivera', 'Priya Nair', 'Jonas Weber', 'Sam', 'Priya', 'Jonas'])
-// JSON keys whose values name a person, lowercase; keys are compared case-insensitively.
-const PERSON_KEYS: ReadonlySet<string> = new Set(
-  [
-    'assignee',
-    'author',
-    'colleague',
-    'colleagues',
-    'displayname',
-    'fullname',
-    'member',
-    'members',
-    'owner',
-    'ownername',
-    'person',
-    'people',
-    'realname',
-    'requester',
-    'requesters',
-    'reviewer',
-    'sender',
-    'user',
-    'username',
-    'users',
-  ]
-)
+// JSON keys whose values name a person, lowercase; keys are compared case-insensitively. Role words such as owner or
+// colleague are not here: the desktop export uses them as role ids, not names.
+const PERSON_KEYS: ReadonlySet<string> = new Set([
+  'authorname',
+  'displayname',
+  'fullname',
+  'ownername',
+  'people',
+  'person',
+  'personname',
+  'realname',
+  'requestername',
+])
 // Font files are binary and hold no page text, so they are not scanned.
 const FONT_EXTENSIONS: ReadonlySet<string> = new Set(['.woff2'])
 

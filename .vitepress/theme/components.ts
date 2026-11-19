@@ -39,7 +39,7 @@ export const Shot = defineComponent({
       return h('figure', { class: 'shot' }, [
         h('img', {
           class: 'shot__image',
-          src: withBase(`/captures/${shot.file}`),
+          src: withBase(`/${shot.file}`),
           alt: shot.alt,
           width: shot.width,
           height: shot.height,

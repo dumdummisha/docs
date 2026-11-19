@@ -16,24 +16,36 @@ const EMAIL = ['jonas.weber', 'shop.example'].join('@')
 
 const sha256 = (bytes: Buffer): string => createHash('sha256').update(bytes).digest('hex')
 
+const RECIPE = {
+  version: 1,
+  browser: 'Brave, headless',
+  window: { width: 1100, height: 760, scale: 2 },
+  clock: '14:14 on 19 November 2026, local time',
+  data: 'Made-up docs fixtures: Sam Rivera, Priya Nair and Jonas Weber in the Shop workspace.',
+}
+
 const capturesJson = (file: string, bytes: Buffer, width = 1100): string =>
   JSON.stringify({
+    recipe: RECIPE,
     captures: [
       {
         id: 'home',
         scenario: 'home',
+        page: 'home',
+        region: { kind: 'window' },
         file,
         width,
         height: 760,
         sha256: sha256(bytes),
         alt: 'Misha is listening as Sam Rivera; Pause Misha is in the rail.',
-        visibleText: 'Listening as Sam Rivera',
+        people: ['Sam Rivera', 'Priya Nair'],
+        text: 'Listening as Sam Rivera',
       },
     ],
   })
 
 const VALID_FILES: Readonly<Record<string, string | Buffer>> = {
-  'captures.json': capturesJson('home.png', HOME_PNG),
+  'captures.json': capturesJson('captures/home.png', HOME_PNG),
   'captures/home.png': HOME_PNG,
   'facts/commands.json': JSON.stringify({ commands: [{ name: 'pause', actor: 'owner' }] }),
   'facts/settings.json': JSON.stringify({ owner: 'Sam Rivera', personalityLimit: 500 }),
@@ -50,14 +62,34 @@ const temporaryDirectory = async (prefix: string): Promise<string> => {
   return directory
 }
 
-// A bundle holding the files, with a manifest hashing them unless the test supplies its own.
+interface IManifestEntry {
+  path: string
+  bytes: number
+  sha256: string
+}
+
+const digestOf = (entries: readonly IManifestEntry[]): string =>
+  sha256(Buffer.from(entries.map((entry) => `${entry.sha256}  ${entry.path}`).join('\n')))
+
+// A bundle holding the files, with a manifest listing them unless the test supplies its own list.
 const writeBundle = async (
   files: Readonly<Record<string, string | Buffer>>,
-  manifestFiles?: Readonly<Record<string, string>>
+  listed?: readonly IManifestEntry[]
 ): Promise<string> => {
   const bundle = await temporaryDirectory('desktop-bundle-')
-  const hashes = Object.fromEntries(Object.entries(files).map(([file, content]) => [file, sha256(Buffer.from(content))]))
-  const manifest = { exportSchemaVersion: 1, productVersion: '0.4.0', evidenceDate: '2026-11-19', files: manifestFiles ?? hashes }
+  const entries =
+    listed ??
+    Object.entries(files)
+      .sort(([first], [second]) => first.localeCompare(second))
+      .map(([path, content]) => ({ path, bytes: Buffer.from(content).length, sha256: sha256(Buffer.from(content)) }))
+  const manifest = {
+    exportSchemaVersion: 1,
+    productVersion: '0.1.0',
+    evidenceDate: '2026-11-19',
+    captureRecipeVersion: 1,
+    digest: digestOf(entries),
+    files: entries,
+  }
   await Promise.all(
     Object.entries({ ...files, 'manifest.json': JSON.stringify(manifest) }).map(async ([file, content]) => {
       await mkdir(dirname(join(bundle, file)), { recursive: true })
@@ -144,23 +176,35 @@ describe('[scripts] Import - importDesktop', () => {
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toStrictEqual(
-        new BundleError('The SHA-256 of facts/retention.json differs from manifest.json')
+        new BundleError('The size or SHA-256 of facts/retention.json differs from manifest.json')
       )
     })
 
     it('should refuse a manifest that hashes a file outside the bundle', async () => {
       // Arrange
-      const bundle = await writeBundle(VALID_FILES, { '../outside.json': sha256(Buffer.from('{}')) })
+      const bundle = await writeBundle(VALID_FILES, [{ path: '../outside.json', bytes: 2, sha256: sha256(Buffer.from('{}')) }])
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toThrow(
-        'manifest.json hashes ../outside.json but the bundle holds captures.json'
+        'manifest.json lists ../outside.json but the bundle holds captures.json'
+      )
+    })
+
+    it('should refuse a manifest whose digest does not match its file list', async () => {
+      // Arrange
+      const bundle = await writeBundle(VALID_FILES)
+      const manifest = JSON.parse(await readFile(join(bundle, 'manifest.json'), 'utf8')) as Record<string, unknown>
+      await writeFile(join(bundle, 'manifest.json'), JSON.stringify({ ...manifest, digest: 'f'.repeat(64) }))
+
+      // Act + Assert
+      await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toStrictEqual(
+        new BundleError('The digest in manifest.json does not match its file list')
       )
     })
 
     it('should refuse a capture whose file climbs out of the captures folder', async () => {
       // Arrange
-      const bundle = await writeBundle({ ...VALID_FILES, 'captures.json': capturesJson('../../evil.png', HOME_PNG) })
+      const bundle = await writeBundle({ ...VALID_FILES, 'captures.json': capturesJson('captures/../../evil.png', HOME_PNG) })
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toThrow(
@@ -170,7 +214,7 @@ describe('[scripts] Import - importDesktop', () => {
 
     it('should refuse a capture whose size differs from its PNG', async () => {
       // Arrange
-      const bundle = await writeBundle({ ...VALID_FILES, 'captures.json': capturesJson('home.png', HOME_PNG, 1200) })
+      const bundle = await writeBundle({ ...VALID_FILES, 'captures.json': capturesJson('captures/home.png', HOME_PNG, 1200) })
 
       // Act + Assert
       await expect(importDesktop(bundle, await temporaryDirectory('docs-root-'))).rejects.toStrictEqual(
@@ -180,7 +224,7 @@ describe('[scripts] Import - importDesktop', () => {
 
     it('should refuse a bundle that fails the public-data scan', async () => {
       // Arrange
-      const settings = JSON.stringify({ owner: 'Sam Rivera', contact: EMAIL })
+      const settings = JSON.stringify({ personName: 'Sam Rivera', contact: EMAIL })
       const bundle = await writeBundle({ ...VALID_FILES, 'facts/settings.json': settings })
 
       // Act + Assert

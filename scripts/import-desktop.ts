@@ -6,7 +6,7 @@ import { z } from 'zod'
 
 import { findingLine, findingsInFile } from './public-data.ts'
 import { type IPngSize, pngSizeOf } from './png.ts'
-import { type Capture, CAPTURES_FILE, capturesOf } from './site-facts.ts'
+import { type CaptureList, CAPTURES_FILE, captureListOf } from './site-facts.ts'
 
 const MANIFEST_FILE = 'manifest.json'
 const FACT_FILES: readonly string[] = [
@@ -25,11 +25,17 @@ export const DESKTOP_FACTS_DIRECTORY = 'facts/desktop'
 export const SITE_CAPTURES_FILE = `facts/${CAPTURES_FILE}`
 export const SITE_CAPTURES_DIRECTORY = 'src/public/captures'
 
+const SHA256 = z.string().regex(/^[0-9a-f]{64}$/u)
+
+// The export's manifest: versions, the evidence day, and every other file with its size and hash. The digest is the
+// SHA-256 of one "<sha256>  <path>" line per listed file, in the listed order, joined with newlines.
 const MANIFEST_SCHEMA = z.strictObject({
   exportSchemaVersion: z.literal(EXPORT_SCHEMA_VERSION),
   productVersion: z.string().min(1),
   evidenceDate: z.iso.date(),
-  files: z.record(z.string(), z.string().regex(/^[0-9a-f]{64}$/u)),
+  captureRecipeVersion: z.int().positive(),
+  digest: SHA256,
+  files: z.array(z.strictObject({ path: z.string().min(1), bytes: z.int().nonnegative(), sha256: SHA256 })),
 })
 
 export class BundleError extends Error {
@@ -73,9 +79,9 @@ const parsedJson = (file: string, bytes: Buffer): unknown => {
   }
 }
 
-const bundleCapturesOf = (bytes: Buffer): Capture[] => {
+const bundleCaptureListOf = (bytes: Buffer): CaptureList => {
   try {
-    return capturesOf(parsedJson(CAPTURES_FILE, bytes))
+    return captureListOf(parsedJson(CAPTURES_FILE, bytes))
   } catch (error) {
     throw new BundleError(`${CAPTURES_FILE} is not a valid capture list: ${String(error)}`)
   }
@@ -85,7 +91,7 @@ const bundlePngSizeOf = (file: string, bytes: Buffer): IPngSize => {
   try {
     return pngSizeOf(bytes)
   } catch (error) {
-    throw new BundleError(`captures/${file} is not a readable PNG: ${String(error)}`)
+    throw new BundleError(`${file} is not a readable PNG: ${String(error)}`)
   }
 }
 
@@ -119,21 +125,33 @@ const verifiedBundleOf = async (bundle: string): Promise<Map<string, Buffer>> =>
       `${MANIFEST_FILE} does not match export schema ${EXPORT_SCHEMA_VERSION}: ${manifest.error.message}`
     )
   }
-  const hashed = Object.keys(manifest.data.files).sort()
+  const listed = manifest.data.files.map((entry) => entry.path)
   const content = files.filter((file) => file !== MANIFEST_FILE)
-  if (hashed.join('\n') !== content.join('\n')) {
-    throw new BundleError(`${MANIFEST_FILE} hashes ${hashed.join(', ')} but the bundle holds ${content.join(', ')}`)
+  if ([...listed].sort().join('\n') !== content.join('\n')) {
+    throw new BundleError(`${MANIFEST_FILE} lists ${listed.join(', ')} but the bundle holds ${content.join(', ')}`)
   }
-  const mismatched = content.filter((file) => manifest.data.files[file] !== sha256(read(file)))
+  const mismatched = manifest.data.files.filter(
+    (entry) => entry.sha256 !== sha256(read(entry.path)) || entry.bytes !== read(entry.path).length
+  )
   if (mismatched.length > 0) {
-    throw new BundleError(`The SHA-256 of ${mismatched.join(', ')} differs from ${MANIFEST_FILE}`)
+    const paths = mismatched.map((entry) => entry.path).join(', ')
+    throw new BundleError(`The size or SHA-256 of ${paths} differs from ${MANIFEST_FILE}`)
+  }
+  const digest = sha256(Buffer.from(manifest.data.files.map((entry) => `${entry.sha256}  ${entry.path}`).join('\n')))
+  if (digest !== manifest.data.digest) {
+    throw new BundleError(`The digest in ${MANIFEST_FILE} does not match its file list`)
   }
 
   for (const file of FACT_FILES) {
     parsedJson(file, read(file))
   }
-  const captures = bundleCapturesOf(read(CAPTURES_FILE))
-  const capturedFiles = captures.map((capture) => `captures/${capture.file}`).sort()
+  const { recipe, captures } = bundleCaptureListOf(read(CAPTURES_FILE))
+  if (recipe.version !== manifest.data.captureRecipeVersion) {
+    throw new BundleError(
+      `${CAPTURES_FILE} has capture recipe ${recipe.version} but ${MANIFEST_FILE} says ${manifest.data.captureRecipeVersion}`
+    )
+  }
+  const capturedFiles = captures.map((capture) => capture.file).sort()
   const pngFiles = files.filter((file) => CAPTURE_PATH.test(file))
   if (capturedFiles.join('\n') !== pngFiles.join('\n')) {
     throw new BundleError(
@@ -141,14 +159,14 @@ const verifiedBundleOf = async (bundle: string): Promise<Map<string, Buffer>> =>
     )
   }
   for (const capture of captures) {
-    const bytes = read(`captures/${capture.file}`)
+    const bytes = read(capture.file)
     if (sha256(bytes) !== capture.sha256) {
-      throw new BundleError(`The SHA-256 of captures/${capture.file} differs from ${CAPTURES_FILE}`)
+      throw new BundleError(`The SHA-256 of ${capture.file} differs from ${CAPTURES_FILE}`)
     }
     const { width, height } = bundlePngSizeOf(capture.file, bytes)
     if (width !== capture.width || height !== capture.height) {
       throw new BundleError(
-        `captures/${capture.file} is ${width}x${height}, not the ${capture.width}x${capture.height} ${CAPTURES_FILE} says`
+        `${capture.file} is ${width}x${height}, not the ${capture.width}x${capture.height} ${CAPTURES_FILE} says`
       )
     }
   }

@@ -18,19 +18,19 @@ What happens to the data once it reaches the Misha app or an agent is in the [pr
 
 ## Source and purpose {#purpose}
 
-<!--@generated: browser-source-->
+<!-- facts browser-source -->
 
 The declaration table, the quoted limits and the exact disclosures on this page are the extension's own disclosure text, rendered from that file rather than rewritten; the macOS grant matrix is this page's own, from the tools' code. The browser repository generates its Chrome Web Store text from the same source. The single purpose its listing states:
 
-<!--@generated: browser-single-purpose-->
+<!-- facts browser-single-purpose -->
 
 ## Every declaration at a glance {#summary}
 
 Each row quotes the first sentence of the declaration's disclosure; the link opens the full text under [Exact reviewed disclosures](#declarations).
 
-<!--@generated: browser-permission-table-->
+<!-- facts browser-permission-table -->
 
-<!--@generated: browser-not-requested-->
+<!-- facts browser-not-requested -->
 
 ## Browser access and macOS grants {#macos-grants}
 
@@ -53,33 +53,33 @@ A permission says what the extension can do, not which agent may use it. Misha's
 
 These are quoted from the declarations' limits. The storage limits, and what the extension keeps in memory and on disk, are under [In the browser](/privacy#browser-storage) on the privacy page.
 
-<!--@generated: browser-exceptions-->
+<!-- facts browser-exceptions -->
 
 ## Exact reviewed disclosures {#declarations}
 
 The full disclosure for each declaration, with what it lets the extension do, why, when data flows and every limit, followed by the Slack transport limits, credential handling, native messaging and remote code statements.
 
-<!--@generated: browser-introduction-->
+<!-- facts browser-introduction -->
 
-<!--@generated: browser-permission-details-->
+<!-- facts browser-permission-details -->
 
 ### Slack transport limits {#slack-transport-limits}
 
 These are the Slack Web API methods and message fields the extension's protocol allows, as the browser repository generates them from its code:
 
-<!--@generated: browser-slack-transport-->
+<!-- facts browser-slack-transport -->
 
 ### Where Slack's credentials go {#where-slack-credentials-go}
 
-<!--@generated: browser-credentials-->
+<!-- facts browser-credentials -->
 
 ### Native messaging {#native-host}
 
-<!--@generated: browser-native-messaging-->
+<!-- facts browser-native-messaging -->
 
 ### Remote code {#remote-code}
 
-<!--@generated: browser-remote-code-->
+<!-- facts browser-remote-code -->
 
 This statement describes the source. The extension has no store listing yet, and the built package's check for remote code is part of submitting it, not something this page shows.
 

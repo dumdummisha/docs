@@ -5,7 +5,6 @@ import { type DefaultTheme, defineConfig, type MarkdownEnv, type MarkdownRendere
 
 import { committedBrowserFactsOf } from '../scripts/browser-facts.ts'
 import { committedExportOf } from '../scripts/desktop-export.ts'
-import { expandFragments, fragmentsOf } from '../scripts/fact-includes.ts'
 import { expandFactTables } from '../scripts/fact-tables.ts'
 import { checkPageComponents, type ISiteFacts, loadSiteFacts } from '../scripts/site-facts.ts'
 import {
@@ -83,16 +82,6 @@ const checkComponents =
     })
   }
 
-// Each <!--@generated: name--> line of a page becomes its fragment before the page is parsed, so the fragment's
-// headings get anchors, enter the outline and reach the local search index, which renders pages with this same setup.
-const placeFragments =
-  (fragments: Readonly<Record<string, string>>) =>
-  (md: MarkdownRenderer): void => {
-    md.core.ruler.before('normalize', 'generated-fragments', (state) => {
-      state.src = expandFragments(state.src, fragments, (state.env as MarkdownEnv).relativePath)
-    })
-  }
-
 // The landing page, the canonical privacy policy, the browser extension's source and where availability is published,
 // with the desktop app version and evidence day the site's facts describe.
 const footerMessage = (site: ISiteFacts): string => {
@@ -117,8 +106,7 @@ const footerMessage = (site: ISiteFacts): string => {
 const description = readmeFirstLine(await readFile(new URL('../README.md', import.meta.url), 'utf8'))
 const root = fileURLToPath(new URL('..', import.meta.url))
 const site = await loadSiteFacts(root)
-const { facts } = await committedExportOf(root)
-const fragments = fragmentsOf(facts, await committedBrowserFactsOf(root))
+const facts = { desktop: (await committedExportOf(root)).facts, browser: await committedBrowserFactsOf(root) }
 
 export default defineConfig({
   title: 'Dumdum Misha',
@@ -127,7 +115,6 @@ export default defineConfig({
   srcDir: 'src',
   markdown: {
     config: (md) => {
-      placeFragments(fragments)(md)
       expandFactTables(facts)(md)
       checkComponents(site)(md)
     },

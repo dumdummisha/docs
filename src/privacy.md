@@ -66,7 +66,7 @@ Three configurations reach different data, and no single Slack message uses all 
 
 For the browser extension, its disclosures state:
 
-<!--@generated: browser-recipients-->
+<!-- facts browser-recipients -->
 
 Each recipient's own retention, training and administrator-access rules apply to what it receives. These docs have not checked them.
 
@@ -95,7 +95,7 @@ The check covers only stored values of at least eight characters from stores it 
 
 Misha's own files on your Mac:
 
-<!--@generated: desktop-paths-->
+<!-- facts paths -->
 
 What the less obvious of these hold, and what else Misha's code writes:
 
@@ -113,7 +113,7 @@ What the less obvious of these hold, and what else Misha's code writes:
 
 #### Retention {#retention}
 
-<!--@generated: desktop-retention-->
+<!-- facts retention-policy -->
 
 Starting fresh is not erasure: the clone's next message starts a new Claude session, and the old transcript stays in Claude Code, as do your settings and notes. A message waiting for the clone is still there after a pause and can be answered after you resume.
 
@@ -121,7 +121,7 @@ Starting fresh is not erasure: the clone's next message starts a new Claude sess
 
 The extension writes only its queue of new Slack messages to disk; everything else it keeps stays in memory:
 
-<!--@generated: browser-holdings-->
+<!-- facts browser-holdings -->
 
 #### Outside Misha's folders {#other-records}
 
@@ -181,15 +181,15 @@ The publisher does not sell your data, does not use it for advertising, and does
 
 The extension's single purpose, as its listing states it:
 
-<!--@generated: browser-single-purpose-->
+<!-- facts browser-single-purpose -->
 
 What it handles, by the store's data types:
 
-<!--@generated: browser-data-usage-->
+<!-- facts browser-data-usage -->
 
 Its certifications:
 
-<!--@generated: browser-certifications-->
+<!-- facts browser-certifications -->
 
 [Browser permissions](/reference/permissions) explains each permission from the same source.
 

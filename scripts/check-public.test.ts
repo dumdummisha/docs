@@ -72,6 +72,20 @@ describe('[scripts] Public check - checkPublic outgoing', () => {
     ])
   })
 
+  it('should skip a blob origin already holds, even in an outgoing tree, and scan a new one beside it', async () => {
+    // Arrange
+    const root = await repository()
+    const published = await commit(root, 'page.md', `Mail ${EMAIL}`, 'docs: add the page')
+    git(root, ['update-ref', 'refs/remotes/origin/main', published])
+    await commit(root, 'other.md', `Ask ${EMAIL}`, 'docs: add another page')
+
+    // Act
+    const findings = await checkPublic(root, 'outgoing')
+
+    // Assert
+    expect(findings).toStrictEqual([{ file: expect.stringMatching(/^other\.md \(blob [0-9a-f]{7}\)$/u), line: 1, rule: 'email address' }])
+  })
+
   it('should not scan an uncommitted working-tree file', async () => {
     // Arrange
     const root = await repository()

@@ -15,7 +15,7 @@ The site is VitePress at the repository root with pages in `src/`. It needs Node
 | `pnpm preview` | Serves the built site. |
 | `pnpm typecheck` | Type-checks the theme, the config and the scripts. |
 | `pnpm test` | Runs the script tests. |
-| `pnpm check:privacy` | Before a push: scans what the push would publish (every committed file of `HEAD` and of each commit not yet on `origin/main`, or the whole history before the first push, and each commit's message and identities) for data that must not be public. |
+| `pnpm check:privacy` | Before a push: scans what the push would publish (every committed file of `HEAD` and of each commit not yet on `origin/main` that `origin/main` does not already hold, or the whole history before the first push, and each commit's message and identities) for data that must not be public. |
 | `pnpm check:source` | Scans the files a build of this checkout reads for data that must not be public. |
 | `pnpm check:built` | Scans the built site for data that must not be public. |
 | `pnpm check:links` | Checks every internal link and anchor in the built site. |

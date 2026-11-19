@@ -1,6 +1,10 @@
 import { type MarkdownEnv, type MarkdownRenderer } from 'vitepress'
 
 import { type DesktopFacts } from './desktop-export.ts'
+import { type ACTORS, type ACCESS, type ENDPOINT_KINDS, type ReviewedFacts } from './reviewed-facts.ts'
+
+// What the tables render from: the desktop export's documents and the reviewed records, by name.
+export type TableFacts = DesktopFacts & ReviewedFacts
 
 type Command = DesktopFacts['commands']['commands'][number]
 type Mutation = DesktopFacts['settings']['mutations'][number]
@@ -28,6 +32,25 @@ const PLACE_LABELS: Readonly<Record<string, string>> = {
   'self-dm': 'Self-DM',
   'dm-with-owner': 'One-to-one DM with the owner',
   summon: 'Any conversation, with the icon',
+}
+
+// Who carries out a request or workflow, and who may ask for it, as the capability and workflow tables say it.
+const ACTOR_LABELS: Readonly<Record<(typeof ACTORS)[number], string>> = {
+  clone: 'The clone',
+  worker: 'A worker',
+  'your-agent': 'Your own agent',
+}
+const ACCESS_LABELS: Readonly<Record<(typeof ACCESS)[number], string>> = {
+  anyone: 'Anyone the clone answers',
+  owner: 'You, in your self-DM or with your icon',
+  allowed: 'You and the people you allow',
+  session: 'You, in your agent session',
+}
+const ENDPOINT_LABELS: Readonly<Record<(typeof ENDPOINT_KINDS)[number], string>> = {
+  result: 'Ends with',
+  wait: 'Waits',
+  stop: 'Stops',
+  decision: 'Your decision',
 }
 
 // Who sends a command, and where, as a change's Slack cell says it under the example.
@@ -252,6 +275,58 @@ const retentionTable = (facts: DesktopFacts, ids: readonly string[]): string =>
     ])
   )
 
+const listCell = (items: readonly string[]): string => items.map(text).join('<br>')
+
+// Every request, or the ones named, with who carries it out, who may ask, what it needs and its limit.
+const capabilitiesTable = (facts: TableFacts, ids: readonly string[]): string =>
+  table(
+    ['Request', 'Done by', 'Who may ask', 'Needs', 'Limit'],
+    picked(facts.capabilities.capabilities, ({ id }) => id, ids, 'capability').map(
+      ({ request, actor, access, needs, limit }) => [
+        text(request),
+        ACTOR_LABELS[actor],
+        ACCESS_LABELS[access],
+        listCell(needs),
+        text(limit),
+      ]
+    )
+  )
+
+// Every workflow, or the ones named: when it applies, who may ask, what it needs (the repository commands it uses
+// included), its review and the results it can end with.
+const workflowsTable = (facts: TableFacts, ids: readonly string[]): string =>
+  table(
+    ['Workflow', 'When', 'Who may ask', 'Needs', 'Review', 'Ends with'],
+    picked(facts.workflows.workflows, ({ id }) => id, ids, 'workflow').map(
+      ({ name, trigger, access, needs, projectCommands, review, endpoints }) => [
+        `**${text(name)}**`,
+        text(trigger),
+        ACCESS_LABELS[access],
+        [
+          ...needs.map(text),
+          ...projectCommands.map(
+            ({ name: command, role }) => `Optional ${code(command)} command in the repository: ${text(role)}`
+          ),
+        ].join('<br>'),
+        review === null ? NONE : text(review),
+        listCell(endpoints.filter(({ kind }) => kind === 'result').map(({ outcome }) => outcome)),
+      ]
+    )
+  )
+
+// Every way one workflow can end, in the record's order.
+const endpointsTable = (facts: TableFacts, id: string): string => {
+  const workflow = facts.workflows.workflows.find((each) => each.id === id)
+  if (workflow === undefined) {
+    throw new FactTableError(`There is no workflow ${id} in the facts`)
+  }
+
+  return table(
+    ['Outcome', 'What happens', 'When'],
+    workflow.endpoints.map(({ kind, outcome, when }) => [ENDPOINT_LABELS[kind], text(outcome), text(when)])
+  )
+}
+
 const withoutArguments = (name: string, rest: readonly string[], markdown: () => string): string => {
   if (rest.length > 0) {
     throw new FactTableError(`${name} takes no arguments, not ${rest.join(' ')}`)
@@ -264,8 +339,9 @@ const withoutArguments = (name: string, rest: readonly string[], markdown: () =>
 // as a comment.
 export const isFactTableMarker = (html: string): boolean => MARKER_START.test(html)
 
-// The Markdown a facts marker stands for, from the committed export. An unknown table, argument or id is an error.
-export const factTableMarkdown = (facts: DesktopFacts, marker: string): string => {
+// The Markdown a facts marker stands for, from the committed export and reviewed records. An unknown table, argument
+// or id is an error.
+export const factTableMarkdown = (facts: TableFacts, marker: string): string => {
   const words = MARKER.exec(marker)?.groups?.words?.trim().split(/\s+/u)
   const [name, ...rest] = words ?? []
   if (name === undefined) {
@@ -293,18 +369,31 @@ export const factTableMarkdown = (facts: DesktopFacts, marker: string): string =
       return withoutArguments(name, rest, () => detectionTable(facts))
     case 'retention':
       return retentionTable(facts, rest)
+    case 'capabilities':
+      return capabilitiesTable(facts, rest)
+    case 'workflows':
+      return workflowsTable(facts, rest)
+    case 'endpoints': {
+      const [workflow, ...extra] = rest
+      if (workflow === undefined || extra.length > 0) {
+        throw new FactTableError('endpoints takes exactly one workflow')
+      }
+
+      return endpointsTable(facts, workflow)
+    }
     default:
       throw new FactTableError(
-        `There is no facts table ${name}; use command-terms, commands, settings, surfaces, setup-commands, detection or retention`
+        `There is no facts table ${name}; use command-terms, commands, settings, surfaces, setup-commands, detection, retention, capabilities, workflows or endpoints`
       )
   }
 }
 
-// Each <!-- facts <table> ... --> block of a page replaced by the table it names, rendered from the committed export
-// while the page's Markdown renders, so the table is in the built HTML and the local search index. A marker that is
-// malformed, names no table, or sits inside a paragraph instead of on lines of its own stops the build, naming the page.
+// Each <!-- facts <table> ... --> block of a page replaced by the table it names, rendered from the committed export and
+// reviewed records while the page's Markdown renders, so the table is in the built HTML and the local search index. A
+// marker that is malformed, names no table, or sits inside a paragraph instead of on lines of its own stops the build,
+// naming the page.
 export const expandFactTables =
-  (facts: DesktopFacts) =>
+  (facts: TableFacts) =>
   (md: MarkdownRenderer): void => {
     md.core.ruler.push('fact-tables', (state) => {
       const page = (state.env as MarkdownEnv).relativePath

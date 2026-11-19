@@ -1,0 +1,92 @@
+{
+  "productVersion": "0.1.0",
+  "evidenceDate": "2026-11-19",
+  "workflows": [
+    {
+      "id": "quick-answer",
+      "name": "Quick answer",
+      "trigger": "A question one bounded read answers: one file or symbol, one ticket, one message, one doc",
+      "actor": "clone",
+      "access": "anyone",
+      "needs": ["The connection that holds the answer"],
+      "projectCommands": [],
+      "review": null,
+      "endpoints": [
+        { "kind": "result", "outcome": "A marked reply that names what it read", "when": "The read answers the question" },
+        { "kind": "result", "outcome": "A reaction, or no reply", "when": "The message asks nothing of you, as most messages in a watched channel don't" },
+        { "kind": "stop", "outcome": "The clone answers what it can and passes the rest to you", "when": "More is needed and the asker may not ask for work" }
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Research",
+      "trigger": "A question that needs more than a quick read: tracing behaviour, comparing versions or dates, a failure, sources that disagree",
+      "actor": "worker",
+      "access": "allowed",
+      "needs": ["The repository added on Settings", "For an incident, read access to that environment's logs and data"],
+      "projectCommands": [],
+      "review": null,
+      "endpoints": [
+        { "kind": "result", "outcome": "An answer from the worker's report, with its sources and what stays uncertain", "when": "The worker could read what it needed" },
+        { "kind": "result", "outcome": "The change goes on to delivery", "when": "The report shows a change is needed" },
+        { "kind": "stop", "outcome": "A blocked report, and you hear which connection to reconnect", "when": "A sign-in is missing or expired, or the worker lacks access" }
+      ]
+    },
+    {
+      "id": "service-change",
+      "name": "Your change to a document or ticket",
+      "trigger": "Your own message, in your self-DM or with your icon, asks to create or change a Doc, Sheet, ticket or page",
+      "actor": "clone",
+      "access": "owner",
+      "needs": ["Google, or Jira and Confluence, on Set up"],
+      "projectCommands": [],
+      "review": null,
+      "endpoints": [
+        { "kind": "result", "outcome": "The change, and a reply saying what changed", "when": "Your message in that turn asked for it" },
+        { "kind": "stop", "outcome": "Nothing changes, and the clone passes it on or asks you to ask in a message of your own", "when": "Someone else asked, or the request came from an earlier turn" }
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery",
+      "trigger": "A request for a change that makes sense and needs nothing more from you",
+      "actor": "worker",
+      "access": "allowed",
+      "needs": ["The repository added on Settings", "GitHub CLI on Set up", "Jira and Confluence on Set up", "OpenCode signed in to OpenAI, for the GPT reviews"],
+      "projectCommands": [
+        { "name": "create-ticket", "role": "Writes the ticket when the repository has it; otherwise a worker writes one" },
+        { "name": "execute", "role": "Implements, has GPT review the pull request, merges, deploys to dev and checks the change there; used only where the repository may merge" }
+      ],
+      "review": "GPT reviews a ticket the workflow wrote or rewrote, and the pull request. While GPT is unavailable the review waits; Claude never reviews in its place.",
+      "endpoints": [
+        { "kind": "result", "outcome": "A reviewed pull request, not merged", "when": "The repository may not merge, or it has no execute command" },
+        { "kind": "result", "outcome": "Merged, deployed to dev and checked there", "when": "The repository may merge and has an execute command" },
+        { "kind": "wait", "outcome": "The review waits", "when": "OpenCode is not signed in to OpenAI, or GPT is out of usage" },
+        { "kind": "wait", "outcome": "A reviewed, green pull request waits to merge", "when": "A breaking change must land after another service's change, which its requester times" },
+        { "kind": "stop", "outcome": "Delivery stops, and the thread hears who has the ticket", "when": "The ticket is assigned to someone other than you, or lost the auto label it was taken with" },
+        { "kind": "stop", "outcome": "A short ticket for the colleague instead of a change", "when": "The change is in a colleague's repository and they have not approved it in their own message" },
+        { "kind": "stop", "outcome": "A one-line refusal", "when": "The request is for staging, production, a release, or someone else's branch" },
+        { "kind": "decision", "outcome": "A question to you", "when": "Ticket review findings remain after two rounds or are disputed, or a product or scope decision is missing" }
+      ]
+    },
+    {
+      "id": "dependency-updates",
+      "name": "Dependency updates",
+      "trigger": "A request to work through dependency pull requests, a security update or a version bump",
+      "actor": "worker",
+      "access": "allowed",
+      "needs": ["The repository added on Settings", "GitHub CLI on Set up", "OpenCode signed in to OpenAI, for the GPT reviews"],
+      "projectCommands": [],
+      "review": "GPT reviews every pull request on its current head before it merges, an unchanged bot pull request included. While GPT is unavailable it waits; Claude never reviews in its place.",
+      "endpoints": [
+        { "kind": "result", "outcome": "Merged one at a time, each deploy to dev checked", "when": "The repository may merge, the update carries no danger flag and every check passed" },
+        { "kind": "result", "outcome": "A reviewed pull request, not merged", "when": "The repository may not merge, or the merge would deploy beyond dev" },
+        { "kind": "result", "outcome": "A report: merged, flagged and open pull requests, where each merge reached, checks still open, and proposals for new features and deprecations", "when": "The run ends" },
+        { "kind": "wait", "outcome": "The pull request waits for its review", "when": "OpenCode is not signed in to OpenAI, or GPT is out of usage" },
+        { "kind": "stop", "outcome": "The queue stops until the cause is known", "when": "A deploy or a check after a merge fails" },
+        { "kind": "decision", "outcome": "The update is flagged for you with its evidence and options", "when": "It is dangerous: a major version of auth, payment, data or framework code, a runtime change, a breaking change no test covers, several majors at once, or a supply-chain change such as a new publisher" },
+        { "kind": "decision", "outcome": "Yours to do", "when": "Closing a pull request, telling the bot to ignore a version, or turning a proposal into a ticket" }
+      ]
+    }
+  ]
+}

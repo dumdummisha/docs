@@ -170,6 +170,7 @@
 .vp-doc .chat-message__emoji {
   display: inline;
   vertical-align: -3px;
+}
 
 /* Printed, a page is its content alone, and the privacy page's assessment fills the first sheet by itself. */
 @media print {

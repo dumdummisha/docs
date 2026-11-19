@@ -1,3 +1,5 @@
+import { type MarkdownEnv, type MarkdownRenderer } from 'vitepress'
+
 import { type DesktopFacts } from './desktop-export.ts'
 
 type Command = DesktopFacts['commands']['commands'][number]
@@ -5,13 +7,19 @@ type Mutation = DesktopFacts['settings']['mutations'][number]
 type WindowControl = Mutation['window'][number]
 type Limits = DesktopFacts['settings']['fields'][number]['limits']
 
-// A page asks for a table with an HTML comment on lines of its own: <!-- facts <table> [<argument> ...] -->.
-const MARKER_START = /^<!--\s*facts\b/u
-const MARKER = /^<!--\s*facts(?<words>(?:\s+[a-z0-9-]+)+)\s*-->\s*$/u
+// A page asks for a table with an HTML comment on lines of its own: <!-- facts <table> [<argument> ...] -->. Markdown
+// lets an HTML block start up to three spaces in and keeps them in the block, so both allow leading whitespace. The start
+// ignores letter case, so a <!-- Facts ... --> is recognised and then refused by the exact form, never left a comment.
+const MARKER_START = /^\s*<!--\s*facts\b/iu
+const MARKER = /^\s*<!--\s*facts(?<words>(?:\s+[a-z0-9-]+)+)\s*-->\s*$/u
 // Escaped wherever a fact's text sits in a table cell, so its words never become Markdown or HTML.
 const MARKDOWN_PUNCTUATION = /[\\`*_[\]<>|~]/gu
 const NUMBER_FORMAT = new Intl.NumberFormat('en')
 const NONE = 'None'
+// The export names the window's sidebar rail, the one place a control sits that the window gives no title; every other
+// page is named by its title.
+const RAIL = 'rail'
+const RAIL_LABEL = 'Sidebar'
 // What a cell says of a value checked against a format, in place of the format itself (see LIMIT_TEXT).
 const FORMAT_CHECKED = 'format checked when saved'
 
@@ -20,6 +28,19 @@ const PLACE_LABELS: Readonly<Record<string, string>> = {
   'self-dm': 'Self-DM',
   'dm-with-owner': 'One-to-one DM with the owner',
   summon: 'Any conversation, with the icon',
+}
+
+// Who sends a command, and where, as a change's Slack cell says it under the example.
+const SENDER_PHRASES: Readonly<Record<Command['sender'], string>> = {
+  owner: 'You',
+  colleague: 'A colleague',
+}
+// Every command sent with the icon acts on the conversation or thread it is sent in, which the self-DM refuses to be
+// (hands off and hands on).
+const PLACE_PHRASES: Readonly<Record<string, string>> = {
+  'self-dm': 'in your self-DM',
+  'dm-with-owner': 'in a one-to-one DM with you',
+  summon: 'with the icon, in the conversation or thread it is for, not your self-DM',
 }
 
 export class FactTableError extends Error {
@@ -42,14 +63,16 @@ const days = (count: number): string => `${NUMBER_FORMAT.format(count)} ${count 
 const table = (headers: readonly string[], rows: readonly (readonly string[])[]): string =>
   [headers, headers.map(() => '---'), ...rows].map((cells) => `| ${cells.join(' | ')} |`).join('\n')
 
-const placeLabel = (place: string): string => {
-  const label = PLACE_LABELS[place]
+const labelOf = (labels: Readonly<Record<string, string>>, place: string): string => {
+  const label = labels[place]
   if (label === undefined) {
     throw new FactTableError(`The commands name the place ${place}, which has no label in fact-tables.ts`)
   }
 
   return label
 }
+
+const placeLabel = (place: string): string => labelOf(PLACE_LABELS, place)
 
 // Each limit a setting can carry, in the order a cell lists them. Every key of the schema's limits is here, so a key
 // the export adds fails the typecheck until this says how to show it. Format patterns are exported without their
@@ -71,10 +94,11 @@ const LIMIT_TEXT: Readonly<Record<keyof Limits, (limits: Limits) => string | und
   name: ({ name }) => (name === undefined ? undefined : FORMAT_CHECKED),
 }
 
+// Empty when the export lists no limit: the export says what the app checks, not that a value has no constraint.
 const limitsCell = (limits: Limits): string => {
   const parts = [...new Set(Object.values(LIMIT_TEXT).flatMap((textOf) => textOf(limits) ?? []))]
 
-  return parts.length === 0 ? NONE : capitalised(parts.join('; '))
+  return capitalised(parts.join('; '))
 }
 
 const commandById = (facts: DesktopFacts, id: string): Command => {
@@ -114,7 +138,7 @@ const windowCell = (controls: readonly WindowControl[]): string => {
 
   return controls
     .map(({ page, section, control, note }) => {
-      const path = [capitalised(page), ...(section === null ? [] : [section])].map(text).join(' › ')
+      const path = [page === RAIL ? RAIL_LABEL : page, ...(section === null ? [] : [section])].map(text).join(' › ')
       const where = `${path} › **${text(control)}**`
 
       return note === null ? where : `${where} (${text(note)})`
@@ -129,9 +153,10 @@ const slackCell = (facts: DesktopFacts, ids: readonly string[]): string => {
 
   return ids
     .map((id) => {
-      const { example, sender } = commandById(facts, id)
+      const { example, sender, places } = commandById(facts, id)
+      const where = places.map((place) => labelOf(PLACE_PHRASES, place)).join(' or ')
 
-      return sender === 'owner' ? code(example) : `${code(example)} (${text(sender)})`
+      return `${code(example)}<br>${SENDER_PHRASES[sender]}, ${where}`
     })
     .join('<br>')
 }
@@ -235,7 +260,8 @@ const withoutArguments = (name: string, rest: readonly string[], markdown: () =>
   return markdown()
 }
 
-// Whether an HTML block is a facts marker, well formed or not: one that is not is an error, never left as a comment.
+// Whether an HTML block or inline comment is a facts marker, well formed or not: one that is not is an error, never left
+// as a comment.
 export const isFactTableMarker = (html: string): boolean => MARKER_START.test(html)
 
 // The Markdown a facts marker stands for, from the committed export. An unknown table, argument or id is an error.
@@ -273,3 +299,30 @@ export const factTableMarkdown = (facts: DesktopFacts, marker: string): string =
       )
   }
 }
+
+// Each <!-- facts <table> ... --> block of a page replaced by the table it names, rendered from the committed export
+// while the page's Markdown renders, so the table is in the built HTML and the local search index. A marker that is
+// malformed, names no table, or sits inside a paragraph instead of on lines of its own stops the build, naming the page.
+export const expandFactTables =
+  (facts: DesktopFacts) =>
+  (md: MarkdownRenderer): void => {
+    md.core.ruler.push('fact-tables', (state) => {
+      const page = (state.env as MarkdownEnv).relativePath
+      state.tokens = state.tokens.flatMap((token) => {
+        const inline = token.children?.find((child) => child.type === 'html_inline' && isFactTableMarker(child.content))
+        if (inline !== undefined) {
+          throw new FactTableError(`${page}: ${inline.content.trim()} must stand on lines of its own`)
+        }
+
+        if (token.type !== 'html_block' || !isFactTableMarker(token.content)) {
+          return [token]
+        }
+
+        try {
+          return md.parse(factTableMarkdown(facts, token.content), state.env)
+        } catch (error) {
+          throw new Error(`${page}: ${String(error)}`, { cause: error })
+        }
+      })
+    })
+  }

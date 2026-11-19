@@ -1,8 +1,11 @@
+import { fileURLToPath } from 'node:url'
+
+import { createMarkdownRenderer } from 'vitepress'
 import { describe, expect, it } from 'vitest'
 
 import { type DesktopFacts, verifiedExportOf } from './desktop-export.ts'
 import { EXPORT_FILES, type ExportFiles, withManifest } from './export-fixture.ts'
-import { FactTableError, factTableMarkdown, isFactTableMarker } from './fact-tables.ts'
+import { expandFactTables, FactTableError, factTableMarkdown, isFactTableMarker } from './fact-tables.ts'
 
 const COMMANDS = {
   rule: 'A command is the whole message | nothing else.',
@@ -104,19 +107,19 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     )
   })
 
-  it('should give each change its window path, Slack example with a non-owner sender named, and setup tool', () => {
+  it('should give each change its window path, Slack example with who sends it and where, and setup tool', () => {
     // Act
     const markdown = factTableMarkdown(FACTS, '<!-- facts surfaces pause soft-ignore-me allow -->')
 
     // Assert
     expect(markdown.split('\n').slice(2)).toStrictEqual([
-      '| Pause Misha. | Rail › **Pause Misha** | None | `misha_pause` |',
-      '| A colleague has the clone answer them less. | None | `soft-ignore me` (colleague) | None |',
-      '| Let people ask for work. | Settings › Who may ask me for work › **Allow** (On someone found.) | `allow @Priya Nair` | `misha_apply_setting` |',
+      '| Pause Misha. | Sidebar › **Pause Misha** | None | `misha_pause` |',
+      '| A colleague has the clone answer them less. | None | `soft-ignore me`<br>A colleague, in a one-to-one DM with you | None |',
+      '| Let people ask for work. | Settings › Who may ask me for work › **Allow** (On someone found.) | `allow @Priya Nair`<br>You, in your self-DM | `misha_apply_setting` |',
     ])
   })
 
-  it('should state count limits, say a format is checked rather than print its pattern, and say None for no limit', () => {
+  it('should state count limits, say a format is checked rather than print its pattern, and leave no listed limit empty', () => {
     // Act
     const markdown = factTableMarkdown(FACTS, '<!-- facts settings -->')
 
@@ -124,7 +127,7 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     expect(markdown.split('\n').slice(2)).toStrictEqual([
       '| `icon` | The emoji. | :misha: | Format checked when saved |',
       '| `notes` | What it remembers. | None. | Up to 200 notes; 1,000 characters each |',
-      '| `sessionEpoch` | Moves on with start fresh. | 0 | None |',
+      '| `sessionEpoch` | Moves on with start fresh. | 0 |  |',
     ])
   })
 
@@ -159,6 +162,8 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
 
   it.each([
     ['<!-- facts nonsense -->', 'There is no facts table nonsense'],
+    ['   <!-- facts nonsense -->', 'There is no facts table nonsense'],
+    ['<!-- Facts settings -->', 'is not <!-- facts <table>'],
     ['<!-- facts: settings -->', 'is not <!-- facts <table>'],
     ['<!-- facts settings extra -->', 'settings takes no arguments, not extra'],
     ['<!-- facts commands -->', 'commands takes exactly one sender'],
@@ -193,5 +198,42 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     // Act + Assert
     expect(isFactTableMarker('<!-- factsheet below -->')).toBe(false)
     expect(isFactTableMarker('<!-- see the facts -->')).toBe(false)
+  })
+
+  it('should render an indented marker like an unindented one', () => {
+    // Act
+    const markdown = factTableMarkdown(FACTS, '   <!-- facts retention ledger -->\n')
+
+    // Assert
+    expect(isFactTableMarker('   <!-- facts retention ledger -->\n')).toBe(true)
+    expect(markdown.split('\n').slice(2)).toStrictEqual(['| Every post the clone made. | No age limit |'])
+  })
+})
+
+describe('[scripts] Fact tables - expandFactTables', () => {
+  const render = async (page: string): Promise<string> => {
+    const md = await createMarkdownRenderer(fileURLToPath(new URL('../src', import.meta.url)))
+    expandFactTables(FACTS)(md)
+
+    return md.render(page, { relativePath: 'reference/example.md' })
+  }
+
+  it('should replace a marker indented as far as an HTML block allows with its table', async () => {
+    // Act
+    const html = await render('Intro.\n\n   <!-- facts retention ledger -->\n\nAfter.\n')
+
+    // Assert
+    expect(html).toContain('<td>Every post the clone made.</td>')
+    expect(html).not.toContain('<!--')
+  })
+
+  it.each([
+    ['an indented unknown table', '  <!-- facts nonexistent -->\n', 'There is no facts table nonexistent'],
+    ['an indented malformed marker', ' <!-- facts: settings -->\n', 'is not <!-- facts <table>'],
+    ['a marker inside a paragraph', 'See <!-- facts settings --> here.\n', 'must stand on lines of its own'],
+  ])('should stop the build, naming the page, for %s', async (_case, page, message) => {
+    // Act + Assert
+    await expect(render(page)).rejects.toThrow(message)
+    await expect(render(page)).rejects.toThrow('reference/example.md')
   })
 })

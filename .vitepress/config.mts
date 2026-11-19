@@ -3,8 +3,8 @@ import { fileURLToPath } from 'node:url'
 
 import { type DefaultTheme, defineConfig, type MarkdownEnv, type MarkdownRenderer } from 'vitepress'
 
-import { committedExportOf, type DesktopFacts } from '../scripts/desktop-export.ts'
-import { factTableMarkdown, isFactTableMarker } from '../scripts/fact-tables.ts'
+import { committedExportOf } from '../scripts/desktop-export.ts'
+import { expandFactTables } from '../scripts/fact-tables.ts'
 import { checkPageComponents, type ISiteFacts, loadSiteFacts } from '../scripts/site-facts.ts'
 import {
   BROWSER_REPOSITORY_URL,
@@ -55,27 +55,6 @@ const SIDEBAR: DefaultTheme.SidebarItem[] = [
     ],
   },
 ]
-
-// Each <!-- facts <table> ... --> block of a page replaced by the table it names, rendered from the committed export
-// while the page's Markdown renders, so the table is in the built HTML and the local search index. A marker that names
-// no table stops the build, naming the page.
-const expandFactTables =
-  (facts: DesktopFacts) =>
-  (md: MarkdownRenderer): void => {
-    md.core.ruler.push('fact-tables', (state) => {
-      const page = (state.env as MarkdownEnv).relativePath
-      state.tokens = state.tokens.flatMap((token) => {
-        if (token.type !== 'html_block' || !isFactTableMarker(token.content)) {
-          return [token]
-        }
-        try {
-          return md.parse(factTableMarkdown(facts, token.content), state.env)
-        } catch (error) {
-          throw new Error(`${page}: ${String(error)}`, { cause: error })
-        }
-      })
-    })
-  }
 
 // The README's first line, so the README and the site describe Misha in the same sentence.
 const readmeFirstLine = (readme: string): string => {

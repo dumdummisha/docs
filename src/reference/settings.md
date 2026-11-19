@@ -11,6 +11,8 @@ Most settings are in the Misha window, on **Settings**, with integrations on **S
 
 ## Common changes {#recipes}
 
+Each row names the control in the Misha window, where the sidebar is the window's left column with its pages and Pause, then the Slack command with who sends it and where, then the setup tool that the [setup command](#setup-command) uses when you ask for the change in plain words.
+
 <!-- facts surfaces pause resume allow disallow set-merging forget hands-off soft-ignore-me -->
 
 **None** in the Slack column means no command exists: typing "stop allowing Priya" in your self-DM is ordinary conversation and changes nothing. [Control and maintain Misha](/operate/manage) explains what Pause stops and what it can't.
@@ -39,11 +41,11 @@ These work only in a one-to-one DM with you, never in a group DM or channel. Som
 
 <!-- facts settings -->
 
-No control changes `account` after the first save, and `sessionEpoch` moves only with start fresh.
+An empty **Limits** cell means the export lists no limit. `compactAtTokens` takes a positive whole number of tokens, or nothing for the default, and the window refuses anything else. No control changes `account` after the first save, and `sessionEpoch` moves only with start fresh.
 
 ### Where each change is made {#surfaces}
 
-The window column gives page, section and control. The setup tool is what the [setup command](#setup-command) uses to make the change when you ask in plain words. The window and the setup tool are you at your own Mac. For what workers do with these permissions, see [Put Misha to work](/use/workflows).
+Every change, in the columns [Common changes](#recipes) explains. The window and the setup tool are you at your own Mac. For what workers do with these permissions, see [Put Misha to work](/use/workflows).
 
 <!-- facts surfaces -->
 
@@ -53,7 +55,7 @@ The icon, ignore, soft-ignore, watch and hands off decide which new Slack messag
 
 The rest reaches the clone on its next turn. A change to what it is told about you (personality, notes, who it ignores, who may ask for work, watched channels, where workers merge, start fresh) also drops an answer it was writing, and the message is answered again under the new settings.
 
-No change reaches into work already started. After **Stop allowing**, the clone starts no new work for that person, even from a report on their earlier work, but a running worker keeps running. **May merge** is an instruction, not a lock: Misha tells the clone where merging is allowed on each turn, the clone passes it on when it briefs a worker, and nothing in the app blocks a merge. A worker briefed before you turned merging off isn't told again. To stop work in flight, [pause Misha](/operate/manage).
+No change reaches into work already started. After **Stop allowing**, the clone's next turns can't start workers for that person, including a turn that handles a report on their earlier work. A turn already running when you save keeps the permissions it started with and may still start a worker, and a running worker keeps running. **May merge** is an instruction, not a lock: Misha tells the clone where merging is allowed on each turn, the clone passes it on when it briefs a worker, and nothing in the app blocks a merge. A worker briefed before you turned merging off isn't told again. To stop new work at once, [pause Misha](/operate/manage): no worker starts while Misha is paused, and it tries to stop the running ones.
 
 ## Revision conflicts {#revision-conflicts}
 
@@ -63,11 +65,11 @@ The window and the setup tool make each change against the settings they last lo
 
 Notes are settings: your exact words, numbered, given to the clone as standing context. **Remember** or `remember` adds one; only **Forget** in the window, or the setup tool, removes one.
 
-History is the clone's Claude Code session, one for every conversation rather than one per thread, with its transcript kept by Claude Code on your Mac. At `compactAtTokens` the session is compacted and the clone is given your settings again. Misha also records which session each conversation continues; removing that record leaves the transcript:
+History is the clone's one Claude Code session. Every conversation shares it, rather than each conversation or thread having its own, so the session remembers them all. Claude Code keeps its transcript on your Mac. At `compactAtTokens` the session is compacted and the clone is given your settings again. For each conversation and thread, Misha records the session it answers in and how far the clone has read there. When cleanup removes that record, the clone next reads the latest messages there again, and the session and its transcript stay:
 
 <!-- facts retention sessions -->
 
-Start fresh begins a new session and keeps your settings, notes and the old transcript, so it deletes no history. [Privacy and security](/privacy) covers what is stored where.
+Start fresh replaces the shared session for every conversation at once. It keeps your settings, notes and the old transcript, so it deletes no history. [Privacy and security](/privacy) covers what is stored where.
 
 ## Hands off {#hands-off}
 

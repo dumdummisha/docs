@@ -11,19 +11,46 @@ export interface ISiteFacts {
   facts: Record<string, FactValue>
 }
 
+const idOf = (item: unknown): string | undefined =>
+  typeof item === 'object' && item !== null && 'id' in item && typeof item.id === 'string' ? item.id : undefined
+
+// An array whose every item has an id names its items by id, so an item the export inserts or reorders cannot move a
+// page's fact onto another item; any other array names its items by position.
+const namedItemsOf = (prefix: string, items: readonly unknown[]): [string, unknown][] => {
+  const byId = items.flatMap((item): [string, unknown][] => {
+    const id = idOf(item)
+
+    return id === undefined ? [] : [[id, item]]
+  })
+  if (items.length === 0 || byId.length < items.length) {
+    return items.map((item, index) => [String(index), item])
+  }
+  const ids = byId.map(([id]) => id)
+  const duplicate = ids.find((id, index) => ids.indexOf(id) !== index)
+  if (duplicate !== undefined) {
+    throw new Error(`${prefix} holds the id ${duplicate} more than once`)
+  }
+
+  return byId
+}
+
 const scalarsOf = (prefix: string, value: unknown): [string, FactValue][] => {
   if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
     return [[prefix, value]]
   }
   if (typeof value === 'object' && value !== null) {
-    return Object.entries(value).flatMap(([key, item]) => scalarsOf(`${prefix}.${key}`, item))
+    const entries = Array.isArray(value) ? namedItemsOf(prefix, value) : Object.entries(value)
+
+    return entries.flatMap(([key, item]) => scalarsOf(`${prefix}.${key}`, item))
   }
 
   return []
 }
 
 // Facts and captures from the committed desktop export, revalidated first. A fact's name is desktop., its document's
-// name and its key path, joined with dots: retention.json holding { "rule": "..." } gives desktop.retention.rule.
+// name and its key path, joined with dots, with an item of an array of ids named by its id: retention.json holding
+// { "rule": "...", "stores": [{ "id": "outcomes", "keptDays": 30 }] } gives desktop.retention.rule and
+// desktop.retention.stores.outcomes.keptDays.
 export const loadSiteFacts = async (root: string): Promise<ISiteFacts> => {
   const { manifest, captureList, facts } = await committedExportOf(root)
   const documents = { ...facts, manifest }

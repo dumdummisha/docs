@@ -26,7 +26,7 @@ None needs a worker or changes anything, and colleagues get the same reads: Priy
 The app decides which of three groups each turn belongs to, and gives it only that group's tools:
 
 - **Anyone** the clone answers (a DM to you, a mention, a thread you're in, a channel you have it watch) gets answers from reads only.
-- **You**, in your self-DM or in a message that starts with your icon, also get changes in connected services, the GitHub and AWS command lines, and the repositories' commit history.
+- **You**, in your self-DM or in a message with your icon in it, also get changes in connected services, the GitHub and AWS command lines, and the repositories' commit history.
 - **You and those you allow** (Settings › **Who may ask me for work**) can start workers. Allowing Priya lets her ask for research or a fix, not use your direct change tools.
 
 A turn that answers several messages gets only what every one of them may ask for.

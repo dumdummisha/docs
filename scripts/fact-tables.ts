@@ -40,7 +40,7 @@ const ACTOR_LABELS: Readonly<Record<(typeof ACTORS)[number], string>> = {
   worker: 'Worker',
   'your-agent': 'Your agent',
 }
-// The owner's own turn is a message in their self-DM or one starting with their icon, which the pages explain.
+// The owner's own turn is a message in their self-DM or one with their icon in it, which the pages explain.
 const ACCESS_LABELS: Readonly<Record<(typeof ACCESS)[number], string>> = {
   anyone: 'Anyone',
   owner: 'You',

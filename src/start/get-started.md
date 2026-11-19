@@ -11,20 +11,17 @@ next:
 
 # Get started
 
-You can't install Misha yet. Since 19 November 2026 one owner has run an unsigned local build. There is no public download, no Chrome Web Store listing for the browser extension and no invite keys. To ask for access, use the invite on the [Dumdum Misha website](https://dumdummisha.ai). This page describes setup as the Misha window walks through it today, so you know what it takes and what happens when your clone goes live.
-
-## What isn't available yet {#availability}
-
-A signed download, its first launch and the store listing will be described here once they exist. Until then, the steps below begin with Misha already running on a Mac.
+Misha is in an invite-only pilot: to try it, ask for an invite on [dumdummisha.ai](https://dumdummisha.ai). There is no public download, Chrome Web Store listing or invite key yet, so the steps below begin with Misha already running on a Mac. They follow setup as the Misha window walks through it today, so you know what it takes and what happens when your clone goes live.
 
 ## What you need {#requirements}
 
+- Slack, the only chat Misha works with today; adapters for Microsoft Teams and Discord are in progress.
 - A Mac with Chrome or Brave, and Slack open and signed in there.
 - Claude Code, signed in with your own Claude subscription.
 - git, and the GitHub CLI if your clone should read code.
 - Optional: OpenCode signed in to OpenAI, so GPT can review tickets and pull requests, and the services your tasks need. [Put Misha to work](/use/workflows#review-requirements) explains why delivery waits without GPT.
 
-There's no Misha fee in the invite-only pilot. You pay for your own Claude, and OpenAI if you add it. Misha's **Set up** page checks each item and offers the one action that fixes it:
+Misha is free during the pilot: you pay for your own Claude subscription, and OpenAI if you add it. Misha's **Set up** page checks each item and offers the one action that fixes it:
 
 <!-- facts detection -->
 
@@ -77,7 +74,7 @@ The first time Misha opens, its window shows **Get started**, a checklist that t
   <li class="step">
     <div class="step__body">
       <p class="step__title"><a href="#first-reply">Say hi</a></p>
-      <p class="step__line">Write to yourself in Slack and the clone answers there.</p>
+      <p class="step__line">Write to yourself in Slack and the clone answers there. It answers your colleagues too from the moment you save.</p>
     </div>
     <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--message"><strong>Sam Rivera</strong> hi</span></div>
   </li>

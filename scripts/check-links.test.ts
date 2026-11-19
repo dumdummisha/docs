@@ -38,7 +38,7 @@ describe('[scripts] Links - checkLinks', () => {
         '<a href="/start/decide">Decide</a> <a href="/start/decide#what-it-costs">Cost</a>',
         '<a href="/reference/">Reference</a> <a href="./start/decide.html">Old style</a>',
         '<img src="/logo.svg" alt=""> <script src="/assets/app.js"></script>',
-        '<a href="https://github.com/dumdummisha/misha">GitHub</a> <a href="mailto:x">Mail</a>',
+        '<a href="https://github.com/dumdummisha/docs">GitHub</a> <a href="mailto:x">Mail</a>',
         "<A HREF='/start/decide'>Upper</A> <a href=/reference/#reference>Bare</a>",
         '<a href="https://docs.dumdummisha.ai/start/decide#what-it-costs">Canonical</a>',
       ].join('\n'),

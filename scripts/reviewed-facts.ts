@@ -11,7 +11,7 @@ const REVIEWED_FACTS_README = 'README.md'
 const SLUG = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/u)
 const TEXT = z.string().min(1)
 const PRODUCT_VERSION = z.string().regex(/^\d+\.\d+\.\d+$/u)
-// A commit of the public misha-browser repository.
+// A commit of the public browser-extension repository.
 const GIT_REVISION = z.string().regex(/^[0-9a-f]{7,40}$/u)
 
 // Who carries the work out: the clone in its own turn, a worker it starts, or the reader's own agent session.

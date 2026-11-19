@@ -7,9 +7,9 @@ import { z } from 'zod'
 import { BROWSER_REPOSITORY_URL, SITE_URL } from './site.ts'
 
 // The public browser repository's reviewed disclosures and manifest declarations, copied at one named commit by
-// pnpm import:browser into facts/browser/. The disclosure schemas mirror misha-browser's own
+// pnpm import:browser into facts/browser/. The disclosure schemas mirror browser-extension's own
 // (src/disclosures/store-disclosures.ts); every schema here is strict, the source manifest's included, which is stricter
-// than misha-browser's parser, so a field the browser repository adds fails here until this repository reviews it.
+// than browser-extension's parser, so a field the browser repository adds fails here until this repository reviews it.
 
 export const BROWSER_FACTS_DIRECTORY = 'facts/browser'
 // The one repository-owned file beside the imported facts.
@@ -140,7 +140,7 @@ const SOURCE_MANIFEST_SCHEMA = z.strictObject({
 
 const NAMES = z.array(z.string().regex(/^[a-z_.A-Z]+$/u)).min(1)
 
-// The Slack transport's limits that misha-browser renders into docs/store-permissions.md from its protocol constants.
+// The Slack transport's limits that browser-extension renders into docs/store-permissions.md from its protocol constants.
 const SLACK_TRANSPORT_SCHEMA = z.strictObject({
   readMethods: NAMES,
   writeMethods: NAMES,
@@ -237,7 +237,7 @@ const SLACK_TRANSPORT_HEADING = '## Slack transport limits'
 const codeListOf = (list: string | undefined): string[] =>
   (list ?? '').split(', ').map((item) => item.replace(/^`|`$/gu, ''))
 
-// The Slack transport section of misha-browser's generated docs/store-permissions.md, read line by line against the
+// The Slack transport section of browser-extension's generated docs/store-permissions.md, read line by line against the
 // exact sentences its generator writes, so a reworded or reordered section stops the import rather than being misread.
 export const slackTransportOf = (storePermissions: string): SlackTransport => {
   const file = BROWSER_SOURCE_PATHS[SLACK_TRANSPORT_FILE]

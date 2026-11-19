@@ -118,15 +118,15 @@ The extension records every tab's fetch and XHR requests while it runs, not only
 
 ## Using them without Misha {#standalone}
 
-The standalone MCP server serves the browser and desktop tools over stdio to Claude Code, OpenCode or any other MCP client, without the Misha app or an invite. It runs on macOS only, and the browser tools need the extension and its native host loaded in Chrome or Brave. Follow the [misha-browser README](https://github.com/dumdummisha/misha-browser#readme) to build it, load the unpacked extension, install the native host, register the server and grant the macOS permissions; this page doesn't repeat those steps.
+The standalone MCP server serves the browser and desktop tools over stdio to Claude Code, OpenCode or any other MCP client, without the Misha app or an invite. It runs on macOS only, and the browser tools need the extension and its native host loaded in Chrome or Brave. Follow the [misha-browser README](https://github.com/dumdummisha/browser-extension#readme) to build it, load the unpacked extension, install the native host, register the server and grant the macOS permissions; this page doesn't repeat those steps.
 
 ## Public and private {#public-and-private}
 
 | Part | Where | Licence |
 | --- | --- | --- |
-| These docs | [dumdummisha/misha](https://github.com/dumdummisha/misha) | Apache-2.0 for code and prose, OFL-1.1 for the fonts; the name, mascot and app icon are brand artwork |
-| Browser extension, native host, protocol, client, browser and desktop tools, MCP server | [misha-browser](https://github.com/dumdummisha/misha-browser) | Apache-2.0 |
-| Signed builds and the update feed, once there are releases | [misha-downloads](https://github.com/dumdummisha/misha-downloads) | No licence file; no public release yet |
+| These docs | [dumdummisha/docs](https://github.com/dumdummisha/docs) | Apache-2.0 for code and prose, OFL-1.1 for the fonts; the name, mascot and app icon are brand artwork |
+| Browser extension, native host, protocol, client, browser and desktop tools, MCP server | [browser-extension](https://github.com/dumdummisha/browser-extension) | Apache-2.0 |
+| Signed builds and the update feed, once there are releases | [desktop-downloads](https://github.com/dumdummisha/desktop-downloads) | No licence file; no public release yet |
 | The desktop app and misha-core | Private | Not published |
 
 To see how Misha does it, start with misha-browser: its protocol shows what passes between the extension, the native host and the app, and its tools are the ones you can reuse today.

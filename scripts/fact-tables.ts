@@ -638,7 +638,7 @@ const browserDataUsage = ({ disclosures }: IBrowserFacts): string =>
   )
 
 const browserSource = (browser: IBrowserFacts): string =>
-  `These come from [\`docs/store-disclosures.json\`](${BROWSER_REPOSITORY_URL}/blob/${browser.source.commit}/docs/store-disclosures.json) and the manifest of the public misha-browser repository at commit ${commitLink(browser)}, the browser extension's version ${proseCode(browser.manifest.version)}, which needs Chrome ${browser.manifest.minimum_chrome_version} or later.`
+  `These come from [\`docs/store-disclosures.json\`](${BROWSER_REPOSITORY_URL}/blob/${browser.source.commit}/docs/store-disclosures.json) and the manifest of the public browser-extension repository at commit ${commitLink(browser)}, the browser extension's version ${proseCode(browser.manifest.version)}, which needs Chrome ${browser.manifest.minimum_chrome_version} or later.`
 
 const browserPermissionTable = (browser: IBrowserFacts): string =>
   table(

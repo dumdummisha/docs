@@ -16,7 +16,7 @@ const OUTSIDER = ['Alex', 'Morgan'].join(' ')
 const SLACK_TOKEN = ['xoxb', '1234-abcd'].join('-')
 const SIGNING_IDENTITY = ['Developer ID', 'Application: Shop'].join(' ')
 const TRACKER_URL = ['https:', '', 'tracker.example', 'pixel.gif'].join('/')
-const PRIVATE_REPOSITORY_URL = ['https:', '', 'github.com', 'dumdummisha', 'misha-desktop'].join('/')
+const PRIVATE_REPOSITORY_URL = ['https:', '', 'github.com', 'dumdummisha', 'desktop'].join('/')
 const QUERY_URL = ['https:', '', 'docs.dumdummisha.ai', 'privacy?ref=mail'].join('/')
 const CREDENTIALS_URL = ['https:', '', ['sam:secret', 'docs.dumdummisha.ai'].join('@'), 'privacy'].join('/')
 const SCHEME_RELATIVE_URL = ['', '', 'private.example', 'path'].join('/')
@@ -31,8 +31,8 @@ describe('[scripts] Public data - findingsInFile', () => {
       // Arrange
       const markdown = [
         'Sam Rivera asked Priya Nair and Jonas Weber in #shop-backend; ask @Jonas Weber or @Priya.',
-        'Read https://docs.dumdummisha.ai/privacy#data, https://github.com/dumdummisha/misha/edit/main/src/index.md and',
-        'https://github.com/dumdummisha/misha-browser. SHOP-142 IS DONE.',
+        'Read https://docs.dumdummisha.ai/privacy#data, https://github.com/dumdummisha/docs/edit/main/src/index.md and',
+        'https://github.com/dumdummisha/browser-extension. SHOP-142 IS DONE.',
       ].join('\n')
 
       // Act

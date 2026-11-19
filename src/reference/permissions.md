@@ -45,7 +45,7 @@ Browser permissions and macOS permissions are separate. The extension's permissi
 | Desktop tools: every `macos_mouse_*` and `macos_keyboard_*` tool, and `macos_screen_capture` | No | Yes |
 | `macos_list_apps` and `macos_focus_app` | No | No |
 
-The grants go to the app that runs the agent (the terminal, the editor whose terminal you use, or the desktop app), not to the browser. After a click, drag, typing or key press, the same save-dialog Return goes through the input session those tools already use. This matrix follows the browser tools' code at the commit above; the [misha-browser README](https://github.com/dumdummisha/misha-browser) groups `tab_select_option` with the extension-only tools without the download exception.
+The grants go to the app that runs the agent (the terminal, the editor whose terminal you use, or the desktop app), not to the browser. After a click, drag, typing or key press, the same save-dialog Return goes through the input session those tools already use. This matrix follows the browser tools' code at the commit above; the [misha-browser README](https://github.com/dumdummisha/browser-extension) groups `tab_select_option` with the extension-only tools without the download exception.
 
 A permission says what the extension can do, not which agent may use it. Misha's clone does not get the general `tab_*` and `macos_*` tools by default: you register them with your own Claude Code or OpenCode, or an extension grants them to a worker. [Customise and reuse Misha](/reference/extensions) explains both routes.
 
@@ -85,4 +85,4 @@ This statement describes the source. The extension has no store listing yet, and
 
 ## Related {#related}
 
-The store's data-type answers, certifications and Limited Use statement are on the privacy page under [Chrome Web Store requirements](/privacy#store). The paste-ready store text is `docs/store-permissions.md` in [misha-browser](https://github.com/dumdummisha/misha-browser), generated from the same disclosures.
+The store's data-type answers, certifications and Limited Use statement are on the privacy page under [Chrome Web Store requirements](/privacy#store). The paste-ready store text is `docs/store-permissions.md` in [browser-extension](https://github.com/dumdummisha/browser-extension), generated from the same disclosures.

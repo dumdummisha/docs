@@ -154,7 +154,7 @@ Deleting on your Mac erases nothing elsewhere. Claude Code and OpenCode transcri
 
 Since 19 November 2026 Misha has been one owner-operated, unsigned local build. There is no public download, no Chrome Web Store listing and no invite keys yet. The app has no automatic updater and contacts no update server, so no update can be pinned or rolled back; that changes only with a signed release. [Updates](/operate/manage#updates) says what a newer build changes when it starts. The app's code contains no analytics or crash reporting.
 
-The ledger records every post, edit, upload and reaction the clone and its workers made in Slack. Home shows current and recent work. Neither is a complete record of the shell commands, file changes or cloud calls workers make; those are in the workers' logs and their harness transcripts. The browser extension's source is public in [misha-browser](https://github.com/dumdummisha/misha-browser); the desktop app's source is not, so its behaviour on this page is described by its maintainer rather than open to your own audit.
+The ledger records every post, edit, upload and reaction the clone and its workers made in Slack. Home shows current and recent work. Neither is a complete record of the shell commands, file changes or cloud calls workers make; those are in the workers' logs and their harness transcripts. The browser extension's source is public in [browser-extension](https://github.com/dumdummisha/browser-extension); the desktop app's source is not, so its behaviour on this page is described by its maintainer rather than open to your own audit.
 
 ### The websites {#websites}
 
@@ -184,7 +184,7 @@ Its certifications:
 
 ### Changes to this policy {#changes}
 
-A change updates the effective date at the top. Every earlier version is in the public history of [this site's repository](https://github.com/dumdummisha/misha).
+A change updates the effective date at the top. Every earlier version is in the public history of [this site's repository](https://github.com/dumdummisha/docs).
 
 ### Contact {#contact}
 

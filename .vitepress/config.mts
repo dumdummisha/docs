@@ -120,9 +120,6 @@ export default defineConfig({
   description,
   lang: 'en',
   srcDir: 'src',
-  // Passages several pages share, each pulled into its pages with <!--@include: ...-->, so none is a page or a search
-  // result of its own.
-  srcExclude: ['_includes/**'],
   markdown: {
     config: (md) => {
       expandFactTables(facts)(md)

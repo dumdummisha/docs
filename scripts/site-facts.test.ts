@@ -26,7 +26,7 @@ afterEach(async () => {
 })
 
 describe('[scripts] Site facts - loadSiteFacts and checkPageComponents', () => {
-  it('should name each scalar fact by its document and key path, an item with an id by its id, and list captures by id', async () => {
+  it('should name each scalar fact by its document and key path, an item with a key by its key, and list captures by id', async () => {
     // Act
     const site = await loadSiteFacts(await committedRoot())
 
@@ -36,10 +36,10 @@ describe('[scripts] Site facts - loadSiteFacts and checkPageComponents', () => {
     })
     expect(site.facts).toMatchObject({
       'desktop.retention.stores.outcomes.keptDays': 30,
-      'desktop.detection.items.0.isRequired': true,
+      'desktop.detection.items.git.isRequired': true,
       'desktop.manifest.productVersion': '0.1.0',
     })
-    expect(site.facts['desktop.detection.items.0.signIn']).toBeUndefined()
+    expect(site.facts['desktop.detection.items.git.signIn']).toBeUndefined()
     expect(site.facts['desktop.retention.stores.0.keptDays']).toBeUndefined()
   })
 
@@ -103,7 +103,7 @@ describe('[scripts] Site facts - loadSiteFacts and checkPageComponents', () => {
       checkPageComponents('<Shot caption="Home." id="settings" />', 'privacy.md', site)
     }).toThrow('privacy.md shows the capture settings, which facts/captures.json does not list')
     expect(() => {
-      checkPageComponents('<Fact name="desktop.detection.items.0.signIn" />', 'privacy.md', site)
-    }).toThrow('privacy.md asks for the fact desktop.detection.items.0.signIn, which facts/ does not hold')
+      checkPageComponents('<Fact name="desktop.detection.items.git.signIn" />', 'privacy.md', site)
+    }).toThrow('privacy.md asks for the fact desktop.detection.items.git.signIn, which facts/ does not hold')
   })
 })

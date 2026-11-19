@@ -11,11 +11,22 @@ export interface ISiteFacts {
   facts: Record<string, FactValue>
 }
 
-const idOf = (item: unknown): string | undefined =>
-  typeof item === 'object' && item !== null && 'id' in item && typeof item.id === 'string' ? item.id : undefined
+// The keys an exported list names its items by: commands, paths and stores by id, settings by field, detection items by
+// item, setup commands by harness, settings mutations by type.
+const KEY_NAMES = ['id', 'field', 'item', 'harness', 'type'] as const
 
-// An array whose every item has an id names its items by id, so an item the export inserts or reorders cannot move a
-// page's fact onto another item; any other array names its items by position.
+const idOf = (item: unknown): string | undefined => {
+  if (typeof item !== 'object' || item === null) {
+    return undefined
+  }
+  const key = KEY_NAMES.find((name) => name in item)
+  const value = key === undefined ? undefined : (item as Record<string, unknown>)[key]
+
+  return typeof value === 'string' ? value : undefined
+}
+
+// An array whose every item has a key names its items by that key, so an item the export inserts or reorders cannot
+// move a page's fact onto another item; any other array names its items by position.
 const namedItemsOf = (prefix: string, items: readonly unknown[]): [string, unknown][] => {
   const byId = items.flatMap((item): [string, unknown][] => {
     const id = idOf(item)

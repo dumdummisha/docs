@@ -32,7 +32,7 @@ There's no Misha fee in the invite-only pilot. You pay for your own Claude, and 
 
 ## What setup changes on your Mac {#before-you-install}
 
-Each time Misha starts, it installs misha-core, its bundled Misha extension, into Claude Code and OpenCode wherever it finds them: skills, commands, agent profiles and Misha's tools. When a file is already where it writes, Misha first moves it into <code><Fact name="desktop.paths.paths.14.path" /></code>, which keeps the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> batches. Nothing puts those files back for you. The browser part adds the Misha Browser extension and the native host, a small program that connects the extension to Misha on this Mac; [Browser permissions](/reference/permissions) explains what each can do.
+Each time Misha starts, it installs misha-core, its bundled Misha extension, into Claude Code and OpenCode wherever it finds them: skills, commands, agent profiles and Misha's tools. When a file is already where it writes, Misha first moves it into <code><Fact name="desktop.paths.paths.overwritten.path" /></code>, which keeps the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> batches. Nothing puts those files back for you. The browser part adds the Misha Browser extension and the native host, a small program that connects the extension to Misha on this Mac; [Browser permissions](/reference/permissions) explains what each can do.
 
 There is no uninstall yet. [Remove Misha](/operate/manage#remove) says what is safe to remove today and what has to stay.
 
@@ -62,7 +62,7 @@ The Get started screen has no Pause button of its own. Pause appears once the fa
 
 - **The Slack account.** With several accounts signed in, Misha asks which one it answers as. That choice is for good: Misha serves one Slack account, and no control changes it after this save.
 - **The icon**, the emoji every one of its posts starts with, followed by the text in italics. It's required and starts as `:misha:`. Writing it in a message also calls the clone.
-- **How it sounds**, optional, in up to <Fact name="desktop.settings.fields.2.limits.maxCharacters" /> characters. Left empty, the clone is plain, short and polite.
+- **How it sounds**, optional, in up to <Fact name="desktop.settings.fields.personality.limits.maxCharacters" /> characters. Left empty, the clone is plain, short and polite.
 
 **Save and start** saves your choices, and **Keep the defaults** saves `:misha:` with no tone. Either one makes the clone live at once. [Make it yours](/use/make-it-yours#voice-and-marker) is where you refine both.
 

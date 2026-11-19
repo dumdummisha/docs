@@ -25,7 +25,7 @@ Every post your clone makes starts with its icon, followed by the text in italic
 
 <Shot id="settings-icon" caption="The icon card, with a preview of how a post by Sam Rivera's clone starts. Made-up example." />
 
-**Personality** is your words on how the clone sounds, in up to <Fact name="desktop.settings.fields.2.limits.maxCharacters" /> characters. It shapes tone, language and formatting. It doesn't change what the clone may do, and it can't override the clone's fixed rules. Sam's is in the picture below; another owner might write:
+**Personality** is your words on how the clone sounds, in up to <Fact name="desktop.settings.fields.personality.limits.maxCharacters" /> characters. It shapes tone, language and formatting. It doesn't change what the clone may do, and it can't override the clone's fixed rules. Sam's is in the picture below; another owner might write:
 
 > Reply in English, in two or three sentences. Link the ticket or file you read. Keep the humour to a minimum.
 
@@ -35,7 +35,7 @@ It shapes style, not knowledge: the clone doesn't learn to think like you, and a
 
 ## Working context {#working-context}
 
-**What I remember** holds notes in your exact words, numbered, up to <Fact name="desktop.settings.fields.3.limits.maxNotes" /> of <Fact name="desktop.settings.fields.3.limits.maxCharactersEach" /> characters each. The clone is given them as standing context. Add one with **Remember**, or `remember` followed by the note in your self-DM; remove one with **Forget** in the window or through the setup command. A good first note is one a colleague would otherwise have to ask you about, such as "Priya owns payments. Ask Priya before touching the checkout."
+**What I remember** holds notes in your exact words, numbered, up to <Fact name="desktop.settings.fields.notes.limits.maxNotes" /> of <Fact name="desktop.settings.fields.notes.limits.maxCharactersEach" /> characters each. The clone is given them as standing context. Add one with **Remember**, or `remember` followed by the note in your self-DM; remove one with **Forget** in the window or through the setup command. A good first note is one a colleague would otherwise have to ask you about, such as "Priya owns payments. Ask Priya before touching the checkout."
 
 <Shot id="settings-notes" caption="Three notes in Sam's words, each with Forget. Made-up example." />
 

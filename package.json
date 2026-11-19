@@ -14,7 +14,9 @@
     "preview": "vitepress preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check:privacy": "node scripts/check-public.ts",
+    "check:source": "node scripts/check-public.ts source",
+    "check:built": "node scripts/check-public.ts built",
+    "check:privacy": "node scripts/check-public.ts outgoing",
     "check:links": "node scripts/check-links.ts",
     "check:csp": "node scripts/check-csp.ts",
     "import:desktop": "node scripts/import-desktop.ts"

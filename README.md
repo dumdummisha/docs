@@ -15,7 +15,9 @@ The site is VitePress at the repository root with pages in `src/`. It needs Node
 | `pnpm preview` | Serves the built site. |
 | `pnpm typecheck` | Type-checks the theme, the config and the scripts. |
 | `pnpm test` | Runs the script tests. |
-| `pnpm check:privacy` | Scans tracked files and the built site for data that must not be public. |
+| `pnpm check:privacy` | Before a push: scans what the push would publish (every committed file of `HEAD` and of each commit not yet on `origin/main`, or the whole history before the first push, and each commit's message and identities) for data that must not be public. |
+| `pnpm check:source` | Scans the files a build of this checkout reads for data that must not be public. |
+| `pnpm check:built` | Scans the built site for data that must not be public. |
 | `pnpm check:links` | Checks every internal link and anchor in the built site. |
 | `pnpm check:csp` | Checks that the CSP in `vercel.json` allows exactly the inline scripts the built site has. |
 | `pnpm import:desktop -- <bundle-dir>` | Imports a reviewed export bundle from the private desktop app. |

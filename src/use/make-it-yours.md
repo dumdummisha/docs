@@ -19,7 +19,11 @@ By default, your clone's posts start with its icon and are set in italics, so pe
 
 <Shot id="settings-icon" caption="The icon card, with a preview of how a post by Leo Novak's clone starts. Made-up example." />
 
-**Personality** is how the clone should sound, in your own words, up to <Fact name="desktop.settings.fields.personality.limits.maxCharacters" /> characters. It shapes tone, language and formatting, not what the clone may do. For example:
+**Personality** is how the clone should sound, in your own words, up to <Fact name="desktop.settings.fields.personality.limits.maxCharacters" /> characters. It shapes tone, language and formatting, not what the clone may do.
+
+<Shot id="settings-personality" caption="Leo Novak's personality: short, friendly, first names, no exclamation marks. Made-up example." />
+
+Another owner might write:
 
 > Reply in English, in two or three sentences. Link the ticket or file you read. Keep the humour to a minimum.
 

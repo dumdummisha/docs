@@ -1,6 +1,6 @@
 ---
 title: Make it yours
-description: "Give your clone your voice and the notes a colleague would ask you for, choose who can ask it for work, and connect what your first task needs."
+description: "Give your clone your voice and the notes a colleague would ask you for, choose what it watches and who can ask it for work, and add your repositories."
 prev:
   text: Get started
   link: /start/get-started
@@ -11,7 +11,7 @@ next:
 
 # Make it yours
 
-Your clone is live with the face you saved on Get started. Here you give it your voice and the context a colleague would ask you for, then decide who can ask it for work and what it can reach. Everything here is on **Settings** and **Set up** in the Misha window. The first two sections suit everyone; take the rest as your first task needs them.
+Your clone is live with the face you saved on Get started. Here you give it your voice and the context a colleague would ask you for, then decide who can ask it for work and what it can reach. Everything here is on **Settings** in the Misha window.
 
 ## Voice and marker {#voice-and-marker}
 
@@ -47,25 +47,6 @@ Each entry has **Stop watching**, **Stop allowing** or **Stop ignoring** beside 
 
 How Leo might begin depends on the role. As a developer, Leo allows Emma Lee, who shares the backend, and watches `#shop-backend`. As a PM, Leo leaves both lists empty until the first week shows what colleagues ask. As a designer, Leo allows no one and soft-ignores Max Becker, who only wants Leo's own answers. When colleagues ask what's answering them, send them [Talking with a clone](/understand/slack).
 
-## Connect for a task {#connect-for-a-task}
-
-Pick a first task from [Put Misha to work](/use/workflows#choose-a-first-task), then connect only what it needs on **Set up**: sign in on the service's row and turn on **I use it**.
-
-| For a task like | Turn on |
-| --- | --- |
-| Reading a ticket or a Confluence page | **Jira and Confluence** |
-| Asking what code does or who changed it | A repository [below](#repositories), which the **GitHub CLI** clones |
-| Reading a pull request's checks | **GitHub CLI** |
-| Reading logs in your AWS accounts | **AWS** |
-| Reading or editing a Doc or Sheet | **Google** |
-| Reading a Figma screen's text or rendering it | **Figma** |
-| Answering from a meeting's transcript | **Fireflies** |
-| GPT reviews of tickets and pull requests | **OpenCode**, signed in to OpenAI |
-
-Figma and Fireflies need OpenCode installed: you paste their key into OpenCode, never into Misha. Leo the PM might start with Jira, Confluence and Fireflies, Leo the designer with Figma, and Leo the developer with the GitHub CLI and a repository.
-
-Colleagues still get reads only: changes in a service, and the GitHub and AWS command lines, are for your own messages ([who may ask for what](/use/workflows#who-may-ask)).
-
 ## Repositories {#repositories}
 
 If your clone should read code, add each repository as `owner/name` on **Settings › Repositories**. The clone keeps its own copy and never touches your checkouts.
@@ -84,7 +65,7 @@ Your clone now has:
 
 - an icon and a voice that sound like you, and the notes a colleague would ask you for
 - the people who may ask for work and the channels it watches, or neither yet
-- the connections for one task, and the repositories if you work in code
+- the repositories, if you work in code
 - a brake for when you need it
 
 Next, [put Misha to work](/use/workflows) with one real request. To change any of this later, see [Control and maintain Misha](/operate/manage#scope).

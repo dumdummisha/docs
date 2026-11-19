@@ -3,8 +3,8 @@ title: Talking with a clone
 description: "How to tell a person's reply from their clone's, what happens to messages you send, and how to stop the clone answering you."
 prev: false
 next:
-  text: Want your own? Decide whether to try it
-  link: /start/decide
+  text: Want your own? Why try it
+  link: /start/why
 ---
 
 # Talking with a clone
@@ -98,4 +98,4 @@ Ask Sam to correct or remove the post; the clone can't edit its own replies. Sam
 
 ## Want your own? {#want-your-own}
 
-As of 19 November 2026, Misha is one unsigned build run by its owner, with no public download. See [what it needs and costs](/start/decide) and [what setup involves](/start/get-started).
+As of 19 November 2026, Misha is one unsigned build run by its owner, with no public download. See [why to try it and what it needs](/start/why) and [what setup involves](/start/get-started).

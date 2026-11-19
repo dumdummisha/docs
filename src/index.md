@@ -16,8 +16,8 @@ hero:
     alt: ''
   actions:
     - theme: brand
-      text: Decide whether to try it
-      link: /start/decide
+      text: Why try it
+      link: /start/why
     - theme: alt
       text: Get started
       link: /start/get-started
@@ -49,7 +49,7 @@ features:
 
 ## The owner's route {#owner-route}
 
-1. [Decide whether to try it](/start/decide): what Misha does, needs and costs, and what can go wrong.
+1. [Why try it](/start/why): what Misha offers and what it needs.
 2. [Get started](/start/get-started): setup, and when your clone goes live.
 3. [Make it yours](/use/make-it-yours): voice, notes and who may ask for work.
 4. [Put Misha to work](/use/workflows): what to ask and how each request ends.

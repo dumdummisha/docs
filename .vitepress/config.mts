@@ -24,7 +24,7 @@ const SIDEBAR: DefaultTheme.SidebarItem[] = [
     text: 'Start',
     items: [
       { text: 'Overview', link: '/' },
-      { text: 'Decide whether to try it', link: '/start/decide' },
+      { text: 'Why try it', link: '/start/why' },
       { text: 'Get started', link: '/start/get-started' },
     ],
   },
@@ -153,7 +153,7 @@ export default defineConfig({
   themeConfig: {
     logo: { src: '/logo.svg', alt: '' },
     nav: [
-      { text: 'Start', link: '/start/get-started' },
+      { text: 'Start', link: '/start/why' },
       { text: 'Talking with a clone', link: '/understand/slack' },
       { text: 'Privacy', link: '/privacy' },
       { text: 'Reference', link: '/reference/settings' },

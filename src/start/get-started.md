@@ -2,8 +2,8 @@
 title: Get started
 description: "Who can get Misha today, what setting it up involves and what happens when you first save its settings."
 prev:
-  text: Decide whether to try it
-  link: /start/decide
+  text: Why try it
+  link: /start/why
 next:
   text: Make it yours
   link: /use/make-it-yours
@@ -24,7 +24,7 @@ A signed download, its first launch and the store listing will be described here
 - git, and the GitHub CLI if your clone should read code.
 - Optional: OpenCode signed in to OpenAI, so GPT can review tickets and pull requests, and the services your tasks need. [Put Misha to work](/use/workflows#review-requirements) explains why delivery waits without GPT.
 
-There's no Misha fee in the invite-only pilot. You pay for your own Claude, and OpenAI if you add it ([Decide whether to try it](/start/decide)). Misha's **Set up** page checks each item and offers the one action that fixes it:
+There's no Misha fee in the invite-only pilot. You pay for your own Claude, and OpenAI if you add it ([Why try it](/start/why#requirements)). Misha's **Set up** page checks each item and offers the one action that fixes it:
 
 <!-- facts detection -->
 

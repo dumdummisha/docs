@@ -29,12 +29,52 @@
   border-radius: 0 !important;
 }
 
-/* The sidebar's wash continues behind the site title above it, so the column has no white notch. The selector keys
-   off the server-rendered title class rather than the navigation bar's has-sidebar class, which only appears after
-   hydration, and outweighs the theme's scoped transparent background. */
-@media (min-width: 960px) {
-  .VPNavBar .container > div.title:has(.VPNavBarTitle.has-sidebar) {
-    background-color: var(--vp-sidebar-bg-color);
+/* The whole top bar is yellow at every width. With a sidebar the theme leaves the bar transparent on wide screens and
+   colours only the part beside the sidebar, which left its right padding white; the repeated class outweighs the
+   theme's scoped rule. */
+.VPNav .VPNavBar.VPNavBar {
+  background-color: var(--vp-nav-bg-color);
+}
+
+/* On the yellow chrome, text is ink or muted ink and links turn ink, not teal: teal and the dim ink fall below 4.5:1 on
+   the brand yellow, muted ink is 5.1:1 and ink 11.6:1. Active and hovered links are told apart by weight and an
+   underline rather than by colour alone, and the search field is a white panel. */
+.VPNav,
+.VPLocalNav,
+.VPSidebar {
+  --vp-c-text-2: var(--dm-ink-muted);
+  --vp-c-text-3: var(--dm-ink-muted);
+  --vp-c-brand-1: var(--dm-ink);
+  --vp-c-brand-2: var(--dm-ink);
+  --vp-c-brand-3: var(--dm-ink);
+  --vp-c-divider: rgb(31 27 22 / 20%);
+  --vp-c-gutter: rgb(31 27 22 / 20%);
+  --vp-c-bg-alt: var(--dm-surface-200);
+}
+
+.VPNavBarMenuLink:hover,
+.VPNavBarMenuLink.active,
+.VPNavScreenMenuLink:hover,
+.VPSidebarItem.is-link > .item > .link:hover .text {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.VPNavBarMenuLink.active,
+.VPSidebarItem.is-active > .item .text {
+  font-weight: 700;
+}
+
+/* From 768px the search button is a field with its label, so it gets a visible border, outweighing the theme's
+   transparent one; below that it is an icon alone. */
+@media (min-width: 768px) {
+  .VPNav .DocSearch-Button.DocSearch-Button {
+    border-color: var(--vp-c-border);
+  }
+
+  .VPNav .DocSearch-Button.DocSearch-Button:hover {
+    border-color: var(--dm-ink);
   }
 }
 

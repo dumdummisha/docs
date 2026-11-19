@@ -3,9 +3,6 @@
 .vp-doc h2,
 .vp-doc h3,
 .vp-doc h4,
-.VPHero .name,
-.VPHero .text,
-.VPFeature .title,
 .VPNavBarTitle .title {
   font-family: var(--dm-font-display);
   font-weight: 600;
@@ -22,24 +19,14 @@
   max-width: var(--dm-size-reading);
 }
 
-/* The brand is square: buttons, cards, callouts, code blocks, pager links and the search field. The theme sets these
+/* The brand is square: callouts, code blocks, pager links and the search field. The theme sets these
    radii in scoped component styles, which outrank a plain class selector, so the radius alone is forced. */
-.VPButton,
-.VPFeature,
 .pager-link,
 .vp-doc .custom-block,
 .vp-doc div[class*='language-'],
 .DocSearch-Button,
 .VPLocalSearchBox .shell {
   border-radius: 0 !important;
-}
-
-.VPButton {
-  border-width: 2px;
-}
-
-.VPFeature {
-  border: 1px solid var(--vp-c-divider);
 }
 
 /* The sidebar's wash continues behind the site title above it, so the column has no white notch. The selector keys
@@ -55,49 +42,6 @@
 :focus-visible {
   outline: 3px solid var(--dm-ink);
   outline-offset: 3px;
-}
-
-/* The hero's opening: the status line and the colleague's shortcut each on their own line. */
-.VPHero .tagline .hero-status,
-.VPHero .tagline .hero-colleague {
-  display: block;
-  margin-top: 12px;
-}
-
-.VPHero .tagline .hero-status {
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.VPHero .tagline .hero-colleague {
-  font-size: 20px;
-  line-height: 28px;
-  color: var(--dm-link);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-/* The mascot beside the hero at a modest size, not the default theme's 320px showpiece. It is decorative, so phones,
-   where it would sit above the headline, do not show it. */
-.VPHero.has-image .image {
-  display: none;
-}
-
-@media (min-width: 960px) {
-  .VPHero.has-image .image {
-    display: block;
-  }
-
-  .VPHero.has-image .image-container {
-    width: 200px;
-    height: 200px;
-  }
-
-  .VPHero.has-image .image-src {
-    max-width: 200px;
-    max-height: 200px;
-  }
 }
 
 .shot {

@@ -37,11 +37,11 @@ Three cards on Settings decide who gets what. Each is separate, and leaving one 
 
 | Card | What adding someone or something does | When it's empty |
 | --- | --- | --- |
-| **Who may ask me for work** | They can start workers: research, a ticket, an implementation and its review. They don't get your direct changes in Jira, Google and the other services. | Only you can start work. Everyone else the clone answers gets answers from reads. |
 | **Channels I watch** | The clone reads every message there and answers what asks something of you or your work. | It answers only DMs to you, mentions of you and threads you're in. |
-| **Who I ignore** | **Ignore**: the clone never answers them. **Soft-ignore**: it answers only when they call it with your icon. | Nobody is ignored. |
+| **Who may ask me for work** | They can start workers: research, a ticket, an implementation and its review. They don't get your direct changes in Jira, Google and the other services. | Only you can start work. Everyone else the clone answers gets answers from reads. |
+| **Who I ignore** | **Soft-ignore** someone and the clone answers them only when they call it with your icon. **Ignore** them and it never answers them at all. | Nobody is ignored. |
 
-Each entry has **Stop allowing**, **Stop watching** or **Stop ignoring** beside it. A change counts from the clone's next turn, and [Settings and commands](/reference/settings#surfaces) lists the Slack commands that make the same changes.
+Each entry has **Stop watching**, **Stop allowing** or **Stop ignoring** beside it. A change counts from the clone's next turn, and [Settings and commands](/reference/settings#surfaces) lists the Slack commands that make the same changes.
 
 <Shot id="settings-allowed" caption="Emma Lee and Max Becker may ask Leo's clone for work, each with Stop allowing. Made-up example." />
 

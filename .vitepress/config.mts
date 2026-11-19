@@ -23,8 +23,7 @@ const SIDEBAR: DefaultTheme.SidebarItem[] = [
   {
     text: 'Start',
     items: [
-      { text: 'Overview', link: '/' },
-      { text: 'Decide whether to try it', link: '/start/decide' },
+      { text: 'Why try it', link: '/start/why' },
       { text: 'Get started', link: '/start/get-started' },
     ],
   },
@@ -134,7 +133,8 @@ export default defineConfig({
   appearance: false,
   // A checkout's file dates say when Vercel cloned the repository, not when a page's facts were checked.
   lastUpdated: false,
-  sitemap: { hostname: SITE_URL },
+  // / only redirects to the first page (src/index.md), so the sitemap leaves it out.
+  sitemap: { hostname: SITE_URL, transformItems: (items) => items.filter((item) => item.url !== '') },
   // The page hash map and site data load as a script file, not an inline script, so the CSP needs no hash that changes
   // with every page edit.
   metaChunk: true,
@@ -152,8 +152,10 @@ export default defineConfig({
   ],
   themeConfig: {
     logo: { src: '/logo.svg', alt: '' },
+    // The wordmark goes straight to the first page rather than through the redirect at /.
+    logoLink: '/start/why',
     nav: [
-      { text: 'Start', link: '/start/get-started' },
+      { text: 'Start', link: '/start/why' },
       { text: 'Talking with a clone', link: '/understand/slack' },
       { text: 'Privacy', link: '/privacy' },
       { text: 'Reference', link: '/reference/settings' },

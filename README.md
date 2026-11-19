@@ -2,7 +2,7 @@ Dumdum Misha: your Slack clone, on your Mac. Documentation site.
 
 <img src="src/public/logo.svg" alt="The Dumdum Misha mascot" width="96" height="96">
 
-Misha is a Mac app that answers routine Slack questions through your own Slack account, as a clone whose replies start with the emoji you chose and are set in italics. Work you allow, such as research, a ticket or a code change, goes to workers in your own Claude Code on the same Mac, and GPT through OpenCode reviews the tickets and pull requests they write.
+Misha is a Mac app that answers routine Slack questions through your own Slack account, as a clone whose replies can start with an emoji you choose and be set in italics. Work you allow, such as research, a ticket or a code change, goes to workers in your own Claude Code on the same Mac, and GPT through OpenCode reviews the tickets and pull requests they write.
 
 This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.ai). The docs are for colleagues who got a reply from someone's clone, people deciding whether to try one, owners setting one up, and developers and security reviewers checking how it works.
 
@@ -10,7 +10,7 @@ This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.
 
 - **[Read the docs](https://docs.dumdummisha.ai)**
 - **[Was that the person or their clone?](https://docs.dumdummisha.ai/understand/slack)**
-- **[Decide whether to try it](https://docs.dumdummisha.ai/start/decide)**
+- **[Why try it](https://docs.dumdummisha.ai/start/why)**
 - **[Privacy and security](https://docs.dumdummisha.ai/privacy)**
 
 Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/start/get-started) through [Make it yours](https://docs.dumdummisha.ai/use/make-it-yours) to [Put Misha to work](https://docs.dumdummisha.ai/use/workflows). [How Misha works](https://docs.dumdummisha.ai/understand/how-it-works) explains the architecture, and [Customise and reuse Misha](https://docs.dumdummisha.ai/reference/extensions) what you can add or reuse.

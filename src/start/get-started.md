@@ -2,8 +2,8 @@
 title: Get started
 description: "Who can get Misha today, what setting it up involves and what happens when you first save its settings."
 prev:
-  text: Decide whether to try it
-  link: /start/decide
+  text: Why try it
+  link: /start/why
 next:
   text: Make it yours
   link: /use/make-it-yours
@@ -24,11 +24,9 @@ A signed download, its first launch and the store listing will be described here
 - git, and the GitHub CLI if your clone should read code.
 - Optional: OpenCode signed in to OpenAI, so GPT can review tickets and pull requests, and the services your tasks need. [Put Misha to work](/use/workflows#review-requirements) explains why delivery waits without GPT.
 
-There's no Misha fee in the invite-only pilot. You pay for your own Claude, and OpenAI if you add it ([Decide whether to try it](/start/decide)). Misha's **Set up** page checks each item and offers the one action that fixes it:
+There's no Misha fee in the invite-only pilot. You pay for your own Claude, and OpenAI if you add it ([Why try it](/start/why#requirements)). Misha's **Set up** page checks each item and offers the one action that fixes it:
 
 <!-- facts detection -->
-
-<Shot id="setup" caption="Set up with three things to do: Google and Figma aren't signed in, and this Mac sleeps after 10 idle minutes. Made-up example." />
 
 ## What setup changes on your Mac {#before-you-install}
 
@@ -38,9 +36,52 @@ There is no uninstall yet. [Remove Misha](/operate/manage#remove) says what is s
 
 ## The setup sequence {#setup}
 
-The first time Misha opens, its window shows **Get started**, a checklist that ticks itself from what it finds on your Mac. Only two steps ask you for anything: your clone's face and your code.
+The first time Misha opens, its window shows **Get started**, a checklist that ticks itself from what it finds on your Mac. Only two of its steps ask you for anything: your clone's face and your code. The whole sequence, from signing in to a first reply:
 
-<Shot id="first-run" caption="Get started with Claude Code and Slack done, and the face and the code still to do. Made-up example." />
+<ol class="steps">
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#sign-in">Give me consciousness</a></p>
+      <p class="step__line">Claude Code is on the Mac and signed in.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--button">Sign in to Claude</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#sign-in">Let me hear Slack</a></p>
+      <p class="step__line">Load the extension, install the native host and open Slack in Chrome or Brave.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--button">Load unpacked</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#before-you-save">Find the brake</a></p>
+      <p class="step__line">Once you save, Pause Misha is in the sidebar and the menu bar, and <code>pause</code> works in your self-DM.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--quiet">Pause Misha</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#face">Give me a face</a></p>
+      <p class="step__line">Choose the icon and a tone, and the Slack account if several are signed in. Saving makes the clone live.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--field"><img src="/favicon.svg" alt="" width="16" height="16">:misha:</span><span class="mini-control mini-control--button">Save and start</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#code">Show me your code</a></p>
+      <p class="step__line">Sign in the GitHub CLI and add a repository, or skip it if your work isn't code.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--field">shop/shop-backend</span></div>
+  </li>
+  <li class="step">
+    <div class="step__body">
+      <p class="step__title"><a href="#first-reply">Say hi</a></p>
+      <p class="step__line">Write to yourself in Slack and the clone answers there.</p>
+    </div>
+    <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--message"><strong>Sam Rivera</strong> hi</span></div>
+  </li>
+</ol>
 
 ### Sign in to Claude Code and Slack {#sign-in}
 
@@ -61,7 +102,7 @@ The Get started screen has no Pause button of its own. Pause appears once the fa
 **Give me a face** saves your first settings:
 
 - **The Slack account.** With several accounts signed in, Misha asks which one it answers as. That choice is for good: Misha serves one Slack account, and no control changes it after this save.
-- **The icon**, the emoji every one of its posts starts with, followed by the text in italics. It's required and starts as `:misha:`. Writing it in a message also calls the clone.
+- **The icon**, the emoji its posts can start with, followed by the text in italics. It starts as `:misha:`, and the marker is optional. Writing the icon in a message also calls the clone.
 - **How it sounds**, optional, in up to <Fact name="desktop.settings.fields.personality.limits.maxCharacters" /> characters. Left empty, the clone is plain, short and polite.
 
 **Save and start** saves your choices, and **Keep the defaults** saves `:misha:` with no tone. Either one makes the clone live at once. [Make it yours](/use/make-it-yours#voice-and-marker) is where you refine both.

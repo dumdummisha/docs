@@ -3,13 +3,13 @@ title: Talking with a clone
 description: "How to tell a person's reply from their clone's, what happens to messages you send, and how to stop the clone answering you."
 prev: false
 next:
-  text: Want your own? Decide whether to try it
-  link: /start/decide
+  text: Want your own? Why try it
+  link: /start/why
 ---
 
 # Talking with a clone
 
-Some colleagues run a clone: an AI that answers routine Slack messages for them while they're busy. It posts from the person's own Slack account, so the name and picture are theirs. Each clone reply starts with the emoji the person chose, and its text is in italics. That marker is a label, not proof: anyone can type the same emoji in italics.
+Some colleagues run a clone: an AI that answers routine Slack messages for them while they're busy. It posts from the person's own Slack account, so the name and picture are theirs. A clone reply can start with an emoji the person chose, with its text in italics. That marker is optional, so a reply without it may still be the clone's, and it's a label, not proof: anyone can type the same emoji in italics.
 
 Jump to [your messages](#your-messages), [work requests](#questions-and-work), [stopping replies](#stop-replies) or [if something is wrong](#if-something-is-wrong).
 
@@ -98,4 +98,4 @@ Ask Sam to correct or remove the post; the clone can't edit its own replies. Sam
 
 ## Want your own? {#want-your-own}
 
-As of 19 November 2026, Misha is one unsigned build run by its owner, with no public download. See [what it needs and costs](/start/decide) and [what setup involves](/start/get-started).
+As of 19 November 2026, Misha is one unsigned build run by its owner, with no public download. See [why to try it and what it needs](/start/why) and [what setup involves](/start/get-started).

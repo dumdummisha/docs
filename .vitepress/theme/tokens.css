@@ -58,30 +58,14 @@
   --vp-font-family-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --dm-font-display: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif;
 
+  /* The chrome (top bar, sidebar, the phone's menu bar and menu) is the bright brand yellow, as the app window's rail
+     is; the pale yellows stay inside page content. */
+  --vp-nav-bg-color: var(--dm-misha);
+  --vp-nav-screen-bg-color: var(--dm-misha);
+  --vp-local-nav-bg-color: var(--dm-misha);
+  --vp-sidebar-bg-color: var(--dm-misha);
+
   --vp-code-color: var(--dm-ink);
   --vp-code-bg: var(--dm-misha-tint);
   --vp-code-block-bg: var(--dm-surface-300);
-
-  /* Brand buttons are yellow with ink text; the alternative is a white panel with an ink border. */
-  --vp-button-brand-border: var(--dm-ink);
-  --vp-button-brand-text: var(--dm-ink);
-  --vp-button-brand-bg: var(--dm-misha);
-  --vp-button-brand-hover-border: var(--dm-ink);
-  --vp-button-brand-hover-text: var(--dm-ink);
-  --vp-button-brand-hover-bg: var(--dm-misha-deep);
-  --vp-button-brand-active-border: var(--dm-ink);
-  --vp-button-brand-active-text: var(--dm-ink);
-  --vp-button-brand-active-bg: var(--dm-misha-deep);
-  --vp-button-alt-border: var(--dm-ink);
-  --vp-button-alt-text: var(--dm-ink);
-  --vp-button-alt-bg: var(--dm-surface-200);
-  --vp-button-alt-hover-border: var(--dm-ink);
-  --vp-button-alt-hover-text: var(--dm-ink);
-  --vp-button-alt-hover-bg: var(--dm-misha-tint);
-  --vp-button-alt-active-border: var(--dm-ink);
-  --vp-button-alt-active-text: var(--dm-ink);
-  --vp-button-alt-active-bg: var(--dm-misha-tint);
-
-  --vp-home-hero-name-color: var(--dm-ink);
-  --vp-home-hero-name-background: none;
 }

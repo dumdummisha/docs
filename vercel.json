@@ -6,6 +6,10 @@
   "outputDirectory": ".vitepress/dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/", "destination": "/start/why", "permanent": true },
+    { "source": "/start/decide", "destination": "/start/why", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",

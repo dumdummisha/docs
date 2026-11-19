@@ -21,13 +21,11 @@
   max-width: var(--dm-size-reading);
 }
 
-/* The brand is square: callouts, code blocks, pager links and the search field. The theme sets these
+/* The brand is square: callouts, code blocks and pager links. The theme sets these
    radii in scoped component styles, which outrank a plain class selector, so the radius alone is forced. */
 .pager-link,
 .vp-doc .custom-block,
-.vp-doc div[class*='language-'],
-.DocSearch-Button,
-.VPLocalSearchBox .shell {
+.vp-doc div[class*='language-'] {
   border-radius: 0 !important;
 }
 
@@ -71,35 +69,6 @@
   line-height: 24px;
   letter-spacing: -0.01em;
   white-space: nowrap;
-}
-
-.dm-rail-search.VPNavBarSearch {
-  padding-left: 0;
-}
-
-.dm-rail-search #local-search {
-  flex-grow: 1;
-}
-
-/* In the rail the search button is a white field with its label at every width, as it is in the top bar from 768px. */
-.VPSidebar .DocSearch-Button.DocSearch-Button {
-  justify-content: flex-start;
-  padding: 0 10px 0 12px;
-  width: 100%;
-  height: 40px;
-  background-color: var(--dm-surface-200);
-}
-
-.VPSidebar .DocSearch-Button .DocSearch-Search-Icon.DocSearch-Search-Icon {
-  top: 1px;
-  margin-right: 8px;
-  width: 14px;
-  height: 14px;
-  color: var(--vp-c-text-2);
-}
-
-.VPSidebar .DocSearch-Button .DocSearch-Button-Placeholder.DocSearch-Button-Placeholder {
-  display: inline-block;
 }
 
 .VPSidebar .group.group {
@@ -151,7 +120,7 @@
 
 /* On the yellow chrome, text is ink or muted ink and links turn ink, not teal: teal and the dim ink fall below 4.5:1 on
    the brand yellow, muted ink is 5.1:1 and ink 11.6:1. Active and hovered links are told apart by weight and an
-   underline rather than by colour alone, and the search field is a white panel. */
+   underline rather than by colour alone. */
 .VPNav,
 .VPLocalNav,
 .VPSidebar {
@@ -173,26 +142,6 @@
 
 .VPSidebarItem.is-active > .item .text {
   font-weight: 700;
-}
-
-/* Wherever the search button is a field with its label (the rail, and the 404 page's top bar from 768px) it gets a
-   visible border, outweighing the theme's transparent one; below that the top bar's is an icon alone. */
-.VPSidebar .DocSearch-Button.DocSearch-Button {
-  border: 1px solid var(--vp-c-border);
-}
-
-.VPSidebar .DocSearch-Button.DocSearch-Button:hover {
-  border-color: var(--dm-ink);
-}
-
-@media (min-width: 768px) {
-  .VPNav .DocSearch-Button.DocSearch-Button {
-    border-color: var(--vp-c-border);
-  }
-
-  .VPNav .DocSearch-Button.DocSearch-Button:hover {
-    border-color: var(--dm-ink);
-  }
 }
 
 /* A focus ring on every control: 3px of ink, 3px off the edge. */

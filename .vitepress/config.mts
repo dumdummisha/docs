@@ -23,7 +23,7 @@ const SIDEBAR: DefaultTheme.SidebarItem[] = [
   {
     text: 'Start',
     items: [
-      { text: 'Why try it', link: '/start/why' },
+      { text: 'Try it', link: '/start/why' },
       { text: 'Get started', link: '/start/get-started' },
     ],
   },
@@ -164,8 +164,6 @@ export default defineConfig({
     // The wordmark goes straight to the first page rather than through the redirect at /.
     logoLink: '/start/why',
     sidebar: SIDEBAR,
-    // The index ships with the site, so a query never leaves the reader's browser.
-    search: { provider: 'local' },
     editLink: { pattern: `${REPOSITORY_URL}/edit/main/src/:path`, text: 'Suggest a change to this page' },
     footer: {
       message: footerMessage(site),

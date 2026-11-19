@@ -3,7 +3,7 @@ title: Talking with a clone
 description: "How to tell a person's reply from their clone's, what happens to messages you send, and how to stop the clone answering you."
 prev: false
 next:
-  text: Want your own? Why try it
+  text: Want your own? Try it
   link: /start/why
 ---
 

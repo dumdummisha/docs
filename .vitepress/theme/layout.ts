@@ -1,12 +1,11 @@
 import { useData, withBase } from 'vitepress'
-import DefaultTheme, { VPNavBarSearch } from 'vitepress/theme-without-fonts'
+import DefaultTheme from 'vitepress/theme-without-fonts'
 import { defineComponent, h } from 'vue'
 
 const MASCOT_SIZE = 28
 
 // The default layout with the sidebar as the site's only chrome, as the Misha window's rail is: the wordmark with the
-// mascot at its top and the search field under it. The top bar is off on every page (navbar: false in config.mts), so
-// this search field is the only one mounted and its keyboard shortcut opens one search box.
+// mascot at its top. The top bar is off on every page (navbar: false in config.mts).
 export const Layout = defineComponent({
   setup() {
     const { site, theme } = useData()
@@ -30,7 +29,6 @@ export const Layout = defineComponent({
               }),
               h('span', site.value.title),
             ]),
-            h(VPNavBarSearch, { class: 'dm-rail-search' }),
           ]),
       })
     }

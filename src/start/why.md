@@ -1,13 +1,13 @@
 ---
-title: Why try it
-description: "Misha is a personal AI agent for routine Slack work: it runs on your own computer, needs no Slack app, has a stealth mode, comes with lean connectors and runs workers in Claude Code or OpenCode."
+title: Try it
+description: "Misha is a personal AI agent for routine Slack work: it runs on your own computer, needs no Slack app, has a stealth mode, comes with lean connectors and runs workers in Claude Code or OpenCode with any provider OpenCode supports."
 prev: false
 next:
   text: Get started
   link: /start/get-started
 ---
 
-# Why try it
+# Try it
 
 Misha is a personal AI agent that takes routine work off you in Slack. Its clone answers routine questions from your own account, using your code and the services you connect, hands bigger jobs to workers (separate AI sessions that each do one task) and brings you the decisions that need you. These are the reasons to try it.
 
@@ -42,7 +42,7 @@ GitHub work goes through the GitHub CLI. A Misha connector also lets you check s
 
 ## Claude Code and OpenCode together {#harnesses}
 
-The clone itself runs in unmodified Claude Code on your own Claude subscription. Workers run either in Claude Code or in OpenCode, which can reach the models of any provider you sign it in to. Misha's bundled routing gives most work to Claude and reviews to GPT, so another provider's model checks the tickets and pull requests Claude writes.
+The clone itself runs in unmodified Claude Code on your own Claude subscription. Workers run either in Claude Code or in OpenCode, which can reach the models of any provider you sign it in to, GPT included: you don't need Codex as a separate tool. One request can pass through several workers, each on its own model and effort. Misha's bundled routing gives most work to Claude and reviews to GPT, so another provider's model checks the tickets and pull requests Claude writes.
 
 ## A Mac of its own {#own-device}
 
@@ -51,6 +51,7 @@ Misha answers only while its Mac is awake, online and has Slack open. You can gi
 ## What you need {#requirements}
 
 - A Mac with the Misha app, kept awake and online.
+- Slack, which is the only chat Misha works with today; adapters for Microsoft Teams and Discord are in progress.
 - Chrome or Brave, signed in to Slack, with the Misha Browser extension.
 - Claude Code, signed in with your own Claude subscription, and git. The GitHub CLI if the clone should read code.
 - Optionally, OpenCode signed in to OpenAI, for GPT reviews of tickets and pull requests.
@@ -63,7 +64,7 @@ There is no public download yet. Since 19 November 2026 one owner runs an unsign
 
 ## Tested alongside real people {#tested}
 
-Misha has worked alongside real people at a professional software development agency, where plenty of them tried to talk it out of its rules. That doesn't make it trick-proof: text in messages, tickets and files can still try to steer the model, and the clone can be wrong in public as you. The [residual risks](/privacy#residual-risks) list what the rules don't stop.
+Misha has worked alongside real people at a professional software development agency, where plenty of them tried to talk it out of its rules, so it is battle-tested. That doesn't make it trick-proof: text in messages, tickets and files can still try to steer the model, and the clone can be wrong in public as you. The [residual risks](/privacy#residual-risks) list what the rules don't stop.
 
 ## Who makes it {#publisher}
 

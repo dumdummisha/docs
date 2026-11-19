@@ -58,12 +58,16 @@
 <text x="316.0" y="331.1" text-anchor="middle" font-size="13" fill="#1f1b16">and what&#x27;s uncertain</text>
 <path d="M406 254.0 L418 254.0 L418 382.0 L408 382.0" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
 <rect x="226" y="360" width="180" height="44" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
-<text x="316.0" y="378.1" text-anchor="middle" font-size="13" fill="#1f1b16">Access missing: you hear</text>
+<text x="316.0" y="378.1" text-anchor="middle" font-size="13" fill="#1f1b16">Sign-in failed: you hear</text>
 <text x="316.0" y="395.1" text-anchor="middle" font-size="13" fill="#1f1b16">what to reconnect</text>
-<path d="M406 254.0 L418 254.0 L418 446.0 L408 446.0" fill="none" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
-<rect x="226" y="424" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="6 4"/>
-<text x="316.0" y="442.1" text-anchor="middle" font-size="13" fill="#1f1b16">A change is needed:</text>
-<text x="316.0" y="459.1" text-anchor="middle" font-size="13" fill="#1f1b16">delivery takes it on</text>
+<path d="M406 254.0 L418 254.0 L418 446.0 L408 446.0" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="226" y="424" width="180" height="44" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
+<text x="316.0" y="442.1" text-anchor="middle" font-size="13" fill="#1f1b16">Tool, grant or access</text>
+<text x="316.0" y="459.1" text-anchor="middle" font-size="13" fill="#1f1b16">missing: named to you</text>
+<path d="M406 254.0 L418 254.0 L418 510.0 L408 510.0" fill="none" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<rect x="226" y="488" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="316.0" y="506.1" text-anchor="middle" font-size="13" fill="#1f1b16">A change is needed:</text>
+<text x="316.0" y="523.0" text-anchor="middle" font-size="13" fill="#1f1b16">delivery takes it on</text>
 <rect x="440" y="232" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
 <text x="530.0" y="250.1" text-anchor="middle" font-size="13" fill="#1f1b16">The clone changes the</text>
 <text x="530.0" y="267.1" text-anchor="middle" font-size="13" fill="#1f1b16">Doc, Sheet, ticket or page</text>
@@ -109,12 +113,12 @@
 <text x="744.0" y="762.0" text-anchor="middle" font-size="13" fill="#1f1b16">No GPT: the review</text>
 <text x="744.0" y="779.0" text-anchor="middle" font-size="13" fill="#1f1b16">waits, no substitute</text>
 <rect x="654" y="808" width="180" height="44" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
-<text x="744.0" y="826.0" text-anchor="middle" font-size="13" fill="#1f1b16">Ticket reassigned or</text>
-<text x="744.0" y="843.0" text-anchor="middle" font-size="13" fill="#1f1b16">auto label gone: stops</text>
+<text x="744.0" y="826.0" text-anchor="middle" font-size="13" fill="#1f1b16">Ticket changed hands:</text>
+<text x="744.0" y="843.0" text-anchor="middle" font-size="13" fill="#1f1b16">stops at the next check</text>
 <rect x="654" y="872" width="180" height="44" rx="4" fill="#ffeeb0" stroke="#1f1b16" stroke-width="1.5"/>
 <text x="744.0" y="890.0" text-anchor="middle" font-size="13" fill="#1f1b16">Missing decision:</text>
 <text x="744.0" y="907.0" text-anchor="middle" font-size="13" fill="#1f1b16">a question to you</text>
-<text x="744.0" y="738" text-anchor="middle" font-size="12" fill="#5b5346">At any step</text>
+<text x="744.0" y="738" text-anchor="middle" font-size="12" fill="#5b5346">Along the way</text>
 <rect x="868" y="232" width="180" height="44" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
 <text x="958.0" y="250.1" text-anchor="middle" font-size="13" fill="#1f1b16">One orchestrator worker</text>
 <text x="958.0" y="267.1" text-anchor="middle" font-size="13" fill="#1f1b16">runs the queue</text>

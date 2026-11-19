@@ -16,10 +16,10 @@ Ask your clone in Slack the way you'd ask a colleague. A question gets a marked 
 Pick something you'd otherwise look up yourself, and connect only the service it needs on **Set up** ([Make it yours](/use/make-it-yours) shows how). Three made-up first tasks for an owner, Sam Rivera, in three roles, each sent in Sam's self-DM (the direct message to yourself in Slack):
 
 - **A developer:** "What does shop/shop-backend do when the payment call times out?" The clone reads its copy of the repository and answers, naming the files. It needs the repository added on **Settings**.
-- **A PM:** "What does SHOP-142 leave out of scope, and did Thursday's planning call change that?" The clone reads the ticket and the meeting's transcript. It needs **Jira and Confluence** and **Fireflies** on Set up.
+- **A PM:** "What does SHOP-142 leave out of scope?" The clone reads the ticket and answers from it. It needs **Jira and Confluence** on Set up.
 - **A designer:** "Render the checkout screen from this Figma link and list its button labels." The clone renders the screen, attaches the image and lists the text. It needs **Figma** on Set up.
 
-None needs a worker or changes anything, and colleagues get the same reads: Priya Nair asking in a `#shop-backend` thread Sam is in gets the same kind of answer.
+Each is one bounded read, so none needs a worker or changes anything, and colleagues get the same reads: Priya Nair asking in a `#shop-backend` thread Sam is in gets the same kind of answer.
 
 ## Who may ask for what {#who-may-ask}
 
@@ -40,7 +40,7 @@ Select the diagram to open it full size.
 1. A Slack message reaches your clone.
 2. The clone reads the thread and judges the request. Staging, production, a release or someone else's code gets a one-line refusal.
 3. **A question** one read settles gets a marked answer naming its source. If it needs more and the asker may not ask for work, the rest goes to you.
-4. **Research** goes to a worker. The clone answers from its report, with sources and doubts, or tells you what to reconnect. A needed change goes on to delivery.
+4. **Research** goes to a worker. The clone answers from its report, with sources and doubts. A blocked report names what is missing: a sign-in to reconnect, or a tool, grant or environment access that signing in again won't fix. A needed change goes on to delivery.
 5. **Your own change** to a Doc, Sheet, ticket or page is made by the clone, which says what changed. Anyone else's request changes nothing.
 6. **Delivery** runs analysis, a ticket, its GPT review, implementation and a GPT pull request review, and ends at a reviewed pull request. Only a repository that may merge and has its own `execute` command goes on to merge, deploy to dev and check the change there. It can wait for GPT, stop when the ticket changes hands, or ask you.
 7. **Dependency updates** go to one orchestrator worker. Each pull request gets a GPT review, then merges and is checked on dev, stays reviewed and unmerged, is flagged for you, or waits for GPT. A report ends the run.
@@ -61,11 +61,19 @@ When your own message in that turn asks for it, the clone makes the change in th
 
 ## Research {#research}
 
-A worker investigates; the requester hears that the clone is looking into it, then gets the answer with its sources, and you get a brief in your self-DM when the requester is someone else. For a reported incident the worker first proves it can read that environment's logs and data, since code alone shows what could happen, not what did, and until that evidence settles the cause the requester hears what is being checked, never a guess. A missing sign-in is a blocker: the clone names the connection to reconnect on Set up and keeps the work open. The researcher is read-only by its brief, not by a sandbox ([How Misha works](/understand/how-it-works) explains what workers can do).
+A worker investigates what one lookup can't settle, comparing a ticket with a meeting's transcript included. It runs in a git worktree of a repository you added on Settings, so research needs one even when the question is about tickets or meetings, and only you and those you allow can start it. It needs:
+
+<!-- facts needs research -->
+
+The requester hears that the clone is looking into it, then gets the answer with its sources, and you get a brief in your self-DM when the requester is someone else. For a reported incident the worker first proves it can read that environment's logs and data, since code alone shows what could happen, not what did, and until that evidence settles the cause the requester hears what is being checked, never a guess. A missing or expired sign-in is a blocker: the clone names the connection to reconnect on Set up and keeps the work open. When the worker lacks a tool, a profile grant or access to an environment instead, the report names what is missing, since signing in again won't fix it. The researcher is read-only by its brief, not by a sandbox ([How Misha works](/understand/how-it-works) explains what workers can do).
 
 ## Delivery {#delivery}
 
-A change request from you or someone you allow, which needs nothing more from you, goes through:
+A change request from you or someone you allow, which needs nothing more from you, needs:
+
+<!-- facts needs delivery -->
+
+It goes through:
 
 1. **Analysis**, when needed: where the change lands, and a sourced default for each open point.
 2. **A ticket**, new or existing. The repository's own `create-ticket` command writes it when there is one; otherwise a worker writes it, labelled `auto`.
@@ -89,7 +97,11 @@ Delivery and dependency runs have GPT, through OpenCode signed in to your OpenAI
 
 ## Dependency updates {#dependency-updates}
 
-A run you ask for, such as "work through the open Dependabot pull requests in shop/shop-backend", not daily maintenance. One orchestrator worker checks what each update breaks and offers, has fixes made on the pull request's own branch, gets a GPT review of each pull request's current head, and merges ready ones one at a time, checking each dev deploy first. At most two workers run at once, the orchestrator included, so its own workers run one after another. Dangerous updates come back to you with evidence and options; closing a pull request or telling the bot to ignore a version is yours, and proposals for new features stay proposals until you ask.
+A run you ask for, such as "work through the open Dependabot pull requests in shop/shop-backend", not daily maintenance. It needs:
+
+<!-- facts needs dependency-updates -->
+
+ One orchestrator worker checks what each update breaks and offers, has fixes made on the pull request's own branch, gets a GPT review of each pull request's current head, and merges ready ones one at a time, checking each dev deploy first. At most two workers run at once, the orchestrator included, so its own workers run one after another. Dangerous updates come back to you with evidence and options; closing a pull request or telling the bot to ignore a version is yours, and proposals for new features stay proposals until you ask.
 
 <!-- facts endpoints dependency-updates -->
 
@@ -105,7 +117,7 @@ Home in the Misha window lists what is in flight under **Working on now** and wh
 
 <Shot id="home" caption="Home with one answer and two workers in flight, and the clone's recent posts and decisions. Made-up example." />
 
-Implemented, reviewed, merged, deployed and checked are different states, and Home shows that a worker runs, not which state it reached. To hand a delivery to a person, reassign its ticket or remove its `auto` label: the ticket is checked before each delivery step, when a delivery reports and before a merge, so the work stops at the next check, not at once. To stop new work at once, [pause Misha](/operate/manage); [Customise and reuse Misha](/reference/extensions) covers carrying on yourself.
+Implemented, reviewed, merged, deployed and checked are different states, and Home shows that a worker runs, not which state it reached. To hand a delivery to a person, reassign its ticket or remove its `auto` label. The delivery procedure tells the clone to read the ticket before it starts a delivery worker and when that worker reports back, and the worker re-reads it before a merge, so the work stops at the next of those checks, not at once. Analysis, ticket writing and the reviews before that aren't checkpoints, and the checks are the procedure's instructions, not a watcher in the app. To stop new work at once, [pause Misha](/operate/manage); [Customise and reuse Misha](/reference/extensions) covers carrying on yourself.
 
 ## Ready for everyday use {#ready-for-everyday-use}
 

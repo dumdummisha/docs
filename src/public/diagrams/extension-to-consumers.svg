@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" role="img" aria-labelledby="title desc" font-family="Figtree, &#x27;Helvetica Neue&#x27;, Helvetica, Arial, sans-serif">
+<title id="title">Where an extension reaches</title>
+<desc id="desc">A Misha extension folder holds a manifest, skills, commands, agent profiles and modules with tools and hooks. Your Claude Code and OpenCode sessions get what the manifest declares for each. Misha&#x27;s workers get the tools of modules served to workers, callable when a grant names them for the profile. Clone turns get nothing from an extension. The numbered list under the diagram describes each route.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f1b16"/></marker></defs>
+<rect width="1000" height="560" fill="#fffef8"/>
+<rect x="20" y="40" width="300" height="480" rx="4" fill="#fff7da" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="170.0" y="284.6" text-anchor="middle" font-size="13" fill="#1f1b16"></text>
+<text x="170" y="70" text-anchor="middle" font-size="15" font-weight="700" fill="#1f1b16">Your extension folder</text>
+<rect x="40" y="96" width="260" height="54" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="170.0" y="119.0" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">misha-extension.json</text>
+<text x="170.0" y="136.1" text-anchor="middle" font-size="13" fill="#1f1b16">the manifest: what it contributes</text>
+<rect x="40" y="164" width="260" height="54" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="170.0" y="187.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">skills/&lt;skill&gt;/SKILL.md</text>
+<text x="170.0" y="204.1" text-anchor="middle" font-size="13" fill="#1f1b16">instructions loaded on demand</text>
+<rect x="40" y="232" width="260" height="54" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="170.0" y="255.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">commands/&lt;command&gt;.md</text>
+<text x="170.0" y="272.1" text-anchor="middle" font-size="13" fill="#1f1b16">slash commands</text>
+<rect x="40" y="300" width="260" height="54" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="170.0" y="323.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">agents/&lt;agent&gt;.json</text>
+<text x="170.0" y="340.1" text-anchor="middle" font-size="13" fill="#1f1b16">agent profiles</text>
+<rect x="40" y="368" width="260" height="54" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="170.0" y="391.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">modules/&lt;module&gt;/</text>
+<text x="170.0" y="408.1" text-anchor="middle" font-size="13" fill="#1f1b16">tools, and hooks per harness</text>
+<rect x="40" y="436" width="260" height="54" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="170.0" y="459.1" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">agentGrants, in the manifest</text>
+<text x="170.0" y="476.1" text-anchor="middle" font-size="13" fill="#1f1b16">your tools for others&#x27; profiles</text>
+<rect x="600" y="40" width="380" height="96" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="790.0" y="75.5" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">Your Claude Code sessions</text>
+<text x="790.0" y="92.5" text-anchor="middle" font-size="13" fill="#1f1b16">skills and commands as a plugin, agents,</text>
+<text x="790.0" y="109.5" text-anchor="middle" font-size="13" fill="#1f1b16">hooks, tools through the misha MCP server</text>
+<path d="M320 280 L460 280 L460 88 L598 88" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="530" cy="88" r="11" fill="#1f1b16"/>
+<text x="530" y="92.5" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">1</text>
+<rect x="600" y="160" width="380" height="96" rx="4" fill="#ffffff" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="790.0" y="195.6" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">Your OpenCode sessions</text>
+<text x="790.0" y="212.6" text-anchor="middle" font-size="13" fill="#1f1b16">skills, commands and agents in its</text>
+<text x="790.0" y="229.6" text-anchor="middle" font-size="13" fill="#1f1b16">configuration, tools through a plugin</text>
+<path d="M320 280 L460 280 L460 208 L598 208" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="530" cy="208" r="11" fill="#1f1b16"/>
+<text x="530" y="212.5" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">2</text>
+<rect x="600" y="280" width="380" height="96" rx="4" fill="#ffeeb0" stroke="#1f1b16" stroke-width="1.5"/>
+<text x="790.0" y="315.6" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">Misha&#x27;s workers</text>
+<text x="790.0" y="332.6" text-anchor="middle" font-size="13" fill="#1f1b16">tools of modules served to workers,</text>
+<text x="790.0" y="349.6" text-anchor="middle" font-size="13" fill="#1f1b16">callable where a grant names the profile</text>
+<path d="M320 280 L460 280 L460 328 L598 328" fill="none" stroke="#1f1b16" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="530" cy="328" r="11" fill="#1f1b16"/>
+<text x="530" y="332.5" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">3</text>
+<rect x="600" y="400" width="380" height="96" rx="4" fill="#fbd5ce" stroke="#a82a1a" stroke-width="1.5"/>
+<text x="790.0" y="435.6" text-anchor="middle" font-size="13" font-weight="700" fill="#1f1b16">Clone turns</text>
+<text x="790.0" y="452.6" text-anchor="middle" font-size="13" fill="#1f1b16">nothing from an extension: their tools</text>
+<text x="790.0" y="469.6" text-anchor="middle" font-size="13" fill="#1f1b16">come from your connections on Set up</text>
+<path d="M320 300 L440 300 L440 448 L560 448" fill="none" stroke="#a82a1a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<path d="M566 438 L586 458 M586 438 L566 458" stroke="#a82a1a" stroke-width="2.5"/>
+<circle cx="500" cy="448" r="11" fill="#1f1b16"/>
+<text x="500" y="452.5" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">4</text>
+</svg>

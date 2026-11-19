@@ -302,8 +302,9 @@ export const verifiedExportOf = (bytesByFile: ReadonlyMap<string, Buffer>): IDes
   return { manifest, captureList, facts }
 }
 
-// What facts/ holds: the desktop export's capture list and facts, and the browser facts pnpm import:browser writes.
-const FACTS_ENTRIES: readonly string[] = [CAPTURES_FILE, 'desktop', 'browser']
+// What facts/ holds: the desktop export's capture list and facts, the browser facts pnpm import:browser writes, and
+// the records reviewed by hand (reviewed-facts.ts).
+const FACTS_ENTRIES: readonly string[] = [CAPTURES_FILE, 'desktop', 'browser', 'reviewed']
 
 // The imported export as the repository holds it, checked again like a bundle, so a capture or fact edited or replaced
 // after the import fails the build. facts/desktop/ holds only the export and its README.
@@ -315,7 +316,9 @@ export const committedExportOf = async (root: string): Promise<IDesktopExport> =
   ])
   const unexpected = factsEntries.filter((name) => !FACTS_ENTRIES.includes(name))
   if (unexpected.length > 0) {
-    throw new Error(`facts/ holds ${unexpected.join(', ')}, which is neither the desktop export nor the browser facts`)
+    throw new Error(
+      `facts/ holds ${unexpected.join(', ')}, which is neither the desktop export, the browser facts nor the reviewed records`
+    )
   }
   const files = [
     CAPTURES_FILE,

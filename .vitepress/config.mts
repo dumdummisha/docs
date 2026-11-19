@@ -6,6 +6,7 @@ import { type DefaultTheme, defineConfig, type MarkdownEnv, type MarkdownRendere
 import { committedBrowserFactsOf } from '../scripts/browser-facts.ts'
 import { committedExportOf } from '../scripts/desktop-export.ts'
 import { expandFactTables } from '../scripts/fact-tables.ts'
+import { committedReviewedFactsOf } from '../scripts/reviewed-facts.ts'
 import { checkPageComponents, type ISiteFacts, loadSiteFacts } from '../scripts/site-facts.ts'
 import {
   BROWSER_REPOSITORY_URL,
@@ -106,13 +107,21 @@ const footerMessage = (site: ISiteFacts): string => {
 const description = readmeFirstLine(await readFile(new URL('../README.md', import.meta.url), 'utf8'))
 const root = fileURLToPath(new URL('..', import.meta.url))
 const site = await loadSiteFacts(root)
-const facts = { desktop: (await committedExportOf(root)).facts, browser: await committedBrowserFactsOf(root) }
+const { manifest, facts: desktop } = await committedExportOf(root)
+const facts = {
+  desktop,
+  browser: await committedBrowserFactsOf(root),
+  reviewed: await committedReviewedFactsOf(root, manifest.productVersion),
+}
 
 export default defineConfig({
   title: 'Dumdum Misha',
   description,
   lang: 'en',
   srcDir: 'src',
+  // Passages several pages share, each pulled into its pages with <!--@include: ...-->, so none is a page or a search
+  // result of its own.
+  srcExclude: ['_includes/**'],
   markdown: {
     config: (md) => {
       expandFactTables(facts)(md)

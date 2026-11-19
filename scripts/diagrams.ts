@@ -10,7 +10,8 @@ import { findingLine, findingsInFile } from './public-data.ts'
 // The site's diagrams: Mermaid sources in diagrams/, rendered to static SVG in src/public/diagrams/ by
 // pnpm render:diagrams, so readers get an image and no Mermaid runtime. Rendering needs a headless browser, which the
 // deployment's build does not have, so the SVGs are committed and every build checks that each still names the hash
-// of the source it was rendered from.
+// of the source it was rendered from. An SVG without that header was drawn by hand: it has no source, and neither the
+// check nor the render touches it.
 
 export const DIAGRAMS_DIRECTORY = 'diagrams'
 export const RENDERED_DIRECTORY = 'src/public/diagrams'
@@ -34,16 +35,25 @@ const namesIn = async (directory: string, extension: string): Promise<string[]> 
     ? (await readdir(directory)).filter((name) => name.endsWith(extension)).map((name) => name.slice(0, -extension.length)).sort()
     : []
 
+// The SVGs pnpm render:diagrams wrote, told from hand-drawn ones by the header it writes first.
+const renderedNamesIn = async (root: string): Promise<string[]> => {
+  const names = await namesIn(join(root, RENDERED_DIRECTORY), RENDERED_EXTENSION)
+  const svgs = await Promise.all(names.map((name) => readFile(join(root, RENDERED_DIRECTORY, `${name}${RENDERED_EXTENSION}`), 'utf8')))
+
+  return names.filter((_, index) => RENDERED_FROM.test(svgs[index] ?? ''))
+}
+
 const renderedFromLine = (source: string, bytes: Buffer): string =>
   `<!-- Rendered by pnpm render:diagrams from ${source}, sha256 ${sha256(bytes)}. -->\n`
 
 // Every diagram whose SVG is missing, was rendered from another version of its source, or has no source any more.
 export const diagramFindings = async (root: string): Promise<IDiagramFinding[]> => {
   const sources = await namesIn(join(root, DIAGRAMS_DIRECTORY), SOURCE_EXTENSION)
-  const rendered = await namesIn(join(root, RENDERED_DIRECTORY), RENDERED_EXTENSION)
+  const svgs = await namesIn(join(root, RENDERED_DIRECTORY), RENDERED_EXTENSION)
+  const rendered = await renderedNamesIn(root)
   const findings = await Promise.all(
     sources.map(async (diagram): Promise<IDiagramFinding[]> => {
-      if (!rendered.includes(diagram)) {
+      if (!svgs.includes(diagram)) {
         return [{ diagram, problem: 'not rendered' }]
       }
       const source = `${DIAGRAMS_DIRECTORY}/${diagram}${SOURCE_EXTENSION}`
@@ -63,7 +73,7 @@ export const diagramFindings = async (root: string): Promise<IDiagramFinding[]> 
 }
 
 // Renders every diagram with the pinned Mermaid CLI, refusing one that did not parse or that fails the public-data
-// scan, and deletes SVGs whose source is gone. Nothing is written until every diagram renders.
+// scan, and deletes rendered SVGs whose source is gone. Nothing is written until every diagram renders.
 export const renderDiagrams = async (root: string): Promise<string[]> => {
   const sources = await namesIn(join(root, DIAGRAMS_DIRECTORY), SOURCE_EXTENSION)
   const scratch = await mkdtemp(join(tmpdir(), 'diagrams-'))
@@ -93,7 +103,7 @@ export const renderDiagrams = async (root: string): Promise<string[]> => {
     )
 
     await mkdir(join(root, RENDERED_DIRECTORY), { recursive: true })
-    const orphans = (await namesIn(join(root, RENDERED_DIRECTORY), RENDERED_EXTENSION)).filter((name) => !sources.includes(name))
+    const orphans = (await renderedNamesIn(root)).filter((name) => !sources.includes(name))
     await Promise.all(orphans.map((name) => rm(join(root, RENDERED_DIRECTORY, `${name}${RENDERED_EXTENSION}`))))
     await Promise.all(svgs.map(([target, bytes]) => writeFile(join(root, target), bytes)))
 

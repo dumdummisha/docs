@@ -7,6 +7,7 @@ import { committedBrowserFactsOf, type IBrowserFacts } from './browser-facts.ts'
 import { type DesktopFacts, verifiedExportOf } from './desktop-export.ts'
 import { EXPORT_FILES, type ExportFiles, withManifest } from './export-fixture.ts'
 import { expandFactTables, FactTableError, factTableMarkdown, type IFacts, isFactTableMarker } from './fact-tables.ts'
+import { type ReviewedFacts } from './reviewed-facts.ts'
 
 // Built from parts so this file itself passes the public-data scan.
 const SLACK_MATCH = ['https:', '', 'app.slack.com', '*'].join('/')
@@ -89,7 +90,71 @@ const RETENTION = {
   overwrittenBatches: { kept: 10, description: 'What the installers moved aside.' },
 }
 
-const factsOf = (files: ExportFiles): DesktopFacts => verifiedExportOf(new Map(Object.entries(withManifest(files)).map(([path, content]) => [path, Buffer.from(content)]))).facts
+const REVIEWED: ReviewedFacts = {
+  capabilities: {
+    productVersion: '0.1.0',
+    evidenceDate: '2026-11-19',
+    browserRevision: '9cba991',
+    capabilities: [
+      {
+        id: 'design-read',
+        request: 'Render a Figma screen',
+        routes: [{ availability: 'included', actor: 'clone', surface: 'in its own turn' }],
+        access: 'anyone',
+        needs: ['Figma on Set up'],
+        result: 'The image in the reply',
+        limit: 'Reads | renders only.',
+      },
+      {
+        id: 'delivery',
+        request: 'Carry a change to a reviewed pull request',
+        routes: [
+          { availability: 'included', actor: 'worker', surface: 'started by the clone' },
+          { availability: 'optional', actor: 'your-agent', surface: 'through a module' },
+        ],
+        access: 'allowed',
+        needs: ['GitHub CLI on Set up', 'OpenCode signed in to OpenAI'],
+        result: 'A reviewed pull request',
+        limit: 'Dev at most.',
+      },
+    ],
+  },
+  workflows: {
+    productVersion: '0.1.0',
+    evidenceDate: '2026-11-19',
+    workflows: [
+      {
+        id: 'delivery',
+        name: 'Delivery',
+        trigger: 'A change that makes sense',
+        actor: 'worker',
+        access: 'allowed',
+        needs: ['The repository added on Settings', 'GitHub CLI on Set up'],
+        projectCommands: [{ name: 'execute', role: 'Merges and deploys to dev.' }],
+        review: 'GPT reviews the pull request.',
+        endpoints: [
+          { kind: 'result', outcome: 'A reviewed pull request', when: 'The repository may not merge' },
+          { kind: 'wait', outcome: 'The review waits', when: 'GPT is unavailable' },
+          { kind: 'result', outcome: 'Merged and checked on dev', when: 'It may merge and has execute' },
+        ],
+      },
+      {
+        id: 'quick-answer',
+        name: 'Quick answer',
+        trigger: 'One bounded read',
+        actor: 'clone',
+        access: 'anyone',
+        needs: ['The connection that holds the answer'],
+        projectCommands: [],
+        review: null,
+        endpoints: [{ kind: 'result', outcome: 'A marked reply', when: 'The read answers it' }],
+      },
+    ],
+  },
+}
+
+const factsOf = (files: ExportFiles): DesktopFacts =>
+  verifiedExportOf(new Map(Object.entries(withManifest(files)).map(([path, content]) => [path, Buffer.from(content)]))).facts
 
 const DESKTOP = factsOf({
   ...EXPORT_FILES,
@@ -97,7 +162,7 @@ const DESKTOP = factsOf({
   'facts/settings.json': JSON.stringify(SETTINGS),
   'facts/retention.json': JSON.stringify(RETENTION),
 })
-const FACTS: IFacts = { desktop: DESKTOP, browser: BROWSER }
+const FACTS: IFacts = { desktop: DESKTOP, browser: BROWSER, reviewed: REVIEWED }
 
 // The committed browser facts with one permission's limits replaced.
 const withLimits = (permission: string, limits: string[]): IFacts => {
@@ -111,7 +176,7 @@ const withLimits = (permission: string, limits: string[]): IFacts => {
     disclosures: { ...BROWSER.disclosures, permissions: { ...BROWSER.disclosures.permissions, [permission]: { ...disclosure, limits } } },
   }
 
-  return { desktop: DESKTOP, browser }
+  return { desktop: DESKTOP, browser, reviewed: REVIEWED }
 }
 
 describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () => {
@@ -193,11 +258,51 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     ['<!-- facts commands robot -->', 'commands takes one sender, owner or colleague'],
     ['<!-- facts surfaces forget -->', 'There is no settings change forget in the facts'],
     ['<!-- facts retention forever -->', 'There is no retention store forever in the facts'],
+    ['<!-- facts capabilities telepathy -->', 'There is no capability telepathy in the facts'],
+    ['<!-- facts endpoints -->', 'endpoints takes exactly one workflow'],
+    ['<!-- facts endpoints delivery quick-answer -->', 'endpoints takes exactly one workflow'],
+    ['<!-- facts endpoints release -->', 'There is no workflow release in the facts'],
+    ['<!-- facts needs -->', 'needs takes exactly one workflow'],
+    ['<!-- facts needs delivery quick-answer -->', 'needs takes exactly one workflow'],
+    ['<!-- facts needs release -->', 'There is no workflow release in the facts'],
   ])('should refuse the marker %s', (marker, message) => {
     // Act + Assert
     expect(isFactTableMarker(marker)).toBe(true)
     expect(() => factTableMarkdown(FACTS, marker)).toThrow(FactTableError)
     expect(() => factTableMarkdown(FACTS, marker)).toThrow(message)
+  })
+
+  it('should give each request every route to it, who may ask, one need per line and its result, escaping the limit', () => {
+    // Act
+    const markdown = factTableMarkdown(FACTS, '<!-- facts capabilities delivery design-read -->')
+
+    // Assert
+    expect(markdown.split('\n')).toStrictEqual([
+      '| Request | Available as | Who may ask | Needs | Gives | Limit |',
+      '| --- | --- | --- | --- | --- | --- |',
+      '| Carry a change to a reviewed pull request | Included: Worker, started by the clone<br>Optional extension: Your agent, through a module | You and those you allow | GitHub CLI on Set up<br>OpenCode signed in to OpenAI | A reviewed pull request | Dev at most. |',
+      '| Render a Figma screen | Included: Clone, in its own turn | Anyone | Figma on Set up | The image in the reply | Reads \\| renders only. |',
+    ])
+  })
+
+  it('should list what one workflow needs, one item per line', () => {
+    // Act
+    const markdown = factTableMarkdown(FACTS, '<!-- facts needs delivery -->')
+
+    // Assert
+    expect(markdown.split('\n')).toStrictEqual(['- The repository added on Settings', '- GitHub CLI on Set up'])
+  })
+
+  it('should list every way one workflow ends, in order, with its kind', () => {
+    // Act
+    const markdown = factTableMarkdown(FACTS, '<!-- facts endpoints delivery -->')
+
+    // Assert
+    expect(markdown.split('\n').slice(2)).toStrictEqual([
+      '| Ends with | A reviewed pull request | The repository may not merge |',
+      '| Waits | The review waits | GPT is unavailable |',
+      '| Ends with | Merged and checked on dev | It may merge and has execute |',
+    ])
   })
 
   it('should refuse a command whose place has no label', () => {
@@ -212,7 +317,7 @@ describe('[scripts] Fact tables - factTableMarkdown and isFactTableMarker', () =
     })
 
     // Act + Assert
-    expect(() => factTableMarkdown({ desktop: facts, browser: BROWSER }, '<!-- facts commands owner -->')).toThrow(
+    expect(() => factTableMarkdown({ desktop: facts, browser: BROWSER, reviewed: REVIEWED }, '<!-- facts commands owner -->')).toThrow(
       'The commands name the place huddle, which has no label in fact-tables.ts'
     )
   })

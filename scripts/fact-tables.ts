@@ -8,17 +8,21 @@ import {
   type IBrowserFacts,
 } from './browser-facts.ts'
 import { type DesktopFacts } from './desktop-export.ts'
+import { type ACCESS, type ACTORS, type AVAILABILITY, type ENDPOINT_KINDS, type ReviewedFacts } from './reviewed-facts.ts'
 import { BROWSER_REPOSITORY_URL } from './site.ts'
 
 type Command = DesktopFacts['commands']['commands'][number]
+type Workflow = ReviewedFacts['workflows']['workflows'][number]
 type Mutation = DesktopFacts['settings']['mutations'][number]
 type WindowControl = Mutation['window'][number]
 type Limits = DesktopFacts['settings']['fields'][number]['limits']
 
-// The committed facts a page's tables and disclosures render: the desktop export's and the browser extension's.
+// The committed facts a page's tables and disclosures render: the desktop export's, the browser extension's and the
+// records reviewed by hand.
 export interface IFacts {
   desktop: DesktopFacts
   browser: IBrowserFacts
+  reviewed: ReviewedFacts
 }
 
 // A page asks for a table with an HTML comment on lines of its own: <!-- facts <table> [<argument> ...] -->. Markdown
@@ -50,6 +54,31 @@ const PLACE_LABELS: Readonly<Record<string, string>> = {
   'self-dm': 'Self-DM',
   'dm-with-owner': 'One-to-one DM with the owner',
   summon: 'Any conversation, with the icon',
+}
+
+// Who carries out a request, and who may ask for it, as the capability table says it.
+const ACTOR_LABELS: Readonly<Record<(typeof ACTORS)[number], string>> = {
+  clone: 'Clone',
+  worker: 'Worker',
+  'your-agent': 'Your agent',
+}
+const AVAILABILITY_LABELS: Readonly<Record<(typeof AVAILABILITY)[number], string>> = {
+  included: 'Included',
+  optional: 'Optional extension',
+  standalone: 'Standalone',
+}
+// The owner's own turn is a message in their self-DM or one with their icon in it, which the pages explain.
+const ACCESS_LABELS: Readonly<Record<(typeof ACCESS)[number], string>> = {
+  anyone: 'Anyone',
+  owner: 'You',
+  allowed: 'You and those you allow',
+  session: 'You',
+}
+const ENDPOINT_LABELS: Readonly<Record<(typeof ENDPOINT_KINDS)[number], string>> = {
+  result: 'Ends with',
+  wait: 'Waits',
+  stop: 'Stops',
+  decision: 'Your decision',
 }
 
 // Who sends a command, and where, as a change's Slack cell says it under the example.
@@ -457,6 +486,55 @@ const pathsTable = ({ paths }: DesktopFacts): string =>
     ),
   ].join('\n\n')
 
+const listCell = (items: readonly string[]): string => items.map(text).join('<br>')
+
+// Every request, or the ones named, with each way to get it (whether it is included, optional or standalone, who
+// carries it out and where), who may ask, what it needs, what it gives and its limit.
+const capabilitiesTable = (reviewed: ReviewedFacts, ids: readonly string[]): string =>
+  table(
+    ['Request', 'Available as', 'Who may ask', 'Needs', 'Gives', 'Limit'],
+    picked(reviewed.capabilities.capabilities, ({ id }) => id, ids, 'capability').map(
+      ({ request, routes, access, needs, result, limit }) => [
+        text(request),
+        routes
+          .map(
+            ({ availability, actor, surface }) =>
+              `${AVAILABILITY_LABELS[availability]}: ${ACTOR_LABELS[actor]}, ${text(surface)}`
+          )
+          .join('<br>'),
+        ACCESS_LABELS[access],
+        listCell(needs),
+        text(result),
+        text(limit),
+      ]
+    )
+  )
+
+const workflowById = (reviewed: ReviewedFacts, id: string): Workflow => {
+  const workflow = reviewed.workflows.workflows.find((each) => each.id === id)
+  if (workflow === undefined) {
+    throw new FactTableError(`There is no workflow ${id} in the facts`)
+  }
+
+  return workflow
+}
+
+// What one workflow needs, one item per line.
+const needsList = (reviewed: ReviewedFacts, id: string): string =>
+  workflowById(reviewed, id)
+    .needs.map((need) => `- ${text(need)}`)
+    .join('\n')
+
+// Every way one workflow can end, in the record's order.
+const endpointsTable = (reviewed: ReviewedFacts, id: string): string => {
+  const workflow = workflowById(reviewed, id)
+
+  return table(
+    ['Outcome', 'What happens', 'When'],
+    workflow.endpoints.map(({ kind, outcome, when }) => [ENDPOINT_LABELS[kind], text(outcome), text(when)])
+  )
+}
+
 const disclosureOf = (disclosures: Readonly<Record<string, Disclosure>>, key: string): Disclosure => {
   const disclosure = disclosures[key]
   if (disclosure === undefined) {
@@ -612,6 +690,15 @@ const fixed =
     return render(facts)
   }
 
+const oneWorkflow = (name: string, args: readonly string[]): string => {
+  const [workflow, ...extra] = args
+  if (workflow === undefined || extra.length > 0) {
+    throw new FactTableError(`${name} takes exactly one workflow`)
+  }
+
+  return workflow
+}
+
 const TABLES: Readonly<Record<string, TableRenderer>> = {
   'command-terms': fixed(({ desktop }) => commandTerms(desktop)),
   commands: ({ desktop }, args) => {
@@ -629,6 +716,9 @@ const TABLES: Readonly<Record<string, TableRenderer>> = {
   retention: ({ desktop }, args) => retentionTable(desktop, args),
   'retention-policy': fixed(({ desktop }) => retentionPolicy(desktop)),
   paths: fixed(({ desktop }) => pathsTable(desktop)),
+  capabilities: ({ reviewed }, args) => capabilitiesTable(reviewed, args),
+  endpoints: ({ reviewed }, args) => endpointsTable(reviewed, oneWorkflow('endpoints', args)),
+  needs: ({ reviewed }, args) => needsList(reviewed, oneWorkflow('needs', args)),
   'browser-holdings': fixed(({ browser }) => browserHoldings(browser)),
   'browser-exceptions': fixed(({ browser }) => browserExceptions(browser)),
   'browser-recipients': fixed(({ browser }) => disclosureText(browser.disclosures.dataUsage.recipients)),

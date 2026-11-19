@@ -56,4 +56,22 @@ describe('[scripts] Diagrams - diagramFindings', () => {
       { diagram: 'old', problem: 'rendered without a source' },
     ])
   })
+
+  it('should leave a hand-drawn SVG, which has no render header, out of the check', async () => {
+    // Arrange
+    const root = await repository({ flow: SOURCE }, { flow: renderedFrom(SOURCE), drawn: '<svg><title>Drawn</title></svg>' })
+
+    // Act + Assert
+    expect(await diagramFindings(root)).toStrictEqual([])
+  })
+
+  it('should report a hand-drawn SVG that has the name of a source as not rendered from it', async () => {
+    // Arrange
+    const root = await repository({ flow: SOURCE }, { flow: '<svg><title>Drawn</title></svg>' })
+
+    // Act + Assert
+    expect(await diagramFindings(root)).toStrictEqual([
+      { diagram: 'flow', problem: 'rendered from another version of its source' },
+    ])
+  })
 })

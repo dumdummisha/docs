@@ -58,8 +58,8 @@
   --vp-font-family-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --dm-font-display: 'Bricolage Grotesque', 'Avenir Next', system-ui, sans-serif;
 
-  /* The chrome (top bar, sidebar, the phone's menu bar and menu) is the bright brand yellow, as the app window's rail
-     is; the pale yellows stay inside page content. */
+  /* The chrome (sidebar, the phone's menu bar and menu, the 404 page's top bar and its menu) is the bright brand
+     yellow, as the app window's rail is; the pale yellows stay inside page content. */
   --vp-nav-bg-color: var(--dm-misha);
   --vp-nav-screen-bg-color: var(--dm-misha);
   --vp-local-nav-bg-color: var(--dm-misha);

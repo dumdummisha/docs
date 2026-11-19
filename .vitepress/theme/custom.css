@@ -13,9 +13,11 @@
   line-height: 26px;
 }
 
-/* Prose at the brand's reading width, with or without the outline beside it. */
+/* Prose at the brand's reading width, with or without the outline beside it, held to the left of its column rather
+   than centred in it. */
 .VPDoc .content-container,
 .VPDoc.has-aside .content-container {
+  margin: 0;
   max-width: var(--dm-size-reading);
 }
 
@@ -29,11 +31,122 @@
   border-radius: 0 !important;
 }
 
-/* The whole top bar is yellow at every width. With a sidebar the theme leaves the bar transparent on wide screens and
-   colours only the part beside the sidebar, which left its right padding white; the repeated class outweighs the
-   theme's scoped rule. */
-.VPNav .VPNavBar.VPNavBar {
-  background-color: var(--vp-nav-bg-color);
+/* The layout of the Misha window and the retired account app: the yellow rail is the only chrome, and the page column
+   starts right after it with a fixed gutter and stays there on any screen width. No page has the top bar
+   (config.mts), so the theme's top offsets drop to nothing; the 404 page, which has no sidebar, keeps the top bar and
+   its offsets. Rules whose selector repeats a class outweigh the theme's scoped rule of the same name. */
+:root:not(:has(.VPNav)) {
+  --vp-nav-height: 0px;
+}
+
+:root {
+  --vp-sidebar-width: 232px;
+}
+
+.Layout .VPSidebar.VPSidebar {
+  padding: 24px 16px 96px;
+}
+
+/* The theme's strip that hides content scrolling under the top bar; there is no top bar to hide it under. */
+.VPSidebar .curtain {
+  display: none;
+}
+
+.dm-rail-head {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 24px;
+}
+
+.dm-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  color: var(--dm-ink);
+  font-family: var(--dm-font-display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.dm-rail-search.VPNavBarSearch {
+  padding-left: 0;
+}
+
+.dm-rail-search #local-search {
+  flex-grow: 1;
+}
+
+/* In the rail the search button is a white field with its label at every width, as it is in the top bar from 768px. */
+.VPSidebar .DocSearch-Button.DocSearch-Button {
+  justify-content: flex-start;
+  padding: 0 10px 0 12px;
+  width: 100%;
+  height: 40px;
+  background-color: var(--dm-surface-200);
+}
+
+.VPSidebar .DocSearch-Button .DocSearch-Search-Icon.DocSearch-Search-Icon {
+  top: 1px;
+  margin-right: 8px;
+  width: 14px;
+  height: 14px;
+  color: var(--vp-c-text-2);
+}
+
+.VPSidebar .DocSearch-Button .DocSearch-Button-Placeholder.DocSearch-Button-Placeholder {
+  display: inline-block;
+}
+
+.VPSidebar .group.group {
+  padding-right: 12px;
+  padding-left: 12px;
+  width: auto;
+}
+
+/* The current page is a white band across the rail, as in the Misha window. */
+.VPSidebar .VPSidebarItem.is-active > .item.item {
+  margin: 0 -12px;
+  padding: 0 12px;
+  width: calc(100% + 24px);
+  background-color: var(--dm-surface-200);
+}
+
+@media (min-width: 960px) {
+  .Layout .VPSidebar.VPSidebar {
+    width: var(--vp-sidebar-width);
+  }
+
+  .VPContent.has-sidebar.has-sidebar {
+    padding-right: 0;
+    padding-left: var(--vp-sidebar-width);
+  }
+
+  .VPDoc .container.container {
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  /* Between 960px and 1280px the outline is a dropdown in a bar over the page column, on the page's ground and lined
+     up with the prose. */
+  .VPLocalNav.VPLocalNav {
+    background-color: var(--vp-c-bg);
+  }
+
+  .VPLocalNav .VPLocalNavOutlineDropdown.VPLocalNavOutlineDropdown {
+    padding-left: 64px;
+  }
+}
+
+/* From 1280px the outline stands to the right of the prose instead of the pair being centred. */
+@media (min-width: 1280px) {
+  .VPDoc .content.content {
+    flex: 0 1 calc(var(--dm-size-reading) + 64px);
+  }
 }
 
 /* On the yellow chrome, text is ink or muted ink and links turn ink, not teal: teal and the dim ink fall below 4.5:1 on
@@ -52,22 +165,26 @@
   --vp-c-bg-alt: var(--dm-surface-200);
 }
 
-.VPNavBarMenuLink:hover,
-.VPNavBarMenuLink.active,
-.VPNavScreenMenuLink:hover,
 .VPSidebarItem.is-link > .item > .link:hover .text {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
 
-.VPNavBarMenuLink.active,
 .VPSidebarItem.is-active > .item .text {
   font-weight: 700;
 }
 
-/* From 768px the search button is a field with its label, so it gets a visible border, outweighing the theme's
-   transparent one; below that it is an icon alone. */
+/* Wherever the search button is a field with its label (the rail, and the 404 page's top bar from 768px) it gets a
+   visible border, outweighing the theme's transparent one; below that the top bar's is an icon alone. */
+.VPSidebar .DocSearch-Button.DocSearch-Button {
+  border: 1px solid var(--vp-c-border);
+}
+
+.VPSidebar .DocSearch-Button.DocSearch-Button:hover {
+  border-color: var(--dm-ink);
+}
+
 @media (min-width: 768px) {
   .VPNav .DocSearch-Button.DocSearch-Button {
     border-color: var(--vp-c-border);

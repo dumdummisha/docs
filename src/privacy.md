@@ -26,8 +26,8 @@ Each row links to the section that holds its evidence.
 | [Machine authority](#authority) | The clone is restricted Claude Code with read-only tools for other people. Workers run Claude Code or OpenCode with a shell. Claude workers keep your Claude Code permission rules; GPT workers run on Misha's own OpenCode configuration, which grants a shell and outside-folder access and approves requests left at ask. No operating system sandbox. |
 | [Updates](#updates-and-audit) | One owner-operated unsigned local build. No public download, updater, pinning or rollback. |
 | [Audit](#updates-and-audit) | A ledger of every Slack post, edit, upload and reaction, never deleted. No record of every shell or cloud command. |
-| [Stopping](#authority) | Pause starts nothing new and tries to stop workers; a worker it could not stop is named for you to stop by hand. It does not undo anything already done. |
-| [Removal](#deletion) | Deleting the Misha home (normally `~/.misha`) removes Misha's own files only. Claude Code and OpenCode transcripts, browser storage, Slack posts and connected services' records stay. |
+| [Stopping](/operate/manage#pause) | Pause starts nothing new and tries to stop workers; one it could not confirm stopped is named on Home. It undoes nothing already done. |
+| [Removal](#deletion) | No uninstall yet. The safe steps today remove the browser parts and keep the data folder, which Claude Code loads Misha's extensions from. Transcripts, sign-in tokens, Slack posts and services' records stay. |
 | [Residual risks](#residual-risks) | Confident wrong replies posted as you, instructions hidden in content, one clone session across conversations, broad browser observation, workers acting as your Mac user, work records with no age limit. |
 
 ## Privacy policy {#privacy-policy}
@@ -97,19 +97,7 @@ Misha's own files on your Mac:
 
 <!-- facts paths -->
 
-What the less obvious of these hold, and what else Misha's code writes:
-
-| Store | What it holds | How long it stays |
-| --- | --- | --- |
-| `misha.db` settings and notes | Your settings, the clone's personality and your notes | Until you change them; starting fresh keeps them |
-| Workers' runs | Each run's task prompt, model, profile, working folder, who asked and how it ended | No age limit: Misha's code never prunes it |
-| Workers' logs | What the run's harness streamed: its messages, tool calls and tool results | No age limit |
-| Workers' working copies | Git worktrees of your repositories with the worker's changes | Misha's code does not remove them |
-| GPT workers' run settings | The task prompt and the OpenCode configuration Misha wrote for the run | Kept after a run starts; removed only when a launch fails before the run starts |
-| `~/.misha/app/pause.json` | Whether Misha is paused | Until you pause or resume |
-| Clone outbox | Files a reply attaches | Removed once the reply's deliveries are done. A folder a crash leaves behind stays: nothing sweeps it |
-| Image reading | The Slack image, and a scaled-down copy, for the model call | Deleted once the model answered; a failed deletion is only logged, and the file stays |
-| Desktop screen capture (misha-browser's `macos_screen_capture`) | A PNG of your primary screen, in a `misha-browser` folder in macOS's temporary folder, outside the Misha home | Deleted once it is read into the tool result; a failed deletion is only logged |
+One more file comes from Misha's code, outside the Misha home: misha-browser's desktop tool `macos_screen_capture` saves a PNG of your primary screen in a `misha-browser` folder in macOS's temporary folder, and deletes it once the screenshot is read into the tool's result. A failed deletion is only logged, and a capture whose process is killed before that point stays. Nothing sweeps the folder.
 
 #### Retention {#retention}
 
@@ -125,17 +113,18 @@ The extension writes only its queue of new Slack messages to disk; everything el
 
 #### Outside Misha's folders {#other-records}
 
-Claude Code keeps the clone's and Claude workers' session transcripts with your other Claude Code sessions, and OpenCode keeps GPT workers' sessions with yours. Installing an extension writes skills, commands, agent profiles and tool registrations into your Claude Code and OpenCode configuration. The browser repository's installer registers the native host with Chrome and Brave in `~/Library/Application Support/Google/Chrome/NativeMessagingHosts` and `~/Library/Application Support/BraveSoftware/Brave-Browser/NativeMessagingHosts`, and writes its launcher to `~/.misha/browser-bridge`, which stays there even when `MISHA_HOME` moves the app's files. Slack, the model providers and each connected service keep their own records under their own rules.
+Claude Code keeps the clone's and Claude workers' session transcripts with your other Claude Code sessions, and OpenCode keeps GPT workers' sessions with yours. Signing in to Atlassian or Google Workspace from Misha writes token files to your user state folder, `~/.local/state` unless `XDG_STATE_HOME` names another: one file per Atlassian site under `jira`, and Google Workspace's under `google-workspace/oauth`. The OAuth client files those sign-ins read are ones you create yourself in `~/.config/opencode`. Installing an extension writes skills, commands, agent profiles and tool registrations into your Claude Code and OpenCode configuration. The browser repository's installer registers the native host with Chrome and Brave in `~/Library/Application Support/Google/Chrome/NativeMessagingHosts` and `~/Library/Application Support/BraveSoftware/Brave-Browser/NativeMessagingHosts`, and writes its launcher to `~/.misha/browser-bridge`, which stays there even when `MISHA_HOME` moves the app's files. Slack, the model providers and each connected service keep their own records under their own rules.
 
 ### Deleting your data {#deletion}
 
-There is no Misha account to close; everything Misha keeps is on your Mac. Pause Misha first and stop any worker it names as still running, so nothing writes while you delete. Then:
+There is no Misha account to close: what Misha keeps is on your Mac, and the rest sits in the accounts it works through. Misha has no uninstall yet. [Remove Misha](/operate/manage#remove) gives the steps that are safe today, starting with a [pause](/operate/manage#pause) and waiting until no worker is listed. They remove the browser extension, its message queue and the native host, and they leave the app and its data folder in place, because Claude Code loads Misha's extensions from that folder and its install records are what a later removal needs. Until then, the files [listed above](#storage) stay.
 
-- **The app's files:** quit Misha and delete the Misha home, `~/.misha` or the folder `MISHA_HOME` names. That removes the files above that live there, the ledger and the workers' records included; the screen capture folder in macOS's temporary folder is not in it. The install records under `extensions` list what extensions installed into your harnesses, so read them first if you want to remove those files too.
-- **The browser extension:** remove it on the browser's extensions page (Manage Extensions in Chrome's or Brave's menu); the browser deletes the storage it keeps for the extension, the message queue included. Delete `misha.browser_bridge.json` from the two `NativeMessagingHosts` folders above and the `~/.misha/browser-bridge` folder.
-- **Elsewhere:** Claude Code and OpenCode transcripts, the files extensions installed into your harnesses, what Misha posted or uploaded to Slack, and what providers and services keep are not removed by any of this. Deleting local files also signs you out of nothing: revoke Misha's tokens at each service, or sign out there, to end its access. These docs make no promise about what a provider or service erases.
+Remove Misha does not cover two kinds of local file:
 
-[Control and maintain Misha](/operate/manage) does not cover removal yet; this section is the complete list of what Misha writes.
+- **Sign-in tokens:** the Atlassian and Google Workspace token files in your [user state folder](#other-records). Deleting them removes the local copy only. Deleting local files signs you out of nothing, here or for any other service: revoke Misha's access at each service, or sign out there, to end it.
+- **Screen captures:** any PNG left in the `misha-browser` folder of macOS's temporary folder.
+
+Deleting on your Mac erases nothing elsewhere. Claude Code and OpenCode transcripts, what Misha posted or uploaded to Slack, and what providers and services keep stay under their own rules, and these docs make no promise about what they erase.
 
 ### What Misha may do {#authority}
 
@@ -148,7 +137,7 @@ There is no Misha account to close; everything Misha keeps is on your Mac. Pause
 | GPT workers (OpenCode) | The same tools through OpenCode | Code: Misha writes the run's whole OpenCode configuration, and yours, global and project, does not load. Each profile denies everything, then grants its tools; the implementer and reviewer profiles both grant every shell command and access outside the working folder, so a reviewer is not read-only in code. Misha approves at once any request a rule leaves at ask; a deny still refuses. Instructions and your accounts. No operating system sandbox. |
 | Merging | Workers merge a reviewed pull request only in a repository whose **May merge** is on | Instructions: the clone is told which repositories allow it. Your GitHub permissions are the hard limit. |
 | Deploying | Only to dev, never to staging, production or a release | Instructions only; the app's code does not check where a deploy goes |
-| Pause | Starts nothing new, tries to stop workers, answers only your commands in your self-DM | Code. A worker it could not stop keeps running until you stop it, and pause undoes nothing. |
+| Pause | Starts nothing new, tries to stop workers, answers only your commands in your self-DM ([how to pause](/operate/manage#pause)) | Code. A worker it could not confirm stopped may keep running, and pause undoes nothing. |
 
 [How Misha works](/understand/how-it-works) explains the runtime behind this table, and [Settings and commands](/reference/settings) lists who may change each setting.
 
@@ -163,7 +152,7 @@ There is no Misha account to close; everything Misha keeps is on your Mac. Pause
 
 ### Updates and audit {#updates-and-audit}
 
-Since 19 November 2026 Misha has been one owner-operated, unsigned local build. There is no public download, no Chrome Web Store listing and no invite keys yet. The app has no automatic updater and contacts no update server, so no update can be pinned or rolled back; that changes only with a signed release. The app's code contains no analytics or crash reporting.
+Since 19 November 2026 Misha has been one owner-operated, unsigned local build. There is no public download, no Chrome Web Store listing and no invite keys yet. The app has no automatic updater and contacts no update server, so no update can be pinned or rolled back; that changes only with a signed release. [Updates](/operate/manage#updates) says what a newer build changes when it starts. The app's code contains no analytics or crash reporting.
 
 The ledger records every post, edit, upload and reaction the clone and its workers made in Slack. Home shows current and recent work. Neither is a complete record of the shell commands, file changes or cloud calls workers make; those are in the workers' logs and their harness transcripts. The browser extension's source is public in [misha-browser](https://github.com/dumdummisha/misha-browser); the desktop app's source is not, so its behaviour on this page is described by its maintainer rather than open to your own audit.
 

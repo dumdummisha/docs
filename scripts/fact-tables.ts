@@ -41,6 +41,8 @@ const VUE_INTERPOLATION = '{{'
 // A full stop that ends a sentence, outside a code span or a name such as misha.browser_bridge.
 const SENTENCE_END = /(?<=\.) (?=[A-Z])/u
 const NUMBER_FORMAT = new Intl.NumberFormat('en')
+// The label of the collapsed block that holds one declaration's full disclosure.
+const DISCLOSURE_SUMMARY = 'Full disclosure: what it allows, why, when data flows, every limit'
 const NONE = 'None'
 // The export names the window's sidebar rail, the one place a control sits that the window gives no title; every other
 // page is named by its title.
@@ -648,17 +650,21 @@ const browserPermissionTable = (browser: IBrowserFacts): string =>
     ])
   )
 
+// Each declaration's heading and anchor, with its full disclosure in a collapsed VitePress details block under it, so the
+// page reads as a list of declarations and any one opens in full.
 const browserPermissionDetails = (browser: IBrowserFacts): string =>
   declarationsOf(browser)
     .map(({ heading, anchor, scope, disclosure }) =>
       [
         `### ${heading} {#${anchor}}`,
+        `::: details ${DISCLOSURE_SUMMARY}`,
         ...(scope === null ? [] : [scope]),
         `**What it lets the extension do:** ${disclosureText(disclosure.capability)}`,
         `**Why:** ${disclosureText(disclosure.justification)}`,
         `**When data flows:** ${triggersOf(disclosure)}. ${disclosureText(disclosure.collectionTiming.detail)}`,
         `**Limits:**`,
         bullets(disclosure.limits),
+        ':::',
       ].join('\n\n')
     )
     .join('\n\n')

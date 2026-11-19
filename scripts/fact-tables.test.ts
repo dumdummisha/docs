@@ -429,12 +429,15 @@ describe('[scripts] Fact tables - expandFactTables', () => {
     expect(html).not.toContain('<!--')
   })
 
-  it("should give a generated heading its anchor, as the page's own headings get theirs", async () => {
+  it("should give a generated heading its anchor, as the page's own headings get theirs, and collapse its disclosure", async () => {
     // Act
     const html = await render('<!-- facts browser-permission-details -->\n')
 
     // Assert
     expect(html).toContain('<h3 id="all-urls" tabindex="-1">Host permission <code>&lt;all_urls&gt;</code>')
+    expect(html.match(/<h3 /gu)).toHaveLength(10)
+    expect(html.match(/<details class="details custom-block"><summary>Full disclosure: what it allows, why, when data flows, every limit<\/summary>/gu)).toHaveLength(10)
+    expect(html).toMatch(/<\/h3>\s*<details class="details custom-block"><summary>[^<]*<\/summary>\s*<p><strong>What it lets the extension do:<\/strong>/u)
   })
 
   it.each([

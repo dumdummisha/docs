@@ -26,7 +26,7 @@ The declaration table, the quoted limits and the exact disclosures on this page 
 
 ## Every declaration at a glance {#summary}
 
-Each row quotes the first sentence of the declaration's disclosure; the link opens the full text under [Exact reviewed disclosures](#declarations).
+Each row quotes the first sentence of the declaration's disclosure. The link goes to the declaration under [Exact reviewed disclosures](#declarations), where its full text opens.
 
 <!-- facts browser-permission-table -->
 
@@ -57,7 +57,7 @@ These are quoted from the declarations' limits. The storage limits, and what the
 
 ## Exact reviewed disclosures {#declarations}
 
-The full disclosure for each declaration, with what it lets the extension do, why, when data flows and every limit, followed by the Slack transport limits, credential handling, native messaging and remote code statements.
+Each declaration's full disclosure (what it lets the extension do, why, when data flows and every limit) is collapsed under its heading; open the one you need. The Slack transport limits and the credential handling, native messaging and remote code statements follow in full.
 
 <!-- facts browser-introduction -->
 

@@ -1,0 +1,21 @@
+Dumdum Misha documentation site
+
+The code and prose in this repository are licensed under the Apache License,
+Version 2.0 (see LICENSE), except for the files listed below.
+
+Fonts
+
+The font files in src/public/fonts/ are licensed under the SIL Open Font
+License, Version 1.1. Each font's copyright notice and licence text sit beside
+it:
+
+  Bricolage Grotesque   src/public/fonts/OFL-bricolage-grotesque.txt
+  Figtree               src/public/fonts/OFL-figtree.txt
+  JetBrains Mono        src/public/fonts/OFL-jetbrains-mono.txt
+
+Brand artwork
+
+The Dumdum Misha name, the mascot and the app icon are brand artwork. The
+image files listed in artwork.json are included so this site and repository can
+show them; they are not licensed under the Apache License, and they are not
+licensed for reuse as a brand or to identify another product or service.

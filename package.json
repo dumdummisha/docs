@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build",
+    "build": "pnpm check:source && vitepress build && pnpm check:built && pnpm check:links && pnpm check:csp",
     "preview": "vitepress preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

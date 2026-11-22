@@ -162,36 +162,39 @@
       "request": "List, open and read your signed-in browser tabs as compact outlines, wait for a page, screenshot a tab, or list the requests it sent",
       "routes": [
         {"availability": "standalone", "actor": "your-agent", "surface": "through the misha-browser MCP server"},
-        {"availability": "included", "actor": "your-agent", "surface": "through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on"}
+        {"availability": "included", "actor": "your-agent", "surface": "through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on"},
+        {"availability": "included", "actor": "worker", "surface": "through Browser control, for a worker you start from your own agent session with a profile that grants its tools"}
       ],
       "access": "session",
-      "needs": ["The misha-browser MCP server registered in your agent, or Browser control on, on Set up", "The Misha Browser extension and native host in Chrome or Brave"],
+      "needs": ["The misha-browser MCP server registered in your agent, or Browser control on, on Set up", "For a worker, a profile of yours that grants these tools", "The Misha Browser extension and native host in Chrome or Brave"],
       "result": "Page outlines, screenshots and request lists in the agent's session",
-      "limit": "Acts through your signed-in sessions on any site the browser has open. The extension records every tab's requests while it runs, with credentials redacted by name and pattern. Misha gives none of these tools to the clone or its workers."
+      "limit": "Acts through your signed-in sessions on any site the browser has open. The extension records every tab's requests while it runs, with credentials redacted by name and pattern. The Slack clone and the workers it starts never get these tools."
     },
     {
       "id": "browser-act",
       "request": "Click, drag, type, fill forms, press keys and scroll in a tab with real input",
       "routes": [
         {"availability": "standalone", "actor": "your-agent", "surface": "through the misha-browser MCP server"},
-        {"availability": "included", "actor": "your-agent", "surface": "through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on"}
+        {"availability": "included", "actor": "your-agent", "surface": "through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on"},
+        {"availability": "included", "actor": "worker", "surface": "through Browser control, for a worker you start from your own agent session with a profile that grants its tools"}
       ],
       "access": "session",
-      "needs": ["The misha-browser MCP server registered in your agent, or Browser control on, on Set up", "The Misha Browser extension and native host in Chrome or Brave", "Accessibility and Screen Recording for the app that runs your agent"],
+      "needs": ["The misha-browser MCP server registered in your agent, or Browser control on, on Set up", "For a worker, a profile of yours that grants these tools", "The Misha Browser extension and native host in Chrome or Brave", "Accessibility and Screen Recording for the app that runs your agent"],
       "result": "The input made, and what changed on the page",
-      "limit": "The input is a real mouse and keyboard on your Mac, so it acts wherever the pointer and focus are. Misha gives none of these tools to the clone or its workers."
+      "limit": "The input is a real mouse and keyboard on your Mac, so it acts wherever the pointer and focus are. The Slack clone and the workers it starts never get these tools."
     },
     {
       "id": "desktop-control",
       "request": "Move the Mac's mouse, type and press keys, capture the screen, list apps and bring one to the front",
       "routes": [
         {"availability": "standalone", "actor": "your-agent", "surface": "through the misha-browser MCP server"},
-        {"availability": "included", "actor": "your-agent", "surface": "through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on"}
+        {"availability": "included", "actor": "your-agent", "surface": "through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on"},
+        {"availability": "included", "actor": "worker", "surface": "through Browser control, for a worker you start from your own agent session with a profile that grants its tools"}
       ],
       "access": "session",
-      "needs": ["The misha-browser MCP server registered in your agent, or Browser control on, on Set up", "Accessibility and Screen Recording for the app that runs your agent, except to list and focus apps"],
+      "needs": ["The misha-browser MCP server registered in your agent, or Browser control on, on Set up", "For a worker, a profile of yours that grants these tools", "Accessibility and Screen Recording for the app that runs your agent, except to list and focus apps"],
       "result": "The input made, a screen capture, or the list of apps",
-      "limit": "macOS only. A screen capture shows whatever is on screen. Misha gives none of these tools to the clone or its workers."
+      "limit": "macOS only. A screen capture shows whatever is on screen. The Slack clone and the workers it starts never get these tools."
     }
   ]
 }

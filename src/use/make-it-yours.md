@@ -57,7 +57,7 @@ If your clone should read code, add each repository as `owner/name` on **Setting
 
 <Shot id="settings-repositories" caption="Two repositories: workers may merge in shop/shop-backend, not in shop/shop-web. Made-up example." />
 
-**May merge** starts off, so delivery ends at a reviewed pull request that someone merges. Turn it on to let workers merge reviewed pull requests there; a merge also needs the repository's own delivery command, which [Delivery](/use/workflows#delivery) explains. In your self-DM, `allow merging shop/shop-backend` and `stop merging shop/shop-backend` do the same.
+**May merge** starts off, so delivery ends at a reviewed pull request that someone merges. Turn it on to let workers merge reviewed pull requests there; a merge also needs the repository's own delivery command, which [Who may merge](/use/workflows#who-may-merge) explains. In your self-DM, `allow merging shop/shop-backend` and `stop merging shop/shop-backend` do the same.
 
 ## Pause when you need to {#pause}
 

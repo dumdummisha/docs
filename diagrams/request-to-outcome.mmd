@@ -1,0 +1,28 @@
+flowchart LR
+  msg["1. A Slack message reaches your clone"]
+  judge["2. The clone reads the thread and judges the request"]
+
+  msg --> judge
+
+  judge --> refused["3. Staging, production or a release, or someone else's code without their approval"]
+  judge --> question["4. A question one read settles"]
+  judge --> own["5. Your own change to a Doc, Sheet, ticket or page"]
+  judge --> research["6. Research: a worker investigates"]
+  judge --> work["7. Work: a worker carries it out"]
+
+  refused --> said["A refusal, or what their side needs"]
+
+  question --> answer["A marked answer naming what it read"]
+  question --> passed["The rest goes to you, when the asker may not ask for work"]
+
+  own --> changed["The clone makes the change and says what changed"]
+
+  research --> report["An answer from the report, with sources and doubts"]
+  research --> blocked["Blocked: the connection to reconnect, or the missing tool or access"]
+
+  work --> pr["An open pull request"]
+  work --> merged["Merged, where workers may merge"]
+  work --> result["The result, said once in the thread"]
+  work --> waits["A step waits on a missing contract or value, the rest goes on"]
+  work --> stops["Stopped by you, or failed twice: the clone says so"]
+  work --> ask["One short question to you"]

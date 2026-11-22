@@ -19,7 +19,7 @@ Misha is in an invite-only pilot. There is no public download, Chrome Web Store 
 - Claude Code, signed in with your own Claude subscription.
 - git, and the GitHub CLI if your clone should read code.
 - Your Slack workspace, signed in in that browser (adapters for Microsoft Teams and Discord are in progress).
-- Optional but recommended: OpenCode signed in to OpenAI, so GPT can review tickets and pull requests, and the services your tasks need. [Put Misha to work](/use/workflows#review-requirements) explains why delivery waits without GPT.
+- Optional but recommended: OpenCode signed in to OpenAI, so GPT can review tickets and pull requests, and the services your tasks need. [Put Misha to work](/use/workflows#reviews) explains why delivery waits without GPT.
 
 ## The setup sequence {#setup}
 

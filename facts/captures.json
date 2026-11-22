@@ -54,13 +54,28 @@
       "text": "Misha\nHome\n2\nSet up\n3\nSettings\nLeo Novak\nShop · I answer as you\nPause Misha\nSet up\nCheck again\nWhat I found on this Mac, checked each time you open this page. Three things need you; the rest is ready.\nNeeds you\nEach one is a click. A sign-in opens where it belongs; a connector may first ask for the settings it declares, such as its site.\nFigma\nFigma is not signed in\nNeeds sign-in\nConnect Figma\nI use it\nGoogle Workspace\nGoogle Workspace is not signed in\nNeeds sign-in\nSign in to Google Workspace\nI use it\nSleep\nThis Mac sleeps after 10 idle minutes, and I'm offline while it does. Set it to never in System Settings, under Battery or Energy.\nSleeps after 10 min\nWhat I think with\nClaude Code\nSigned in. I answer and run workers on your own subscription.\nSigned in\nOpenCode\nSigned in to OpenAI, so GPT can review my work.\nSigned in\nHow I hear Slack\nBrowser extension\nRunning in your browser. It reads Slack for me and posts what I write.\nRunning\nBrowser native host\nInstalled on this Mac. It connects the browser extension to me.\nInstalled\nSlack\nSigned in to Shop. That's where I answer as you.\nSigned in\nHow I work in your code\ngit\nCommits as Leo Novak.\nFound\nGitHub CLI\nSigned in as sam-rivera on github.com.\nSigned in\nConnectors\nOptional. Each one is on or off everywhere, and while one is off I ask you instead. A change applies to new Claude Code and OpenCode sessions; one already open keeps its tools until you restart it.\nJira and Confluence\nYour tickets and pages. Works, as Leo Novak.\nWorks\nI use it\nAWS\nLogs in your AWS accounts. Works, as shop-dev, shop-staging.\nWorks\nI use it\nBrowser control\nYour browser's tabs, and the Mac's mouse, keyboard and screen.\nOff\nI use it\nHandoff compaction\nWrites a handoff when your Claude Code and OpenCode sessions compact, and resumes from it. Works.\nWorks\nI use it\nFireflies\nYour meeting notes. Fireflies gives you a key, and you paste it into OpenCode, never into me. Works, as Leo Novak.\nWorks\nI use it\nSo I stay up\nI answer only while this app runs and the Mac is awake.\nOpen at login\nI start when you log in to this Mac.\nOn"
     },
     {
+      "id": "setup-connectors",
+      "scenario": "setup",
+      "page": "setup",
+      "region": {
+        "kind": "element",
+        "id": "connectors"
+      },
+      "alt": "The connectors on Set up, each with its own switch: Jira and Confluence, AWS, handoff compaction and Fireflies work, and browser control is off.",
+      "file": "captures/setup-connectors.png",
+      "width": 1544,
+      "height": 1166,
+      "sha256": "e75a8b84caeb155c7eaa05cc6483b34a40c9c73d0ee4315d594ef455046cebb1",
+      "text": "Connectors\nOptional. Each one is on or off everywhere, and while one is off I ask you instead. A change applies to new Claude Code and OpenCode sessions; one already open keeps its tools until you restart it.\nJira and Confluence\nYour tickets and pages. Works, as Leo Novak.\nWorks\nI use it\nAWS\nLogs in your AWS accounts. Works, as shop-dev, shop-staging.\nWorks\nI use it\nBrowser control\nYour browser's tabs, and the Mac's mouse, keyboard and screen.\nOff\nI use it\nHandoff compaction\nWrites a handoff when your Claude Code and OpenCode sessions compact, and resumes from it. Works.\nWorks\nI use it\nFireflies\nYour meeting notes. Fireflies gives you a key, and you paste it into OpenCode, never into me. Works, as Leo Novak.\nWorks\nI use it"
+    },
+    {
       "id": "settings",
       "scenario": "settings",
       "page": "settings",
       "region": {
         "kind": "page"
       },
-      "alt": "Settings for Leo Novak's clone: its icon and personality, who may ask for work, the channel it watches, its repositories, who it ignores and what it remembers.",
+      "alt": "Settings for Leo Novak's clone: its icon, personality and routines, who may ask for work, the channel it watches, its repositories, who it ignores, what it remembers and what it thinks with.",
       "file": "captures/settings.png",
       "width": 2200,
       "height": 7668,
@@ -96,6 +111,21 @@
       "height": 736,
       "sha256": "f90cf0a3185c75a97b4fa6a505901a08b7ccdaa9fc4eabd2c8574be20c49c1ee",
       "text": "Personality\nTone and wording only. It never changes what I may do.\nHow should I sound?\nShort and friendly. Use first names. No exclamation marks, and never more than one emoji besides my icon.\n105 of 2,000 characters\nSave personality"
+    },
+    {
+      "id": "settings-routines",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "routines"
+      },
+      "alt": "The routines card with Leo's standing instruction for a fix: a worker updates its ticket, fixes it in its own worktree with a regression test, and opens a pull request for review.",
+      "file": "captures/settings-routines.png",
+      "width": 1544,
+      "height": 912,
+      "sha256": "c6d87c8f7eb5c2ebe9e3771e7cfa1afc35195de2be6d9838e1a089be711d3968",
+      "text": "Routines\nOptional. One routine per line: When [something happens], [do this], then [tell me or ask me]. Refer to skills by name and commands as /name. Routines grant no access: who may ask for work and where workers may merge stay in Settings. Never paste passwords or tokens here. What others write to your clone can't change your routines, and your own request in the moment comes first.\nWhat should I do with work?\nWhen someone asks for a fix, have a worker create or update its ticket with the steps and the affected service, fix it in its own worktree with a regression test, and open a pull request for my review.\n201 of 2,000 characters\nSave routines"
     },
     {
       "id": "settings-allowed",
@@ -173,6 +203,21 @@
       "text": "What I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nEmma owns payments. Ask Emma before touching the checkout.\nForget\nSomething I should keep in mind\nRemember"
     },
     {
+      "id": "settings-thinking",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "thinking"
+      },
+      "alt": "What the clone thinks with: it runs on Claude Code with its default model, and OpenCode is the other choice.",
+      "file": "captures/settings-thinking.png",
+      "width": 1544,
+      "height": 540,
+      "sha256": "c9e1a16468c52a60ccc2ad7d55abcc43cdd831d2f14bbe3ccf0c92f46b4ad234",
+      "text": "What I think with\nI run on one of these, on your own sign-in. Switching starts a new conversation; my settings and what I remember stay. A model change counts from my next message, in the same conversation.\nClaude Code\nOpenCode\nSave"
+    },
+    {
       "id": "paused",
       "scenario": "paused",
       "page": "home",
@@ -197,7 +242,7 @@
       "file": "captures/workers-stopping.png",
       "width": 2200,
       "height": 1520,
-      "sha256": "5db9ff46282db87a6f859b23baafd9f12895c8001019f29ede1fbcb65911e1ea",
+      "sha256": "8df3dc3c912bc4b65528b4ebe8a9e5e3dd17dd822594137ec8ef3f94e48bdecb",
       "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI still see what arrives in Slack. I'm stopping my workers, start no new ones and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nTwo workers.\nSHOP-142: discounts missing from the checkout total\nA worker, asked for by Emma Lee in #shop-backend\nWorking\nfor 2 minutes\nReview of shop/shop-web pull request 88\nA worker, asked for by Leo Novak in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review."
     },
     {

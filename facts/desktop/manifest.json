@@ -3,12 +3,12 @@
   "productVersion": "0.1.0",
   "evidenceDate": "2026-11-22",
   "captureRecipeVersion": 3,
-  "digest": "69de0cf773bcfeb219372febd6b74e26c9004d6595f685e88ded78734b25ceca",
+  "digest": "c9a4a30bc8849bff49758872e28dfeda631aeae7bca5f93d716977a775c16416",
   "files": [
     {
       "path": "captures.json",
-      "bytes": 22968,
-      "sha256": "75a3cfa425d588679434a228c86f864f7ad2acefa23b279280819f1b3d073a00"
+      "bytes": 26243,
+      "sha256": "cddaead07491a6e59bf5606e6c186eb88a74ce103dceb997d5efa23f0304c4d5"
     },
     {
       "path": "captures/claude-limit.png",
@@ -61,9 +61,19 @@
       "sha256": "f0ac2fc02041da80f10e918bab18460efa0fd080dc85eef483c80fd3e321e490"
     },
     {
+      "path": "captures/settings-routines.png",
+      "bytes": 95021,
+      "sha256": "c6d87c8f7eb5c2ebe9e3771e7cfa1afc35195de2be6d9838e1a089be711d3968"
+    },
+    {
       "path": "captures/settings-rules.png",
       "bytes": 40515,
       "sha256": "f7eb7bac71088f67d3847819841c8c300a15fe5fa1e184f9d2c40867f5b7c8cf"
+    },
+    {
+      "path": "captures/settings-thinking.png",
+      "bytes": 47736,
+      "sha256": "c9e1a16468c52a60ccc2ad7d55abcc43cdd831d2f14bbe3ccf0c92f46b4ad234"
     },
     {
       "path": "captures/settings-watched.png",
@@ -74,6 +84,11 @@
       "path": "captures/settings.png",
       "bytes": 775368,
       "sha256": "382e994f0c5ea5b860aa8b5401eb16d95b4681cea6239eec0b2fbc1f73015994"
+    },
+    {
+      "path": "captures/setup-connectors.png",
+      "bytes": 143309,
+      "sha256": "e75a8b84caeb155c7eaa05cc6483b34a40c9c73d0ee4315d594ef455046cebb1"
     },
     {
       "path": "captures/setup.png",
@@ -92,8 +107,8 @@
     },
     {
       "path": "captures/workers-stopping.png",
-      "bytes": 198237,
-      "sha256": "5db9ff46282db87a6f859b23baafd9f12895c8001019f29ede1fbcb65911e1ea"
+      "bytes": 198272,
+      "sha256": "8df3dc3c912bc4b65528b4ebe8a9e5e3dd17dd822594137ec8ef3f94e48bdecb"
     },
     {
       "path": "facts/commands.json",

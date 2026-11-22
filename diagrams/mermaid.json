@@ -1,4 +1,27 @@
 {
+  "theme": "base",
   "htmlLabels": false,
-  "flowchart": { "htmlLabels": false }
+  "flowchart": { "htmlLabels": false },
+  "themeVariables": {
+    "fontFamily": "Figtree, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    "fontSize": "14px",
+    "background": "#fffef8",
+    "mainBkg": "#ffffff",
+    "primaryColor": "#ffffff",
+    "primaryBorderColor": "#1f1b16",
+    "primaryTextColor": "#1f1b16",
+    "secondaryColor": "#fff7da",
+    "secondaryBorderColor": "#1f1b16",
+    "secondaryTextColor": "#1f1b16",
+    "tertiaryColor": "#ffeeb0",
+    "tertiaryBorderColor": "#1f1b16",
+    "tertiaryTextColor": "#1f1b16",
+    "nodeBorder": "#1f1b16",
+    "textColor": "#1f1b16",
+    "titleColor": "#1f1b16",
+    "lineColor": "#1f1b16",
+    "clusterBkg": "#fff7da",
+    "clusterBorder": "#5b5346",
+    "edgeLabelBackground": "#fffef8"
+  }
 }

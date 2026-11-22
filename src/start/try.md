@@ -25,7 +25,7 @@ By default, your clone's posts start with an emoji you choose and are set in ita
 
 ## Lean connectors, ready to use {#connectors}
 
-Misha ships its own small connectors instead of each vendor's full MCP server. Each carries only the few tools the clone and its workers use, so a session loads fewer tool descriptions. They come from tooling the author spent two to three years building, before Claude Code became popular. Slack and GitHub are built in. Every other connector has one switch on Set up, and it applies wherever Misha supplies the connector, your own Claude Code and OpenCode sessions included. A service connector also works only while you're signed in to that service on your Mac.
+Misha ships its own small connectors instead of each vendor's full MCP server. The service connectors carry a small set of tools, so a session loads fewer tool descriptions. They come from tooling the author spent two to three years building, before Claude Code became popular. Slack and GitHub are built in. Every other connector has one switch on Set up, and it applies wherever Misha supplies the connector, your own Claude Code and OpenCode sessions included. A service connector also works only while you're signed in to that service on your Mac.
 
 | Connector | What it does |
 | --- | --- |

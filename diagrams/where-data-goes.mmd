@@ -1,4 +1,6 @@
 flowchart TB
+  accTitle: Where data goes
+  accDescr: Inside your Mac, Slack messages reach your signed-in Slack tab, the Misha Browser extension, the native host and the Misha app, which gives them to the clone. The clone runs on Claude Code or OpenCode and sends its conversation to Anthropic, or to OpenAI or another provider set up in OpenCode, and reads the services you connect. An image the clone reads goes to a one-shot call that reaches Anthropic, or OpenAI or another provider. Workers started by the app talk to their model provider and to the services. The extension posts to Slack from your Slack tab. Optional agents of your own, and workers, can also use the browser and desktop tools, which reach your other tabs, the sites they have open, and your screen, mouse and keyboard.
   subgraph mac["Your Mac"]
     direction TB
     subgraph browser["Chrome or Brave"]
@@ -8,7 +10,7 @@ flowchart TB
     end
     host["Native host"]
     app["Misha app and the Misha home"]
-    clone["Clone turn: restricted<br/>Claude Code or OpenCode"]
+    clone["Clone turn:<br/>Claude Code or OpenCode"]
     vision["Image reading: one-shot<br/>Claude Code or OpenCode call"]
     workers["Workers: Claude Code or OpenCode"]
     own["Optional: your own Claude Code or OpenCode<br/>with the misha-browser tools"]

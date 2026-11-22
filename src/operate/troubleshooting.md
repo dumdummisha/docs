@@ -83,7 +83,7 @@ After you install a program while Misha runs, its row says "I found it, but I st
 
 ## A linked folder is unavailable {#linked-folder}
 
-Misha refuses to link a folder, or can't read one you linked, when a check fails, and its message names the check. Link the repository's real top-level folder by its full path, not a symlink, a subfolder or a shallow clone. Give its remote as `host/owner/name`, matching the fetch and push addresses of one of its git remotes, or leave the remote empty only if the repository has none. A folder that overlaps Misha's own data folder can't be linked. If you moved or replaced a folder, link its new location. If a worker can't reach the remote to start its worktree, restore that access and ask again; Misha doesn't start a worker from an older local branch instead. [Settings and commands](/reference/settings#linked-folders) lists the rules.
+Misha refuses to link a folder, or can't read one you linked, when a check fails, and its message names the check. Link the repository's real top-level folder by its full path, not a symlink, a subfolder or a shallow clone. Give its remote as `host/owner/name`, matching the fetch and push addresses of one of its git remotes, or leave the remote empty only if the repository has none. A folder that overlaps Misha's own data folder can't be linked. If the folder moved, remove its old entry on **Settings › Repositories**, then add its new full path and remote; removing an entry leaves the folder itself alone. If a folder was replaced at the same path, correct the check the message names instead. If a worker can't reach the remote to start its worktree, restore that access and ask again; Misha doesn't start a worker from an older local branch instead. [Settings and commands](/reference/settings#linked-folders) lists the rules.
 
 ## A connector needs you to sign in again {#integration-sign-in}
 
@@ -103,7 +103,7 @@ Check OpenCode on **Set up**, sign in again if it says so, or wait for the reset
 
 ## What I think with can't list models or refuses a choice {#model-choice}
 
-If the card can't list models, restore the runtime or the provider connection and click **Try again**. Choose a model and effort the list offers. A refused switch to OpenCode names its cause: a linked folder whose path holds `*`, `?` or `\`, or a compaction limit at or above the selected model's input limit. Correct the setting it names and try again; Misha doesn't substitute another model.
+If the card can't list models, restore the runtime or the provider connection and click **Try again**. Choose a model and effort the list offers. A refused switch names what failed: the runtime or model may be unavailable, the effort may not be offered, a linked path may contain `*`, `?` or `\`, or the compaction limit may be too high. Correct what the message names and try again; Misha doesn't substitute another model.
 
 ## "Your settings changed since you loaded them. Nothing was saved." {#settings-changed}
 

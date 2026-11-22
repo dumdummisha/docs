@@ -8,7 +8,7 @@ outline: [2, 3]
 
 # Privacy and security
 
-**Effective 19 November 2026.** Misha has no server of its own. It runs on your Mac and works through your own accounts: the clone sends what it reads and writes to the provider of the model you choose, Anthropic through your Claude Code or a provider such as OpenAI through your OpenCode, workers send their work to the provider of the model they run on, and Slack and the services you connect receive what Misha sends them. Misha keeps its own records on your Mac, some of them with no age limit.
+**Effective 22 November 2026.** Misha has no server of its own. It runs on your Mac and works through your own accounts: the clone sends what it reads and writes to the provider of the model you choose, Anthropic through your Claude Code or a provider such as OpenAI through your OpenCode, workers send their work to the provider of the model they run on, and Slack and the services you connect receive what Misha sends them. Misha keeps its own records on your Mac, some of them with no age limit.
 
 This page covers the Misha app for macOS, the Misha Browser extension and its native host, the Claude Code and OpenCode sessions Misha starts, this documentation site and the landing page at [dumdummisha.ai](https://dumdummisha.ai). It is the privacy policy for all of them, including the extension's Chrome Web Store listing.
 
@@ -40,7 +40,7 @@ Select the diagram to open it full size.
 
 1. Your signed-in Slack tab receives messages over Slack's own connection. The extension reads every new message that arrives there, in any conversation, cut down to [fixed fields](/reference/permissions#slack-transport-limits), and queues it in the browser.
 2. The extension passes each message through the native host, a small program that connects the extension to Misha on the same Mac, to the Misha app. The host stores nothing. The app records that the event arrived and decides from your settings whether the message needs the clone. Only a message that does is saved with its text in `misha.db`, to wait for the clone; for any other it keeps bookkeeping only, such as the receipt and the threads you reply in.
-3. For a waiting message, the app gives the clone (Claude Code or OpenCode, started in its restricted mode) the message, the conversation it belongs to, your settings, Routines included, and notes.
+3. For a waiting message, the app gives the clone, which runs on Claude Code or OpenCode with the per-turn access limits below, the message, the conversation it belongs to, your settings, Routines included, and notes.
 4. The clone's runtime sends that conversation, any file it reads and every tool result to the provider of the model the clone runs on: Anthropic under your Claude subscription, or the provider your OpenCode is signed in to for that model.
 5. The clone and the workers read from the services you connected and, where you or your settings allow, change things there.
 6. When the clone reads an image posted in Slack, a separate one-shot model call answers its question about the image: by default Claude Haiku through your Claude Code, with no tools and no saved session, or a model the clone names, which runs through OpenCode's tool-free `lite` agent on your own OpenCode configuration when it is another provider's: that call loads your OpenCode plugins and saves an OpenCode session. The image and the question go to that model's provider, and the answer joins the clone's conversation.

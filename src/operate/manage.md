@@ -58,7 +58,7 @@ To stop work, pause and wait until no worker is listed under **Working on now**.
 
 **Who may ask me for work**, **Channels I watch**, **Who I ignore** and **Repositories** with **May merge** are on **Settings**; each connector has one **I use it** switch on **Set up**. [Make it yours](/use/make-it-yours) walks through them and [Settings and commands](/reference/settings) lists every surface.
 
-A change to these applies to what comes next, never to work already started: after **Stop allowing**, a worker already running for that person keeps running, and **May merge** is an instruction the clone passes on, not a lock ([when a change takes effect](/reference/settings#when-changes-apply)). To halt work under way, pause.
+Changing who may ask for work or where workers may merge does not stop workers already running: after **Stop allowing**, a worker already running for that person keeps running, and **May merge** is an instruction the clone passes on, not a lock ([when a change takes effect](/reference/settings#when-changes-apply)). To halt work under way, pause.
 
 A connector's switch is shared by the clone, its workers and your own Claude Code and OpenCode sessions, wherever Misha supplies that connector. Turning one off refuses its next tool call, even in a session already running, and undoes nothing already done. Restart open agent sessions to drop the connector's tools, skills and hooks from them.
 

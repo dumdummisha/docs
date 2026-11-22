@@ -65,7 +65,7 @@ If your clone should read code, link each repository on **Settings › Repositor
 
 <Shot id="settings-repositories" caption="Two linked folders: workers may merge in the remote of one, not the other. Made-up example." />
 
-**May merge** starts off, so code work stops at an open pull request that someone merges. It needs a remote. Turn it on to let workers merge in that remote; your request and Routines decide the procedure. In your self-DM, <code><Fact name="desktop.commands.commands.allow-merging.example" /></code> and <code><Fact name="desktop.commands.commands.stop-merging.example" /></code> do the same.
+For a folder with a remote, **May merge** starts off, so pull requests stay unmerged for someone to merge. Turn it on to let workers merge in that remote; your request and Routines decide the procedure. A folder with no remote can still be worked on locally, but has no pull request to open or merge. In your self-DM, <code><Fact name="desktop.commands.commands.allow-merging.example" /></code> and <code><Fact name="desktop.commands.commands.stop-merging.example" /></code> do the same.
 
 ## Pause when you need to {#pause}
 

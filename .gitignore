@@ -5,3 +5,7 @@ node_modules/
 .vercel/
 .env*
 .idea/
+
+# Agent settings and state stay local
+.opencode/
+.claude/

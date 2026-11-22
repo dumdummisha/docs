@@ -1,6 +1,6 @@
 ---
 title: Put Misha to work
-description: "What you can ask Misha to do, what it needs for each request, and how a request ends: an answer, a reviewed pull request or a question back to you."
+description: "What you can ask Misha to do, what each request needs, how workers carry out work, and how routines, linked folders, reviews and your own limits shape it."
 prev:
   text: Make it yours
   link: /use/make-it-yours
@@ -9,120 +9,133 @@ next: false
 
 # Put Misha to work
 
-Ask your clone in Slack the way you'd ask a colleague. A question gets a marked answer that names what it read. A longer job goes to workers, separate Claude Code or OpenCode sessions that each do one task, and ends at a reviewed pull request or, where you allow it, a change checked on dev. This page shows what to ask, what each request needs, and how it ends.
+Ask your clone in Slack the way you'd ask a colleague. A question gets a marked answer that names what it read. A longer job goes to workers, separate Claude Code or OpenCode sessions that each do one task, and ends in a pull request, a result in the thread or a question back to you.
 
 ## Choose a first task {#choose-a-first-task}
 
-Pick something you'd otherwise look up yourself, and connect only the service it needs on **Set up** ([Make it yours](/use/make-it-yours) shows how). Three made-up first tasks for an owner, Leo Novak, in three roles, each sent in Leo's self-DM (the direct message to yourself in Slack):
+Pick something you'd otherwise look up yourself, and connect only the service it needs on **Set up** ([Make it yours](/use/make-it-yours) shows how). Three made-up first tasks, sent by an owner, Leo Novak, in his self-DM (the direct message to yourself in Slack):
 
-- **A developer:** "What does shop/shop-backend do when the payment call times out?" The clone reads its copy of the repository and answers, naming the files. It needs the repository added on **Settings**.
-- **A PM:** "What does SHOP-142 leave out of scope?" The clone reads the ticket and answers from it. It needs **Jira and Confluence** on Set up.
-- **A designer:** "Render the checkout screen from this Figma link and list its button labels." The clone renders the screen, attaches the image and lists the text. It needs **Figma** on Set up.
+- **A developer:** "What does shop-backend do when the payment call times out?" The clone reads the folder Leo linked and answers, naming the files. It needs that folder linked on **Settings**.
+- **A PM:** "What does SHOP-142 leave out of scope?" The clone answers from the ticket. It needs **Jira and Confluence** on Set up.
+- **A designer:** "Render the checkout screen from this Figma link and list its button labels." It needs **Figma** on Set up.
 
-Each is one bounded read, so none needs a worker or changes anything, and colleagues get the same reads: Emma Lee asking in a `#shop-backend` thread Leo is in gets the same kind of answer.
+Each is one bounded read, so none needs a worker or changes anything. Emma Lee asking in a `#shop-backend` thread Leo is in gets the same kind of answer.
 
 ## Who may ask for what {#who-may-ask}
 
-The app decides which of three groups each turn belongs to, and gives it only that group's tools:
+Each turn belongs to one of three groups and gets only that group's tools:
 
-- **Anyone** the clone answers (a DM to you, a mention, a thread you're in, a channel you have it watch) gets answers from reads only.
-- **You**, in your self-DM or in a message with your icon in it, also get changes in connected services, the GitHub and AWS command lines, and the repositories' commit history.
-- **You and those you allow** (Settings › **Who may ask me for work**) can start workers. Allowing Emma lets her ask for research or a fix, not use your direct change tools.
+- **Anyone** the clone answers (a DM, a mention, a thread you're in, a channel you have it watch) gets answers from reads only.
+- **You**, in your self-DM or in a message with your icon in it, also get changes in connected services, the GitHub and AWS command lines, and the linked folders' commit history.
+- **You and those you allow** (Settings › **Who may ask me for work**) can start workers. Allowing Emma lets her ask for research or work, not use your direct change tools, and nothing she writes widens what her workers may do.
 
 A turn that answers several messages gets only what every one of them may ask for.
 
 ## How a request ends {#request-to-outcome}
 
-[![A request and its possible outcomes, from a Slack message through five paths to answers, changes, reviewed pull requests, dev, waits, stops and your decisions. The numbered list below describes it.](/diagrams/request-to-outcome.svg)](/diagrams/request-to-outcome.svg)
+[![A request and its possible outcomes, from a Slack message through five paths to answers, changes, pull requests, waits, stops and your decisions. The numbered list below describes it.](/diagrams/request-to-outcome.svg)](/diagrams/request-to-outcome.svg)
 
-Select the diagram to open it full size.
+Select the diagram to open it full size. Teal ends with a result, orange waits, red stops or refuses, yellow is your decision, and a dashed outline applies only when its condition holds.
 
 1. A Slack message reaches your clone.
-2. The clone reads the thread and judges the request. Staging, production, a release or someone else's code gets a one-line refusal.
-3. **A question** one read settles gets a marked answer naming its source. If it needs more and the asker may not ask for work, the rest goes to you.
-4. **Research** goes to a worker. The clone answers from its report, with sources and doubts. A blocked report names what is missing: a sign-in to reconnect, or a tool, grant or environment access that signing in again won't fix. A needed change goes on to delivery.
-5. **Your own change** to a Doc, Sheet, ticket or page is made by the clone, which says what changed. Anyone else's request changes nothing.
-6. **Delivery** runs analysis, a ticket, its GPT review, implementation and a GPT pull request review, and ends at a reviewed pull request. Only a repository that may merge and has its own `execute` command goes on to merge, deploy to dev and check the change there. It can wait for GPT, stop when the ticket changes hands, or ask you.
-7. **Dependency updates** go to one orchestrator worker. Each pull request gets a GPT review, then merges and is checked on dev, stays reviewed and unmerged, is flagged for you, or waits for GPT. A report ends the run.
+2. The clone reads the thread and judges the request.
+3. Staging, production and a release are refused. A change to someone else's code or document needs their approval first.
+4. **A question** one read settles gets a marked answer naming its source. If it needs more and the asker may not ask for work, the rest goes to you.
+5. **Your own change** to a Doc, Sheet, ticket or page is made by the clone, which says what changed. If anyone else asks, nothing changes and it goes to you.
+6. **Research** goes to a worker, which reports with sources and doubts. A confirmed problem goes on as work.
+7. **Work** goes to workers and ends as [Work](#work) lists.
 
 ## Questions {#question-to-answer}
 
-The clone answers what one lookup settles, and it reads before it answers, so a status such as merged or deployed comes from a read in that turn, not from memory. Tracing behaviour, comparing versions, a failure or sources that disagree is research: a researcher takes it when the turn may start workers, and otherwise the clone answers what it found and passes the rest to you. A question never becomes a ticket by itself.
-
-What the clone does in its own turn, without a worker, with the groups above in **Who may ask**:
+The clone answers what one lookup settles, and reads before it answers. Tracing behaviour, comparing versions or a failure is research, which needs a turn that may start workers. Without a worker, the clone can do this in its own turn:
 
 <!-- facts capabilities slack-context code-question code-history ticket-read ticket-change docs-read docs-change meeting-notes design-read github-cli aws-cli -->
 
-Anyone the clone answers may get what it read, and its instructions tell it to leave out what you wouldn't share with them.
-
-## Your changes in connected services {#connected-service-actions}
-
-When your own message in that turn asks for it, the clone makes the change in the Doc, Sheet, ticket or page and says what it changed, first checking that a failed earlier turn didn't already do it. A request from an earlier turn or from anyone else changes nothing; the clone passes it on or asks you to ask again yourself. This direct path is separate from delivery, where workers write the ticket and the code. Figma and Fireflies only read: the clone can't edit a design or join a meeting.
+Anyone the clone answers may get what it read, and it is told to leave out what you wouldn't share with them. It changes a connected service only when your own message in that turn asks for it.
 
 ## Research {#research}
 
-A worker investigates what one lookup can't settle, comparing a ticket with a meeting's transcript included. It runs in a git worktree of a repository you added on Settings, so research needs one even when the question is about tickets or meetings, and only you and those you allow can start it. It needs:
+A worker investigates what one lookup can't settle. It needs:
 
 <!-- facts needs research -->
 
-The requester hears that the clone is looking into it, then gets the answer with its sources, and you get a brief in your self-DM when the requester is someone else. For a reported incident the worker first proves it can read that environment's logs and data, since code alone shows what could happen, not what did, and until that evidence settles the cause the requester hears what is being checked, never a guess. A missing or expired sign-in is a blocker: the clone names the connection to reconnect on Set up and keeps the work open. When the worker lacks a tool, a profile grant or access to an environment instead, the report names what is missing, since signing in again won't fix it. The researcher is read-only by its brief, not by a sandbox ([How Misha works](/understand/how-it-works) explains what workers can do).
+For a reported incident, the worker first proves it can read that environment's logs and data. Until that evidence establishes the cause, the requester hears what is being checked, never a guess. A missing or expired sign-in is a blocker: the clone names the connection to reconnect on Set up and keeps the work open. The researcher is read-only by its brief, not by a sandbox ([How Misha works](/understand/how-it-works) explains what workers can do).
 
-## Delivery {#delivery}
+## Work {#work}
 
-A change request from you or someone you allow, which needs nothing more from you, needs:
+Work is anything beyond an answer that you or someone you allow ask for, such as a fix or a meeting summary. The clone judges whether the request is the asker's to make and has workers do it. It replies in the thread with what happens next, checks each report against the request, and says once how the work ended, telling you what it decided and why.
 
-<!-- facts needs work -->
+Misha ships no ticket, review or deploy procedure: which tracker the work uses, whether anything is reviewed and how far it goes come from the request and your [routines](#routines). A fix Emma Lee asks for in `#shop-backend` is code work in a worktree of Leo's `shop-backend` folder. A planning meeting Leo asks to have summarised into a Google Doc needs no repository, so it runs in a scratch folder.
 
-It goes through:
+<!-- facts capabilities change task -->
 
-1. **Analysis**, when needed: where the change lands, and a sourced default for each open point.
-2. **A ticket**, new or existing. The repository's own `create-ticket` command writes it when there is one; otherwise a worker writes it, labelled `auto`.
-3. **A GPT review of the ticket**, when this delivery wrote or rewrote it: two rounds at most, then what's left goes to you.
-4. **Implementation** on a branch, and a pull request.
-5. **A GPT review of the pull request**, which leaves a reviewed pull request.
-
-It goes further only when the repository has **May merge** on and its own `execute` command (in `.claude/commands/` or `.opencode/commands/`). Misha ships no such command: it is your project's delivery procedure, and the worker running it merges, deploys to dev, checks the change there and replies in the thread. Without it, delivery stops at the reviewed pull request even with May merge on.
-
-**May merge** is an instruction, not a lock: Misha tells the clone each turn where merging is allowed and the clone passes that to the worker, but nothing in the app blocks a merge ([Settings and commands](/reference/settings#when-changes-apply) has the timing). Dev is the ceiling: staging, production and releases stay yours whoever asks. That is also an instruction to the clone and its workers, so what your GitHub and AWS accounts permit is the hard limit.
-
-A colleague's code, branch and pull request are theirs: a change in their repository needs their approval in their own message, and otherwise a worker writes them a short ticket. One delivery runs per ticket, and a failed run is retried once before the clone says so and stops.
-
-How a delivery can end:
+How work can end:
 
 <!-- facts endpoints work -->
 
-## Reviews need GPT {#review-requirements}
+## Routines {#routines}
 
-Delivery and dependency runs have GPT, through OpenCode signed in to your OpenAI account, review the tickets they write and every pull request. While OpenCode is signed out or GPT is out of usage, the review waits: Claude never reviews in its place, and nothing switches to another provider. OpenCode is optional for answers and research only. A working sign-in on Set up doesn't prove a delivery succeeded; the worker's report says what it checked.
+On **Settings**, beside Personality, one optional field of up to <Fact name="desktop.settings.fields.routines.limits.maxCharacters" /> characters holds your routines, your standing instructions for work, one per line: when something happens, do this, then tell me or ask me.
 
-## Dependency updates {#dependency-updates}
+<Shot id="settings-routines" caption="Leo Novak's routine for a fix: a worker updates the ticket, fixes it in its own worktree with a regression test and opens a pull request for his review. Made-up example." />
 
-A run you ask for, such as "work through the open Dependabot pull requests in shop/shop-backend", not daily maintenance.
+Get started offers a starting text for backend, frontend, data, product or design work, which you edit before you save. Later, change it on Settings or send <code><Fact name="desktop.commands.commands.set-routines.syntax" /></code> in your self-DM, which replaces it whole. A routine applies when a request reaches the clone; nothing runs on a schedule.
 
- One orchestrator worker checks what each update breaks and offers, has fixes made on the pull request's own branch, gets a GPT review of each pull request's current head, and merges ready ones one at a time, checking each dev deploy first. At most two workers run at once, the orchestrator included, so its own workers run one after another. Dangerous updates come back to you with evidence and options; closing a pull request or telling the bot to ignore a version is yours, and proposals for new features stay proposals until you ask.
+Your own request comes first, then your routines, then the clone's defaults. A routine grants nothing: who may ask for work and where workers may merge stay in Settings. A colleague's message can't change your routines.
+
+## Linked folders and who may merge {#linked-folders}
+
+Work on code needs a folder you already have on this Mac. Link it on **Settings › Repositories** with the remote its pull requests go to, written as host/owner/name, or empty for a folder with no remote. Removing a folder unlinks it and leaves it as it is.
+
+<Shot id="settings-repositories" caption="Two linked folders: workers may merge in example.com/shop/shop-backend, not in example.com/shop/shop-web. Made-up example." />
+
+The clone reads a linked folder as it is, uncommitted work and files such as `.env` included. Nothing filters what is inside, so link only folders you're willing to have it read. It writes nothing in them.
+
+A worker doing code work gets its own git worktree in <code><Fact name="desktop.paths.paths.workers-worktrees.path" /></code>, outside your folder; work with no repository runs in <code><Fact name="desktop.paths.paths.workers-scratch.path" /></code>. Misha removes a worktree only while it is exactly as it made it. Any other, and every worktree of a folder with no remote, is kept and listed on Home for you to remove.
+
+### Who may merge {#who-may-merge}
+
+**May merge** is a switch on each linked folder that has a remote. It starts off, so a pull request the work opens there stays open for someone to merge. Turn it on and the clone tells workers each turn that they may merge in that remote and only there. It allows a merge and doesn't ask for one: whether the work goes that far is up to the request and your routines. In your self-DM, <code><Fact name="desktop.commands.commands.allow-merging.syntax" /></code> and <code><Fact name="desktop.commands.commands.stop-merging.syntax" /></code> do the same, with the folder's full path. It is an instruction, not a lock: nothing in the app blocks a merge ([Settings and commands](/reference/settings#when-changes-apply) has the timing).
+
+## Reviews {#reviews}
+
+No review is built in. A review is a worker of its own that reads the change and reports, and you ask for one in the request or in a routine, naming the model if you want a particular one:
+
+> When a worker opens a pull request, have a reviewer on GPT through OpenCode review it, then tell me what it found.
+
+GPT needs OpenCode signed in to your OpenAI account, which Set up checks; with no model named, a worker runs on Claude. When the named model can't run, the clone retries once; if that also fails, it says so and stops. A reviewer is read-only by its brief, not by a sandbox, and its report is not a gate: the clone takes the next step your request or routines call for.
+
+## What stays yours {#what-stays-yours}
+
+- **Staging, production and releases.** The clone refuses them whoever asks. That is an instruction to the clone and its workers, so what your GitHub and AWS accounts permit is the hard limit.
+- **The limits.** Who may ask for work, where workers may merge, which connectors are on and your routines change only by you: in the Misha window, by a command in your self-DM or through the [setup command](/reference/settings#setup-command).
+- **Your decisions.** A decision that is yours comes as one short question, and only the step that depends on it waits.
+- **Someone else's work.** It needs their own approval in their own message, not a request or a review finding.
 
 ## Follow the work and take it over {#follow-and-take-over}
 
-The requester hears in the thread when the clone takes the work, needs an answer, and finishes or stops. When the requester is someone else, you get a one-line brief in your self-DM at the start and when it lands, stops or needs you, and a question only you can answer never goes into their thread. A made-up exchange in `#shop-backend`, where `:misha:` is Leo's icon:
+The requester hears in the thread when the clone takes the work, needs an answer, and finishes or stops; when it is someone else, you also get a brief in your self-DM. A made-up exchange in `#shop-backend`, where `:misha:` is Leo's icon:
 
 > **Emma Lee:** @Leo Novak the checkout total drops discount codes again, can you take a look?
 >
 > **Leo Novak:** :misha: *On it, SHOP-142. I'll post here when the fix is ready for review.*
 
-Home in the Misha window lists what is in flight under **Working on now** and what the clone posted and decided under **Recently**:
+Home lists the workers in flight under **Working on now**:
 
 <Shot id="home" caption="Home with one answer and two workers in flight, and the clone's recent posts and decisions. Made-up example." />
 
-Implemented, reviewed, merged, deployed and checked are different states, and Home shows that a worker runs, not which state it reached. To hand a delivery to a person, reassign its ticket or remove its `auto` label. The delivery procedure tells the clone to read the ticket before it starts a delivery worker and when that worker reports back, and the worker re-reads it before a merge, so the work stops at the next of those checks, not at once. Analysis, ticket writing and the reviews before that aren't checkpoints, and the checks are the procedure's instructions, not a watcher in the app. To stop new work at once, [pause Misha](/operate/manage); [Customise and reuse Misha](/reference/extensions) covers carrying on yourself.
+To carry on yourself, open the branch and pull request if the work made one, or the worktree, which Misha keeps while it holds anything of its own.
+
+To stop work, ask the clone in your self-DM to stop a worker, or [pause Misha](/operate/manage#pause), which tries to stop every worker on the clone's work, the ones a worker started included. Workers you start from your own Claude Code or OpenCode sessions keep running. If one can't be stopped, Home names it and you stop it by hand. Removing someone from **Who may ask me for work**, or turning **May merge** off, doesn't cancel what a worker was already told to do, and nothing undoes a post, a merge or a deploy that already happened.
 
 ## Ready for everyday use {#ready-for-everyday-use}
 
-You can now choose a request, see what it needs, recognise the reply and the result, tell a wait or a blocker from a finished job, and stop further work. That is the end of getting started. Send colleagues [Talking with a clone](/understand/slack) so they know what they're talking to.
+That is the end of getting started. Send colleagues [Talking with a clone](/understand/slack) so they know what they're talking to.
 
 ## Where to go next
 
-Read on only if you want to:
+Optional reading:
 
-- see how a Slack message reaches your clone and how workers take on longer jobs: [How Misha works](/understand/how-it-works)
-- add your own skills and tools, or reuse Misha's parts: [Customise and reuse Misha](/reference/extensions)
-- pause Misha, change what it may do, or update and remove it: [Control and maintain Misha](/operate/manage)
+- how a message reaches your clone and how workers run: [How Misha works](/understand/how-it-works)
+- your own skills and tools, or reusing Misha's parts: [Customise and reuse Misha](/reference/extensions)
+- pausing, changing what Misha may do, updating and removing it: [Control and maintain Misha](/operate/manage)

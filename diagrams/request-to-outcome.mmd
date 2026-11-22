@@ -1,0 +1,43 @@
+%%{init: {"flowchart": {"rankSpacing": 28, "nodeSpacing": 18, "padding": 6}}}%%
+flowchart LR
+  accTitle: A request and its possible outcomes
+  accDescr: A Slack message reaches the clone, which judges it as a refused request, a question, your own change to a service, research or work. A refusal ends with what the person's side needs. A question ends with an answer, or goes to you when the asker may not ask for work. Your own change is made, and anyone else's changes nothing. Research ends with an answer or a blocked report, and a confirmed problem goes on as work. Work ends with an open pull request, a merge where workers may merge, or a result in the thread, and it can wait on something missing, stop, be blocked by a sign-in or access, or ask you one short question. The numbered list under the diagram describes every path.
+
+  msg["1. A Slack message"]:::start
+  judge["2. The clone judges it"]:::start
+
+  msg --> judge
+
+  judge --> refused["3. Staging, production, a release, or others' work without approval"]:::path
+  judge --> question["4. A question"]:::path
+  judge --> own["5. Your own change to a service"]:::path
+  judge --> research["6. Research"]:::path
+  judge --> work["7. Work"]:::path
+
+  refused --> said["Refused, or what their side needs"]:::stop
+
+  question --> answer["A marked answer"]:::result
+  question --> passed["The rest goes to you"]:::decision
+
+  own --> changed["Made, and said what changed"]:::result
+  own -->|"someone else"| unchanged["Nothing changes, passed to you"]:::stop
+
+  research --> report["An answer, with sources"]:::result
+  research --> blocked["Blocked: a sign-in or access"]:::stop
+  research -->|"confirmed"| goes["Goes on as work (7)"]:::conditional
+
+  work --> pr["An open pull request"]:::result
+  work --> merged["Merged, where workers may merge"]:::conditional
+  work --> done["A result in the thread"]:::result
+  work --> waits["A step waits, the rest goes on"]:::wait
+  work --> stops["Stopped, or failed twice"]:::stop
+  work --> blockedwork["Blocked: a sign-in"]:::stop
+  work --> ask["One short question to you"]:::decision
+
+  classDef start fill:#ffcf4a,stroke:#1f1b16,stroke-width:1.5px,color:#1f1b16,font-weight:bold
+  classDef path fill:#fff7da,stroke:#1f1b16,stroke-width:1.5px,color:#1f1b16,font-weight:bold
+  classDef result fill:#d9f0f2,stroke:#0b6a77,stroke-width:1.5px,color:#1f1b16
+  classDef wait fill:#ffdcc0,stroke:#8a3d00,stroke-width:1.5px,color:#1f1b16
+  classDef stop fill:#fbd5ce,stroke:#a82a1a,stroke-width:1.5px,color:#1f1b16
+  classDef decision fill:#ffeeb0,stroke:#1f1b16,stroke-width:1.5px,color:#1f1b16
+  classDef conditional fill:#ffffff,stroke:#1f1b16,stroke-width:1.5px,stroke-dasharray:6 4,color:#1f1b16

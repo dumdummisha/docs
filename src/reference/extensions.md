@@ -1,6 +1,6 @@
 ---
 title: Customise and reuse Misha
-description: "Take work over yourself, package your own tools and instructions as an extension, or use the public browser and desktop tools on their own."
+description: "Keep your own skills and routines, switch connectors on, use Misha's tools in your own Claude Code and OpenCode, package your own extension, or use the browser tools without the app."
 prev:
   text: How Misha works
   link: /understand/how-it-works
@@ -9,42 +9,62 @@ next: false
 
 # Customise and reuse Misha
 
-Most changes need no code. Pick the level that matches what you want:
+Misha is a small core, connectors you switch on one by one, and your own setup on top. Most changes need no code. Settings cover the clone's voice, limits and runtime ([Make it yours](/use/make-it-yours)). Beyond them you can [keep your own skills](#your-setup), [switch connectors on](#connectors), [use Misha's tools in your own agent](#your-sessions), [package an extension](#your-own-extension), or [use the browser and desktop tools alone](#browser-and-desktop). To take a job over yourself, [pause Misha](/operate/manage#pause) and carry on in your own tools; [Put Misha to work](/use/workflows) shows where the work stands.
 
-- **Change how your clone sounds or what it may do:** the voice, notes, requesters, channels and repositories are settings. [Make it yours](/use/make-it-yours) walks through them.
-- **Take a job over and finish it yourself:** pause, look at where the work stands, and carry on in your own tools. See [Take work over](#take-work-over).
-- **Add instructions or tools you use again and again:** that is a Misha extension, a folder of skills, commands, agent profiles and tool modules. See [Your own extension](#your-own-extension).
-- **Use the browser and desktop tools in your own agent:** the public misha-browser package runs on its own, without the Misha app or an invite. See [Browser and desktop tools](#browser-and-desktop).
+## Your skills and commands stay yours {#your-setup}
 
-## Take work over {#take-work-over}
+Misha doesn't ship your workflow. You describe it in **Routines** on Settings, in your own words: when something happens, what the clone does and what it tells you. A routine can name one of your skills or commands. The clone doesn't read it: it names the skill in the worker's brief, and the worker loads it, or says in its report that it can't find it.
 
-When work is in flight and you want it to stop, [pause Misha](/operate/manage) first: no new worker starts, and Misha tries to stop the running ones. Then read where the work stands from its own records: the Slack thread, the ticket, the branch and the pull request on GitHub, and Home's **Working on now** and **Recently** in the Misha window. An implementing worker commits and pushes its branch, so you can check it out in your own clone of the repository and continue there.
+A Claude worker is your own Claude Code with your settings. A GPT worker is OpenCode with a configuration Misha writes for the run, and it reads your skills from the shared skills folder and Claude Code's skills folder.
 
-To hand a delivery back to a person without pausing everything, reassign its ticket or remove the `auto` label it was taken with. The delivery procedure tells the clone to read the ticket before it starts a delivery worker and when that worker reports back, and the worker re-reads it before a merge, so the work stops at the next of those checks, not at once. These checks are the procedure's instructions, not a watcher in the app ([Put Misha to work](/use/workflows#follow-and-take-over)). Removing someone from **Who may ask me for work**, or turning **May merge** off, applies to the clone's next turns. It doesn't cancel what a worker was already told to do. There is no take-over button, no automatic handover of a worker's workspace to you, and no undo for a post, a merge or a deploy that already happened.
+A routine grants nothing: who may ask for work, what the clone may change and where workers may merge stay in settings. A colleague's message never changes your routines.
+
+## Connectors {#connectors}
+
+A connector is an extension for one service or capability, shipped inside the app. Each has one switch, **I use it**, on Set up. On means Misha loads it everywhere, and the clone uses it for colleagues too, within the limits of who asked. Off means Misha loads it nowhere, including in Misha's tools in your own Claude Code and OpenCode. A service you connected to your harness yourself, such as a Jira MCP server of your own, stays yours.
+
+On a fresh install the connectors setting's default is <Fact name="desktop.settings.fields.connectors.default" /> These are the connectors, as Set up words them:
+
+| Connector | What Set up says |
+| --- | --- |
+| <Fact name="desktop.detection.items.atlassian.name" /> | <Fact name="desktop.detection.items.atlassian.about" /> |
+| <Fact name="desktop.detection.items.google.name" /> | <Fact name="desktop.detection.items.google.about" /> |
+| <Fact name="desktop.detection.items.figma.name" /> | <Fact name="desktop.detection.items.figma.about" /> |
+| <Fact name="desktop.detection.items.fireflies.name" /> | <Fact name="desktop.detection.items.fireflies.about" /> |
+| <Fact name="desktop.detection.items.aws.name" /> | <Fact name="desktop.detection.items.aws.about" /> |
+| <Fact name="desktop.detection.items.browser.name" /> | <Fact name="desktop.detection.items.browser.about" /> |
+| <Fact name="desktop.detection.items.compaction.name" /> | <Fact name="desktop.detection.items.compaction.about" /> |
+
+Each connector declares which tools the clone gets. A turn for anyone gets a connector's reads, unless the connector keeps all its tools to your own turns, as AWS does; your own turn also gets the changes. Browser control declares none for the clone. A change on Set up applies to new Claude Code and OpenCode sessions: Misha refuses a call to a connector that is off, but a session already open may keep its tool list until you restart it.
+
+## What misha-core ships {#misha-core}
+
+misha-core is the shipped extension that every other one installs beside, in each harness Misha finds. It holds what the runtime needs and nothing about one service: the worker profiles and tools, git history tools, your own Slack tools, the tools that read and change Misha, a few skills on workers and git, and the setup command ([Settings and commands](/reference/settings#setup-command)). Ticket, review, merge and deploy procedures aren't part of it: you write yours as routines and skills.
+
+## Misha in your own sessions {#your-sessions}
+
+Misha registers one MCP server, `misha`, in Claude Code (user scope) and in OpenCode's global configuration. It serves your sessions the tools of every installed extension for that harness, except connectors that are off:
+
+- **Misha itself:** status, recent activity, settings, and pause and resume. A settings change or a pause made here has the same effect as one from the self-DM, and the tools say so when the app isn't running. A question tool asks about the clone's work without starting any; ask for work by typing in Slack.
+- **Your Slack:** reading channels, threads and history, and sending, reacting, editing and downloading attachments, through your signed-in Slack tab. A post you make this way is yours: it is a person's message in history, not in the clone's post record, and it doesn't summon your clone or count as a request to it, even in your self-DM. Ask for work by typing in Slack.
+- **Workers:** starting, following and stopping them, and reading their sessions. At session start the server tells your harness to delegate through Misha's worker tools, so nothing edits your `CLAUDE.md` or `AGENTS.md`.
+- **Connectors you switched on**, and the browser and desktop tools while Browser control is on.
 
 ## Your own extension {#your-own-extension}
 
-A Misha extension is a folder with a `misha-extension.json` manifest that declares what it contributes. It isn't a Claude Code plugin or an OpenCode package: Misha's installers translate it for each harness, so one folder serves both.
+A Misha extension is a folder with a `misha-extension.json` manifest. It isn't a Claude Code plugin or an OpenCode package: Misha's installers translate it for each harness, so one folder serves both. A manifest can declare skills, commands, agent profiles, modules with tools and hooks, agent grants, and a connector block on a module.
 
 ```text
 shop-team/
 ├── misha-extension.json        the manifest
 ├── skills/team-writing/SKILL.md
+├── commands/tidy-pr.md
 └── modules/glossary/index.js   a built ES module serving one tool
 ```
 
-The parts an extension can declare:
+An installer adds exactly what the manifest declares and refuses an extension whose declared files are missing. A module's entry default-exports an object with `create`, which builds the tools, and `jsonSchema`; the [misha-browser modules](https://github.com/dumdummisha/browser-extension) are a working example. Hooks are per harness: Claude Code hooks on `PreCompact`, `SessionStart` or `Stop`, or the module's own OpenCode plugin. An extension installs only beside misha-core.
 
-- **skills**, each a folder with a `SKILL.md` and anything beside it;
-- **commands**, each a Markdown file both harnesses read alike;
-- **agent profiles**, each a JSON file naming built-in tools, shell and skill access, and extension tools;
-- **modules**, each with an entry that serves tools, and hooks declared per harness (Claude Code hooks, or the module's own OpenCode plugin);
-- **agent grants**, which add this extension's tools to another extension's agent profiles;
-- optionally, global instructions for each harness and a few members of Claude Code's settings or OpenCode's configuration.
-
-An installer adds exactly what the manifest declares and refuses an extension whose declared files are missing. Skills and commands go by names that carry the extension's name, such as `shop-team:team-writing`, unless the manifest asks for bare names. A bare-named skill or command goes into the harness's own skills or commands folder under that name and replaces a file already at that path; a same name elsewhere, such as a built-in command or a skill in another folder, gets a warning, not a refusal. Agents keep their own names, so an agent of the same name is replaced too. The installer moves each replaced file aside first, and uninstalling doesn't restore it ([Where additions run](#where-additions-run) has how many batches it keeps).
-
-A made-up example: Shop's team keeps its writing conventions for tickets and pull requests in one skill, and a read-only tool that looks a term up in the team's glossary. This manifest passes the app's manifest schema; the module and the skill are yours to write.
+A made-up example: Shop's team keeps its writing conventions in one skill, a command that tidies a pull request description, and a read-only glossary lookup. The manifest passes the app's manifest schema; the module, skill and command are yours to write.
 
 ```json
 {
@@ -58,67 +78,89 @@ A made-up example: Shop's team keeps its writing conventions for tickets and pul
       "claudeCodeHooks": [],
       "opencodePlugin": null,
       "harnesses": ["claude-code", "opencode"],
-      "isServedToWorkers": true
+      "isServedToWorkers": true,
+      "connector": {
+        "displayName": "Shop glossary",
+        "description": "The terms Shop's team uses, and what they mean.",
+        "userConfig": {},
+        "tools": {
+          "glossary_lookup": {
+            "annotations": { "readOnlyHint": true, "openWorldHint": false },
+            "localOutputArgument": null
+          }
+        },
+        "promptFragment": "The Shop glossary holds the team's terms: look a term up with glossary_lookup before you explain it.",
+        "agentGrants": {
+          "researcher": ["glossary_lookup"],
+          "implementer": ["glossary_lookup"]
+        }
+      }
     }
   ],
   "agents": [],
   "skills": ["team-writing"],
-  "commands": [],
-  "agentGrants": {
-    "researcher": ["glossary_lookup"],
-    "implementer": ["glossary_lookup"],
-    "reviewer": ["glossary_lookup"]
-  }
+  "commands": ["tidy-pr"]
 }
 ```
 
-`isServedToWorkers` makes Misha's bridge serve the glossary tool to workers, and the grants let three of misha-core's worker profiles call it. The module's entry default-exports a module definition that creates its tools; that contract is part of the private app and isn't published yet.
+The `connector` block gives the glossary its own row and switch on Set up and puts it in front of the clone; a module without one has no switch and is always on. It declares:
+
+- what Set up shows, and how sign-in works: settings it takes, or a `keyPage` where the service hands out a key that goes into OpenCode, never through Misha;
+- the tools clone turns get, each with its standard MCP annotations. A tool without `readOnlyHint: true` counts as a change, so only your own turns may call it;
+- optionally a command line your turns may run, its own skills and the host its links may go to;
+- whether it is on by default, the line the clone is told while it is on, and the grants it gives worker profiles, which apply only while the switch is on. The manifest's own `agentGrants` apply whenever the extension is installed.
+
+Misha has no setting that swaps one service for another: a connector for a different tracker sits beside Jira and Confluence rather than replacing it.
 
 ::: warning Not available yet
-The Misha app installs only its bundled extension, misha-core, today. It has no control for installing your own, so an extension like this one is something you can design against the format, not yet install from a release.
+The Misha app installs only the extensions it ships. The installer for yours runs from the app's private source, and the app has no control for it. An extension like this one is something to design against the format, not yet install from a release.
 :::
 
 ## Where additions run {#where-additions-run}
 
-[![Where an extension reaches: your Claude Code and OpenCode sessions get what its manifest declares, Misha's workers get the tools of modules served to workers where a grant names the profile, and clone turns get nothing from an extension. The numbered list below describes each route.](/diagrams/extension-to-consumers.svg)](/diagrams/extension-to-consumers.svg)
+[![Where an extension reaches. The diagram and the numbered list below describe each route.](/diagrams/extension-to-consumers.svg)](/diagrams/extension-to-consumers.svg)
 
-1. **Your Claude Code sessions.** Namespaced skills and commands arrive as a plugin from Misha's own marketplace, agents go to your agents folder, hooks and settings members to your Claude Code settings, and every installed extension's tools are served by one MCP server named `misha`.
-2. **Your OpenCode sessions.** Skills and commands are copied into OpenCode's global configuration folder, agents become members of its configuration, and each module's tools are served by a generated plugin that wraps the module.
-3. **Misha's workers.** A worker's bridge serves the tools of every module marked as served to workers. A worker always runs as one of misha-core's five profiles, never as your extension's own agents, and it can call a tool only when its profile, with every installed extension's grants added, names it.
-4. **Clone turns.** The clone's tools come from the connections you turn on and a fixed list per connection, so no extension tool reaches a clone turn.
+Dashed boxes apply only when their condition holds.
 
-So installing a module, or granting it to one profile, doesn't put it in front of the clone. A module served to workers may not serve a tool with the name of one Misha's bridge serves itself (the workers' and Slack's): the installer refuses it.
+1. **Your Claude Code and OpenCode sessions.** Skills go into one shared skills folder, which OpenCode reads itself and Claude Code reads through a link. Commands and agents go into each harness's own folders or configuration, hooks into Claude Code's settings or an OpenCode plugin, and the tools come from the `misha` server.
+2. **Workers you start from your own sessions.** They get the modules your session has for its harness, apart from any that serves a tool the bridge serves itself. A worker can call a tool only when its profile, with every installed extension's grants added, names it.
+3. **Workers the clone starts.** They get only the modules marked as served to workers, under the same rule for profiles.
+4. **Clone turns.** A connector's tools reach them by turn authority, and its command line brings the skills that command line names. Ordinary skills and commands don't reach a clone turn; apart from connectors, only misha-core's git history on your own turns and the built-in GitHub command line do.
 
-Installing writes into your harness configuration, and it can write over a file that is already there. The installer moves what it replaces aside first, one batch per install run, and keeps the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> batches. Uninstalling doesn't put those files back. [Control and maintain Misha](/operate/manage) covers removal.
+A worker can run as a profile your extension declares if only one installed extension declares that name and its shell access is `all` or `none`, not a list of rules. The installer refuses a module served to workers that serves a tool named like one Misha's bridge serves itself.
+
+### Names, collisions and what an install writes over {#installer-rules}
+
+Skills go by `<extension>-<skill>`, so `team-writing` is `shop-team-team-writing`, and its `SKILL.md` frontmatter must name itself that. Commands are `/shop-team:tidy-pr` in Claude Code and `shop-team/tidy-pr` in OpenCode. `"isNamespaced": false` installs both under bare names. Agents keep their own names.
+
+- A skill's folder is refused when something not the extension's own is already there. Nothing is written over it.
+- A command or an agent of the same name is written over, after the installer moves the old file into <code><Fact name="desktop.paths.paths.overwritten.path" /></code>. One batch is kept per install run, the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> stay, and uninstalling doesn't restore them.
+- A name that matches a Claude Code built-in or a command or skill of yours elsewhere gets a warning, and the extension is installed beside it.
+
+[Control and maintain Misha](/operate/manage#remove) covers removal.
 
 ## Claude Code and OpenCode {#claude-code-and-opencode}
 
-The Slack clone always runs your unmodified Claude Code. Workers run Claude Code, or OpenCode with a GPT model. Installing Misha's extension in OpenCode, or running the setup command there ([Settings and commands](/reference/settings#setup-command)), gives your OpenCode sessions the tools and skills; it doesn't replace the clone. The delivery procedure assigns Claude to research, tickets and code and GPT to reviews. A note or personality saying otherwise doesn't change that, and there is no setting to choose a worker's model.
-
-## Other apps {#other-apps}
-
-A tool for another service, say the team's internal status page, is a module in your extension. It reaches your own sessions once installed, and Misha's workers when the module is served to workers and a grant names the profile. Signing in to that service is up to the module: **Set up** lists only Misha's built-in connections, and a custom module gets no row there.
-
-Turning off a built-in connection doesn't swap in another app, and a ticket tool for a different tracker doesn't change the delivery procedure, which writes its tickets in Jira. There is no generic adapter or settings switch for another tracker or chat tool today.
+You choose the runtime the clone thinks with on Settings, Claude Code or OpenCode. Switching starts a new session there; settings, notes and routines stay. An extension installs into every harness Misha finds, so it doesn't depend on which one runs the clone.
 
 ## Browser and desktop tools {#browser-and-desktop}
 
-The public misha-browser package has tools that read and drive your own browser through the Misha Browser extension, and tools that move the Mac's mouse, press its keys, capture its screen and bring apps to the front. A page reads as a compact outline (headings, visible text, and each control with a numbered ref, role, name and state) instead of HTML. Clicks, typing, key presses and scrolling are real input, so the page gets the same events a person makes, and after an action the result lists what changed.
+The public misha-browser package has tools that read and drive your own browser through the Misha Browser extension, and tools that move the Mac's mouse, press its keys, capture its screen and bring apps to the front. A page reads as a compact outline of headings, visible text and numbered controls instead of HTML. Clicks and typing are real input, and after an action the result lists what changed.
+
+Inside Misha they are the **Browser control** connector. While it is on, Misha's server gives the tools to your own Claude Code and OpenCode sessions, and to a worker you start from one with a profile of yours that grants them. The Slack clone and the workers it starts never get them.
 
 <!-- facts capabilities browser-read browser-act desktop-control -->
 
-These aren't clone tools. misha-core doesn't declare them, and the clone's connections don't include them. To use them, register the standalone MCP server in your own Claude Code or OpenCode, or serve them from an extension module through the package's `browserModule` and `desktopModule` exports, for your sessions and, with a grant, for workers. A worker that gets them acts in your signed-in browser and on your screen as you.
-
 Two made-up examples, both in Leo Novak's own Claude Code session:
 
-- **Browser:** "In my signed-in Shop admin tab, find this morning's order for Emma Lee and read me its refund status." This uses tab listing, reading and finding, and needs the extension and native host. It types into the search field, so it also needs Accessibility and Screen Recording for the terminal or app running Claude Code.
+- **Browser:** "In my signed-in Shop admin tab, find this morning's order for Emma Lee and read me its refund status." It needs the extension and native host, and because it types into the search field, Accessibility and Screen Recording for the terminal or app running Claude Code.
 - **Desktop:** "Bring Simulator to the front and capture the screen." Focusing an app needs no grant; the capture needs both.
 
-The extension records every tab's fetch and XHR requests while it runs, not only during a tool call, with credentials redacted by name and pattern, which misses an opaque credential under an ordinary name. Page text, field values and screenshots come back as the page or screen shows them. [Browser permissions](/reference/permissions) explains each permission and which tools need the macOS grants, and [Privacy and security](/privacy) where the data goes.
+An extension of yours can serve the same tools through the package's `browserModule` and `desktopModule` exports. A worker that gets them acts in your signed-in browser and on your screen as you. The extension records every tab's fetch and XHR requests while it runs, with credentials redacted by name and pattern, which misses an opaque credential under an ordinary name. Page text, ordinary field values and screenshots can return sensitive information the page displays. [Browser permissions](/reference/permissions) explains each permission, and [Privacy and security](/privacy) where the data goes.
 
 ## Using them without Misha {#standalone}
 
-The standalone MCP server serves the browser and desktop tools over stdio to Claude Code, OpenCode or any other MCP client, without the Misha app or an invite. It runs on macOS only, and the browser tools need the extension and its native host loaded in Chrome or Brave. Follow the [misha-browser README](https://github.com/dumdummisha/browser-extension#readme) to build it, load the unpacked extension, install the native host, register the server and grant the macOS permissions; this page doesn't repeat those steps.
+The standalone MCP server serves the browser and desktop tools over stdio to Claude Code, OpenCode or any other MCP client, without the Misha app or an invite. It runs on macOS only, and the browser tools need the extension and its native host in Chrome or Brave. The [misha-browser README](https://github.com/dumdummisha/browser-extension#readme) has the build, host, registration and permission steps; this page doesn't repeat them.
 
 ## Public and private {#public-and-private}
 
@@ -127,6 +169,6 @@ The standalone MCP server serves the browser and desktop tools over stdio to Cla
 | These docs | [dumdummisha/docs](https://github.com/dumdummisha/docs) | Apache-2.0 for code and prose, OFL-1.1 for the fonts; the name, mascot and app icon are brand artwork |
 | Browser extension, native host, protocol, client, browser and desktop tools, MCP server | [browser-extension](https://github.com/dumdummisha/browser-extension) | Apache-2.0 |
 | Signed builds and the update feed, once there are releases | [desktop-downloads](https://github.com/dumdummisha/desktop-downloads) | No licence file; no public release yet |
-| The desktop app and misha-core | Private | Not published |
+| The desktop app, misha-core and the connectors it ships | Private | Not published |
 
-To see how Misha does it, start with misha-browser: its protocol shows what passes between the extension, the native host and the app, and its tools are the ones you can reuse today.
+Start with misha-browser: its protocol shows what passes between the extension, the native host and the app, and its tools are the ones you can reuse today.

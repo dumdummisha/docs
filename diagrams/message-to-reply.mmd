@@ -19,12 +19,12 @@ flowchart TB
     services["GitHub and the<br/>connectors you switched on"]
   end
 
-  slack <-->|"1, 9, 10"| tab
-  tab <-->|"2, 9"| sw
-  sw <-->|"3, 5, 9"| host
+  slack <-->|"1, 8, 9, 10"| tab
+  tab <-->|"2, 8, 9"| sw
+  sw <-->|"3, 5, 8, 9"| host
   host <-->|"4, 5, 9"| app
   app <-->|"6, 9"| clone
-  clone -.->|"8 thread"| host
+  clone -.->|"8"| host
   clone -->|"8"| folders
   clone <-->|"7"| providers
   clone <-->|"8"| services

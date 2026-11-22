@@ -2,7 +2,7 @@ Dumdum Misha: your Slack clone, on your Mac. Documentation site.
 
 <img src="src/public/logo.svg" alt="The Dumdum Misha mascot" width="96" height="96">
 
-Misha is a Mac app that answers routine Slack questions through your own Slack account, as a clone whose replies can start with an emoji you choose and be set in italics. Work you allow, such as research, a ticket or a code change, goes to workers in your own Claude Code on the same Mac, and GPT through OpenCode reviews the tickets and pull requests they write.
+Misha is a Mac app that answers routine Slack questions through your own Slack account, as a clone whose replies can start with an emoji you choose and be set in italics. Work you allow, such as research, a ticket or a code change, goes to workers on the same Mac. They use Claude by default; your requests and Routines can choose other models and review steps, through OpenCode.
 
 This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.ai). The docs are for colleagues who got a reply from someone's clone, people deciding whether to try one, owners setting one up, and developers and security reviewers checking how it works.
 
@@ -26,7 +26,7 @@ Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/st
 | [dumdummisha/docs](https://github.com/dumdummisha/docs) (this one) | The docs site: its pages, theme and build checks, and the reviewed facts and screenshots exported from the app. | Public, Apache-2.0 except the fonts and brand artwork |
 | [dumdummisha/browser-extension](https://github.com/dumdummisha/browser-extension) | The Misha Browser extension that carries Slack to the app, its native host, and browser and desktop tools you can use in any MCP client without the app. | Public, Apache-2.0 |
 | [dumdummisha/desktop-downloads](https://github.com/dumdummisha/desktop-downloads) | Reserved for signed desktop builds and the update feed. Only a README until a signed build exists. | Public |
-| The Misha desktop app | The Mac app and misha-core, the extension it installs in Claude Code and OpenCode. | Private |
+| The Misha desktop app | The Mac app, misha-core and the connectors it installs in Claude Code and OpenCode. | Private |
 
 ## Contributing
 

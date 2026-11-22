@@ -1,6 +1,6 @@
 ---
 title: Make it yours
-description: "Give your clone your voice and the notes a colleague would ask you for, choose what it watches and who can ask it for work, and add your repositories."
+description: "Give your clone your voice, its Routines and the notes a colleague would ask you for, choose what it watches and who can ask it for work, and link your repositories."
 prev:
   text: Get started
   link: /start/get-started
@@ -27,6 +27,10 @@ Another owner might write:
 
 > Reply in English, in two or three sentences. Link the ticket or file you read. Keep the humour to a minimum.
 
+**Routines** is what the clone should do with work, in your own words, up to <Fact name="desktop.settings.fields.routines.limits.maxCharacters" /> characters. Write one per line: when something happens, what to do, then whether to tell you or ask you. You can name skills and commands for workers to follow, and you shouldn't put passwords or tokens in it. Your own request in the moment comes first, and Routines grant no access: who may ask for work and where workers may merge stay on Settings. Leave it empty and the clone works its usual way. [Put Misha to work](/use/workflows) shows how a request becomes work.
+
+<Shot id="settings-routines" caption="Leo Novak's routine for a fix: a worker updates its ticket, fixes it in its own worktree and opens a pull request for review. Made-up example." />
+
 ## Working context {#working-context}
 
 **What I remember** holds up to <Fact name="desktop.settings.fields.notes.limits.maxNotes" /> notes of <Fact name="desktop.settings.fields.notes.limits.maxCharactersEach" /> characters each, in your exact words, which the clone keeps as standing context. Add one with **Remember**, or write `remember` and the note in your self-DM; **Forget** removes it. A good first note is one a colleague would otherwise ask you about, such as "Emma owns payments. Ask Emma before touching the checkout."
@@ -34,6 +38,10 @@ Another owner might write:
 <Shot id="settings-notes" caption="Three notes in Leo's words, each with Forget. Made-up example." />
 
 Notes are separate from the clone's conversation history; [Settings and commands](/reference/settings#notes-history-start-fresh) explains both.
+
+## What it thinks with {#thinking}
+
+On **Settings › What I think with**, choose whether the clone runs on Claude Code or OpenCode, then a model and effort from the list that runtime offers. Switching runtime starts a new conversation with the same settings, notes and Routines; changing only the model keeps the conversation and counts from the next message. [Settings and commands](/reference/settings#what-i-think-with) has the defaults and limits.
 
 ## Choose your scope {#choose-your-scope}
 
@@ -53,11 +61,11 @@ How Leo might begin depends on the role. As a developer, Leo allows Emma Lee, wh
 
 ## Repositories {#repositories}
 
-If your clone should read code, add each repository as `owner/name` on **Settings › Repositories**. The clone keeps its own copy and never touches your checkouts.
+If your clone should read code, link each repository on **Settings › Repositories** by its full folder path, and give its remote as `host/owner/name`, or leave the remote empty if it has none. The clone reads that folder as it is, uncommitted and ignored files included. Workers get worktrees of their own outside it.
 
-<Shot id="settings-repositories" caption="Two repositories: workers may merge in shop/shop-backend, not in shop/shop-web. Made-up example." />
+<Shot id="settings-repositories" caption="Two linked folders: workers may merge in the remote of one, not the other. Made-up example." />
 
-**May merge** starts off, so delivery ends at a reviewed pull request that someone merges. Turn it on to let workers merge reviewed pull requests there; a merge also needs the repository's own delivery command, which [Delivery](/use/workflows#delivery) explains. In your self-DM, `allow merging shop/shop-backend` and `stop merging shop/shop-backend` do the same.
+For a folder with a remote, **May merge** starts off, so pull requests stay unmerged for someone to merge. Turn it on to let workers merge in that remote; your request and Routines decide the procedure. A folder with no remote can still be worked on locally, but has no pull request to open or merge. In your self-DM, <code><Fact name="desktop.commands.commands.allow-merging.example" /></code> and <code><Fact name="desktop.commands.commands.stop-merging.example" /></code> do the same.
 
 ## Pause when you need to {#pause}
 
@@ -67,7 +75,7 @@ If your clone should read code, add each repository as `owner/name` on **Setting
 
 Your clone now has:
 
-- an icon and a voice that sound like you, and the notes a colleague would ask you for
+- an icon and a voice that sound like you, Routines for work, and the notes a colleague would ask you for
 - the people who may ask for work and the channels it watches, or neither yet
 - the repositories, if you work in code
 - a brake for when you need it

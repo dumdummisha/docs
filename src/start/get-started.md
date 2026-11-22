@@ -17,9 +17,9 @@ Misha is in an invite-only pilot. There is no public download, Chrome Web Store 
 
 - A Mac with a Chromium browser (Chrome or Brave).
 - Claude Code, signed in with your own Claude subscription.
-- git, and the GitHub CLI if your clone should read code.
+- git, which the clone reads your code with, and the GitHub CLI for work in GitHub.
 - Your Slack workspace, signed in in that browser (adapters for Microsoft Teams and Discord are in progress).
-- Optional but recommended: OpenCode signed in to OpenAI, so GPT can review tickets and pull requests, and the services your tasks need. [Put Misha to work](/use/workflows#review-requirements) explains why delivery waits without GPT.
+- Optional: OpenCode signed in to a model provider, to run the clone on it or to use other models for work and reviews, and the services your tasks need. The clone starts on Claude Code; choose its runtime on **Settings › What I think with**.
 
 ## The setup sequence {#setup}
 
@@ -43,7 +43,7 @@ The first time Misha opens, its window shows **Get started**, a checklist that t
   <li class="step">
     <div class="step__body">
       <p class="step__title">Give me a face</p>
-      <p class="step__line">Click <strong>Keep the defaults</strong>, or pick your own icon and tone first. Saving makes the clone live.</p>
+      <p class="step__line">Click <strong>Keep the defaults</strong>, or pick your own icon, tone and optional Routines first. A role can fill in starting Routines for you to edit. Saving makes the clone live.</p>
     </div>
     <div class="step__visual" aria-hidden="true"><span class="mini-control mini-control--button">Keep the defaults</span></div>
   </li>
@@ -56,7 +56,7 @@ The first time Misha opens, its window shows **Get started**, a checklist that t
   </li>
 </ol>
 
-The checklist also offers **Show me your code**, which adds a repository the clone can read. It's optional: the clone answers without one. To pause the clone, see [Pause Misha](/operate/manage#pause).
+The checklist also offers **Show me your code**, which links a repository folder already on your Mac and asks for the remote its pull requests go to, if it has one. It's optional: the clone answers without one. To pause the clone, see [Pause Misha](/operate/manage#pause).
 
 ## Check your first reply {#first-reply}
 
@@ -73,10 +73,10 @@ This isn't a trial confined to your self-DM. From the save on, the clone answers
 
 ## What setup changes on your Mac {#before-you-install}
 
-Each time Misha starts, it installs misha-core, its bundled Misha extension, into Claude Code and OpenCode wherever it finds them: skills, commands, agent profiles and Misha's tools. When a file is already where it writes, Misha first moves it into <code><Fact name="desktop.paths.paths.overwritten.path" /></code>, which keeps the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> batches. Nothing puts those files back for you. The browser part adds the Misha Browser extension and the native host, a small program that connects the extension to Misha on this Mac; [Browser permissions](/reference/permissions) explains what each can do.
+Each time Misha starts, it brings misha-core, its bundled Misha extension, and the connectors into line with your switches in Claude Code and OpenCode wherever it finds them: tools, commands, agent profiles and hooks. Skills are kept once in `~/.agents/skills`, with links for Claude Code. Changing a connector's switch updates its additions too. When a file is already where it writes, Misha first moves it into <code><Fact name="desktop.paths.paths.overwritten.path" /></code>, which keeps the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> batches. Nothing puts those files back for you. The browser part adds the Misha Browser extension and the native host, a small program that connects the extension to Misha on this Mac; [Browser permissions](/reference/permissions) explains what each can do.
 
 There is no uninstall yet. [Remove Misha](/operate/manage#remove) says what is safe to remove today and what has to stay.
 
 ## Next: make it yours {#next}
 
-Your clone now answers with a default voice and no working context. [Make it yours](/use/make-it-yours) sets its voice, notes, who may ask it for work, which channels it watches and the services your first task needs.
+Your clone now answers with a default voice and no working context. [Make it yours](/use/make-it-yours) sets its voice, Routines, notes, who may ask it for work, which channels it watches and the services your first task needs.

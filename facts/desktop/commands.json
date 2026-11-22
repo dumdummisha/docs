@@ -131,7 +131,7 @@
       "places": [
         "self-dm"
       ],
-      "effect": "Workers may merge reviewed pull requests in the linked folder's remote, the folder named by its full path. Refused for a folder your settings don't link, and for one with no remote.",
+      "effect": "Workers may merge pull requests in the linked folder's remote, the folder named by its full path. Refused for a folder your settings don't link, and for one with no remote.",
       "example": "allow merging /Volumes/Code/shop-backend",
       "mutation": "set-merging"
     },
@@ -142,7 +142,7 @@
       "places": [
         "self-dm"
       ],
-      "effect": "Workers stop at a reviewed pull request in the linked folder's remote, the folder named by its full path. Refused for a folder your settings don't link.",
+      "effect": "Workers stop at an open pull request in the linked folder's remote, the folder named by its full path. Refused for a folder your settings don't link.",
       "example": "stop merging /Volumes/Code/shop-backend",
       "mutation": "set-merging"
     },

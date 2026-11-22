@@ -3,12 +3,12 @@
   "productVersion": "0.1.0",
   "evidenceDate": "2026-11-22",
   "captureRecipeVersion": 3,
-  "digest": "c9a4a30bc8849bff49758872e28dfeda631aeae7bca5f93d716977a775c16416",
+  "digest": "4a4b14d2eab55f30bbdcfe6675ae65b2e0304dac428b68e38ac8cb107fcb3e14",
   "files": [
     {
       "path": "captures.json",
-      "bytes": 26243,
-      "sha256": "cddaead07491a6e59bf5606e6c186eb88a74ce103dceb997d5efa23f0304c4d5"
+      "bytes": 26265,
+      "sha256": "d0766fea8bbd529ef568a6c43e5c34caa3cfb2c3f632e6ea1b3eef5247a0bdb6"
     },
     {
       "path": "captures/claude-limit.png",
@@ -57,8 +57,8 @@
     },
     {
       "path": "captures/settings-repositories.png",
-      "bytes": 80060,
-      "sha256": "f0ac2fc02041da80f10e918bab18460efa0fd080dc85eef483c80fd3e321e490"
+      "bytes": 80445,
+      "sha256": "a7099b72972307c36fe5e8273e3b7c800bbac9ba1ce78adc6861e361279d958b"
     },
     {
       "path": "captures/settings-routines.png",
@@ -82,8 +82,8 @@
     },
     {
       "path": "captures/settings.png",
-      "bytes": 775368,
-      "sha256": "382e994f0c5ea5b860aa8b5401eb16d95b4681cea6239eec0b2fbc1f73015994"
+      "bytes": 775961,
+      "sha256": "200dba0c0291a098eb3ffd6e2e0abdb817e99160624ad7a43cd3fa3608520727"
     },
     {
       "path": "captures/setup-connectors.png",
@@ -112,8 +112,8 @@
     },
     {
       "path": "facts/commands.json",
-      "bytes": 8533,
-      "sha256": "a48a5e9ceda544632491c3cdbcfea6b1047520f4ebbdeaa240fb91d7d2b23d27"
+      "bytes": 8521,
+      "sha256": "8605dd49b4014d81ba42dd822afa9589994bcd750d1cd3376a7ce92ff8ec71ce"
     },
     {
       "path": "facts/detection.json",
@@ -132,8 +132,8 @@
     },
     {
       "path": "facts/settings.json",
-      "bytes": 15317,
-      "sha256": "4a67ef940a8aab31a9fbfaa60caf1b2eaccb59998012663e723050eea387333b"
+      "bytes": 15308,
+      "sha256": "dda58cb569654aeaad9f9c841b8c20866b031e3dcaebb64566bb8e05c1c97934"
     },
     {
       "path": "facts/setup-commands.json",

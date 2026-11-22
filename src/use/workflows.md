@@ -19,13 +19,13 @@ Pick something you'd otherwise look up yourself, and connect only the service it
 - **A PM:** "What does SHOP-142 leave out of scope?" The clone answers from the ticket. It needs **Jira and Confluence** on Set up.
 - **A designer:** "Render the checkout screen from this Figma link and list its button labels." It needs **Figma** on Set up.
 
-Each is one bounded read, so none needs a worker or changes anything. Emma Lee asking in a `#shop-backend` thread gets the same kind of answer.
+Each is one bounded read, so none needs a worker or changes anything. Emma Lee asking in a `#shop-backend` thread Leo is in gets the same kind of answer.
 
 ## Who may ask for what {#who-may-ask}
 
 Each turn belongs to one of three groups and gets only that group's tools:
 
-- **Anyone** the clone answers (a DM, a mention, a thread you're in, a channel you watch) gets answers from reads only.
+- **Anyone** the clone answers (a DM, a mention, a thread you're in, a channel you have it watch) gets answers from reads only.
 - **You**, in your self-DM or in a message with your icon in it, also get changes in connected services, the GitHub and AWS command lines, and the linked folders' commit history.
 - **You and those you allow** (Settings › **Who may ask me for work**) can start workers. Allowing Emma lets her ask for research or work, not use your direct change tools, and nothing she writes widens what her workers may do.
 
@@ -59,7 +59,7 @@ A worker investigates what one lookup can't settle. It needs:
 
 <!-- facts needs research -->
 
-For a reported incident the worker first proves it can read that environment's logs and data, and until then the requester hears what is being checked, never a guess. A missing or expired sign-in is a blocker: the clone names the connection to reconnect on Set up and keeps the work open. The researcher is read-only by its brief, not by a sandbox ([How Misha works](/understand/how-it-works) explains what workers can do).
+For a reported incident, the worker first proves it can read that environment's logs and data. Until that evidence establishes the cause, the requester hears what is being checked, never a guess. A missing or expired sign-in is a blocker: the clone names the connection to reconnect on Set up and keeps the work open. The researcher is read-only by its brief, not by a sandbox ([How Misha works](/understand/how-it-works) explains what workers can do).
 
 ## Work {#work}
 
@@ -103,7 +103,7 @@ No review is built in. A review is a worker of its own that reads the change and
 
 > When a worker opens a pull request, have a reviewer on GPT through OpenCode review it, then tell me what it found.
 
-GPT needs OpenCode signed in to your OpenAI account, which Set up checks; with no model named, a worker runs on Claude. When the named model can't run, the clone retries once, then says so and stops. A reviewer is read-only by its brief, not by a sandbox, and its report is not a gate: the clone takes the next step your request or routines call for.
+GPT needs OpenCode signed in to your OpenAI account, which Set up checks; with no model named, a worker runs on Claude. When the named model can't run, the clone retries once; if that also fails, it says so and stops. A reviewer is read-only by its brief, not by a sandbox, and its report is not a gate: the clone takes the next step your request or routines call for.
 
 ## What stays yours {#what-stays-yours}
 

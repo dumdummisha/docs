@@ -1,24 +1,34 @@
-flowchart LR
-  ext["Your extension folder<br/>misha-extension.json"]
-  skills["Skills and commands"]
-  agents["Agent profiles"]
-  mods["Modules: tools and hooks"]
-  gate["A module with a connector block<br/>loads only while its Set up switch is on"]
+flowchart TB
+  accTitle: Where an extension reaches
+  accDescr: An extension folder holds skills, commands and agent profiles, modules without a connector block, and modules with one. Skills, commands and agent profiles go to your Claude Code and OpenCode sessions. A module without a connector block is always on: its tools and hooks go to your sessions and to the workers you start from them, and to the workers the clone starts only where the module is marked as served to workers. A module with a connector block does the same only while its switch on Set up is on, and then also gives clone turns the tools it declares for them. A worker can call a tool only when its profile names it.
+
+  ext["Extension folder"]:::start
+  files["Skills, commands, agent profiles"]
+  plain["Module"]
+  conn["Module with a connector block"]
+  gate["Set up switch on"]:::conditional
+
+  ext --> files
+  ext --> plain
+  ext --> conn
+  conn --> gate
 
   subgraph who["Who gets it"]
-    own["Your Claude Code and OpenCode sessions"]
-    wk["Workers"]
-    cl["Clone turns"]
+    direction LR
+    own["Your sessions"]
+    mine["Workers you start"]
+    cw["Workers the clone starts"]:::conditional
+    turn["Clone turns"]:::conditional
   end
 
-  ext --> skills
-  ext --> agents
-  ext --> mods
-  mods --> gate
+  files --> own
+  plain --> own
+  plain --> mine
+  plain -.-> cw
+  gate --> own
+  gate --> mine
+  gate -.-> cw
+  gate -.-> turn
 
-  skills -- "installed" --> own
-  agents -- "installed as agents" --> own
-  gate -- "tools through the misha server, and hooks" --> own
-  agents -- "a worker can run as one" --> wk
-  gate -- "tools where served to workers and a grant names the profile" --> wk
-  gate -- "only the tools a connector declares for the clone" --> cl
+  classDef start fill:#ffcf4a,stroke:#1f1b16,stroke-width:1.5px,color:#1f1b16,font-weight:bold
+  classDef conditional fill:#ffffff,stroke:#1f1b16,stroke-width:1.5px,stroke-dasharray:6 4,color:#1f1b16

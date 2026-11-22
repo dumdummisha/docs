@@ -1,0 +1,34 @@
+flowchart TB
+  slack["Slack's servers"]
+  subgraph mac["Your Mac"]
+    direction TB
+    subgraph browser["Chrome or Brave"]
+      tab["Your signed-in Slack tab<br/>observer and relay of<br/>the Misha Browser extension"]
+      sw["Extension service worker<br/>queue of new messages"]
+    end
+    host["Native host and relay<br/>a socket only you can open"]
+    app["Misha app<br/>filter, inbox and routing,<br/>provenance ledger"]
+    clone["Clone turn<br/>Claude Code or OpenCode,<br/>one shared session"]
+    folders["Your linked folders<br/>read as they are"]
+    workers["Workers<br/>Claude Code or OpenCode sessions,<br/>in worktrees or scratch folders"]
+  end
+  subgraph outside["Outside your Mac, under your accounts"]
+    anthropic["Anthropic<br/>Claude, your plan"]
+    openai["OpenAI, or the provider of<br/>the model you picked in OpenCode"]
+    services["Connectors you switched on:<br/>Jira and Confluence, Google,<br/>AWS, Figma, Fireflies"]
+  end
+
+  slack <-->|"1 message in, 9 post out, 10 echo"| tab
+  tab <-->|"2 and 9"| sw
+  sw <-->|"3 and 9"| host
+  host <-->|"4, 5 and 9"| app
+  app <-->|"6 and 9"| clone
+  clone -->|"8"| folders
+  clone -->|"11"| workers
+  workers -.->|"12 report"| app
+  clone <-->|"7"| anthropic
+  clone <-.->|"7"| openai
+  clone <-->|"8"| services
+  workers <-->|"12"| anthropic
+  workers <-.->|"12"| openai
+  workers <-->|"12"| services

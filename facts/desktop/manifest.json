@@ -1,14 +1,14 @@
 {
   "exportSchemaVersion": 2,
   "productVersion": "0.1.0",
-  "evidenceDate": "2026-11-19",
+  "evidenceDate": "2026-11-22",
   "captureRecipeVersion": 3,
-  "digest": "d4bfe85b07f6349070b283a6b4cd2b8be70d3df0f8938dc4c6bd31846f321f94",
+  "digest": "69de0cf773bcfeb219372febd6b74e26c9004d6595f685e88ded78734b25ceca",
   "files": [
     {
       "path": "captures.json",
-      "bytes": 20564,
-      "sha256": "8debe68139f83fd6059803b80a3f8c06a6a8f955a668262e840a56c74bae74fa"
+      "bytes": 22968,
+      "sha256": "75a3cfa425d588679434a228c86f864f7ad2acefa23b279280819f1b3d073a00"
     },
     {
       "path": "captures/claude-limit.png",
@@ -22,8 +22,8 @@
     },
     {
       "path": "captures/first-run.png",
-      "bytes": 426801,
-      "sha256": "96c0dc5ead4ab1e4b9ea0dc0d16eea34531966be666c63d8a4abba1fd7d61f38"
+      "bytes": 546855,
+      "sha256": "664b1a68475d0beefa686113c0470128c10f81c11fc21eb32f7f44c4557fffe1"
     },
     {
       "path": "captures/home.png",
@@ -57,8 +57,8 @@
     },
     {
       "path": "captures/settings-repositories.png",
-      "bytes": 53128,
-      "sha256": "2106a9db597004ca4e347c865a8d284086cccac3ec204fccb3b62e2c8f6ab5dd"
+      "bytes": 80060,
+      "sha256": "f0ac2fc02041da80f10e918bab18460efa0fd080dc85eef483c80fd3e321e490"
     },
     {
       "path": "captures/settings-rules.png",
@@ -72,13 +72,13 @@
     },
     {
       "path": "captures/settings.png",
-      "bytes": 552638,
-      "sha256": "ca38ce69b0d787419020b641c2221ca97bf8c52c10ee1e1ac93431af4b620065"
+      "bytes": 775368,
+      "sha256": "382e994f0c5ea5b860aa8b5401eb16d95b4681cea6239eec0b2fbc1f73015994"
     },
     {
       "path": "captures/setup.png",
-      "bytes": 483758,
-      "sha256": "ff858cb40c9e03569ffeab1a0da18f18b20bfed0f3f05f90d22152ae4c9e464a"
+      "bytes": 584456,
+      "sha256": "6ae9d231c51be83537a4df47b973584d3693971b3dd5305209fa1deb2d061d41"
     },
     {
       "path": "captures/slack-deaf.png",
@@ -87,38 +87,38 @@
     },
     {
       "path": "captures/worker-unstopped.png",
-      "bytes": 207383,
-      "sha256": "83bbc69c56f9f4a8f203c4af772ae4de53b0e72c92bcda5a46b1c73b16fbb243"
+      "bytes": 207359,
+      "sha256": "b262a1d94825009317fe9187f535ce43692cc1cdb3406771c3f527d4e08e8fc8"
     },
     {
       "path": "captures/workers-stopping.png",
-      "bytes": 198272,
-      "sha256": "8df3dc3c912bc4b65528b4ebe8a9e5e3dd17dd822594137ec8ef3f94e48bdecb"
+      "bytes": 198237,
+      "sha256": "5db9ff46282db87a6f859b23baafd9f12895c8001019f29ede1fbcb65911e1ea"
     },
     {
       "path": "facts/commands.json",
-      "bytes": 6896,
-      "sha256": "87accacc0471472bc2c7efc70abc87bcb51f10da946e9b0ec10689d8b8d5abdb"
+      "bytes": 8533,
+      "sha256": "a48a5e9ceda544632491c3cdbcfea6b1047520f4ebbdeaa240fb91d7d2b23d27"
     },
     {
       "path": "facts/detection.json",
-      "bytes": 4082,
-      "sha256": "d79a37db48bda944f0ebdff75b23a7e8c63f71e80b73e19485343a013b8ef468"
+      "bytes": 4628,
+      "sha256": "d8365f2c0d7859cec284aa84232ee26917e7b9637ec02b0e70d150aaf532a1de"
     },
     {
       "path": "facts/paths.json",
-      "bytes": 5889,
-      "sha256": "92d5636bd79f148319bf0a99bdd338c3f3afc7ee67e3420023976951131eb68e"
+      "bytes": 7138,
+      "sha256": "4708b8472f8f6029d866eaf20652f71dd153e75fadbf9770a74285bd6c8c1fb5"
     },
     {
       "path": "facts/retention.json",
-      "bytes": 1821,
-      "sha256": "45ae611e715088cf23d1799c45c90707efceeebf971833314d08d8901a21c1c3"
+      "bytes": 1825,
+      "sha256": "74def28fa5b780c75568204b5233555bb5e103d19eb1988f572982aec67e7750"
     },
     {
       "path": "facts/settings.json",
-      "bytes": 12987,
-      "sha256": "137353780a7aa8d6fe273a4c93c6b6025082163e5fccee1bdd4514a84db2208b"
+      "bytes": 15317,
+      "sha256": "4a67ef940a8aab31a9fbfaa60caf1b2eaccb59998012663e723050eea387333b"
     },
     {
       "path": "facts/setup-commands.json",

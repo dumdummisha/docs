@@ -31,7 +31,7 @@
     {
       "item": "git",
       "name": "git",
-      "about": "I keep my copies of your repositories with it.",
+      "about": "I read your code, and my workers commit, with it.",
       "readyLabel": "Found",
       "isRequired": true,
       "group": "How I work in your code",
@@ -92,20 +92,9 @@
       "about": "Your tickets and pages.",
       "readyLabel": "Works",
       "isRequired": false,
-      "group": "What I can read",
-      "signIn": "atlassian",
-      "signInLabel": "Sign in to Jira",
-      "getIt": null
-    },
-    {
-      "item": "google",
-      "name": "Google",
-      "about": "Your Docs and Sheets.",
-      "readyLabel": "Works",
-      "isRequired": false,
-      "group": "What I can read",
-      "signIn": "google",
-      "signInLabel": "Sign in to Google",
+      "group": "Connectors",
+      "signIn": null,
+      "signInLabel": null,
       "getIt": null
     },
     {
@@ -114,9 +103,31 @@
       "about": "Logs in your AWS accounts.",
       "readyLabel": "Works",
       "isRequired": false,
-      "group": "What I can read",
-      "signIn": "aws",
-      "signInLabel": "Sign in to AWS",
+      "group": "Connectors",
+      "signIn": null,
+      "signInLabel": null,
+      "getIt": null
+    },
+    {
+      "item": "browser",
+      "name": "Browser control",
+      "about": "Your browser's tabs, and the Mac's mouse, keyboard and screen.",
+      "readyLabel": "Works",
+      "isRequired": false,
+      "group": "Connectors",
+      "signIn": null,
+      "signInLabel": null,
+      "getIt": null
+    },
+    {
+      "item": "compaction",
+      "name": "Handoff compaction",
+      "about": "Writes a handoff when your Claude Code and OpenCode sessions compact, and resumes from it.",
+      "readyLabel": "Works",
+      "isRequired": false,
+      "group": "Connectors",
+      "signIn": null,
+      "signInLabel": null,
       "getIt": null
     },
     {
@@ -125,9 +136,9 @@
       "about": "Your design files, read only. Figma gives you a key, and you paste it into OpenCode, never into me.",
       "readyLabel": "Works",
       "isRequired": false,
-      "group": "What I can read",
-      "signIn": "figma",
-      "signInLabel": "Connect Figma",
+      "group": "Connectors",
+      "signIn": null,
+      "signInLabel": null,
       "getIt": null
     },
     {
@@ -136,9 +147,20 @@
       "about": "Your meeting notes. Fireflies gives you a key, and you paste it into OpenCode, never into me.",
       "readyLabel": "Works",
       "isRequired": false,
-      "group": "What I can read",
-      "signIn": "fireflies",
-      "signInLabel": "Connect Fireflies",
+      "group": "Connectors",
+      "signIn": null,
+      "signInLabel": null,
+      "getIt": null
+    },
+    {
+      "item": "google",
+      "name": "Google Workspace",
+      "about": "Your Docs and Sheets.",
+      "readyLabel": "Works",
+      "isRequired": false,
+      "group": "Connectors",
+      "signIn": null,
+      "signInLabel": null,
       "getIt": null
     }
   ]

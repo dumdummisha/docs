@@ -24,7 +24,7 @@
     {
       "id": "sessions",
       "keptDays": 14,
-      "description": "Which Claude session a conversation continues, counted from its last use. Claude Code's own transcript is not part of this."
+      "description": "Which session a conversation continues, counted from its last use. The runtime's own record of the session is not part of this."
     },
     {
       "id": "reply-budget",

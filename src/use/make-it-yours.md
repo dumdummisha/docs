@@ -53,7 +53,7 @@ Three cards on Settings decide who gets what. Each is separate, and leaving one 
 | **Who may ask me for work** | They can start workers: research, a ticket, an implementation and its review. They don't get your direct changes in Jira, Google and the other services. | Only you can start work. Everyone else the clone answers gets answers from reads. |
 | **Who I ignore** | **Soft-ignore** someone and the clone answers them only when they call it with your icon. **Ignore** them and it never answers them at all. | Nobody is ignored. |
 
-Each entry has **Stop watching**, **Stop allowing** or **Stop ignoring** beside it. A change counts from the clone's next turn, and [Settings and commands](/reference/settings#surfaces) lists the Slack commands that make the same changes.
+Each entry has **Stop watching**, **Stop allowing** or **Stop ignoring** beside it. Watching and ignoring affect new messages as soon as you save. Who may ask for work changes on the clone's next turn and does not stop workers already running. [Settings and commands](/reference/settings#surfaces) lists the Slack commands that make the same changes.
 
 <Shot id="settings-allowed" caption="Emma Lee and Max Becker may ask Leo's clone for work, each with Stop allowing. Made-up example." />
 
@@ -69,7 +69,7 @@ For a folder with a remote, **May merge** starts off, so pull requests stay unme
 
 ## Pause when you need to {#pause}
 
-**Pause Misha** is in the window's sidebar and in the Misha menu in the menu bar, and `pause` works in your self-DM. Pausing stops new work at once and tries to stop the workers that are running; messages that arrive meanwhile wait until you **Resume**. Because a settings change counts only from the clone's next turn, pause to stop work already under way. [Pause Misha](/operate/manage#pause) has the details.
+**Pause Misha** is in the window's sidebar and in the Misha menu in the menu bar, and `pause` works in your self-DM. Pausing stops the clone's new work at once and tries to stop the workers on it that are running; messages that arrive meanwhile wait until you **Resume**. To stop the clone's work already under way, pause. [Pause Misha](/operate/manage#pause) has the details.
 
 ## Ready {#ready}
 

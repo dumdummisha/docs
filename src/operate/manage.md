@@ -9,7 +9,7 @@ next:
 
 # Control and maintain Misha
 
-Pause is the brake: the clone stops answering, no new worker starts and Misha tries to stop the ones running, while Slack messages keep arriving and wait for you to resume. Below are pausing, changing what Misha may do, reading what it did, and what is known today about updating and removing it. For a problem Misha shows you, see [Troubleshooting](/operate/troubleshooting).
+Pause is the brake: the clone stops answering, no new worker starts on its work and Misha tries to stop the workers on it that are running, while Slack messages keep arriving and wait for you to resume. Below are pausing, changing what Misha may do, reading what it did, and what is known today about updating and removing it. For a problem Misha shows you, see [Troubleshooting](/operate/troubleshooting).
 
 ## Pause Misha {#pause}
 
@@ -20,16 +20,16 @@ The window's sidebar, the menu bar's Misha menu (**Pause Misha**, **Resume Misha
 While Misha is paused:
 
 - The answer being written is cancelled. The clone answers only your self-DM commands, such as `settings` and `resume`, and posts nothing else in Slack; a worker's post is refused.
-- No worker starts, and Misha tries to stop every worker it started that still runs, including the workers those started. Home says how that went.
+- No new worker starts on the clone's work, and Misha tries to stop every worker on that work that still runs, including the workers those started. Home says how that went. Workers you start from your own Claude Code or OpenCode sessions keep running and can start more work; check those in the session that started them.
 - Messages from Slack keep arriving and wait, with no age limit, so after a long pause the clone may answer requests that are days old.
-- The pause survives quitting: Misha starts paused and, once it runs, tries again to stop any of its workers still running.
+- The pause survives quitting: Misha starts paused and, once it runs, tries again to stop any worker on the clone's work still running.
 
 Home's paused card shows how the stop is going:
 
 | Home says | What it means | What to do |
 | --- | --- | --- |
 | "I'm stopping my workers, start no new ones..." | The stop is under way. The workers show under **Working on now** until they end. | Wait. |
-| "...but I stopped my workers..." | Every worker Misha started has ended: Misha counts one as stopped only once its processes are gone. | Nothing. |
+| "...but I stopped my workers..." | Every worker on the clone's work has ended: Misha counts one as stopped only once its processes are gone. | Nothing. |
 | "I couldn't stop one of my workers (...)" | Misha couldn't confirm that this worker stopped. It may have refused to signal a process it couldn't verify as the worker's, or the worker's processes didn't end after it signalled them; its log says which. The card and a desktop notification name the run by its id, not by a process. | Keep Misha paused. The worker stays under **Working on now** while its processes may still run. The window doesn't show which process on your Mac belongs to the run, so [ask for help](/operate/troubleshooting#asking-for-help) with the run id rather than quitting a process that only looks like it. |
 | "I couldn't stop my workers, so they may still run; my log says why." | The stop failed as a whole, so Misha can't say which workers ended. | Keep Misha paused. Quit and open Misha again, which starts paused and tries the stop again. If workers are still listed under **Working on now**, [ask for help](/operate/troubleshooting#asking-for-help). |
 
@@ -39,7 +39,7 @@ Home's paused card shows how the stop is going:
 
 <Shot id="worker-unstopped" caption="A worker Misha couldn't confirm stopped, named on Home by its run id. Made-up example." />
 
-Home shows these lines only while the paused card is the one on top. "Something's wrong on my side." and "I can't hear Slack." take its place, and the pause stays in force under them ([which card Home shows](/operate/troubleshooting#which-card)). With Slack lost, Misha still tries to stop the workers; while its runtime has failed, it isn't running to stop them. Either way **Working on now** is the check: a worker stays listed there while its processes may still run, so once no worker is listed, none of Misha's workers is running. If workers stay listed, keep the pause and [ask for help](/operate/troubleshooting#asking-for-help).
+Home shows these lines only while the paused card is the one on top. "Something's wrong on my side." and "I can't hear Slack." take its place, and the pause stays in force under them ([which card Home shows](/operate/troubleshooting#which-card)). With Slack lost, Misha still tries to stop the workers; while its runtime has failed, it isn't running to stop them. Either way **Working on now** is the check: a worker of the clone's work stays listed there while its processes may still run, so once none is listed, none of the clone's workers is running. If workers stay listed, keep the pause and [ask for help](/operate/troubleshooting#asking-for-help).
 
 Pause can't reach what has left your Mac. A posted message, a merged pull request, an edited ticket or a dev deploy stays as it is, and a build or CI run a worker started may still finish. To correct something in public, write there yourself.
 
@@ -47,12 +47,12 @@ Pause can't reach what has left your Mac. A posted message, a merged pull reques
 
 | You | The clone | Workers | Slack messages |
 | --- | --- | --- | --- |
-| Pause | Answers only your self-DM commands | Misha tries to stop them (check Home); none start | Taken in; they wait |
+| Pause | Answers only your self-DM commands | Misha tries to stop the clone's (check Home); none start on its work | Taken in; they wait |
 | Close the window | Keeps answering: Misha stays in the menu bar | Keep running | Taken in as usual |
 | Quit Misha | Stops | Keep running: they are separate processes | Not taken in. While the browser runs, the extension queues up to 2,000 until Misha takes them in again |
 | Close Slack or the browser | Hears nothing and answers nothing | Keep running; their Slack posts fail | Not captured; see [Troubleshooting](/operate/troubleshooting#slack-unheard) |
 
-To stop work, pause and wait until no worker is listed under **Working on now**. Quit after that, not instead: quitting alone leaves the workers running.
+To stop the clone's work, pause and wait until none of its workers is listed under **Working on now**. Quit after that, not instead: quitting alone leaves the workers running.
 
 ## Change what Misha may do {#scope}
 

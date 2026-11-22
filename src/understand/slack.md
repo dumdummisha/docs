@@ -33,7 +33,7 @@ Jump to [your messages](#your-messages), [work requests](#questions-and-work), [
   </ol>
 </figure>
 
-The clone's reply has the marker and italics (code stays plain) and calls Leo by first name. A reaction from Leo's account carries no marker and may come from the clone. When it matters, ask Leo.
+The clone's reply has the marker and italics (code stays plain) and calls Leo by first name. A reaction from Leo's account carries no marker and may come from the clone. Workers can also post from Leo's account. Misha sends their text as they wrote it, without adding the clone's emoji or italics. When it matters, ask Leo.
 
 ## What happens to your messages {#your-messages}
 

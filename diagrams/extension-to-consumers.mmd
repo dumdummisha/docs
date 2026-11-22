@@ -1,0 +1,24 @@
+flowchart LR
+  ext["Your extension folder<br/>misha-extension.json"]
+  skills["Skills and commands"]
+  agents["Agent profiles"]
+  mods["Modules: tools and hooks"]
+  gate["A module with a connector block<br/>loads only while its Set up switch is on"]
+
+  subgraph who["Who gets it"]
+    own["Your Claude Code and OpenCode sessions"]
+    wk["Workers"]
+    cl["Clone turns"]
+  end
+
+  ext --> skills
+  ext --> agents
+  ext --> mods
+  mods --> gate
+
+  skills -- "installed" --> own
+  agents -- "installed as agents" --> own
+  gate -- "tools through the misha server, and hooks" --> own
+  agents -- "a worker can run as one" --> wk
+  gate -- "tools where served to workers and a grant names the profile" --> wk
+  gate -- "only the tools a connector declares for the clone" --> cl

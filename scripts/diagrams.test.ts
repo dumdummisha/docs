@@ -5,7 +5,7 @@ import { join } from 'node:path'
 
 import { afterEach, describe, expect, it } from 'vitest'
 
-import { diagramFindings } from './diagrams.ts'
+import { diagramFindings, renderBackgroundOf } from './diagrams.ts'
 
 const directories: string[] = []
 const SOURCE = 'flowchart TB\n  a["A"] --> b["B"]\n'
@@ -73,5 +73,25 @@ describe('[scripts] Diagrams - diagramFindings', () => {
     expect(await diagramFindings(root)).toStrictEqual([
       { diagram: 'flow', problem: 'rendered from another version of its source' },
     ])
+  })
+})
+
+describe('[scripts] Diagrams - renderBackgroundOf', () => {
+  it("should draw the SVG on the theme's background", async () => {
+    // Arrange
+    const root = await repository({}, {})
+    await writeFile(join(root, 'diagrams/mermaid.json'), JSON.stringify({ theme: 'base', themeVariables: { background: '#fffef8' } }))
+
+    // Act + Assert
+    expect(await renderBackgroundOf(root)).toBe('#fffef8')
+  })
+
+  it('should refuse a configuration whose theme names no background as one #rrggbb colour', async () => {
+    // Arrange
+    const root = await repository({}, {})
+    await writeFile(join(root, 'diagrams/mermaid.json'), JSON.stringify({ themeVariables: { background: 'white' } }))
+
+    // Act + Assert
+    await expect(renderBackgroundOf(root)).rejects.toThrow('names no theme background as one #rrggbb colour')
   })
 })

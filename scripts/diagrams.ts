@@ -5,6 +5,8 @@ import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promis
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
+import { z } from 'zod'
+
 import { findingLine, findingsInFile } from './public-data.ts'
 
 // The site's diagrams: Mermaid sources in diagrams/, rendered to static SVG in src/public/diagrams/ by
@@ -21,6 +23,11 @@ const RENDERED_EXTENSION = '.svg'
 const MERMAID_CLI = '@mermaid-js/mermaid-cli@11.17.0'
 // Mermaid writes this into an otherwise valid SVG, with exit status 0, when a statement does not parse.
 const SYNTAX_ERROR = 'Syntax error'
+// The part of the Mermaid configuration the renderer reads itself: the theme's background, which the SVG is drawn on, so
+// the diagram's canvas and its theme come from one place.
+const MERMAID_BACKGROUND_SCHEMA = z.object({
+  themeVariables: z.object({ background: z.string().regex(/^#[0-9a-f]{6}$/u) }),
+})
 const RENDERED_FROM = /^<!-- Rendered by pnpm render:diagrams from (?<source>\S+), sha256 (?<hash>[0-9a-f]{64})\. -->\n/u
 
 export interface IDiagramFinding {
@@ -41,6 +48,16 @@ const renderedNamesIn = async (root: string): Promise<string[]> => {
   const svgs = await Promise.all(names.map((name) => readFile(join(root, RENDERED_DIRECTORY, `${name}${RENDERED_EXTENSION}`), 'utf8')))
 
   return names.filter((_, index) => RENDERED_FROM.test(svgs[index] ?? ''))
+}
+
+// The background the theme in diagrams/mermaid.json names, refused unless it is one #rrggbb colour.
+export const renderBackgroundOf = async (root: string): Promise<string> => {
+  const result = MERMAID_BACKGROUND_SCHEMA.safeParse(JSON.parse(await readFile(join(root, MERMAID_CONFIG), 'utf8')))
+  if (!result.success) {
+    throw new Error(`${MERMAID_CONFIG} names no theme background as one #rrggbb colour: ${z.prettifyError(result.error)}`)
+  }
+
+  return result.data.themeVariables.background
 }
 
 const renderedFromLine = (source: string, bytes: Buffer): string =>
@@ -76,6 +93,7 @@ export const diagramFindings = async (root: string): Promise<IDiagramFinding[]> 
 // scan, and deletes rendered SVGs whose source is gone. Nothing is written until every diagram renders.
 export const renderDiagrams = async (root: string): Promise<string[]> => {
   const sources = await namesIn(join(root, DIAGRAMS_DIRECTORY), SOURCE_EXTENSION)
+  const background = await renderBackgroundOf(root)
   const scratch = await mkdtemp(join(tmpdir(), 'diagrams-'))
   try {
     const svgs = await Promise.all(
@@ -84,7 +102,7 @@ export const renderDiagrams = async (root: string): Promise<string[]> => {
         const output = join(scratch, `${diagram}${RENDERED_EXTENSION}`)
         execFileSync(
           'npx',
-          ['-y', MERMAID_CLI, '-i', join(root, source), '-o', output, '-c', join(root, MERMAID_CONFIG), '-b', 'white', '-q'],
+          ['-y', MERMAID_CLI, '-i', join(root, source), '-o', output, '-c', join(root, MERMAID_CONFIG), '-b', background, '-q'],
           { stdio: ['ignore', 'ignore', 'inherit'] }
         )
         const svg = await readFile(output, 'utf8')

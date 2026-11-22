@@ -26,6 +26,14 @@
       }
     },
     {
+      "field": "routines",
+      "description": "Your standing instructions for work: when something happens, what the clone does and what it tells you. They grant no access.",
+      "default": "Empty, so none.",
+      "limits": {
+        "maxCharacters": 2000
+      }
+    },
+    {
       "field": "notes",
       "description": "What the clone remembers, in your exact words, numbered from 1.",
       "default": "None.",
@@ -68,47 +76,60 @@
     },
     {
       "field": "repositories",
-      "description": "The GitHub repositories the clone keeps read-only copies of, and where its workers may merge.",
+      "description": "Your own folders the clone reads as they are, each with the remote its pull requests go to, and where its workers may merge.",
       "default": "None.",
       "limits": {
-        "owner": {
-          "pattern": "^[a-z0-9-]{1,39}$",
-          "flags": "iu"
-        },
-        "name": {
-          "pattern": "^(?!\\.{1,2}$)[a-z0-9._-]{1,100}$",
+        "remote": {
+          "pattern": "^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?\\/[a-z0-9-]{1,39}\\/(?!\\.{1,2}$)[a-z0-9._-]{1,100}$",
           "flags": "iu"
         }
       }
     },
     {
-      "field": "integrations",
-      "description": "The integrations the clone may use, each only while its sign-in on this Mac also works.",
-      "default": "None.",
+      "field": "connectors",
+      "description": "The connectors the clone may use, which Misha loads everywhere while they are on and nowhere while they are off.",
+      "default": "Handoff compaction.",
       "limits": {
         "names": [
-          "github",
-          "gpt",
-          "google",
-          "aws",
           "atlassian",
+          "aws",
+          "browser",
+          "compaction",
+          "figma",
           "fireflies",
-          "figma"
+          "google"
         ]
       }
     },
     {
       "field": "compactAtTokens",
-      "description": "How many tokens the clone's Claude session grows to before it is compacted.",
-      "default": "Empty, so 750000 tokens.",
+      "description": "How many tokens the clone's session grows to before it is compacted. On OpenCode it must be below the model's input limit.",
+      "default": "Empty, so 750000 tokens on Claude Code, and OpenCode's own threshold there.",
       "limits": {
         "isWholeNumber": true,
         "minTokens": 1
       }
     },
     {
+      "field": "runtime",
+      "description": "The runtime the clone runs on. Switching to the other one starts a new session there; the settings, notes and routines stay.",
+      "default": "Claude Code.",
+      "limits": {
+        "runtimes": [
+          "Claude Code",
+          "OpenCode"
+        ]
+      }
+    },
+    {
+      "field": "models",
+      "description": "For each runtime, the model and effort the clone thinks with there, from the models that runtime offers. A change takes effect on the next message, in the same session.",
+      "default": "Empty for each, so claude-opus-5-5 at high on Claude Code and openai/gpt-6-astra at medium on OpenCode.",
+      "limits": {}
+    },
+    {
       "field": "sessionEpoch",
-      "description": "Moves on with each start fresh, so the next message starts a new Claude session.",
+      "description": "Moves on with each start fresh and each switch of runtime, so the next message starts a new session.",
       "default": "0",
       "limits": {}
     }
@@ -242,7 +263,7 @@
     },
     {
       "type": "set-merging",
-      "description": "Let workers merge reviewed pull requests in a repository, or stop them.",
+      "description": "Let workers merge pull requests in a linked folder's remote, or stop them.",
       "setting": "repositories",
       "window": [
         {
@@ -260,20 +281,20 @@
     },
     {
       "type": "add-repository",
-      "description": "Add a repository the clone keeps a copy of.",
+      "description": "Link a folder of yours for the clone to read, with the remote its pull requests go to.",
       "setting": "repositories",
       "window": [
         {
           "page": "Settings",
           "section": "Repositories",
           "control": "Add",
-          "note": "After writing owner/name."
+          "note": "After writing the folder's full path and its remote."
         },
         {
           "page": "Get started",
           "section": "Show me your code",
           "control": "Add",
-          "note": "Once the face is saved, after writing owner/name."
+          "note": "Once the face is saved, after writing the folder's full path and its remote."
         }
       ],
       "slackCommands": [],
@@ -281,7 +302,7 @@
     },
     {
       "type": "remove-repository",
-      "description": "Remove a repository and its copy.",
+      "description": "Unlink a folder: the clone stops reading it, and the folder stays as it is.",
       "setting": "repositories",
       "window": [
         {
@@ -328,7 +349,7 @@
     },
     {
       "type": "start-fresh",
-      "description": "Start the clone's next message in a new Claude session.",
+      "description": "Start the clone's next message in a new session.",
       "setting": "sessionEpoch",
       "window": [
         {
@@ -374,27 +395,32 @@
       "setupTool": "misha_apply_setting"
     },
     {
-      "type": "set-integration",
-      "description": "Turn an integration on or off.",
-      "setting": "integrations",
+      "type": "set-routines",
+      "description": "Change your routines.",
+      "setting": "routines",
+      "window": [
+        {
+          "page": "Settings",
+          "section": "Routines",
+          "control": "Save routines",
+          "note": null
+        }
+      ],
+      "slackCommands": [
+        "set-routines"
+      ],
+      "setupTool": "misha_apply_setting"
+    },
+    {
+      "type": "set-connector",
+      "description": "Turn a connector on or off.",
+      "setting": "connectors",
       "window": [
         {
           "page": "Set up",
-          "section": "What I think with",
+          "section": "Connectors",
           "control": "I use it",
-          "note": "On each integration's row."
-        },
-        {
-          "page": "Set up",
-          "section": "How I work in your code",
-          "control": "I use it",
-          "note": "On each integration's row."
-        },
-        {
-          "page": "Set up",
-          "section": "What I can read",
-          "control": "I use it",
-          "note": "On each integration's row."
+          "note": "On each connector's row."
         }
       ],
       "slackCommands": [],
@@ -410,6 +436,39 @@
           "section": "When I tidy my conversation",
           "control": "Save",
           "note": "Under More."
+        }
+      ],
+      "slackCommands": [],
+      "setupTool": "misha_apply_setting"
+    },
+    {
+      "type": "set-runtime",
+      "description": "Switch the runtime the clone runs on, which starts a new session there.",
+      "setting": "runtime",
+      "window": [
+        {
+          "page": "Settings",
+          "section": "What I think with",
+          "control": "OpenCode",
+          "note": "Or Claude Code while the clone runs on OpenCode; then Switch to it in the dialog it opens."
+        }
+      ],
+      "slackCommands": [
+        "use-claude-code",
+        "use-opencode"
+      ],
+      "setupTool": "misha_apply_setting"
+    },
+    {
+      "type": "set-model",
+      "description": "Change the selected runtime's model and effort, or go back to its default.",
+      "setting": "models",
+      "window": [
+        {
+          "page": "Settings",
+          "section": "What I think with",
+          "control": "Save",
+          "note": "After picking a model and its effort from those it offers, or Default."
         }
       ],
       "slackCommands": [],

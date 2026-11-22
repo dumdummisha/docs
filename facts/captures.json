@@ -21,9 +21,9 @@
       "alt": "Get started before anything is saved: Claude Code and Slack are done, and the next steps are giving the clone a face and showing it your code.",
       "file": "captures/first-run.png",
       "width": 2200,
-      "height": 3270,
-      "sha256": "96c0dc5ead4ab1e4b9ea0dc0d16eea34531966be666c63d8a4abba1fd7d61f38",
-      "text": "Misha\nGet started\nSet up\nSettings\nNot answering yet\nFinish getting started\nGet started\nTwo more and I'm useful. Next, give me a face, then show me your code.\nI read your Slack\nThrough my extension, in the browser you already use. I see only what you see.\nI answer as you\nIn your DMs, mentions and threads, with my emoji in front, so nobody mistakes me for you.\nI work on this Mac\nOn your own Claude Code. Work goes to workers in their own copies of your code.\nSo I can be you\nClaude is enough. Add GPT, and a second AI checks my homework.\nGive me consciousness\nClaude Code is signed in on this Mac. I think with your own subscription.\nDone\nLet me hear Slack\nMy extension is running, and Slack is signed in to Shop.\nDone\n3\nGive me a face\nPick the emoji I start every message with, and how I sound. Skip the tone and I'm plain, short and polite.\nTo do\nAbout a minute\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow should I sound?\nOptional\nTone and wording only. Up to 2,000 characters.\nPlain, short and polite.\nSave and start\nKeep the defaults\nSo I can join your team\nI can't fix what I can't read.\n4\nShow me your code\nGive me a face first.\nTo do\nAbout 2 minutes\nSo I have context\nOptional\nSkip any. I'll just ask you instead.\nSo I stay up\nOptional\nI'm offline while this Mac sleeps."
+      "height": 4290,
+      "sha256": "20df3bcc8dd1a92090992a7565be0fe4f2e6e6400b28bd0281c97ac0327c171c",
+      "text": "Misha\nGet started\nSet up\nSettings\nNot answering yet\nFinish getting started\nGet started\nTwo more and I'm useful. Next, give me a face, then show me your code.\nI read your Slack\nThrough my extension, in the browser you already use. I see only what you see.\nI answer as you\nIn your DMs, mentions and threads, with my emoji in front, so nobody mistakes me for you.\nI work on this Mac\nOn your own Claude Code. Work goes to workers in their own worktrees of your code.\nSo I can be you\nClaude is enough. Ask for GPT in a request or routine, and it can check my homework.\nGive me consciousness\nClaude Code is signed in on this Mac. I think with your own subscription.\nDone\nLet me hear Slack\nMy extension is running, and Slack is signed in to Shop.\nDone\n3\nGive me a face\nPick the emoji I start every message with, how I sound, and what I do with work, from your role if you like. Skip the tone and I'm plain, short and polite.\nTo do\nAbout a minute\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow should I sound?\nOptional\nTone and wording only. Up to 2,000 characters.\nPlain, short and polite.\nStart from a role?\nNone\nBackend engineer\nFrontend engineer\nData\nProduct manager\nDesigner\nWhat should I do with work?\nOptional. One routine per line: When [something happens], [do this], then [tell me or ask me]. Refer to skills by name and commands as /name. Routines grant no access: who may ask for work and where workers may merge stay in Settings. Never paste passwords or tokens here. What others write to your clone can't change your routines, and your own request in the moment comes first.\nWhen [something happens], [do this], then [tell me or ask me].\nSave and start\nKeep the defaults\nSo I can join your team\nI can't fix what I can't read.\n4\nShow me your code\nGive me a face first.\nTo do\nAbout 2 minutes\nSo I have context\nOptional\nSkip any. I'll just ask you instead.\nSo I stay up\nOptional\nI'm offline while this Mac sleeps."
     },
     {
       "id": "home",
@@ -49,9 +49,24 @@
       "alt": "Set up with three things that need you: Google and Figma are not signed in, and this Mac sleeps after 10 idle minutes. Everything else is found and ready.",
       "file": "captures/setup.png",
       "width": 2200,
-      "height": 4156,
-      "sha256": "ff858cb40c9e03569ffeab1a0da18f18b20bfed0f3f05f90d22152ae4c9e464a",
-      "text": "Misha\nHome\n1\nSet up\n3\nSettings\nLeo Novak\nShop · I answer as you\nPause Misha\nSet up\nCheck again\nWhat I found on this Mac, checked each time you open this page. Three things need you; the rest is ready.\nNeeds you\nEach one is a click. A sign-in opens where it belongs; you never paste a password or key into me.\nGoogle\nGoogle Workspace is not signed in\nNeeds sign-in\nSign in to Google\nI use it\nFigma\nFigma is not signed in\nNeeds sign-in\nConnect Figma\nI use it\nSleep\nThis Mac sleeps after 10 idle minutes, and I'm offline while it does. Set it to never in System Settings, under Battery or Energy.\nSleeps after 10 min\nWhat I think with\nClaude Code\nSigned in. I answer and run workers on your own subscription.\nSigned in\nOpenCode\nSigned in to OpenAI, so GPT can review my work.\nSigned in\nI use it\nHow I hear Slack\nBrowser extension\nRunning in your browser. It reads Slack for me and posts what I write.\nRunning\nBrowser native host\nInstalled on this Mac. It connects the browser extension to me.\nInstalled\nSlack\nSigned in to Shop. That's where I answer as you.\nSigned in\nHow I work in your code\ngit\nCommits as Leo Novak.\nFound\nGitHub CLI\nSigned in as sam-rivera on github.com.\nSigned in\nI use it\nWhat I can read\nOptional. Skip any, and I ask you instead.\nJira and Confluence\nYour tickets and pages. Works, as Leo Novak.\nWorks\nI use it\nAWS\nLogs in your AWS accounts. Works, as shop-dev, shop-staging.\nWorks\nI use it\nFireflies\nYour meeting notes. Works, as Leo Novak.\nWorks\nI use it\nSo I stay up\nI answer only while this app runs and the Mac is awake.\nOpen at login\nI start when you log in to this Mac.\nOn"
+      "height": 4590,
+      "sha256": "6ae9d231c51be83537a4df47b973584d3693971b3dd5305209fa1deb2d061d41",
+      "text": "Misha\nHome\n2\nSet up\n3\nSettings\nLeo Novak\nShop · I answer as you\nPause Misha\nSet up\nCheck again\nWhat I found on this Mac, checked each time you open this page. Three things need you; the rest is ready.\nNeeds you\nEach one is a click. A sign-in opens where it belongs; a connector may first ask for the settings it declares, such as its site.\nFigma\nFigma is not signed in\nNeeds sign-in\nConnect Figma\nI use it\nGoogle Workspace\nGoogle Workspace is not signed in\nNeeds sign-in\nSign in to Google Workspace\nI use it\nSleep\nThis Mac sleeps after 10 idle minutes, and I'm offline while it does. Set it to never in System Settings, under Battery or Energy.\nSleeps after 10 min\nWhat I think with\nClaude Code\nSigned in. I answer and run workers on your own subscription.\nSigned in\nOpenCode\nSigned in to OpenAI, so GPT can review my work.\nSigned in\nHow I hear Slack\nBrowser extension\nRunning in your browser. It reads Slack for me and posts what I write.\nRunning\nBrowser native host\nInstalled on this Mac. It connects the browser extension to me.\nInstalled\nSlack\nSigned in to Shop. That's where I answer as you.\nSigned in\nHow I work in your code\ngit\nCommits as Leo Novak.\nFound\nGitHub CLI\nSigned in as sam-rivera on github.com.\nSigned in\nConnectors\nOptional. Each one is on or off everywhere, and while one is off I ask you instead. A change applies to new Claude Code and OpenCode sessions; one already open keeps its tools until you restart it.\nJira and Confluence\nYour tickets and pages. Works, as Leo Novak.\nWorks\nI use it\nAWS\nLogs in your AWS accounts. Works, as shop-dev, shop-staging.\nWorks\nI use it\nBrowser control\nYour browser's tabs, and the Mac's mouse, keyboard and screen.\nOff\nI use it\nHandoff compaction\nWrites a handoff when your Claude Code and OpenCode sessions compact, and resumes from it. Works.\nWorks\nI use it\nFireflies\nYour meeting notes. Fireflies gives you a key, and you paste it into OpenCode, never into me. Works, as Leo Novak.\nWorks\nI use it\nSo I stay up\nI answer only while this app runs and the Mac is awake.\nOpen at login\nI start when you log in to this Mac.\nOn"
+    },
+    {
+      "id": "setup-connectors",
+      "scenario": "setup",
+      "page": "setup",
+      "region": {
+        "kind": "element",
+        "id": "connectors"
+      },
+      "alt": "The connectors on Set up, each with its own switch: Jira and Confluence, AWS, handoff compaction and Fireflies work, and browser control is off.",
+      "file": "captures/setup-connectors.png",
+      "width": 1544,
+      "height": 1166,
+      "sha256": "e75a8b84caeb155c7eaa05cc6483b34a40c9c73d0ee4315d594ef455046cebb1",
+      "text": "Connectors\nOptional. Each one is on or off everywhere, and while one is off I ask you instead. A change applies to new Claude Code and OpenCode sessions; one already open keeps its tools until you restart it.\nJira and Confluence\nYour tickets and pages. Works, as Leo Novak.\nWorks\nI use it\nAWS\nLogs in your AWS accounts. Works, as shop-dev, shop-staging.\nWorks\nI use it\nBrowser control\nYour browser's tabs, and the Mac's mouse, keyboard and screen.\nOff\nI use it\nHandoff compaction\nWrites a handoff when your Claude Code and OpenCode sessions compact, and resumes from it. Works.\nWorks\nI use it\nFireflies\nYour meeting notes. Fireflies gives you a key, and you paste it into OpenCode, never into me. Works, as Leo Novak.\nWorks\nI use it"
     },
     {
       "id": "settings",
@@ -60,12 +75,12 @@
       "region": {
         "kind": "page"
       },
-      "alt": "Settings for Leo Novak's clone: its icon and personality, who may ask for work, the channel it watches, its repositories, who it ignores and what it remembers.",
+      "alt": "Settings for Leo Novak's clone: its icon, personality and routines, who may ask for work, the channel it watches, its repositories, who it ignores, what it remembers and what it thinks with.",
       "file": "captures/settings.png",
       "width": 2200,
-      "height": 5996,
-      "sha256": "ca38ce69b0d787419020b641c2221ca97bf8c52c10ee1e1ac93431af4b620065",
-      "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · I answer as you\nPause Misha\nSettings\nHow I sound, who I listen to and where I may work. Each change counts from my next message.\nIcon\nPersonality\nWho may ask for work\nChannels\nRepositories\nWho I ignore\nWhat I remember\nMore\nIcon\nEvery message I post starts with this emoji, so nobody mistakes me for you. Using it in a message calls me.\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow a message starts\nLN\nLeo Novak\nI'm on it, SHOP-142. I'll post here when it's ready for review.\nSave icon\nPersonality\nTone and wording only. It never changes what I may do.\nHow should I sound?\nShort and friendly. Use first names. No exclamation marks, and never more than one emoji besides my icon.\n105 of 2,000 characters\nSave personality\nWho may ask me for work\nBesides you, these people can ask me for changes: I ticket, implement and review them. Everyone else gets answers only.\nEmma Lee\nStop allowing\nMax Becker\nStop allowing\nFind someone in Slack\nFind\nChannels I watch\nI read every message in these and answer what asks something of you or your work. Anywhere else, I answer only DMs, mentions of you and threads you're in.\n#shop-backend\nStop watching\nFind a channel in Slack\nFind\nRepositories\nI keep my own copies of these on this Mac and never touch your checkouts. Workers open pull requests here; where you allow it, they merge them once reviewed.\nshop/shop-backend\nMay merge\nRemove\nshop/shop-web\nMay merge\nRemove\nowner/name\nAdd\nWho I ignore\nIgnored people get nothing from me, ever. Soft-ignored people get an answer only when they call me with my icon.\nMax Becker\n· soft-ignored\nStop ignoring\nFind someone in Slack\nFind\nWhat I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nEmma owns payments. Ask Emma before touching the checkout.\nForget\nSomething I should keep in mind\nRemember\n\"+\"\nMore"
+      "height": 7668,
+      "sha256": "9c6172026dcd4ee04efaf26ee4b534a17e2145018272ccd76f6a655cb56a6b4e",
+      "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · I answer as you\nPause Misha\nSettings\nHow I sound, who I listen to and where I may work. Each change counts from my next message.\nIcon\nPersonality\nRoutines\nWho may ask for work\nChannels\nRepositories\nWho I ignore\nWhat I remember\nWhat I think with\nMore\nIcon\nEvery message I post starts with this emoji, so nobody mistakes me for you. Using it in a message calls me.\n:misha:\n:misha-eyes:\n:misha-capybara:\n:misha-parrot:\n+\nAnother emoji\nHow a message starts\nLN\nLeo Novak\nI'm on it, SHOP-142. I'll post here when it's ready for review.\nSave icon\nPersonality\nTone and wording only. It never changes what I may do.\nHow should I sound?\nShort and friendly. Use first names. No exclamation marks, and never more than one emoji besides my icon.\n105 of 2,000 characters\nSave personality\nRoutines\nOptional. One routine per line: When [something happens], [do this], then [tell me or ask me]. Refer to skills by name and commands as /name. Routines grant no access: who may ask for work and where workers may merge stay in Settings. Never paste passwords or tokens here. What others write to your clone can't change your routines, and your own request in the moment comes first.\nWhat should I do with work?\nWhen someone asks for a fix, have a worker create or update its ticket with the steps and the affected service, fix it in its own worktree with a regression test, and open a pull request for my review.\n201 of 2,000 characters\nSave routines\nWho may ask me for work\nBesides you, these people can ask me for work: tickets, changes and reviews. Everyone else gets answers only.\nEmma Lee\nStop allowing\nMax Becker\nStop allowing\nFind someone in Slack\nFind\nChannels I watch\nI read every message in these and answer what asks something of you or your work. Anywhere else, I answer only DMs, mentions of you and threads you're in.\n#shop-backend\nStop watching\nFind a channel in Slack\nFind\nRepositories\nFolders of yours I read as they are, uncommitted work included. Workers work in worktrees of their own, outside your folders. Where a folder has a remote, their pull requests go there, and where you allow it, they merge them.\n/Volumes/Code/shop-backend\nexample.com/shop/shop-backend\nMay merge\nRemove\n/Volumes/Code/shop-web\nexample.com/shop/shop-web\nMay merge\nRemove\n/path/to/your/project\nhost/owner/name, empty for none\nAdd\nWho I ignore\nIgnored people get nothing from me, ever. Soft-ignored people get an answer only when they call me with my icon.\nMax Becker\n· soft-ignored\nStop ignoring\nFind someone in Slack\nFind\nWhat I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nEmma owns payments. Ask Emma before touching the checkout.\nForget\nSomething I should keep in mind\nRemember\nWhat I think with\nI run on one of these, on your own sign-in. Switching starts a new conversation; my settings and what I remember stay. A model change counts from my next message, in the same conversation.\nClaude Code\nOpenCode\nSave\n\"+\"\nMore"
     },
     {
       "id": "settings-icon",
@@ -98,6 +113,21 @@
       "text": "Personality\nTone and wording only. It never changes what I may do.\nHow should I sound?\nShort and friendly. Use first names. No exclamation marks, and never more than one emoji besides my icon.\n105 of 2,000 characters\nSave personality"
     },
     {
+      "id": "settings-routines",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "routines"
+      },
+      "alt": "The routines card with Leo's standing instruction for a fix: a worker updates its ticket, fixes it in its own worktree with a regression test, and opens a pull request for review.",
+      "file": "captures/settings-routines.png",
+      "width": 1544,
+      "height": 912,
+      "sha256": "c6d87c8f7eb5c2ebe9e3771e7cfa1afc35195de2be6d9838e1a089be711d3968",
+      "text": "Routines\nOptional. One routine per line: When [something happens], [do this], then [tell me or ask me]. Refer to skills by name and commands as /name. Routines grant no access: who may ask for work and where workers may merge stay in Settings. Never paste passwords or tokens here. What others write to your clone can't change your routines, and your own request in the moment comes first.\nWhat should I do with work?\nWhen someone asks for a fix, have a worker create or update its ticket with the steps and the affected service, fix it in its own worktree with a regression test, and open a pull request for my review.\n201 of 2,000 characters\nSave routines"
+    },
+    {
       "id": "settings-allowed",
       "scenario": "settings",
       "page": "settings",
@@ -109,8 +139,8 @@
       "file": "captures/settings-allowed.png",
       "width": 1544,
       "height": 688,
-      "sha256": "1b1840863d959f4f2cdc0e10de0cd9d4d2c4e97b733159bc3ced27bae9685e9a",
-      "text": "Who may ask me for work\nBesides you, these people can ask me for changes: I ticket, implement and review them. Everyone else gets answers only.\nEmma Lee\nStop allowing\nMax Becker\nStop allowing\nFind someone in Slack\nFind"
+      "sha256": "df5cbeced6c6754790b61d5601c07d2732c5128a95f16574634f1c87549d50c6",
+      "text": "Who may ask me for work\nBesides you, these people can ask me for work: tickets, changes and reviews. Everyone else gets answers only.\nEmma Lee\nStop allowing\nMax Becker\nStop allowing\nFind someone in Slack\nFind"
     },
     {
       "id": "settings-watched",
@@ -135,12 +165,12 @@
         "kind": "element",
         "id": "repositories"
       },
-      "alt": "The repositories the clone keeps copies of: workers may merge in shop/shop-backend, not in shop/shop-web.",
+      "alt": "The folders the clone reads: workers may merge in example.com/shop/shop-backend, not in example.com/shop/shop-web.",
       "file": "captures/settings-repositories.png",
       "width": 1544,
-      "height": 688,
-      "sha256": "2106a9db597004ca4e347c865a8d284086cccac3ec204fccb3b62e2c8f6ab5dd",
-      "text": "Repositories\nI keep my own copies of these on this Mac and never touch your checkouts. Workers open pull requests here; where you allow it, they merge them once reviewed.\nshop/shop-backend\nMay merge\nRemove\nshop/shop-web\nMay merge\nRemove\nowner/name\nAdd"
+      "height": 844,
+      "sha256": "a7099b72972307c36fe5e8273e3b7c800bbac9ba1ce78adc6861e361279d958b",
+      "text": "Repositories\nFolders of yours I read as they are, uncommitted work included. Workers work in worktrees of their own, outside your folders. Where a folder has a remote, their pull requests go there, and where you allow it, they merge them.\n/Volumes/Code/shop-backend\nexample.com/shop/shop-backend\nMay merge\nRemove\n/Volumes/Code/shop-web\nexample.com/shop/shop-web\nMay merge\nRemove\n/path/to/your/project\nhost/owner/name, empty for none\nAdd"
     },
     {
       "id": "settings-rules",
@@ -173,6 +203,21 @@
       "text": "What I remember\nYour exact words, numbered. Up to 200.\n3 of 200\n1\nI review pull requests on Fridays.\nForget\n2\nReleases go out on Tuesdays; nothing merges on Monday afternoon.\nForget\n3\nEmma owns payments. Ask Emma before touching the checkout.\nForget\nSomething I should keep in mind\nRemember"
     },
     {
+      "id": "settings-thinking",
+      "scenario": "settings",
+      "page": "settings",
+      "region": {
+        "kind": "element",
+        "id": "thinking"
+      },
+      "alt": "What the clone thinks with: it runs on Claude Code with its default model, and OpenCode is the other choice.",
+      "file": "captures/settings-thinking.png",
+      "width": 1544,
+      "height": 540,
+      "sha256": "c9e1a16468c52a60ccc2ad7d55abcc43cdd831d2f14bbe3ccf0c92f46b4ad234",
+      "text": "What I think with\nI run on one of these, on your own sign-in. Switching starts a new conversation; my settings and what I remember stay. A model change counts from my next message, in the same conversation.\nClaude Code\nOpenCode\nSave"
+    },
+    {
       "id": "paused",
       "scenario": "paused",
       "page": "home",
@@ -197,7 +242,7 @@
       "file": "captures/workers-stopping.png",
       "width": 2200,
       "height": 1520,
-      "sha256": "8df3dc3c912bc4b65528b4ebe8a9e5e3dd17dd822594137ec8ef3f94e48bdecb",
+      "sha256": "5db9ff46282db87a6f859b23baafd9f12895c8001019f29ede1fbcb65911e1ea",
       "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI still see what arrives in Slack. I'm stopping my workers, start no new ones and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nTwo workers.\nSHOP-142: discounts missing from the checkout total\nA worker, asked for by Emma Lee in #shop-backend\nWorking\nfor 2 minutes\nReview of shop/shop-web pull request 88\nA worker, asked for by Leo Novak in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review."
     },
     {
@@ -211,7 +256,7 @@
       "file": "captures/worker-unstopped.png",
       "width": 2200,
       "height": 1520,
-      "sha256": "83bbc69c56f9f4a8f203c4af772ae4de53b0e72c92bcda5a46b1c73b16fbb243",
+      "sha256": "b262a1d94825009317fe9187f535ce43692cc1cdb3406771c3f527d4e08e8fc8",
       "text": "Misha\nHome\nSet up\nSettings\nLeo Novak\nShop · paused\nResume Misha\nPaused\nI'm paused.\nI couldn't stop one of my workers (8d03e5b7-19a4-4f6e-b2c8-5a7f1e9d3c60), so it may still run: stop it by hand, as my notification said. I start no new ones and answer only your commands in your self-DM until you resume, here or with \"resume\" there.\nResume\nWorking on now\nOne worker.\nReview of shop/shop-web pull request 88\nA worker, asked for by Leo Novak in your self-DM\nWorking\nfor 9 minutes\nRecently\nWhat I posted and decided lately, newest first.\n14:12\nPosted in #shop-backend\nOn it, SHOP-142. I'll post here when the fix is ready for review.\n14:08\nReacted in a DM with Max Becker"
     },
     {

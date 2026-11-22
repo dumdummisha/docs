@@ -151,17 +151,10 @@ describe('[scripts] Public data - findingsInFile', () => {
       expect(findings).toStrictEqual([])
     })
 
-    it("should pass a repository owner's format and a token count at their reviewed locations, and fail them elsewhere", () => {
+    it('should pass a token count at its reviewed location, and fail it elsewhere', () => {
       // Arrange
       const settings = JSON.stringify(
-        {
-          fields: [
-            { limits: { owner: { pattern: '^[a-z0-9-]{1,39}$', flags: 'iu' } } },
-            { limits: { isWholeNumber: true, minTokens: 1 } },
-          ],
-          owner: { pattern: '^[a-z]+$' },
-          minTokens: 1,
-        },
+        { fields: [{ limits: { isWholeNumber: true, minTokens: 1 } }], minTokens: 1 },
         null,
         2
       )
@@ -170,10 +163,7 @@ describe('[scripts] Public data - findingsInFile', () => {
       const findings = findingsInFile('facts/desktop/settings.json', text(settings))
 
       // Assert
-      expect(findings).toStrictEqual([
-        { file: 'facts/desktop/settings.json', line: 19, rule: 'person outside the cast' },
-        { file: 'facts/desktop/settings.json', line: 21, rule: 'credential field' },
-      ])
+      expect(findings).toStrictEqual([{ file: 'facts/desktop/settings.json', line: 10, rule: 'credential field' }])
     })
 
     it('should fail people outside the cast under every person key, nested or not, and a role id elsewhere', () => {

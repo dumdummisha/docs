@@ -135,9 +135,6 @@ const NON_PERSON_LOCATIONS: readonly { file: string; path: string }[] = [
   { file: 'facts/desktop/commands.json', path: 'senders.*.id' },
   { file: 'facts/desktop/commands.json', path: 'senders.*.description' },
   { file: 'facts/desktop/commands.json', path: 'commands.*.sender' },
-  // The format a repository's GitHub owner must match: its regular expression and flags.
-  { file: 'facts/desktop/settings.json', path: 'fields.*.limits.owner.pattern' },
-  { file: 'facts/desktop/settings.json', path: 'fields.*.limits.owner.flags' },
   // The browser disclosures' sentence on where the extension sends data.
   { file: 'facts/browser/store-disclosures.json', path: 'dataUsage.recipients' },
 ]

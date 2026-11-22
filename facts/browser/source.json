@@ -1,11 +1,11 @@
 {
   "repository": "https://github.com/dumdummisha/browser-extension",
-  "commit": "9cba991a63b2059ca5df7fe7e1142c0ce665bb34",
+  "commit": "8f9bcd7040b405e9716e381be5318fa5a312b9f0",
   "files": [
     {
       "path": "store-disclosures.json",
       "from": "docs/store-disclosures.json",
-      "sha256": "329e23a0962585dd57cec2938adf0ff0038e1e67e3faf6b44f0458d696fb75ac"
+      "sha256": "8fc9a730df2b6f8a9d326e125601dbe1900cc5e70c3f0f6b157717028c6ea2fb"
     },
     {
       "path": "manifest.json",

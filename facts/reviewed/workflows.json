@@ -1,6 +1,6 @@
 {
   "productVersion": "0.1.0",
-  "evidenceDate": "2026-11-19",
+  "evidenceDate": "2026-11-22",
   "workflows": [
     {
       "id": "quick-answer",
@@ -23,12 +23,12 @@
       "trigger": "A question that needs more than a quick read: tracing behaviour, comparing versions or dates, a failure, sources that disagree",
       "actor": "worker",
       "access": "allowed",
-      "needs": ["The repository added on Settings", "For an incident, read access to that environment's logs and data"],
+      "needs": ["For a question about code, a folder linked on Settings", "For an incident, read access to that environment's logs and data"],
       "projectCommands": [],
       "review": null,
       "endpoints": [
         { "kind": "result", "outcome": "An answer from the worker's report, with its sources and what stays uncertain", "when": "The worker could read what it needed" },
-        { "kind": "result", "outcome": "The change goes on to delivery", "when": "The report shows a change is needed" },
+        { "kind": "result", "outcome": "The change goes on as work", "when": "The report confirms a problem to fix and the requester may ask for work" },
         { "kind": "stop", "outcome": "A blocked report, and you hear which connection to reconnect on Set up", "when": "A sign-in is missing, expired or invalid" },
         { "kind": "stop", "outcome": "A blocked report naming the missing tool, permission or environment access, which signing in again does not fix", "when": "The worker lacks a tool, a grant or access to that environment" }
       ]
@@ -39,7 +39,7 @@
       "trigger": "Your own message, in your self-DM or with your icon, asks to create or change a Doc, Sheet, ticket or page",
       "actor": "clone",
       "access": "owner",
-      "needs": ["Google, or Jira and Confluence, on Set up"],
+      "needs": ["Google Workspace, or Jira and Confluence, on Set up"],
       "projectCommands": [],
       "review": null,
       "endpoints": [
@@ -48,45 +48,26 @@
       ]
     },
     {
-      "id": "delivery",
-      "name": "Delivery",
-      "trigger": "A request for a change that makes sense and needs nothing more from you",
+      "id": "work",
+      "name": "Work",
+      "trigger": "A request for a change or other work, from you or someone you allow, that makes sense and is theirs to ask",
       "actor": "worker",
       "access": "allowed",
-      "needs": ["The repository added on Settings", "GitHub CLI on Set up", "Jira and Confluence on Set up", "OpenCode signed in to OpenAI, for the GPT reviews"],
-      "projectCommands": [
-        { "name": "create-ticket", "role": "Writes the ticket when the repository has it; otherwise a worker writes one" },
-        { "name": "execute", "role": "Implements, has GPT review the pull request, merges, deploys to dev and checks the change there; used only where the repository may merge" }
-      ],
-      "review": "GPT reviews a ticket the workflow wrote or rewrote, and the pull request. While GPT is unavailable the review waits; Claude never reviews in its place.",
-      "endpoints": [
-        { "kind": "result", "outcome": "A reviewed pull request, not merged", "when": "The repository may not merge, or it has no execute command" },
-        { "kind": "result", "outcome": "Merged, deployed to dev and checked there", "when": "The repository may merge and has an execute command" },
-        { "kind": "wait", "outcome": "The review waits", "when": "OpenCode is not signed in to OpenAI, or GPT is out of usage" },
-        { "kind": "wait", "outcome": "A reviewed, green pull request waits to merge", "when": "A breaking change must land after another service's change, which its requester times" },
-        { "kind": "stop", "outcome": "Delivery stops, and the thread hears who has the ticket", "when": "The ticket is assigned to someone other than you, or lost the auto label it was taken with" },
-        { "kind": "stop", "outcome": "A short ticket for the colleague instead of a change", "when": "The change is in a colleague's repository and they have not approved it in their own message" },
-        { "kind": "stop", "outcome": "A one-line refusal", "when": "The request is for staging, production, a release, or someone else's branch" },
-        { "kind": "decision", "outcome": "A question to you", "when": "Ticket review findings remain after two rounds or are disputed, or a product or scope decision is missing" }
-      ]
-    },
-    {
-      "id": "dependency-updates",
-      "name": "Dependency updates",
-      "trigger": "A request to work through dependency pull requests, a security update or a version bump",
-      "actor": "worker",
-      "access": "allowed",
-      "needs": ["The repository added on Settings", "GitHub CLI on Set up", "OpenCode signed in to OpenAI, for the GPT reviews"],
+      "needs": ["For work on code, a folder linked on Settings", "For a pull request or a merge, the folder's remote", "The connectors the work reads, on Set up"],
       "projectCommands": [],
-      "review": "GPT reviews every pull request on its current head before it merges, an unchanged bot pull request included. While GPT is unavailable it waits; Claude never reviews in its place.",
+      "review": "None is built in. The clone can start a reviewer worker, and the request or a routine can ask for a review and name its model, such as GPT through OpenCode.",
       "endpoints": [
-        { "kind": "result", "outcome": "Merged one at a time, each deploy to dev checked", "when": "The repository may merge, the update carries no danger flag and every check passed" },
-        { "kind": "result", "outcome": "A reviewed pull request, not merged", "when": "The repository may not merge, or the merge would deploy beyond dev" },
-        { "kind": "result", "outcome": "A report: merged, flagged and open pull requests, where each merge reached, checks still open, and proposals for new features and deprecations", "when": "The run ends" },
-        { "kind": "wait", "outcome": "The pull request waits for its review", "when": "OpenCode is not signed in to OpenAI, or GPT is out of usage" },
-        { "kind": "stop", "outcome": "The queue stops until the cause is known", "when": "A deploy or a check after a merge fails" },
-        { "kind": "decision", "outcome": "The update is flagged for you with its evidence and options", "when": "It is dangerous: a major version of auth, payment, data or framework code, a runtime change, a breaking change no test covers, several majors at once, or a supply-chain change such as a new publisher" },
-        { "kind": "decision", "outcome": "Yours to do", "when": "Closing a pull request, telling the bot to ignore a version, or turning a proposal into a ticket" }
+        { "kind": "result", "outcome": "An open pull request, not merged", "when": "The task calls for a pull request, and workers may not merge in the folder's remote" },
+        { "kind": "result", "outcome": "The pull request merged", "when": "The task calls for a pull request, workers may merge in the folder's remote, and the request or your routines take the work that far" },
+        { "kind": "result", "outcome": "The change in the worker's own worktree, which Misha keeps and lists on Home for you", "when": "The folder has no remote, so there is no pull request to open or merge" },
+        { "kind": "result", "outcome": "The result, said once in the thread", "when": "The work is done, including work with no repository, which runs in a scratch folder" },
+        { "kind": "wait", "outcome": "The step that depends on it waits, the rest goes ahead, and the thread hears who it waits on", "when": "A contract, a value or another change it depends on hasn't landed" },
+        { "kind": "stop", "outcome": "No retry unless someone asks again, and whoever waits on it hears so", "when": "You pause Misha or stop the worker" },
+        { "kind": "stop", "outcome": "The clone says it failed and stops", "when": "A worker's run fails again after one retry" },
+        { "kind": "stop", "outcome": "A blocked report, and you hear which connection to reconnect on Set up", "when": "A sign-in is missing, expired or invalid" },
+        { "kind": "stop", "outcome": "What their side needs, instead of a change", "when": "The change is to someone else's repository, document or pull request and they have not approved it in their own message" },
+        { "kind": "stop", "outcome": "Refused: those stay yours, whoever asks", "when": "The request is for staging, production or a release" },
+        { "kind": "decision", "outcome": "One short question to you", "when": "A decision belongs to you or another owner" }
       ]
     }
   ]

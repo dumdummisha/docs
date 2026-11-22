@@ -15,12 +15,12 @@
     {
       "id": "clone-work",
       "path": "~/.misha/clone/work",
-      "description": "The empty folder the clone's Claude Code runs in. Claude Code keeps the clone's session transcripts in its own folder, outside this one."
+      "description": "The empty folder the clone's runtime runs in. Claude Code keeps the clone's session transcripts in its own folder, and OpenCode its sessions in its own database, both outside this one."
     },
     {
-      "id": "clone-repositories",
-      "path": "~/.misha/clone/repos",
-      "description": "The clone's own read-only git copies of the repositories in the settings, with their whole history, brought up to date as a run starts. A repository taken out of the settings has its copy deleted as the clone's next run starts."
+      "id": "clone-opencode",
+      "path": "~/.misha/clone/opencode",
+      "description": "The configuration of each call the clone makes on OpenCode, one folder per call, deleted once the call ends. Nothing else sweeps it: the folder of a call whose process was killed before it ended is never deleted."
     },
     {
       "id": "clone-outbox",
@@ -55,17 +55,22 @@
     {
       "id": "workers-worktrees",
       "path": "~/.misha/workers/worktrees",
-      "description": "A git worktree per piece of work a clone turn's worker is given, made from the clone's copy of the repository, with the code the worker changed, committed or not. Never deleted."
+      "description": "A git worktree per piece of work a clone turn's worker is given, made from one of your linked folders at its remote's default branch, with the code the worker changed, committed or not. After a clone run, one no worker is in any more is removed only while it is exactly as Misha made it; any other is kept and listed on Home for you to remove, and so is every worktree of a folder with no remote."
+    },
+    {
+      "id": "workers-scratch",
+      "path": "~/.misha/workers/scratch",
+      "description": "A plain folder per piece of work with no repository a clone turn's worker is given, such as a meeting to summarise or a ticket to research, named for the work, with what the worker left in it. After a clone run, one no worker is in any more is removed while it is empty; one holding files is kept and listed on Home for you to remove."
     },
     {
       "id": "workers-opencode",
       "path": "~/.misha/workers/opencode",
-      "description": "One folder per GPT worker run: its spec, which holds the run's prompt, and the OpenCode configuration and skills it runs with. Deleted only when the launch fails before the worker starts; the folder of a run that started is never deleted."
+      "description": "One folder per GPT worker run: its spec, which holds the run's prompt, and the OpenCode configuration it runs with; the worker reads its skills from ~/.agents/skills, where Misha installs them. Deleted only when the launch fails before the worker starts; the folder of a run that started is never deleted."
     },
     {
       "id": "extensions",
       "path": "~/.misha/extensions",
-      "description": "What the extension installers keep per harness: their install records and the files they generate for a harness to read, such as Claude Code's local marketplace. Uninstalling an extension removes its record and the files it added, leaving any you changed since."
+      "description": "What the extension installers keep per harness and for ~/.agents/skills: their install records and the files they generate for a harness to read. Uninstalling an extension removes its record and the files it added, leaving any you changed since."
     },
     {
       "id": "install-records-claude-code",
@@ -76,6 +81,11 @@
       "id": "install-records-opencode",
       "path": "~/.misha/extensions/opencode/records",
       "description": "What was installed into OpenCode: one record per extension of every addition it made, so an uninstall undoes exactly those. A record is deleted when its extension is uninstalled."
+    },
+    {
+      "id": "install-records-agents",
+      "path": "~/.misha/extensions/agents/records",
+      "description": "What was placed in ~/.agents/skills, where OpenCode reads skills and Claude Code reads them through its links: one record per extension of the skill folders it placed, so a skill it no longer places (one of a connector turned off) and its last uninstall remove exactly what it placed there, leaving any file you changed. A record is deleted once its extension places no skill."
     },
     {
       "id": "overwritten",

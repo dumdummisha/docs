@@ -33,7 +33,7 @@ Jump to [your messages](#your-messages), [work requests](#questions-and-work), [
   </ol>
 </figure>
 
-The clone's reply has the marker and italics (code stays plain) and calls Leo by first name. A reaction from Leo's account carries no marker and may come from the clone. When it matters, ask Leo.
+The clone's reply has the marker and italics (code stays plain) and calls Leo by first name. A reaction from Leo's account carries no marker and may come from the clone. Workers can also post from Leo's account. Misha sends their text as they wrote it, without adding the clone's emoji or italics. When it matters, ask Leo.
 
 ## What happens to your messages {#your-messages}
 
@@ -46,7 +46,7 @@ A message you send Leo can reach Leo's clone, and through it the AI provider Leo
 
 Bots, apps and clones never start a reply, nor does a message calling only another clone by an emoji Misha has seen it use. In a watched channel the clone gets every message and is told to answer only what concerns Leo or Leo's work. Whatever reaches it, it may reply, react or do nothing.
 
-A message passed to the clone goes, with its conversation, to Anthropic through Leo's own Claude Code subscription. Work it leads to runs in workers, separate Claude Code or OpenCode sessions, and can also reach OpenAI. On the Mac, the browser extension queues each new message until Misha saves it, Misha keeps a message for the clone until it is handled, Claude Code keeps the clone's conversation, and Misha records every clone post with no age limit. Details: [What is stored, and for how long](/privacy#storage).
+A message passed to the clone goes, with its conversation, to the provider of the model Leo chose for it: Anthropic through Leo's own Claude Code subscription, or a provider such as OpenAI through Leo's own OpenCode sign-in. Work it leads to runs in workers, separate Claude Code or OpenCode sessions, which can use another provider. On the Mac, the browser extension queues each new message until Misha saves it, Misha keeps a message for the clone until it is handled, whichever of Claude Code and OpenCode runs the clone keeps its conversation, and Misha records every clone post with no age limit. Details: [What is stored, and for how long](/privacy#storage).
 
 The clone keeps one memory across all of Leo's conversations and is told to keep what you write to that conversation and Leo: an instruction, not a wall.
 
@@ -54,7 +54,7 @@ The clone keeps one memory across all of Leo's conversations and is told to keep
 
 The clone answers from what it reads (the thread, a linked ticket, Leo's code) and names its sources. Only Leo and people Leo allows can start work such as research, a ticket or a code change. For anyone else the app gives the clone read-only tools, so it can't change a ticket, document or code for you; it passes what it can't finish to Leo privately.
 
-Allowed work goes through reviews, workers deploy only to the development environment (dev), and a change in your own repository waits for your approval. Those are rules the clone and workers are told to follow; the app doesn't enforce them. [Put Misha to work](/use/workflows) covers how a request ends.
+The request and Leo's own standing instructions decide how allowed work is done and whether it is reviewed. Workers are told to deploy only to the development environment (dev), and a change to your own repository, document or pull request waits for your approval. Those are instructions the clone and workers are told to follow; the app doesn't enforce them. [Put Misha to work](/use/workflows) covers how a request ends.
 
 The clone is told never to promise Leo's time or opinions, and a confident answer can still be wrong: check with Leo before you act on it, especially in front of a client.
 

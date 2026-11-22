@@ -126,24 +126,24 @@
     },
     {
       "id": "allow-merging",
-      "syntax": "allow merging <owner>/<name>",
+      "syntax": "allow merging <folder>",
       "sender": "owner",
       "places": [
         "self-dm"
       ],
-      "effect": "Workers may merge reviewed pull requests in the repository. Refused for a repository your settings don't list.",
-      "example": "allow merging shop/shop-backend",
+      "effect": "Workers may merge pull requests in the linked folder's remote, the folder named by its full path. Refused for a folder your settings don't link, and for one with no remote.",
+      "example": "allow merging /Volumes/Code/shop-backend",
       "mutation": "set-merging"
     },
     {
       "id": "stop-merging",
-      "syntax": "stop merging <owner>/<name>",
+      "syntax": "stop merging <folder>",
       "sender": "owner",
       "places": [
         "self-dm"
       ],
-      "effect": "Workers stop at a reviewed pull request in the repository. Refused for a repository your settings don't list.",
-      "example": "stop merging shop/shop-backend",
+      "effect": "Workers stop at an open pull request in the linked folder's remote, the folder named by its full path. Refused for a folder your settings don't link.",
+      "example": "stop merging /Volumes/Code/shop-backend",
       "mutation": "set-merging"
     },
     {
@@ -158,15 +158,48 @@
       "mutation": "remember"
     },
     {
+      "id": "set-routines",
+      "syntax": "set routines <text>",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "Your words replace your routines whole: what the clone does with work, on top of its own way of working. They grant no access.",
+      "example": "set routines When someone asks for a fix, have a worker create or update its ticket with the steps and the affected service, fix it in its own worktree with a regression test, and open a pull request for my review.",
+      "mutation": "set-routines"
+    },
+    {
       "id": "start-fresh",
       "syntax": "start fresh",
       "sender": "owner",
       "places": [
         "self-dm"
       ],
-      "effect": "The clone's next message starts a new Claude session. The old session's transcript stays, and so do your settings and notes.",
+      "effect": "The clone's next message starts a new session. The old session's transcript stays, and so do your settings and notes.",
       "example": "start fresh",
       "mutation": "start-fresh"
+    },
+    {
+      "id": "use-claude-code",
+      "syntax": "use claude code",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The clone runs on Claude Code from its next message, in a new session there, with the model your settings choose for it; your settings and notes stay. Refused, saying why, when the clone cannot run there as your settings stand.",
+      "example": "use claude code",
+      "mutation": "set-runtime"
+    },
+    {
+      "id": "use-opencode",
+      "syntax": "use opencode",
+      "sender": "owner",
+      "places": [
+        "self-dm"
+      ],
+      "effect": "The clone runs on OpenCode from its next message, in a new session there, with the model your settings choose for it; your settings and notes stay. Refused, saying why, when the clone cannot run there as your settings stand.",
+      "example": "use opencode",
+      "mutation": "set-runtime"
     },
     {
       "id": "pause",
@@ -197,7 +230,7 @@
       "places": [
         "self-dm"
       ],
-      "effect": "The clone answers with your settings: its icon, personality, who it ignores, who may ask for work, the channels it watches, where workers merge, and your notes.",
+      "effect": "The clone answers with your settings: its icon, personality, routines, who it ignores, who may ask for work, the channels it watches, where workers merge, the runtime and model it runs on, and your notes.",
       "example": "settings",
       "mutation": "describe"
     }

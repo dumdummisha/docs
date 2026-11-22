@@ -1,7 +1,7 @@
 {
   "productVersion": "0.1.0",
-  "evidenceDate": "2026-11-19",
-  "browserRevision": "9cba991",
+  "evidenceDate": "2026-11-22",
+  "browserRevision": "8f9bcd7",
   "capabilities": [
     {
       "id": "slack-context",
@@ -21,9 +21,9 @@
         {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
       ],
       "access": "anyone",
-      "needs": ["The repository added on Settings"],
+      "needs": ["A folder linked on Settings"],
       "result": "A marked answer naming the files it read",
-      "limit": "Reads Misha's own copies of your repositories. One bounded read; tracing behaviour across the code is research."
+      "limit": "Reads your linked folders as they are on this Mac, uncommitted work included, which may not be what is merged. One bounded read; tracing behaviour across the code is research."
     },
     {
       "id": "code-history",
@@ -32,9 +32,9 @@
         {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
       ],
       "access": "owner",
-      "needs": ["The repository added on Settings"],
+      "needs": ["A folder linked on Settings"],
       "result": "Who changed it, when and why, naming each commit by its short hash",
-      "limit": "The default branch only: a pull request that was never merged is not in it."
+      "limit": "By default the history of the branch each folder has checked out, and a remote's branches only as you last fetched them. A pull request's discussion is not in it."
     },
     {
       "id": "ticket-read",
@@ -65,7 +65,7 @@
         {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
       ],
       "access": "anyone",
-      "needs": ["Google on Set up"],
+      "needs": ["Google Workspace on Set up"],
       "result": "An answer naming the Doc or Sheet it read",
       "limit": "Whoever the clone answers may get what it read."
     },
@@ -76,7 +76,7 @@
         {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
       ],
       "access": "owner",
-      "needs": ["Google on Set up"],
+      "needs": ["Google Workspace on Set up"],
       "result": "The change, and a reply saying what changed",
       "limit": "Only what your own messages in that turn ask for."
     },
@@ -109,7 +109,7 @@
         {"availability": "included", "actor": "clone", "surface": "in its own turn, answering in Slack"}
       ],
       "access": "owner",
-      "needs": ["GitHub CLI on Set up"],
+      "needs": ["The GitHub CLI signed in, which Set up checks"],
       "result": "What the command showed, or what it changed",
       "limit": "One command at a time, as your GitHub account. Never a staging or production deployment or a release."
     },
@@ -131,70 +131,70 @@
         {"availability": "included", "actor": "worker", "surface": "started by the clone, which reports in Slack"}
       ],
       "access": "allowed",
-      "needs": ["The repository added on Settings", "For an incident, read access to that environment's logs and data"],
+      "needs": ["For a question about code, a folder linked on Settings", "For an incident, read access to that environment's logs and data"],
       "result": "An answer from the worker's report, with its sources and what stays uncertain",
       "limit": "Read-only because its brief says so, not because the system prevents writes. It reports what stays uncertain."
     },
     {
-      "id": "delivery",
-      "request": "Carry a change from a ticket to a reviewed pull request, and to dev where allowed",
+      "id": "change",
+      "request": "Make a change in your code, in a worktree of its own, up to a pull request",
       "routes": [
         {"availability": "included", "actor": "worker", "surface": "started by the clone, which reports in Slack"}
       ],
       "access": "allowed",
-      "needs": ["The repository added on Settings", "GitHub CLI on Set up", "Jira and Confluence on Set up", "OpenCode signed in to OpenAI, for the GPT reviews"],
-      "result": "A reviewed pull request, or a change merged and checked on dev",
-      "limit": "Dev is the furthest it goes. It stops at a reviewed pull request unless the repository may merge and has its own delivery command."
+      "needs": ["A folder linked on Settings, with the remote its pull requests go to"],
+      "result": "A pull request on the remote, merged only where workers may merge",
+      "limit": "How far it goes is the request's and your routines' call, within Settings. Staging, production and releases stay yours, and a change in someone else's repository needs their approval in their own message."
     },
     {
-      "id": "dependency-updates",
-      "request": "Work through dependency pull requests, a security update or a version bump",
+      "id": "task",
+      "request": "Do work that needs no repository, such as summarising a meeting or researching a ticket",
       "routes": [
         {"availability": "included", "actor": "worker", "surface": "started by the clone, which reports in Slack"}
       ],
       "access": "allowed",
-      "needs": ["The repository added on Settings", "GitHub CLI on Set up", "OpenCode signed in to OpenAI, for the GPT reviews"],
-      "result": "Reviewed or merged pull requests, updates flagged for you, and a report",
-      "limit": "Merges one at a time, only where the repository may merge and only when the merge deploys no further than dev."
+      "needs": ["The connectors the work reads, on Set up"],
+      "result": "What the worker found or made, reported in the thread",
+      "limit": "Runs in a scratch folder of its own. A routine can say how such work is done, and grants no access."
     },
     {
       "id": "browser-read",
       "request": "List, open and read your signed-in browser tabs as compact outlines, wait for a page, screenshot a tab, or list the requests it sent",
       "routes": [
         {"availability": "standalone", "actor": "your-agent", "surface": "through the misha-browser MCP server"},
-        {"availability": "optional", "actor": "your-agent", "surface": "through an extension module built on the package's browserModule export, which you can't install from a release yet"},
-        {"availability": "optional", "actor": "worker", "surface": "through that module served to workers, when a grant names the worker's profile"}
+        {"availability": "included", "actor": "your-agent", "surface": "through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on"},
+        {"availability": "included", "actor": "worker", "surface": "through Browser control, for a worker you start from your own agent session with a profile that grants its tools"}
       ],
       "access": "session",
-      "needs": ["The misha-browser MCP server registered in your agent, or an extension module that serves the tools", "The Misha Browser extension and native host in Chrome or Brave"],
+      "needs": ["The misha-browser MCP server registered in your agent, or Browser control on, on Set up", "For a worker, a profile of yours that grants these tools", "The Misha Browser extension and native host in Chrome or Brave"],
       "result": "Page outlines, screenshots and request lists in the agent's session",
-      "limit": "Acts through your signed-in sessions on any site the browser has open. The extension records every tab's requests while it runs, with credentials redacted by name and pattern."
+      "limit": "Acts through your signed-in sessions on any site the browser has open. The extension records every tab's requests while it runs, with credentials redacted by name and pattern. The Slack clone and the workers it starts never get these tools."
     },
     {
       "id": "browser-act",
       "request": "Click, drag, type, fill forms, press keys and scroll in a tab with real input",
       "routes": [
         {"availability": "standalone", "actor": "your-agent", "surface": "through the misha-browser MCP server"},
-        {"availability": "optional", "actor": "your-agent", "surface": "through an extension module built on the package's browserModule export, which you can't install from a release yet"},
-        {"availability": "optional", "actor": "worker", "surface": "through that module served to workers, when a grant names the worker's profile"}
+        {"availability": "included", "actor": "your-agent", "surface": "through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on"},
+        {"availability": "included", "actor": "worker", "surface": "through Browser control, for a worker you start from your own agent session with a profile that grants its tools"}
       ],
       "access": "session",
-      "needs": ["The misha-browser MCP server registered in your agent, or an extension module that serves the tools", "The Misha Browser extension and native host in Chrome or Brave", "Accessibility and Screen Recording for the app that runs your agent"],
+      "needs": ["The misha-browser MCP server registered in your agent, or Browser control on, on Set up", "For a worker, a profile of yours that grants these tools", "The Misha Browser extension and native host in Chrome or Brave", "Accessibility and Screen Recording for the app that runs your agent"],
       "result": "The input made, and what changed on the page",
-      "limit": "The input is a real mouse and keyboard on your Mac, so it acts wherever the pointer and focus are."
+      "limit": "The input is a real mouse and keyboard on your Mac, so it acts wherever the pointer and focus are. The Slack clone and the workers it starts never get these tools."
     },
     {
       "id": "desktop-control",
       "request": "Move the Mac's mouse, type and press keys, capture the screen, list apps and bring one to the front",
       "routes": [
         {"availability": "standalone", "actor": "your-agent", "surface": "through the misha-browser MCP server"},
-        {"availability": "optional", "actor": "your-agent", "surface": "through an extension module built on the package's desktopModule export, which you can't install from a release yet"},
-        {"availability": "optional", "actor": "worker", "surface": "through that module served to workers, when a grant names the worker's profile"}
+        {"availability": "included", "actor": "your-agent", "surface": "through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on"},
+        {"availability": "included", "actor": "worker", "surface": "through Browser control, for a worker you start from your own agent session with a profile that grants its tools"}
       ],
       "access": "session",
-      "needs": ["The misha-browser MCP server registered in your agent, or an extension module that serves the tools", "Accessibility and Screen Recording for the app that runs your agent, except to list and focus apps"],
+      "needs": ["The misha-browser MCP server registered in your agent, or Browser control on, on Set up", "For a worker, a profile of yours that grants these tools", "Accessibility and Screen Recording for the app that runs your agent, except to list and focus apps"],
       "result": "The input made, a screen capture, or the list of apps",
-      "limit": "macOS only. A screen capture shows whatever is on screen."
+      "limit": "macOS only. A screen capture shows whatever is on screen. The Slack clone and the workers it starts never get these tools."
     }
   ]
 }

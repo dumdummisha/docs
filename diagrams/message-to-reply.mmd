@@ -1,0 +1,37 @@
+flowchart TB
+  accTitle: How a Slack message reaches your clone and its reply gets back
+  accDescr: Inside your Mac, a message travels from your signed-in Slack tab to the extension service worker, the native host and the Misha app, which hands it to the clone turn. The app acknowledges it back to the service worker. The clone thinks with a model provider outside the Mac, reads the thread through the native host and your tab, reads your linked folders, and reads GitHub and your connected services. Its post goes back through the app, the native host, the service worker and the tab to Slack, which sends it back as an echo. On a turn that may start work, the clone starts a worker, which calls a model provider and your services and reports back to the app. Twelve numbered steps in the list under the diagram describe each arrow.
+  slack["Slack's servers"]
+  subgraph mac["Your Mac"]
+    direction TB
+    subgraph browser["Chrome or Brave"]
+      tab["Your Slack tab<br/>observer and relay"]
+      sw["Extension<br/>service worker"]
+    end
+    host["Native host"]
+    app["Misha app<br/>routing and ledger"]
+    clone["Clone turn<br/>Claude Code or OpenCode"]
+    folders["Your linked folders"]
+    workers["Workers<br/>Claude Code or OpenCode"]:::conditional
+  end
+  subgraph outside["Outside your Mac, under your accounts"]
+    providers["Model providers<br/>Anthropic, or your<br/>OpenCode model's"]
+    services["GitHub and the<br/>connectors you switched on"]
+  end
+
+  slack <-->|"1, 8, 9, 10"| tab
+  tab <-->|"2, 8, 9"| sw
+  sw <-->|"3, 5, 8, 9"| host
+  host <-->|"4, 5, 9"| app
+  app <-->|"6, 9"| clone
+  clone -.->|"8"| host
+  clone -->|"8"| folders
+  clone <-->|"7"| providers
+  clone <-->|"8"| services
+  clone -.->|"11"| workers
+  workers -.->|"12 report"| app
+  workers <-.->|"12"| providers
+  workers <-.->|"12"| services
+
+  classDef conditional fill:#ffffff,stroke:#1f1b16,stroke-width:1.5px,stroke-dasharray:6 4,color:#1f1b16
+  style mac stroke-dasharray:8 5

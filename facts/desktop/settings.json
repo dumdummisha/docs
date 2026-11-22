@@ -263,7 +263,7 @@
     },
     {
       "type": "set-merging",
-      "description": "Let workers merge reviewed pull requests in a linked folder's remote, or stop them.",
+      "description": "Let workers merge pull requests in a linked folder's remote, or stop them.",
       "setting": "repositories",
       "window": [
         {

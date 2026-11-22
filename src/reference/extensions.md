@@ -35,7 +35,7 @@ On a fresh install the connectors setting's default is <Fact name="desktop.setti
 | <Fact name="desktop.detection.items.browser.name" /> | <Fact name="desktop.detection.items.browser.about" /> |
 | <Fact name="desktop.detection.items.compaction.name" /> | <Fact name="desktop.detection.items.compaction.about" /> |
 
-Each connector declares which tools the clone gets. A turn for anyone gets the reads, and your own turn the changes; Browser control declares none for the clone. A change on Set up applies to new Claude Code and OpenCode sessions: Misha refuses a call to a connector that is off, but a session already open may keep its tool list until you restart it.
+Each connector declares which tools the clone gets. A turn for anyone gets a connector's reads, unless the connector keeps all its tools to your own turns, as AWS does; your own turn also gets the changes. Browser control declares none for the clone. A change on Set up applies to new Claude Code and OpenCode sessions: Misha refuses a call to a connector that is off, but a session already open may keep its tool list until you restart it.
 
 ## What misha-core ships {#misha-core}
 
@@ -45,7 +45,7 @@ misha-core is the shipped extension that every other one installs beside, in eac
 
 Misha registers one MCP server, `misha`, in Claude Code (user scope) and in OpenCode's global configuration. It serves your sessions the tools of every installed extension for that harness, except connectors that are off:
 
-- **Misha itself:** status, pause and resume, settings, recent activity and a question for the clone, with the same effect as the self-DM. They say so when the app isn't running.
+- **Misha itself:** status, recent activity, settings, and pause and resume. A settings change or a pause made here has the same effect as one from the self-DM, and the tools say so when the app isn't running. A question tool asks about the clone's work without starting any; ask for work by typing in Slack.
 - **Your Slack:** reading channels, threads and history, and sending, reacting, editing and downloading attachments, through your signed-in Slack tab. A post you make this way is yours: it is a person's message in history, not in the clone's post record, and it doesn't summon your clone or count as a request to it, even in your self-DM. Ask for work by typing in Slack.
 - **Workers:** starting, following and stopping them, and reading their sessions. At session start the server tells your harness to delegate through Misha's worker tools, so nothing edits your `CLAUDE.md` or `AGENTS.md`.
 - **Connectors you switched on**, and the browser and desktop tools while Browser control is on.
@@ -156,7 +156,7 @@ Two made-up examples, both in Leo Novak's own Claude Code session:
 - **Browser:** "In my signed-in Shop admin tab, find this morning's order for Emma Lee and read me its refund status." It needs the extension and native host, and because it types into the search field, Accessibility and Screen Recording for the terminal or app running Claude Code.
 - **Desktop:** "Bring Simulator to the front and capture the screen." Focusing an app needs no grant; the capture needs both.
 
-An extension of yours can serve the same tools through the package's `browserModule` and `desktopModule` exports. A worker that gets them acts in your signed-in browser and on your screen as you. The extension records every tab's fetch and XHR requests while it runs, with credentials redacted by name and pattern, which misses an opaque credential under an ordinary name. [Browser permissions](/reference/permissions) explains each permission, and [Privacy and security](/privacy) where the data goes.
+An extension of yours can serve the same tools through the package's `browserModule` and `desktopModule` exports. A worker that gets them acts in your signed-in browser and on your screen as you. The extension records every tab's fetch and XHR requests while it runs, with credentials redacted by name and pattern, which misses an opaque credential under an ordinary name. Page text, ordinary field values and screenshots can return sensitive information the page displays. [Browser permissions](/reference/permissions) explains each permission, and [Privacy and security](/privacy) where the data goes.
 
 ## Using them without Misha {#standalone}
 

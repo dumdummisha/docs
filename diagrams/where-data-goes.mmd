@@ -8,7 +8,7 @@ flowchart TB
     end
     host["Native host"]
     app["Misha app and the Misha home"]
-    clone["Clone turn: restricted Claude Code"]
+    clone["Clone turn: restricted<br/>Claude Code or OpenCode"]
     vision["Image reading: one-shot<br/>Claude Code or OpenCode call"]
     workers["Workers: Claude Code or OpenCode"]
     own["Optional: your own Claude Code or OpenCode<br/>with the misha-browser tools"]
@@ -28,6 +28,7 @@ flowchart TB
   host <-->|"2"| app
   app -- "3" --> clone
   clone <-->|"4"| anthropic
+  clone <-.->|"4"| openai
   clone <-->|"5"| services
   clone <-->|"6"| vision
   vision -- "6" --> anthropic

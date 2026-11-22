@@ -7,7 +7,7 @@ next: false
 
 # Settings and commands
 
-Most settings are in the Misha window, on **Settings**, with integrations on **Set up**. Some also have an exact Slack command that you type in your self-DM (your direct message to yourself in Slack), and colleagues have two commands of their own. To choose settings the first time, follow [Make it yours](/use/make-it-yours). The tables come from the desktop app's reviewed export, for the version named in the footer.
+Most settings are in the Misha window, on **Settings**, with connectors on **Set up**. Some also have an exact Slack command that you type in your self-DM (your direct message to yourself in Slack), and colleagues have two commands of their own. To choose settings the first time, follow [Make it yours](/use/make-it-yours). The tables come from the desktop app's reviewed export, for the version named in the footer.
 
 ## Common changes {#recipes}
 
@@ -41,7 +41,7 @@ These work only in a one-to-one DM with you, never in a group DM or channel. Som
 
 <!-- facts settings -->
 
-An empty **Limits** cell means the export lists no limit. `compactAtTokens` takes a positive whole number of tokens, or nothing for the default, and the window refuses anything else. No control changes `account` after the first save, and `sessionEpoch` moves only with start fresh.
+An empty **Limits** cell means the export lists no limit. `compactAtTokens` takes a positive whole number of tokens, or nothing for the runtime's default, which the table gives for each runtime; the window refuses anything else. On OpenCode a number must be below the selected model's input limit. No control changes `account` after the first save, and `sessionEpoch` moves with start fresh and with a switch to another runtime.
 
 ### Where each change is made {#surfaces}
 
@@ -49,13 +49,25 @@ Every change, in the columns [Common changes](#recipes) explains. The window and
 
 <!-- facts surfaces -->
 
+### What I think with {#what-i-think-with}
+
+**What I think with** keeps a model and effort for each runtime, Claude Code and OpenCode, and the table under [What each setting holds](#fields) gives the **Default** for each. A change of model or effort counts from the next message, in the same conversation. Switching runtime starts a new conversation, keeps your settings, notes and Routines, and finds the model you left on the other runtime when you switch back. The window and the setup tool accept only a model and effort the runtime lists, and refuse any other rather than substituting one. There is no self-DM command for the model, only the two commands that switch runtime, in the table just above.
+
+### Linked folders {#linked-folders}
+
+A repository link is the full path to a real top-level git folder, not a symlink, a subfolder or a shallow clone. Its remote is `host/owner/name`, not a remote's name such as `origin`, and must match the fetch and push addresses of one of the folder's git remotes. Leave it empty only for a repository with no remote. A remote can be linked once, and **May merge** needs one. Misha's own data folder can't overlap a linked folder.
+
 ## When a change takes effect {#when-changes-apply}
 
 The icon, ignore, soft-ignore, watch and hands off decide which new Slack messages reach the clone from the moment they are saved. Watching doesn't reach back to earlier messages in the channel, while ignore, soft-ignore and hands off also drop what already waits, as their rows say.
 
-The rest reaches the clone on its next turn. A change to what it is told about you (personality, notes, who it ignores, who may ask for work, watched channels, where workers merge, start fresh) also drops an answer it was writing, and the message is answered again under the new settings.
+The rest reaches the clone on its next turn. A change to what it is told about you (personality, Routines, notes, who it ignores, who may ask for work, watched channels, where workers merge, start fresh, switching runtime) also drops an answer it was writing, and the message is answered again under the new settings.
 
-No change reaches into work already started. After **Stop allowing**, the clone's next turns can't start workers for that person, including a turn that handles a report on their earlier work. A turn already running when you save keeps the permissions it started with and may still start a worker, and a running worker keeps running. **May merge** is an instruction, not a lock: Misha tells the clone where merging is allowed on each turn, the clone passes it on when it briefs a worker, and nothing in the app blocks a merge. A worker briefed before you turned merging off isn't told again. To stop new work at once, [pause Misha](/operate/manage): no worker starts while Misha is paused, and it tries to stop the running ones.
+A change to who may ask for work or where workers merge doesn't reach into work already started. After **Stop allowing**, the clone's next turns can't start workers for that person, including a turn that handles a report on their earlier work. A turn already running when you save keeps the permissions it started with and may still start a worker, and a running worker keeps running. **May merge** is an instruction, not a lock: Misha tells the clone where merging is allowed on each turn, the clone passes it on when it briefs a worker, and nothing in the app blocks a merge. A worker briefed before you turned merging off isn't told again.
+
+Connector switches are different: turning one off refuses its next tool call, even in work already running. A call already admitted is not undone. Restart open agent sessions for the full change to their tools, skills and hooks.
+
+To stop new work at once, [pause Misha](/operate/manage): no worker starts while Misha is paused, and it tries to stop the running ones.
 
 ## Revision conflicts {#revision-conflicts}
 
@@ -65,11 +77,11 @@ The window and the setup tool make each change against the settings they last lo
 
 Notes are settings: your exact words, numbered, given to the clone as standing context. **Remember** or `remember` adds one; only **Forget** in the window, or the setup tool, removes one.
 
-History is the clone's one Claude Code session. Every conversation shares it, rather than each conversation or thread having its own, so the session remembers them all. Claude Code keeps its transcript on your Mac. At `compactAtTokens` the session is compacted and the clone is given your settings again. For each conversation and thread, Misha records the session it answers in and how far the clone has read there. When cleanup removes that record, the clone next reads the latest messages there again, and the session and its transcript stay:
+History is the clone's one session in the runtime you chose. Every conversation shares it, rather than each conversation or thread having its own, so the session remembers them all. Claude Code or OpenCode keeps its record on your Mac. At `compactAtTokens` the session is compacted and the clone is given your settings again. For each conversation and thread, Misha records the session it answers in and how far the clone has read there. When cleanup removes that record, the clone next reads the latest messages there again, and the session and its transcript stay:
 
 <!-- facts retention sessions -->
 
-Start fresh replaces the shared session for every conversation at once. It keeps your settings, notes and the old transcript, so it deletes no history. [Privacy and security](/privacy) covers what is stored where.
+Start fresh replaces the shared session for every conversation at once, and so does switching to another runtime. Both keep your settings, notes and the old transcript, so they delete no history. [Privacy and security](/privacy) covers what is stored where.
 
 ## Hands off {#hands-off}
 
@@ -81,7 +93,7 @@ Start fresh replaces the shared session for every conversation at once. It keeps
 
 <!-- facts setup-commands -->
 
-It walks you through setup and can make any change with a setup tool [above](#surfaces). OpenCode can run it, but the clone always answers on Claude Code.
+It walks you through setup and can make any change with a setup tool [above](#surfaces). Claude Code and OpenCode can both run it. The clone starts on Claude Code; choose its runtime on **Settings › What I think with**.
 
 ## What Set up checks {#detection}
 

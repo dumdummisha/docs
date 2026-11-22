@@ -47,7 +47,7 @@ Browser permissions and macOS permissions are separate. The extension's permissi
 
 The grants go to the app that runs the agent (the terminal, the editor whose terminal you use, or the desktop app), not to the browser. After a click, drag, typing or key press, the same save-dialog Return goes through the input session those tools already use. This matrix follows the browser tools' code at the commit above; the [misha-browser README](https://github.com/dumdummisha/browser-extension) groups `tab_select_option` with the extension-only tools without the download exception.
 
-A permission says what the extension can do, not which agent may use it. Misha's clone does not get the general `tab_*` and `macos_*` tools by default: you register them with your own Claude Code or OpenCode, or an extension grants them to a worker. [Customise and reuse Misha](/reference/extensions) explains both routes.
+A permission says what the extension can do, not which agent may use it. Misha's clone does not get the general `tab_*` and `macos_*` tools. Turn on **Browser control** on Set up to make them available in your own Claude Code and OpenCode sessions; workers you start there also need a profile that grants the tools. That connector serves neither the Slack clone nor the workers it starts. Registering the standalone misha-browser server with your own Claude Code or OpenCode remains a separate route. [Customise and reuse Misha](/reference/extensions) explains where an extension's tools run.
 
 ## Limits to read first {#exceptions}
 

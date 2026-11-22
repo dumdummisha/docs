@@ -10,7 +10,7 @@ outline: [2, 3]
 
 **Effective 22 November 2026.** Misha has no server of its own. It runs on your Mac and works through your own accounts: the clone sends what it reads and writes to the provider of the model you choose, Anthropic through your Claude Code or a provider such as OpenAI through your OpenCode, workers send their work to the provider of the model they run on, and Slack and the services you connect receive what Misha sends them. Misha keeps its own records on your Mac, some of them with no age limit.
 
-This page covers the Misha app for macOS, the Misha Browser extension and its native host, the Claude Code and OpenCode sessions Misha starts, this documentation site and the landing page at [dumdummisha.ai](https://dumdummisha.ai). It is the privacy policy for all of them, including the extension's Chrome Web Store listing.
+This page covers the Misha app for macOS, the Misha Browser extension and its native host, the Claude Code and OpenCode sessions Misha starts, this documentation site and the landing page at [dumdummisha.ai](https://dumdummisha.ai). It is the privacy policy for all of them.
 
 ## Security assessment {#assessment}
 
@@ -26,7 +26,7 @@ Each row links to the section that holds its evidence.
 | [Machine authority](#authority) | The clone runs in restricted Claude Code or on Misha's private OpenCode configuration, with read-only tools for other people. Workers run Claude Code or OpenCode with a shell. Claude workers keep your Claude Code permission rules; GPT workers run on Misha's own OpenCode configuration, which grants a shell and outside-folder access and approves requests left at ask. No operating system sandbox. |
 | [Updates](#updates-and-audit) | One owner-operated unsigned local build. No public download, updater, pinning or rollback. |
 | [Audit](#updates-and-audit) | A ledger of every Slack post, edit, upload and reaction, never deleted. No record of every shell or cloud command. |
-| [Stopping](/operate/manage#pause) | Pause starts nothing new and tries to stop workers; one it could not confirm stopped is named on Home. It undoes nothing already done. |
+| [Stopping](/operate/manage#pause) | Pause starts no new work from the clone and tries to stop the workers on it, but not workers you start from your own agent sessions; one it could not confirm stopped is named on Home. It undoes nothing already done. |
 | [Removal](#deletion) | No uninstall yet. The safe steps today remove the browser parts and keep the data folder, which holds the install records a removal needs. Transcripts, sign-in tokens, Slack posts and services' records stay. |
 | [Residual risks](#residual-risks) | Confident wrong replies posted as you, instructions hidden in content, one clone session across conversations, broad browser observation, workers acting as your Mac user, work records with no age limit. |
 
@@ -137,9 +137,9 @@ Deleting on your Mac erases nothing elsewhere. Claude Code and OpenCode transcri
 | The clone, asked for work by you or someone you allowed | Start workers | Code: the requester must be you or on your allowed list |
 | Claude workers | `claude -p` with a profile's tools: a shell, file edits, git, the GitHub CLI and cloud CLIs, as far as your accounts allow | Code: the profile names the tools the worker sees, and Misha's bridge is the only MCP server it loads; your Claude Code settings, your permission rules included, load as usual. Instructions and your accounts. No operating system sandbox. |
 | GPT workers (OpenCode) | The same tools through OpenCode | Code: Misha writes the run's whole OpenCode configuration, and yours, global and project, does not load. Each profile denies everything, then grants its tools; the implementer and reviewer profiles both grant every shell command and access outside the working folder, so a reviewer is not read-only in code. Misha approves at once any request a rule leaves at ask; a deny still refuses. Instructions and your accounts. No operating system sandbox. |
-| Merging | Workers merge a reviewed pull request only in a repository whose **May merge** is on | Instructions: the clone is told which repositories allow it. Your GitHub permissions are the hard limit. |
+| Merging | Workers merge a pull request only in a repository whose **May merge** is on. Whether a review is required comes from your request and Routines. | Instructions: the clone is told which repositories allow it. Your GitHub permissions are the hard limit. |
 | Deploying | Only to dev, never to staging, production or a release | Instructions only; the app's code does not check where a deploy goes |
-| Pause | Starts nothing new, tries to stop workers, answers only your commands in your self-DM ([how to pause](/operate/manage#pause)) | Code. A worker it could not confirm stopped may keep running, and pause undoes nothing. |
+| Pause | Starts no new work from the clone, tries to stop the workers on it, answers only your commands in your self-DM ([how to pause](/operate/manage#pause)) | Code. Workers you start from your own agent sessions are not stopped. A worker it could not confirm stopped may keep running, and pause undoes nothing. |
 
 Files the clone reads can go to its model provider. Workers use separate worktrees outside your folders; preparing one adds fetched objects and git worktree metadata to the linked repository, not changes to its working files.
 
@@ -172,7 +172,7 @@ The publisher does not sell your data, does not use it for advertising, and does
 
 ### Chrome Web Store requirements {#store}
 
-The extension's single purpose, as its listing states it:
+The extension's declared single purpose:
 
 <!-- facts browser-single-purpose -->
 

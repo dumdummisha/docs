@@ -67,7 +67,7 @@ A change to who may ask for work or where workers merge doesn't reach into work 
 
 Connector switches are different: turning one off refuses its next tool call, even in work already running. A call already admitted is not undone. Restart open agent sessions for the full change to their tools, skills and hooks.
 
-To stop new work at once, [pause Misha](/operate/manage): no worker starts while Misha is paused, and it tries to stop the running ones.
+To stop new work at once, [pause Misha](/operate/manage): no worker starts on the clone's work while Misha is paused, and it tries to stop the running ones. Workers you start from your own agent sessions are not affected.
 
 ## Revision conflicts {#revision-conflicts}
 

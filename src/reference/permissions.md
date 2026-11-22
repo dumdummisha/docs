@@ -20,7 +20,7 @@ What happens to the data once it reaches the Misha app or an agent is in the [pr
 
 <!-- facts browser-source -->
 
-The declaration table, the quoted limits and the exact disclosures on this page are the extension's own disclosure text, rendered from that file rather than rewritten; the macOS grant matrix is this page's own, from the tools' code. The browser repository generates its Chrome Web Store text from the same source. The single purpose its listing states:
+The declaration table, the quoted limits and the exact disclosures on this page are the extension's own disclosure text, rendered from that file rather than rewritten; the macOS grant matrix is this page's own, from the tools' code. The browser repository generates proposed Chrome Web Store text from the same source. Its declared single purpose:
 
 <!-- facts browser-single-purpose -->
 

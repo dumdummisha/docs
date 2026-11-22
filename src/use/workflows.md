@@ -71,7 +71,7 @@ The requester hears that the clone is looking into it, then gets the answer with
 
 A change request from you or someone you allow, which needs nothing more from you, needs:
 
-<!-- facts needs delivery -->
+<!-- facts needs work -->
 
 It goes through:
 
@@ -89,7 +89,7 @@ A colleague's code, branch and pull request are theirs: a change in their reposi
 
 How a delivery can end:
 
-<!-- facts endpoints delivery -->
+<!-- facts endpoints work -->
 
 ## Reviews need GPT {#review-requirements}
 
@@ -97,13 +97,9 @@ Delivery and dependency runs have GPT, through OpenCode signed in to your OpenAI
 
 ## Dependency updates {#dependency-updates}
 
-A run you ask for, such as "work through the open Dependabot pull requests in shop/shop-backend", not daily maintenance. It needs:
-
-<!-- facts needs dependency-updates -->
+A run you ask for, such as "work through the open Dependabot pull requests in shop/shop-backend", not daily maintenance.
 
  One orchestrator worker checks what each update breaks and offers, has fixes made on the pull request's own branch, gets a GPT review of each pull request's current head, and merges ready ones one at a time, checking each dev deploy first. At most two workers run at once, the orchestrator included, so its own workers run one after another. Dangerous updates come back to you with evidence and options; closing a pull request or telling the bot to ignore a version is yours, and proposals for new features stay proposals until you ask.
-
-<!-- facts endpoints dependency-updates -->
 
 ## Follow the work and take it over {#follow-and-take-over}
 

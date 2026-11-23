@@ -7,7 +7,7 @@ next: false
 
 # Settings and commands
 
-Most settings are in the Misha window, on **Settings**, with connectors on **Set up**. Some also have an exact Slack command that you type in your self-DM (your direct message to yourself in Slack), and colleagues have two commands of their own. To choose settings the first time, follow [Make it yours](/use/make-it-yours). The tables come from the desktop app's reviewed export, for the version named in the footer.
+Most settings are in the Misha window, on **Settings**, with connectors on **Set up**. Some also have an exact Slack command that you type in your self-DM (your direct message to yourself in Slack), and colleagues have two commands of their own. To choose settings the first time, follow [Make it yours](/use/make-it-yours). The tables describe the desktop app at the version named in the footer.
 
 ## Common changes {#recipes}
 
@@ -94,7 +94,7 @@ These work only in a one-to-one DM with you, never in a group DM or channel. Som
 | `models` | For each runtime, the model and effort the clone thinks with there, from the models that runtime offers. A change takes effect on the next message, in the same session. | Empty for each, so claude-opus-5-5 at high on Claude Code and openai/gpt-6-astra at medium on OpenCode. |  |
 | `sessionEpoch` | Moves on with each start fresh and each switch of runtime, so the next message starts a new session. | 0 |  |
 
-An empty **Limits** cell means the export lists no limit. `compactAtTokens` takes a positive whole number of tokens, or nothing for the runtime's default, which the table gives for each runtime; the window refuses anything else. On OpenCode a number must be below the selected model's input limit. No control changes `account` after the first save, and `sessionEpoch` moves with start fresh and with a switch to another runtime.
+An empty **Limits** cell means no limit is documented for that field. `compactAtTokens` takes a positive whole number of tokens, or nothing for the runtime's default, which the table gives for each runtime; the window refuses anything else. On OpenCode a number must be below the selected model's input limit. No control changes `account` after the first save, and `sessionEpoch` moves with start fresh and with a switch to another runtime.
 
 ### Where each change is made {#surfaces}
 

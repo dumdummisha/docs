@@ -23,7 +23,7 @@ Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/st
 
 | Repository | What it holds | Source |
 | --- | --- | --- |
-| [dumdummisha/docs](https://github.com/dumdummisha/docs) (this one) | The docs site: its pages, theme and build checks, and the reviewed facts and screenshots exported from the app. | Public, Apache-2.0 except the fonts and brand artwork |
+| [dumdummisha/docs](https://github.com/dumdummisha/docs) (this one) | The docs site: its pages, theme, screenshots and diagrams. | Public, Apache-2.0 except the fonts and brand artwork |
 | [dumdummisha/browser-extension](https://github.com/dumdummisha/browser-extension) | The Misha Browser extension that carries Slack to the app, its native host, and browser and desktop tools you can use in any MCP client without the app. | Public, Apache-2.0 |
 | [dumdummisha/desktop-downloads](https://github.com/dumdummisha/desktop-downloads) | Reserved for signed desktop builds and the update feed. Only a README until a signed build exists. | Public |
 | The Misha desktop app | The Mac app, misha-core and the connectors it installs in Claude Code and OpenCode. | Private |
@@ -32,36 +32,38 @@ Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/st
 
 Found something wrong? Every page has a **Suggest a change to this page** link that opens its source here, so you can propose the fix as a pull request.
 
-The site is VitePress at the repository root with pages in `src/`. It needs Node 24 and pnpm 11.
+The site is VitePress at the repository root. It needs Node 24 and pnpm 11.
 
 | Script | What it does |
 | --- | --- |
 | `pnpm dev` | Serves the site locally with live reload. |
-| `pnpm build` | Scans the source, checks the diagrams are rendered from their current sources, revalidates the imported desktop export and browser facts, builds the static site into `.vitepress/dist`, then scans it and checks its links and CSP. Vercel and CI run this, so any failing gate fails the deployment. |
+| `pnpm build` | Builds the static site into `.vitepress/dist`. Vercel and CI run this, so a failing build fails the deployment. |
 | `pnpm preview` | Serves the built site. |
-| `pnpm typecheck` | Type-checks the theme, the config and the scripts. |
-| `pnpm test` | Runs the script tests. |
-| `pnpm check:privacy` | Before a push: scans what the push would publish (every committed file of `HEAD` and of each commit not yet on `origin/main` that `origin/main` does not already hold, or the whole history before the first push, and each commit's message and identities) for data that must not be public. |
-| `pnpm check:source` | Scans the files a build of this checkout reads for data that must not be public. |
-| `pnpm check:built` | Scans the built site for data that must not be public. |
-| `pnpm check:links` | Checks every internal link and anchor in the built site. |
-| `pnpm check:csp` | Checks that the CSP in `vercel.json` allows exactly the inline scripts the built site has. |
-| `pnpm check:diagrams` | Checks that every Mermaid source in `diagrams/` has an SVG in `src/public/diagrams/` rendered from its current version, and that no rendered SVG outlived its source. |
-| `pnpm render:diagrams` | Renders every Mermaid source in `diagrams/` to SVG with the pinned Mermaid CLI, which needs a local headless browser. |
-| `pnpm import:desktop -- <bundle-dir>` | Imports a reviewed export bundle from the private desktop app. |
-| `pnpm import:browser -- <commit>` | Fetches the public browser repository's main branch and imports the browser extension's disclosures and manifest declarations at one commit on it. |
+| `pnpm typecheck` | Type-checks the VitePress config and theme. CI runs it before the build. |
 
-The desktop app's source is private, so this repository never reads it: a maintainer exports reviewed JSON facts and PNG screenshots from the app, and `pnpm import:desktop` checks the bundle (known files only, every hash, a strict schema for every document, the public-data scan) before copying facts to `facts/desktop/`, the capture list to `facts/captures.json` and the screenshots to `src/public/captures/`. Every build checks the committed copy the same way again, so a fact or screenshot changed after the import stops the build. Pages show those values with `<Fact name="...">` and `<Shot id="..." caption="...">`, and an unknown name or id stops the build. A fact's name is its document and key path, with an item of a list whose items all have an `id` named by that id rather than its position, such as `desktop.paths.paths.workers-logs.path`, so a re-import that adds or reorders items cannot point a page at another item. A table of facts is an HTML comment on lines of its own, such as `<!-- facts commands owner -->`, `<!-- facts surfaces pause resume -->` or `<!-- facts browser-permission-table -->`: the build replaces it with the Markdown `scripts/fact-tables.ts` renders from `facts/`, so the table, and any heading it holds, is in the built page and the outline, and a malformed marker or an unknown table, argument or id stops the build. The table names are in `scripts/fact-tables.ts`.
+Each page is a Markdown file in `src/`, and the sidebar that lists them is in `.vitepress/config.mts`. The theme and its styling are in `.vitepress/theme/`. Everything under `src/public/` is served as is: screenshots in `src/public/captures/`, diagrams in `src/public/diagrams/`, fonts and icons.
 
-Some facts can't come from an export: what each request Misha takes needs and who may make it, and how each workflow ends. A maintainer writes them by hand in `facts/reviewed/` after reviewing the private app and the public browser repository, in the docs' own words, and every build checks them against a strict schema (`scripts/reviewed-facts.ts`) and refuses them when they were reviewed for another desktop version than the export's. Pages render them with the same markers: `<!-- facts capabilities [<id> ...] -->` and `<!-- facts endpoints <workflow> -->`.
+Commands, paths, limits and other values from the desktop app and the browser extension are plain text in the pages. They describe the desktop app version and day named in the footer, which is set in `.vitepress/config.mts`. When the app changes, edit the pages and the footer together.
 
-The browser extension's permissions and data disclosures come from the public [browser-extension](https://github.com/dumdummisha/browser-extension) repository instead. `pnpm import:browser` takes a commit by its hash, fetches that repository's main branch from GitHub into a fresh temporary repository (ignoring your git configuration and any local checkout), refuses a commit that is not on it, and copies its `docs/store-disclosures.json`, the manifest's permission declarations and the Slack transport limits to `facts/browser/`, with the commit and each file's hash in `source.json`. Strict schemas (the manifest's unreviewed top-level fields included) and a check that the disclosures and the manifest describe the same declarations run at the import and on every build. The build works offline: it checks the committed files against the hashes in `source.json`, which is an integrity check of the import, not a second proof that the commit is public. Pages place its tables and disclosures with the same `<!-- facts browser-... -->` markers.
+A screenshot goes into a page as a figure, so it gets the site's screenshot styling, its size and lazy loading:
 
-Diagrams are Mermaid sources in `diagrams/`. Rendering needs a headless browser that the deployment's build does not have, so `pnpm render:diagrams` renders them locally to static SVG in `src/public/diagrams/`, each SVG naming the hash of its source, and the build refuses an SVG rendered from an older source. Readers get the SVG and no Mermaid runtime. An SVG in `src/public/diagrams/` without that header was drawn by hand; the check and the render leave it alone.
+```html
+<figure class="shot"><img class="shot__image" src="/captures/home.png" alt="What the screenshot shows" width="2200" height="2214" loading="lazy" decoding="async"><figcaption class="shot__caption">The caption under it.</figcaption></figure>
+```
 
-Everything here is public. Examples use made-up people only (Leo Novak, the owner; Emma Lee and Max Becker, colleagues) in a made-up Shop workspace and `#shop-backend`. No email addresses, internal ids, private URLs or personal file paths, and nothing copied from private source code. The build enforces what the scans can on every pull request and Vercel deployment; run `pnpm check:privacy` before each push, because a pushed commit cannot be taken back.
+Give `width` and `height` the PNG's pixel size, so the page doesn't move while the image loads.
 
-<!-- CSP in vercel.json, checked against the 1.6.4 build: script-src is 'self' plus the hash of the one inline script VitePress emits (check-mac-os, constant); metaChunk moves the page hash map into a script file, and pnpm check:csp fails when the built inline scripts and the listed hashes differ. style-src keeps 'unsafe-inline' because the server-rendered pages carry style attributes (position:relative, --vp-vh) that only 'unsafe-hashes' could list. img-src keeps data: for the theme's inline SVG icons in CSS. -->
+Diagrams are Mermaid sources in `diagrams/`, with the theme in `diagrams/mermaid.json`. Readers get the committed SVG in `src/public/diagrams/` and no Mermaid runtime, so after you change a source, render it again locally (this needs a headless browser) and commit the SVG:
+
+```sh
+npx -y @mermaid-js/mermaid-cli@11.17.0 -i diagrams/<name>.mmd -o src/public/diagrams/<name>.svg -c diagrams/mermaid.json -b '#fffef8'
+```
+
+The `-b` colour is the `background` in `diagrams/mermaid.json`. Mermaid still writes an SVG when a source doesn't parse, with "Syntax error" in it, so look at the result before you commit it.
+
+Everything here is public. Examples use made-up people only (Leo Novak, the owner; Emma Lee and Max Becker, colleagues) in a made-up Shop workspace and `#shop-backend`. No email addresses, internal ids, private URLs or personal file paths, and nothing copied from private source code. Check what you commit before each push, because a pushed commit cannot be taken back.
+
+<!-- CSP in vercel.json, written for the 1.6.4 build: script-src is 'self' plus the hash of the one inline script VitePress emits (check-mac-os, constant); metaChunk moves the page hash map into a script file. After a VitePress upgrade, compare the built pages' inline scripts with the listed hash. style-src keeps 'unsafe-inline' because the server-rendered pages carry style attributes (position:relative, --vp-vh) that only 'unsafe-hashes' could list. img-src keeps data: for the theme's inline SVG icons in CSS. -->
 
 ## Licence
 

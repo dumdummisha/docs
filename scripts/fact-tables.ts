@@ -192,7 +192,11 @@ const BROWSER_EXCEPTIONS: readonly IQuotedLimits[] = [
     item: 'What a page shows',
     group: 'hostPermissions',
     key: '<all_urls>',
-    starts: ['Page text, control names'],
+    starts: [
+      'Page text a tab command returns',
+      'This is known credential-shape redaction',
+      'Screenshots are not redacted',
+    ],
   },
   {
     item: 'Password fields',

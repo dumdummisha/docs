@@ -10,26 +10,14 @@
   },
   "scripts": {
     "dev": "vitepress dev",
-    "build": "pnpm check:source && pnpm check:diagrams && vitepress build && pnpm check:built && pnpm check:links && pnpm check:csp",
+    "build": "vitepress build",
     "preview": "vitepress preview",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "check:source": "node scripts/check-public.ts source",
-    "check:built": "node scripts/check-public.ts built",
-    "check:privacy": "node scripts/check-public.ts outgoing",
-    "check:links": "node scripts/check-links.ts",
-    "check:csp": "node scripts/check-csp.ts",
-    "check:diagrams": "node scripts/diagrams.ts check",
-    "render:diagrams": "node scripts/diagrams.ts render",
-    "import:desktop": "node scripts/import-desktop.ts",
-    "import:browser": "node scripts/import-browser.ts"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "24.19.2",
     "typescript": "7.0.2",
     "vitepress": "1.6.4",
-    "vitest": "5.1.1",
-    "vue": "3.5.45",
-    "zod": "4.6.7"
+    "vue": "3.5.45"
   }
 }

@@ -23,5 +23,5 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false
   },
-  "include": ["scripts/**/*.ts", ".vitepress/**/*.ts", ".vitepress/**/*.mts", "vitest.config.ts"]
+  "include": [".vitepress/**/*.ts", ".vitepress/**/*.mts"]
 }

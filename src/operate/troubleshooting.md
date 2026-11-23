@@ -45,7 +45,7 @@ Home's card says **Not hearing Slack** and gives one of four reasons. While it s
 | "Your browser isn't running, or my extension in it isn't..." | Open Slack in the browser that has the Misha Browser extension. |
 | "Slack in your browser is signed in as someone else, so I stopped rather than answer as them." | Sign in to Slack as yourself again. Misha serves one Slack account, chosen at setup, and won't answer as anyone else. |
 
-<Shot id="slack-deaf" caption="Home when no Slack tab is signed in, offering to open Slack in either browser with the native host. Made-up example." />
+<figure class="shot"><img class="shot__image" src="/captures/slack-deaf.png" alt="Home when no Slack tab is signed in: nothing reaches the clone, and it offers to open Slack in Chrome or Brave, the browsers with its native host." width="2200" height="1520" loading="lazy" decoding="async"><figcaption class="shot__caption">Home when no Slack tab is signed in, offering to open Slack in either browser with the native host. Made-up example.</figcaption></figure>
 
 It worked when the Slack card leaves Home and a notification says "Misha hears Slack again", with how long the outage lasted.
 
@@ -59,15 +59,15 @@ The clone answers only your self-DM commands, starts no workers and tries to sto
 
 The card names the runtime your clone uses, Claude Code or OpenCode, and this section reads the same for both. The clone runs on your own sign-in to it, and that sign-in on this Mac ended, so the clone can't answer. Click **Sign in to Claude** or **Sign in to OpenCode**, which opens Terminal with `claude auth login` or `opencode auth login`, and finish signing in there. On OpenCode, reconnect the provider of the model chosen on **Settings › What I think with**.
 
-<Shot id="claude-signed-out" caption="Home after Claude Code signed out, with the button that opens Terminal to sign in. Made-up example." />
+<figure class="shot"><img class="shot__image" src="/captures/claude-signed-out.png" alt="Home when Claude Code signed out on this Mac: nothing runs until Leo signs in again with Sign in to Claude." width="2200" height="1520" loading="lazy" decoding="async"><figcaption class="shot__caption">Home after Claude Code signed out, with the button that opens Terminal to sign in. Made-up example.</figcaption></figure>
 
 It worked when **Set up** shows your clone's runtime as **Signed in** and the card leaves Home. Nothing was lost: messages that arrived meanwhile waited and are answered once the clone can think again, after you resume if you paused it.
 
 ## "I'm out of Claude usage until..." {#claude-usage}
 
-Your Claude plan's usage limit ran out, or on OpenCode your provider's, and the card shows when it resets. Misha still hears Slack, keeps what arrives, and tells you in your self-DM. It never switches runtime or model by itself. You can wait for the reset, or choose another working runtime on **Settings**, or send <code><Fact name="desktop.commands.commands.use-claude-code.example" /></code> or <code><Fact name="desktop.commands.commands.use-opencode.example" /></code> in your self-DM; either starts a fresh conversation, and your settings commands still work while usage is limited. Changing only the model keeps that runtime's pause.
+Your Claude plan's usage limit ran out, or on OpenCode your provider's, and the card shows when it resets. Misha still hears Slack, keeps what arrives, and tells you in your self-DM. It never switches runtime or model by itself. You can wait for the reset, or choose another working runtime on **Settings**, or send `use claude code` or `use opencode` in your self-DM; either starts a fresh conversation, and your settings commands still work while usage is limited. Changing only the model keeps that runtime's pause.
 
-<Shot id="claude-limit" caption="Home while the Claude plan's limit has run out, with the reset time. Made-up example." />
+<figure class="shot"><img class="shot__image" src="/captures/claude-limit.png" alt="Home when the Claude plan's usage limit ran out: the clone answers nothing until 18:00, and nothing runs." width="2200" height="1520" loading="lazy" decoding="async"><figcaption class="shot__caption">Home while the Claude plan's limit has run out, with the reset time. Made-up example.</figcaption></figure>
 
 It worked when the reset time passes and the card leaves Home. The messages that waited are answered then, possibly hours after they were written, or after you resume if you paused Misha meanwhile.
 

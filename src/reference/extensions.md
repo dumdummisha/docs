@@ -23,17 +23,17 @@ A routine grants nothing: who may ask for work, what the clone may change and wh
 
 A connector is an extension for one service or capability, shipped inside the app. Each has one switch, **I use it**, on Set up. On means Misha loads it everywhere, and the clone uses it for colleagues too, within the limits of who asked. Off means Misha loads it nowhere, including in Misha's tools in your own Claude Code and OpenCode. A service you connected to your harness yourself, such as a Jira MCP server of your own, stays yours.
 
-On a fresh install the connectors setting's default is <Fact name="desktop.settings.fields.connectors.default" /> These are the connectors, as Set up words them:
+On a fresh install the connectors setting's default is Handoff compaction. These are the connectors, as Set up words them:
 
 | Connector | What Set up says |
 | --- | --- |
-| <Fact name="desktop.detection.items.atlassian.name" /> | <Fact name="desktop.detection.items.atlassian.about" /> |
-| <Fact name="desktop.detection.items.google.name" /> | <Fact name="desktop.detection.items.google.about" /> |
-| <Fact name="desktop.detection.items.figma.name" /> | <Fact name="desktop.detection.items.figma.about" /> |
-| <Fact name="desktop.detection.items.fireflies.name" /> | <Fact name="desktop.detection.items.fireflies.about" /> |
-| <Fact name="desktop.detection.items.aws.name" /> | <Fact name="desktop.detection.items.aws.about" /> |
-| <Fact name="desktop.detection.items.browser.name" /> | <Fact name="desktop.detection.items.browser.about" /> |
-| <Fact name="desktop.detection.items.compaction.name" /> | <Fact name="desktop.detection.items.compaction.about" /> |
+| Jira and Confluence | Your tickets and pages. |
+| Google Workspace | Your Docs and Sheets. |
+| Figma | Your design files, read only. Figma gives you a key, and you paste it into OpenCode, never into me. |
+| Fireflies | Your meeting notes. Fireflies gives you a key, and you paste it into OpenCode, never into me. |
+| AWS | Logs in your AWS accounts. |
+| Browser control | Your browser's tabs, and the Mac's mouse, keyboard and screen. |
+| Handoff compaction | Writes a handoff when your Claude Code and OpenCode sessions compact, and resumes from it. |
 
 Each connector declares which tools the clone gets. A turn for anyone gets a connector's reads, unless the connector keeps all its tools to your own turns, as AWS does; your own turn also gets the changes. Browser control declares none for the clone. A change on Set up applies to new Claude Code and OpenCode sessions: Misha refuses a call to a connector that is off, but a session already open may keep its tool list until you restart it.
 
@@ -134,7 +134,7 @@ A worker can run as a profile your extension declares if only one installed exte
 Skills go by `<extension>-<skill>`, so `team-writing` is `shop-team-team-writing`, and its `SKILL.md` frontmatter must name itself that. Commands are `/shop-team:tidy-pr` in Claude Code and `shop-team/tidy-pr` in OpenCode. `"isNamespaced": false` installs both under bare names. Agents keep their own names.
 
 - A skill's folder is refused when something not the extension's own is already there. Nothing is written over it.
-- A command or an agent of the same name is written over, after the installer moves the old file into <code><Fact name="desktop.paths.paths.overwritten.path" /></code>. One batch is kept per install run, the newest <Fact name="desktop.retention.overwrittenBatches.kept" /> stay, and uninstalling doesn't restore them.
+- A command or an agent of the same name is written over, after the installer moves the old file into `~/.misha/overwritten`. One batch is kept per install run, the newest 10 stay, and uninstalling doesn't restore them.
 - A name that matches a Claude Code built-in or a command or skill of yours elsewhere gets a warning, and the extension is installed beside it.
 
 [Control and maintain Misha](/operate/manage#remove) covers removal.
@@ -149,7 +149,11 @@ The public misha-browser package has tools that read and drive your own browser 
 
 Inside Misha they are the **Browser control** connector. While it is on, Misha's server gives the tools to your own Claude Code and OpenCode sessions, and to a worker you start from one with a profile of yours that grants them. The Slack clone and the workers it starts never get them.
 
-<!-- facts capabilities browser-read browser-act desktop-control -->
+| Request | Available as | Who may ask | Needs | Gives | Limit |
+| --- | --- | --- | --- | --- | --- |
+| List, open and read your signed-in browser tabs as compact outlines, wait for a page, screenshot a tab, or list the requests it sent | Standalone: Your agent, through the misha-browser MCP server<br>Included: Your agent, through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on<br>Included: Worker, through Browser control, for a worker you start from your own agent session with a profile that grants its tools | You | The misha-browser MCP server registered in your agent, or Browser control on, on Set up<br>For a worker, a profile of yours that grants these tools<br>The Misha Browser extension and native host in Chrome or Brave | Page outlines, screenshots and request lists in the agent's session | Acts through your signed-in sessions on any site the browser has open. The extension records every tab's requests while it runs, with credentials redacted by name and pattern. The Slack clone and the workers it starts never get these tools. |
+| Click, drag, type, fill forms, press keys and scroll in a tab with real input | Standalone: Your agent, through the misha-browser MCP server<br>Included: Your agent, through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on<br>Included: Worker, through Browser control, for a worker you start from your own agent session with a profile that grants its tools | You | The misha-browser MCP server registered in your agent, or Browser control on, on Set up<br>For a worker, a profile of yours that grants these tools<br>The Misha Browser extension and native host in Chrome or Brave<br>Accessibility and Screen Recording for the app that runs your agent | The input made, and what changed on the page | The input is a real mouse and keyboard on your Mac, so it acts wherever the pointer and focus are. The Slack clone and the workers it starts never get these tools. |
+| Move the Mac's mouse, type and press keys, capture the screen, list apps and bring one to the front | Standalone: Your agent, through the misha-browser MCP server<br>Included: Your agent, through Misha's MCP server in your own Claude Code and OpenCode, while Browser control is on<br>Included: Worker, through Browser control, for a worker you start from your own agent session with a profile that grants its tools | You | The misha-browser MCP server registered in your agent, or Browser control on, on Set up<br>For a worker, a profile of yours that grants these tools<br>Accessibility and Screen Recording for the app that runs your agent, except to list and focus apps | The input made, a screen capture, or the list of apps | macOS only. A screen capture shows whatever is on screen. The Slack clone and the workers it starts never get these tools. |
 
 Two made-up examples, both in Leo Novak's own Claude Code session:
 

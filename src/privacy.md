@@ -68,7 +68,7 @@ A connector's switch applies wherever Misha supplies the connector, including yo
 
 For the browser extension, its disclosures state:
 
-<!-- facts browser-recipients -->
+The extension sends data only to the native messaging host on the user's own Mac, which passes it to the Misha app or misha-browser's MCP server there. Its Slack Web API calls go only to the workspace's https address on Slack's domain and its file downloads only to `files.slack.com`, both with redirects refused. A file upload's bytes go to the upload URL Slack's `files.getUploadURLExternal` answer names: the extension does not check that URL's host, and refuses its redirects. The Misha app and the MCP server give the data to the AI agent working on the user's request; the privacy policy describes where the agent's data goes from there.
 
 Each recipient's own retention, training and administrator-access rules apply to what it receives. These docs have not checked them.
 
@@ -97,13 +97,46 @@ The check covers only stored values of at least eight characters from stores it 
 
 Misha's own files on your Mac:
 
-<!-- facts paths -->
+Everything below lives under ~/.misha, unless the MISHA\_HOME environment variable names another folder. These are the paths Misha's code builds; Claude Code, OpenCode, the browser and the browser extension keep their own data elsewhere. Each description says what the store holds and how long it stays; "never deleted" means Misha has no cleanup for it, so it stays until you delete it.
+
+| Path | What it holds |
+| --- | --- |
+| `~/.misha/misha.db` | One SQLite file with the settings and your notes, the inbox of Slack messages waiting for the clone, the outbox and the ledger of what the clone and its workers did in Slack. The file stays; how long each kind of record in it is kept is in the retention facts. |
+| `~/.misha/app/control.sock` | The socket your Claude Code or OpenCode reaches the running app through; only you may open it. It holds no data, and one a previous run of the app left is replaced as the app starts. |
+| `~/.misha/clone/work` | The empty folder the clone's runtime runs in. Claude Code keeps the clone's session transcripts in its own folder, and OpenCode its sessions in its own database, both outside this one. |
+| `~/.misha/clone/opencode` | The configuration of each call the clone makes on OpenCode, one folder per call, deleted once the call ends. Nothing else sweeps it: the folder of a call whose process was killed before it ended is never deleted. |
+| `~/.misha/clone/outbox` | Copies of the files a reply of the clone attaches, one folder per reply, so they outlast the run's scratch. A folder is deleted once its reply has gone out. Nothing else sweeps the outbox: a folder staged for an answer that was never saved, because the app stopped first or the answer was dropped or sent back for repair, is never deleted. |
+| `~/.misha/clone/scratch` | What the tools of one clone run write, such as a design's render, and the only place a reply attaches files from. Emptied as each run starts and ends; a run stopped before its end leaves it until the next run starts. |
+| `~/.misha/vision` | A Slack image downloaded for a vision model to read, and its downscaled copy when it is too large. Each file is deleted once the model answered or the call failed. Nothing sweeps the folder: a file whose deletion failed (logged as a warning), or written by a process killed before the call ended, is never deleted. |
+| `~/.misha/app/pause.json` | Whether Misha is paused, kept across restarts. Absent until you first pause; from then on rewritten by each pause and resume and never deleted. |
+| `~/.misha/workers/runs.json` | One record per worker run: the prompt and any slash command it was given, the model, effort and agent, its label, the conversation it was started for and who asked, the folder it worked in, its Claude or OpenCode session id, process id, start and end times, status and exit code, and the path of its log. Records are never deleted, so the file grows with every run. |
+| `~/.misha/workers/logs` | One file per worker run: a header with the command it was started with (the prompt left out), then the events its Claude Code or OpenCode session streamed, the worker's messages, its tool calls and their results, and its reply. Never deleted. |
+| `~/.misha/workers/worktrees` | A git worktree per piece of work a clone turn's worker is given, made from one of your linked folders at its remote's default branch, with the code the worker changed, committed or not. After a clone run, one no worker is in any more is removed only while it is exactly as Misha made it; any other is kept and listed on Home for you to remove, and so is every worktree of a folder with no remote. |
+| `~/.misha/workers/scratch` | A plain folder per piece of work with no repository a clone turn's worker is given, such as a meeting to summarise or a ticket to research, named for the work, with what the worker left in it. After a clone run, one no worker is in any more is removed while it is empty; one holding files is kept and listed on Home for you to remove. |
+| `~/.misha/workers/opencode` | One folder per GPT worker run: its spec, which holds the run's prompt, and the OpenCode configuration it runs with; the worker reads its skills from ~/.agents/skills, where Misha installs them. Deleted only when the launch fails before the worker starts; the folder of a run that started is never deleted. |
+| `~/.misha/extensions` | What the extension installers keep per harness and for ~/.agents/skills: their install records and the files they generate for a harness to read. Uninstalling an extension removes its record and the files it added, leaving any you changed since. |
+| `~/.misha/extensions/claude-code/records` | What was installed into Claude Code: one record per extension of every addition it made, so an uninstall undoes exactly those. A record is deleted when its extension is uninstalled. |
+| `~/.misha/extensions/opencode/records` | What was installed into OpenCode: one record per extension of every addition it made, so an uninstall undoes exactly those. A record is deleted when its extension is uninstalled. |
+| `~/.misha/extensions/agents/records` | What was placed in ~/.agents/skills, where OpenCode reads skills and Claude Code reads them through its links: one record per extension of the skill folders it placed, so a skill it no longer places (one of a connector turned off) and its last uninstall remove exactly what it placed there, leaving any file you changed. A record is deleted once its extension places no skill. |
+| `~/.misha/overwritten` | What the extension installers moved aside before writing over a file or setting of yours, one batch per install or update that overwrote something. The newest 10 batches are kept and older ones deleted; an uninstall restores nothing from them. |
 
 One more file comes from Misha's code, outside the Misha home: misha-browser's desktop tool `macos_screen_capture` saves a PNG of your primary screen in a `misha-browser` folder in macOS's temporary folder, and deletes it once the screenshot is read into the tool's result. A failed deletion is only logged, and a capture whose process is killed before that point stays. Nothing sweeps the folder.
 
 #### Retention {#retention}
 
-<!-- facts retention-policy -->
+Misha's cleanup deletes these from misha.db once they are older than shown; each other store has its own rule.
+
+| Record | Kept | What it is |
+| --- | --- | --- |
+| Event receipts | 7 days | That an event from Slack, or a worker's report, was taken in, so a repeat of it changes nothing. |
+| Outcomes | 30 days | How the clone closed each message it considered: replied, reacted, let it be, stayed out or failed. |
+| Threads | 14 days | The threads you're in, counted from their last message. |
+| Hands off | 14 days | The threads and DMs you told the clone hands off, counted from when you said it. |
+| Sessions | 14 days | Which session a conversation continues, counted from its last use. The runtime's own record of the session is not part of this. |
+| Reply budget | 1 day | The clone's replies to each person, counted against that person's reply budget. |
+| Pending deliveries | No age limit | A message waiting for the clone never expires: it waits until it is closed, paused or not. |
+| Ledger | No age limit | The record of every post, edit, upload and reaction the clone and its workers made in Slack: never deleted. |
+| Overwritten files | Newest 10 batches | What the extension installers moved aside before writing over a file in your Claude Code or OpenCode configuration, one batch per install run: the newest batches are kept and older ones deleted. |
 
 Starting fresh, or switching the clone to the other runtime, is not erasure: the clone's next message starts a new session in the selected runtime, and the earlier session's record stays in Claude Code or OpenCode, as do your settings and notes. A message waiting for the clone is still there after a pause and can be answered after you resume.
 
@@ -111,7 +144,17 @@ Starting fresh, or switching the clone to the other runtime, is not erasure: the
 
 The extension writes only its queue of new Slack messages to disk; everything else it keeps stays in memory:
 
-<!-- facts browser-holdings -->
+| What the extension keeps | Where, and for how long |
+| --- | --- |
+| New Slack messages waiting for the Misha app to save them | The durable queue holds at most 2000 pending events. When it is full, a new event is not stored: it is counted as lost, and the Misha app sees the count in the extension's status. A stored event has no age limit. It stays, and is forwarded again, until the Misha app acknowledges it. A stored event holds the account it came to and the message cut down to the fields listed under Slack transport limits. |
+| New Slack messages while writes to that queue fail | While writes to the database fail, the extension holds new events in the service worker's memory, up to a separate limit of 2000, and forwards them from there. An event past that limit is lost, and its loss is counted in memory only. The status reports the failure, the number of held events and that in-memory count. A service worker or browser restart while writes fail loses every held event the Misha app has not acknowledged, and the in-memory count of lost ones, with no record of either. |
+| New Slack messages no relay has taken yet | It holds up to 50 messages no relay has taken yet, such as those that come while the extension reloads, in the page's memory, and hands them to the next relay; past that the oldest is dropped. |
+| The network request log | The log holds the latest 200 requests per tab and a request body up to 20,000 characters, and never stores response bodies. The log lives only in the service worker's memory and is never written to disk. A tab's log goes when the tab closes, and the whole log goes when the service worker stops, which an open connection to the native host can put off for as long as the browser runs. |
+| The page outline recorded before an action | Before a click, a drag, a key press, picking an option, or typing that submits or goes to the focused element, the extension records the page's unredacted outline (its text, controls and ordinary field values, with a password field only as filled or empty) and URL in the service worker's memory, to report what the action changed; the report it returns is redacted (see host access). The record stays until another of those actions in that tab records a new one, the tab closes or the service worker stops. Opening or navigating to a page, reading it, scrolling and typing into a referenced field without submitting do not replace it, so the record of a page can stay after the tab has left it. |
+| Slack file downloads and uploads in progress | A downloaded Slack file's bytes stay in the service worker's memory until the Misha app pulls the last chunk, and an upload's chunks until the app asks to prepare the upload. Neither has a timeout: a transfer the app abandons stays until the service worker stops, and closing the Slack tab or disconnecting the app does not clear it. |
+| The last value read from each password field | A password field's value comes back only as filled or empty in an outline, or as its length in a field read. A field read, which the typing tools make while they type, still reads the raw value: the extension keeps the last value it read from each field, a password field's included, in the page's isolated world, to tell whether the value changed between reads even when the values it returns read the same after redaction, and keeps it until a later read of that field replaces it or the document unloads. The page's own scripts cannot see the isolated world. |
+| The latest pointer position in a page | The first time a browser tool locates a target in a page, which clicks, drags, scrolling, typing into a referenced field and screenshots do, the extension starts listening for mouse movement in that document and keeps listening until the document unloads, whether or not a tool is acting. Key presses, picking an option and typing into the focused element do not start it. It keeps only the latest pointer position and a count of moves, not a history, and sends them only when a browser tool asks for them while it moves the pointer. |
+| Anything the native host relays | The host only relays: it passes messages between the extension and processes of the same user on the same Mac (the Misha app, misha-browser's MCP server) and stores none of them. |
 
 #### Outside Misha's folders {#other-records}
 
@@ -174,15 +217,29 @@ The publisher does not sell your data, does not use it for advertising, and does
 
 The extension's declared single purpose:
 
-<!-- facts browser-single-purpose -->
+> Misha Browser connects AI agents that run on the user's own Mac to the user's signed-in browser, so they can read pages and carry out the browser actions the user asks for. Misha's Slack transport is one such use: it reads new messages in the user's signed-in Slack tab and makes allowlisted Slack calls there for the Misha app. Both uses reach the browser through one native messaging host on the same Mac.
 
 What it handles, by the store's data types:
 
-<!-- facts browser-data-usage -->
+| Data type | Handled | What the extension handles |
+| --- | --- | --- |
+| Personally identifiable information | Yes | The Slack account's team and user ids and the workspace's name, and whatever Slack's answers, the request bodies the network observer records and the pages a browser tool reads hold, such as names and email addresses in Slack profiles or in a form a site posts. |
+| Health information | Yes | The extension does not look for health data, but it handles any that appears in what it collects for other purposes: the fetch and XHR request bodies every tab sends, which the network observer records on every site without a request and filters for credentials only; the page text, field values and screenshots a browser tool reads; and Slack messages and files. A diagnosis in a form a site posts, for example, is recorded as sent. |
+| Financial and payment information | Yes | The extension does not look for financial or payment data, but it handles any that appears in what it collects for other purposes: the fetch and XHR request bodies every tab sends, which the network observer records on every site without a request and filters for credentials only; the page text, field values and screenshots a browser tool reads; and Slack messages and files. A card number in a checkout form a site posts, for example, is recorded as sent unless it sits under a credential-like name. |
+| Authentication information | Yes | The Slack page command reads Slack's session token from Slack's saved client state inside the page, sends it with the requests the Misha app asks for, and does not return it. Chrome exposes every outgoing request's credentials (tokens, cookies, passwords in request bodies), Slack's token and cookie included, to the service worker temporarily, for redaction: it redacts the ones it recognizes before recording, and records an unrecognized one as sent. The Slack transport's check, which reads Slack's requests too, keeps no credential from them, only listed transport fields in their expected forms. When a typing tool reads a password field, the extension returns only the value's length, but keeps the last raw value it read from that field, as from any field, in the page's isolated world until a later read replaces it or the document unloads. Page reads return a credential a page displays with the spans shaped like a known token or key redacted, and any other credential as shown; screenshots show it unredacted. |
+| Personal communications | Yes | New messages in the user's signed-in Slack tab, the Slack messages and files the Misha app reads or sends through Slack's Web API, and any messages on a page a browser tool reads. |
+| Location | Yes | The extension asks for no geolocation permission and reads no device location. It still handles location that appears in what it collects for other purposes: coordinates or an address in the fetch and XHR request bodies every tab sends, which the network observer records on every site without a request and filters for credentials only; a map or an address on a page a browser tool reads or screenshots; a place in a tab's or a request's URL; and a place someone names in a Slack message. |
+| Web history | Yes | The open tabs' titles and URLs, returned when a browser tool asks, and the URLs of the fetch and XHR requests tabs send, recorded without a request and kept in memory. |
+| User activity | Yes | Network monitoring: the fetch and XHR requests every tab sends, recorded without a request and kept in memory. Mouse movement: from the first time a browser tool locates a target in a page (a click, drag, scroll, typing into a referenced field or a screenshot), the extension keeps the latest pointer position in that document and a count of moves, not a history, until the document unloads, whether or not a tool is acting, and sends them only when a browser tool asks. The extension installs no click or keyboard listeners, though what the user typed reaches it in request bodies and field values. |
+| Website content | Yes | Page text, controls, form field state, screenshots and the browser's download list, when a browser tool asks; the page outline recorded before a click, drag, key press, option pick, or typing that submits or goes to the focused element, kept until another of those actions in the tab records a new one, the tab closes or the service worker stops, so navigating and scrolling leave it in place; and the bytes of Slack files the Misha app downloads or uploads, kept until the transfer completes or the service worker stops. |
 
 Its certifications:
 
-<!-- facts browser-certifications -->
+- User data is not sold to third parties.
+- User data is not used or transferred for purposes unrelated to the single purpose above.
+- User data is not used or transferred to determine creditworthiness or for lending purposes.
+
+The use of data the extension handles complies with the Chrome Web Store User Data Policy, including the Limited Use requirements.
 
 [Browser permissions](/reference/permissions) explains each permission from the same source.
 

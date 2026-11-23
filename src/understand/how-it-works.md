@@ -46,7 +46,9 @@ Nothing runs on a Misha server. Chrome or Brave starts the native host, register
 
 The extension resends a message until the app acknowledges it, which happens only after the app has stored the event and what it routes to in one database transaction. A message waiting for the clone has no age limit, and the clone rereads the thread before answering. A repeat changes nothing while the app still holds its receipt, kept for:
 
-<!-- facts retention event-receipts -->
+| Record | Deleted after |
+| --- | --- |
+| That an event from Slack, or a worker's report, was taken in, so a repeat of it changes nothing. | 7 days |
 
 That suppresses duplicates for a window; it isn't a promise to process each event exactly once. The extension's queue is durable IndexedDB storage that survives a browser restart, but it is bounded, not lossless: when it is full new events are dropped and counted. While writes to it fail, unacknowledged events wait in memory, and a restart then loses them without a record ([browser storage](/privacy#browser-storage) lists both limits). A message Slack never delivered to the tab, because the Mac slept or the tab was closed, was never captured, and there is no general catch-up. [Troubleshooting](/operate/troubleshooting) covers both.
 
@@ -54,13 +56,13 @@ Sending has its own rule. The app records a post in the provenance ledger before
 
 ## What reaches the clone, and why it never answers itself {#routing-and-loops}
 
-A message from someone else reaches the clone when it is a DM or group DM to you, mentions you, replies in a thread you started or wrote in, or is in a channel you have it watch, unless you ignore that person (soft-ignored people reach it only with the clone's emoji). Of your own messages, only what you typed counts: in your self-DM (your direct message to yourself in Slack), or anywhere with the clone's emoji standing alone outside quotes and code. Thread exclusion (<code><Fact name="desktop.commands.commands.hands-off.syntax" /></code>) keeps other people's messages in a thread from the clone, and your own eligible messages still reach it.
+A message from someone else reaches the clone when it is a DM or group DM to you, mentions you, replies in a thread you started or wrote in, or is in a channel you have it watch, unless you ignore that person (soft-ignored people reach it only with the clone's emoji). Of your own messages, only what you typed counts: in your self-DM (your direct message to yourself in Slack), or anywhere with the clone's emoji standing alone outside quotes and code. Thread exclusion (`hands off`) keeps other people's messages in a thread from the clone, and your own eligible messages still reach it.
 
 Other people's typed messages count, and so does an unmarked Web API post made with a person's own token. A bot's or app's post, an edit, a deletion, a join, and a message that summons only another person's clone never count. Every post Misha sends carries a message id from a namespace of its own and a ledger record made before it goes out, so when it comes back the app never treats it as you typing. Other people's Misha clones share that namespace, so their posts never start a reply.
 
 ## What Misha is made of {#made-of}
 
-Always on: Slack, Claude Code (the clone starts on it, and workers use it by default), GitHub (its CLI, and the commit history of your linked folders) and the workers. Connectors are opt-in, one switch each ([what Set up checks](/reference/settings#detection)). Out of the box the connectors on are: <Fact name="desktop.settings.fields.connectors.default" /> A switch that is on loads the connector wherever it works: in the clone's turns, in workers, and in Misha's MCP server inside your own Claude Code and OpenCode. Off loads it nowhere, and a host with an old tool list refuses the call. Browser control is the exception: it serves your own Claude Code and OpenCode, and gives the clone and its workers nothing. A new connector needs no change to the core ([Customise and reuse Misha](/reference/extensions)).
+Always on: Slack, Claude Code (the clone starts on it, and workers use it by default), GitHub (its CLI, and the commit history of your linked folders) and the workers. Connectors are opt-in, one switch each ([what Set up checks](/reference/settings#detection)). Out of the box the connectors on are: Handoff compaction. A switch that is on loads the connector wherever it works: in the clone's turns, in workers, and in Misha's MCP server inside your own Claude Code and OpenCode. Off loads it nowhere, and a host with an old tool list refuses the call. Browser control is the exception: it serves your own Claude Code and OpenCode, and gives the clone and its workers nothing. A new connector needs no change to the core ([Customise and reuse Misha](/reference/extensions)).
 
 ## What the clone runs on {#clone-runtime}
 

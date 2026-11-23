@@ -62,7 +62,10 @@ The clone is told never to promise Leo's time or opinions, and a confident answe
 
 Send either command as the whole message, in a one-to-one DM with Leo:
 
-<!-- facts commands colleague -->
+| Command | Where | What it does | Example |
+| --- | --- | --- | --- |
+| `soft-ignore me` | One-to-one DM with the owner | The clone answers you only when you call it with its icon. | `soft-ignore me` |
+| `stop ignoring me` | One-to-one DM with the owner | The clone treats you like everyone else again. While it soft-ignores you, write the clone's icon in the message too, or the message never reaches it. | `:misha: stop ignoring me` |
 
 <figure class="chat-illustration">
   <figcaption class="chat-illustration__label">Illustration with made-up people, not a screenshot: Max Becker's one-to-one DM with Leo Novak.</figcaption>

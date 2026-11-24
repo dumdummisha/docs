@@ -33,7 +33,7 @@ Jump to [your messages](#your-messages), [work requests](#questions-and-work), [
   </ol>
 </figure>
 
-The clone's reply has the marker and italics (code stays plain) and calls Leo by first name. A reaction from Leo's account carries no marker and may come from the clone. Workers can also post from Leo's account. Misha sends their text as they wrote it, without adding the clone's emoji or italics. When it matters, ask Leo.
+The clone's reply has the marker and italics (code stays plain). A reaction from Leo's account carries no marker and may come from the clone. Workers can also post from Leo's account. Misha sends their text as they wrote it, without adding the clone's emoji or italics. When it matters, ask Leo: every post the clone made is listed under **Recently** on Home in Misha's window, so Leo can check.
 
 ## What happens to your messages {#your-messages}
 
@@ -103,4 +103,4 @@ Ask Leo to correct or remove the post; the clone can't edit its own replies. Leo
 
 ## Want your own? {#want-your-own}
 
-As of 24 November 2026, Misha is one unsigned build run by its owner, with no public download. See [why to try it](/start/try) and [what setup involves](/start/get-started).
+See [why to try it](/start/try) and [what setup involves](/start/get-started).

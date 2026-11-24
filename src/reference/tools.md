@@ -7,7 +7,7 @@ next: false
 
 # MCP tools
 
-Misha registers one MCP server, `misha`, in your own Claude Code (user scope) and OpenCode. Its tools let you, or an agent in one of your sessions, check Misha, change its settings and pause it without opening the window. Every tool talks to the running Misha app, so a change made here has the same effect as the same change in the window or your self-DM, and each tool says so when the app isn't running.
+Misha registers one MCP server, `misha`, in your own Claude Code (user scope) and OpenCode. Its tools let you, or an agent in one of your sessions, check Misha, change its settings and pause it without opening the window. Every tool talks to the running Misha app, so a change made here has the same effect as the same change in the window or your self-DM, and each tool says so when the app isn't running. A Claude Code or OpenCode session started before Misha first ran lists the tools only after you restart it.
 
 In Claude Code the tools are named `mcp__misha__<tool>`, in OpenCode just `<tool>`. The setup command, `/misha-core:misha-setup` in Claude Code and `/misha-core/misha-setup` in OpenCode, walks through setup with these same tools. No clone turn lists them and no worker profile grants them: they are for your own sessions.
 
@@ -50,7 +50,7 @@ A change takes effect as the same change in the window does ([When a change take
 | `remove-rule` | `personId` | Stops ignoring or soft-ignoring a person. |
 | `add-repository` | `path`, `remote` (`host/owner/name`, or `null` for none), `canMerge` | Links a folder of yours. Misha checks the folder and its remote first ([Linked folders](/reference/settings#linked-folders)). |
 | `remove-repository` | `path` | Unlinks a folder; the folder stays as it is. |
-| `set-merging` | `path`, `canMerge` | Lets workers merge pull requests in a linked folder's remote, or stops them. |
+| `set-merging` | `path`, `canMerge` | Lets workers merge pull requests in a linked folder's remote, or tells them not to. An instruction to the clone, not a lock ([When a change takes effect](/reference/settings#when-changes-apply)). |
 | `remember` | `text` | Keeps your words as the next note. |
 | `forget` | `number` | Forgets a note; the notes after it move up a number. |
 | `start-fresh` | None | The clone's next message starts a new session. |

@@ -153,7 +153,7 @@ Turning a switch on lets what is already on its way finish. Turning it off pre-a
 
 ### Linked folders {#linked-folders}
 
-A repository link is the full path to a real top-level git folder, not a symlink, a subfolder or a shallow clone. Its remote is `host/owner/name`, not a remote's name such as `origin`, and must match the fetch and push addresses of one of the folder's git remotes. Leave it empty only for a repository with no remote. A remote can be linked once, and **May merge** needs one. **Choose folder…** opens the Mac's folder dialog and reads the folder's remotes from git: one remote fills the field, several offer **Pick its remote**, and a folder with no remote or one that isn't a git repository says so. Misha's own data folder can't overlap a linked folder.
+A repository link is the full path to a real top-level git folder, not a symlink, a subfolder or a shallow clone. Its remote is `host/owner/name`, not a remote's name such as `origin`, and must match the fetch and push addresses of one of the folder's git remotes. Leave it empty only for a repository with no remote. A remote can be linked once, and **May merge** needs one. **Choose folder…** opens the Mac's folder dialog and reads the folder's remotes from git: one remote fills the field, several offer **Pick its remote**, and a folder with no remote or one that isn't a git repository says so. Misha's own data folder can't overlap a linked folder. Workers open pull requests with the GitHub CLI, so it needs to be installed and signed in; add it from the **Catalogue** and Extensions checks both for you.
 
 ## When a change takes effect {#when-changes-apply}
 

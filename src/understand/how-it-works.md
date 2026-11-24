@@ -4,9 +4,7 @@ description: "How a Slack message reaches your clone and its reply gets back wit
 prev:
   text: Put Misha to work
   link: /use/workflows
-next:
-  text: Customise and reuse Misha
-  link: /reference/extensions
+next: false
 ---
 
 # How Misha works
@@ -19,7 +17,7 @@ Misha reads and posts through your signed-in Slack tab, acting as your account w
 
 Select the diagram to open it full size. The dashed Workers box marks optional delegated work; the large dashed boundary encloses your Mac.
 
-1. Slack's socket delivers a message to the signed-in tab's Misha Browser observer.
+1. Slack's socket delivers a message to the signed-in tab's Misha Browser observer, which also keeps the session fields of Slack's own latest Web API call for the page command to send with each call.
 2. The page relay forwards it to the extension service worker's queue.
 3. The service worker forwards it to the native host, which connects the extension to local processes.
 4. The host relays it to the app over a local socket.
@@ -27,18 +25,20 @@ Select the diagram to open it full size. The dashed Workers box marks optional d
 6. Waiting messages enter the shared clone session as a turn.
 7. The turn goes to your selected model's provider through your sign-in.
 8. The clone reads Slack through its bridge and your tab, linked folders, and services its turn permits.
-9. The app records the reply before posting through the native host, extension and tab.
+9. The app records the reply before posting through the native host, extension and tab. While **Before anything goes out** is on, it holds the reply on Home under **Waiting for your OK** first and posts it only after you approve it ([Approvals](#approvals)).
 10. Slack echoes the post; the app recognises its own.
-11. An authorised turn can start a worker.
+11. An authorised turn can start a worker, or several at once. While **Before I start work** is on, the work waits on Home for your OK first.
 12. The worker calls its provider and services, then reports to the app for the clone.
 
 [Privacy and security](/privacy) has what each recipient receives and what is stored where.
 
 ## Slack without a Slack app {#without-a-slack-app}
 
-The observer loads before Slack's scripts and reads its socket frames. Only the page function uses the session token: Web API calls send it to your workspace's Slack address, refuse redirects and never return it. Downloads go to `files.slack.com` with the browser's cookies and no token, redirects refused. An upload's bytes go to the URL Slack's answer names, without the token and with redirects refused; the extension checks only that the URL parses, not its host, and never passes it to the app.
+The observer loads before Slack's scripts and reads its socket frames. Only the page function uses the session token: Web API calls send it to your workspace's Slack address, refuse redirects and never return it. Slack answers a call made from the page only when it carries the session fields of the client's own calls, so the page command sends the ones the observer kept. A Slack tab loaded before the extension kept them needs one reload, and the window asks for it. Downloads go to `files.slack.com` with the browser's cookies and no token, redirects refused. An upload's bytes go to the URL Slack's answer names, without the token and with redirects refused; the extension checks only that the URL parses, not its host, and never passes it to the app.
 
-The exception is the network observer: Chrome shows the service worker every request a tab sends, so the token and session cookie reach it for a moment. It redacts both before recording the request, and neither is stored or sent to the native host. Because Misha acts as you, clone replies carry the marker you chose and are set in italics ([Talking with a clone](/understand/slack)).
+The exception is the network observer: Chrome shows the service worker every request a tab sends, so the token and session cookie reach it for a moment. It redacts both before recording the request, and neither is stored or sent to the native host.
+
+Right before each Web API call, the page function records activity in Slack's own activity-session entry in the Slack page's storage, as Slack's web client does while you use the tab. Slack's client reports those sessions to Slack as your time spent in Slack, so when the clone acts, Slack counts it as you being active. Because Misha acts as you, clone replies carry the marker you chose and are set in italics ([Talking with a clone](/understand/slack)).
 
 Nothing runs on a Misha server. Chrome or Brave starts the native host, registered for this extension only, and its socket sits in a folder only your macOS user can open. The browser, host and app are all on your Mac, which has to be awake, with a Slack tab signed in. [Browser permissions](/reference/permissions) accounts for each permission and [where Slack's credentials go](/reference/permissions#where-slack-credentials-go).
 
@@ -62,7 +62,7 @@ Other people's typed messages count, and so does an unmarked Web API post made w
 
 ## What Misha is made of {#made-of}
 
-Always on: Slack, Claude Code (the clone starts on it, and workers use it by default), GitHub (its CLI, and the commit history of your linked folders) and the workers. Connectors are opt-in, one switch each ([what Set up checks](/reference/settings#detection)). Out of the box the connectors on are: Handoff compaction. A switch that is on loads the connector wherever it works: in the clone's turns, in workers, and in Misha's MCP server inside your own Claude Code and OpenCode. Off loads it nowhere, and a host with an old tool list refuses the call. Browser control is the exception: it serves your own Claude Code and OpenCode, and gives the clone and its workers nothing. A new connector needs no change to the core ([Customise and reuse Misha](/reference/extensions)).
+Always on: Slack, Claude Code (the clone starts on it, and workers use it by default), GitHub (its CLI, and the commit history of your linked folders) and the workers. Connectors are opt-in: you add each from the **Catalogue** on **Extensions** ([what Extensions checks](/reference/settings#detection)). Out of the box only Handoff compaction is added. An added connector loads wherever it works: in the clone's turns, in workers, and in Misha's MCP server inside your own Claude Code and OpenCode. Removed, it loads nowhere, and a host with an old tool list refuses the call. Browser control is the exception: it serves your own Claude Code and OpenCode, and gives the clone and its workers nothing.
 
 ## What the clone runs on {#clone-runtime}
 
@@ -76,7 +76,7 @@ The app limits each turn's tools, and its bridge, the one MCP server, enforces t
 
 - a turn for anyone gets the read tools of Slack and of the connectors you switched on, except AWS, whose tools are owner-turn-only;
 - your own turn (your self-DM, or a message with the clone's emoji in it) also gets their change tools, the commit history of your linked folders, and the command lines, the only programs the shell may start: the GitHub CLI, and the AWS CLI while AWS is on;
-- a turn for you or someone you allow can also start and follow workers.
+- a turn for you or someone you allow can also start and follow workers. The clone is told to start a worker for each independent part of a request in the same turn, so they run at once, each in its own folder; a part that needs another's result waits for that worker's report.
 
 Authority comes from who sent a message, as the app identified them, never from what it says. The shell rules choose which program starts, not what it does: the command lines act with everything your GitHub and AWS accounts may do, and can start other programs (a GitHub CLI alias that runs a shell command, an AWS profile's credential process), which is why only your own turns get them. The ceiling on deploys (dev only, never staging, production or a release) and the rules about other people's code are the clone's instructions, not an operating-system sandbox: what your accounts permit is the hard limit. The clone redacts secret-shaped strings from what it posts. [Put Misha to work](/use/workflows) shows them from the requester's side.
 
@@ -90,7 +90,13 @@ Unlinking removes the folder from later runs and leaves its files alone. It does
 
 A worker runs with your sign-ins, as a profile that sets its tools, on Claude or, when the request or your routines say so, a GPT model through OpenCode. A Claude worker keeps your Claude Code settings and skills but runs as the profile Misha selects, with Misha's bridge as its only MCP server. A GPT worker runs OpenCode on a configuration Misha writes for that run.
 
-The researcher and reviewer profiles are read-only by instruction, not by sandbox: they still have the shell and file editing, and a worker reaches any path its profile allows. Nothing in the app orders a review or a merge, and where merging is allowed is an instruction to the clone and its workers, so what your GitHub account may do is the limit. Pausing Misha stops the clone's workers, and names any run it can't confirm stopped.
+The researcher and reviewer profiles are read-only by instruction, not by sandbox: they still have the shell and file editing, and a worker reaches any path its profile allows. Nothing in the app orders a review or a merge, and where merging is allowed is an instruction to the clone and its workers, so what your GitHub account may do is the limit. Pausing Misha stops the clone's workers, and names any run it can't confirm stopped. Workers you start from your own sessions keep running and keep every Misha tool.
+
+## Approvals {#approvals}
+
+**Require my approval** in Settings has two switches, both on for a new account. With **Before anything goes out** on, replies, reactions, files, edits, new DMs and the clone's notes to you wait on Home under **Waiting for your OK**. One answer can be a reply and a reaction together, approved as one card. With **Before I start work** on, a message that would start work shows you the worker's brief first; workers it starts after your OK don't ask again.
+
+This is enforced by the app, not by the clone's instructions. The app holds each item when the clone's turn or a worker registers it, and sends only what matches what you approved: when the text or a file changed after you approved it, the app doesn't send it and the card says so. Turning a switch off counts from the next thing Misha starts or sends; items already waiting still need your decision. [Settings and commands](/reference/settings#approvals) has the switches.
 
 ## Routines, and the setup that stays yours {#your-setup}
 
@@ -104,4 +110,4 @@ Misha depends on how Slack's web client works today, so a change there can stop 
 
 ## Public code and private code {#public-and-private}
 
-The browser side is public, under Apache-2.0, in [browser-extension](https://github.com/dumdummisha/browser-extension): the wire protocol, the extension, the native host, a Node client for the socket, and the browser and desktop tools with their standalone MCP server. The desktop app, its connectors and the bundled misha-core extension are private, so what this page says about them is the maintainer's description, not auditable code. [Customise and reuse Misha](/reference/extensions) shows what you can build on.
+The browser side is public, under Apache-2.0, in [browser-extension](https://github.com/dumdummisha/browser-extension): the wire protocol, the extension, the native host, a Node client for the socket, and the browser and desktop tools with their standalone MCP server. The desktop app, its connectors and the bundled misha-core extension are private, so what this page says about them is the maintainer's description, not auditable code.

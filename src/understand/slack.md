@@ -44,7 +44,7 @@ A message you send Leo can reach Leo's clone, and through it the AI provider Leo
 - a reply in a thread Leo started or wrote in
 - a message in a channel Leo asked the clone to watch
 
-Bots, apps and clones never start a reply, nor does a message calling only another clone by an emoji Misha has seen it use. In a watched channel the clone gets every message and is told to answer only what concerns Leo or Leo's work. Whatever reaches it, it may reply, react or do nothing.
+Bots, apps and clones never start a reply, nor does a message calling only another clone by an emoji Misha has seen it use. In a watched channel the clone gets every message and is told to answer only what concerns Leo or Leo's work. Whatever reaches it, it may reply, react, do both or do nothing.
 
 A message passed to the clone goes, with its conversation, to the provider of the model Leo chose for it: Anthropic through Leo's own Claude Code subscription, or a provider such as OpenAI through Leo's own OpenCode sign-in. Work it leads to runs in workers, separate Claude Code or OpenCode sessions, which can use another provider. On the Mac, the browser extension queues each new message until Misha saves it, Misha keeps a message for the clone until it is handled, whichever of Claude Code and OpenCode runs the clone keeps its conversation, and Misha records every clone post with no age limit. Details: [What is stored, and for how long](/privacy#storage).
 
@@ -55,6 +55,8 @@ The clone keeps one memory across all of Leo's conversations and is told to keep
 The clone answers from what it reads (the thread, a linked ticket, Leo's code) and names its sources. Only Leo and people Leo allows can start work such as research, a ticket or a code change. For anyone else the app gives the clone read-only tools, so it can't change a ticket, document or code for you; it passes what it can't finish to Leo privately.
 
 The request and Leo's own standing instructions decide how allowed work is done and whether it is reviewed. Workers are told to deploy only to the development environment (dev), and a change to your own repository, document or pull request waits for your approval. Those are instructions the clone and workers are told to follow; the app doesn't enforce them. [Put Misha to work](/use/workflows) covers how a request ends.
+
+Leo can have the app hold the clone's replies, and any work it would start, until Leo approves them; a new clone starts that way. So an answer can arrive late, or not at all when Leo declines it.
 
 The clone is told never to promise Leo's time or opinions, and a confident answer can still be wrong: check with Leo before you act on it, especially in front of a client.
 
@@ -101,4 +103,4 @@ Ask Leo to correct or remove the post; the clone can't edit its own replies. Leo
 
 ## Want your own? {#want-your-own}
 
-As of 19 November 2026, Misha is one unsigned build run by its owner, with no public download. See [why to try it](/start/try) and [what setup involves](/start/get-started).
+As of 24 November 2026, Misha is one unsigned build run by its owner, with no public download. See [why to try it](/start/try) and [what setup involves](/start/get-started).

@@ -13,7 +13,7 @@ next:
 
 Misha exists to give you back the time routine Slack work takes: the questions only you can answer, the small fixes, the lookups. You decide what it takes on and how. It's your automation, built from the tools you already use, and you can switch any of it off.
 
-Your clone runs on your own Claude Code or OpenCode, and its workers are ordinary sessions of them on your Mac. So the skills, commands and tools you've set up there are the ones your workers can use. Tell Misha about them the way you'd tell a colleague: name a skill or a `/command` in a request or in your [Routines](#routines), and the worker is told to load it, and to say so if it can't find it.
+Your clone runs on your own Claude Code or OpenCode, and its workers are ordinary sessions of them on your Mac. So the skills, commands and tools you've set up there are the ones your workers can use. Tell Misha about them the way you'd tell a colleague: name a skill or a `/command` in a request or in your [Routines](#routines), and the worker is told to load it, and to say so if it can't find it. Your user-level skills and commands are always there. A repository's own skills and commands reach a worker only when they are committed on the default branch of its remote, because workers work in a fresh worktree of it.
 
 Everything below is in Misha's window, on **Settings** and **Extensions**. Each category on Settings opens with **Open**, and **All settings** takes you back.
 
@@ -23,9 +23,11 @@ By default your clone answers only DMs to you, mentions of you and threads you'r
 
 **Settings › Who I ignore** keeps it away from people. **Soft-ignore** someone and the clone answers them only when they call it with its emoji; **Ignore** them and it never answers them. Watching and ignoring count for new messages as soon as you save.
 
+There is no switch that keeps the clone out of a whole channel: a mention of you reaches it wherever it is. In a channel shared with a client, **Ignore** or **Soft-ignore** the client's people, send `:misha: hands off` in a thread to keep the clone out of that thread for 14 days ([Hands off](/reference/settings#hands-off)), and keep **Before anything goes out** on so nothing goes out without your OK.
+
 ## Who may ask it for work {#who-may-ask}
 
-Anyone the clone answers gets answers from what it can read. Starting work (research, a ticket, a change and its review) is yours alone until you add people on **Settings › How I take work › Who may ask me for work**. They can then start workers, but they don't get your direct changes in Jira, Google and the other services, and nothing they write widens what their workers may do.
+Anyone the clone answers gets answers from what it can read: the thread, messages it links to, your linked folders and the services you added. Starting work (research, a ticket, a change and its review) is yours alone until you add people on **Settings › How I take work › Who may ask me for work**: find them with **Find someone in Slack** and click **Allow**, or send `allow @name` in your self-DM. When anyone else asks for work, the clone answers what it can and passes the rest to you. People you allow can start workers, but they don't get your direct changes in Jira, Google and the other services, and nothing they write widens what their workers may do.
 
 <figure class="shot"><img class="shot__image" src="/captures/settings-allowed.png" alt="Who may ask for work besides Leo: Emma Lee and Max Becker." width="1544" height="688" loading="lazy" decoding="async"><figcaption class="shot__caption">Emma Lee and Max Becker may ask Leo's clone for work, each with Stop allowing. Made-up example.</figcaption></figure>
 
@@ -55,6 +57,8 @@ For a folder with a remote, **May merge** starts off, so pull requests stay open
 
 Your own request in the moment comes first, then your Routines. Routines grant no access, a colleague's message can't change them, and they shouldn't hold passwords or tokens. Leave the field empty and the clone works its usual way. In your self-DM, `set routines <text>` replaces them whole.
 
+Routines cover work anyone allowed asks for, not only yours. They react to messages: Misha runs nothing on a timer, so "every Friday" means you ask on Friday.
+
 **Settings › What I remember** holds notes the clone keeps in mind, in your exact words: up to 200, of 1000 characters each. Add one with **Remember**, or write `remember` and the note in your self-DM. A good first note is one a colleague would otherwise ask you, such as "Emma owns payments. Ask Emma before touching the checkout."
 
 ## Tools and services {#connect-for-a-task}
@@ -65,7 +69,7 @@ Slack and GitHub are built in. To let the clone and its workers use Jira, Google
 
 **Settings › Require my approval** has two switches, and a new clone has both on:
 
-- **Before I start work**: when a message would start work, Home shows you the work first and waits for your OK. Workers it starts after that don't ask again.
+- **Before I start work**: when anyone's message would start work, Home shows you the work first and waits for your OK. Workers it starts after that don't ask again.
 - **Before anything goes out**: replies, reactions, files, edits, new DMs and the clone's notes to you wait for your OK.
 
 What waits shows on Home under **Waiting for your OK**, with the exact words that would go out. **Approve** lets it go and **Decline** drops it. On something the clone wrote, such as a reply, **Ask for changes** sends it your note to write it again. The menu bar shows "Waiting for your OK" with a count.
@@ -78,7 +82,7 @@ Turn a switch off once you trust how the clone works. Turning one off pre-approv
 
 ## What it runs on {#thinking}
 
-**Settings › What I think with** chooses whether the clone runs on Claude Code or OpenCode, and its model and effort. Switching runtime starts a new conversation with the same settings and notes; changing only the model counts from the next message.
+**Settings › What I think with** chooses whether the clone runs on Claude Code or OpenCode, and its model and effort. A new clone runs on Claude Code at its default model. Switching runtime starts a new conversation with the same settings and notes; changing only the model counts from the next message.
 
 ## Personality and look {#voice-and-marker}
 

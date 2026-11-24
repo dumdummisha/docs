@@ -15,6 +15,7 @@ Each heading is a problem as Misha words it, mostly on Home's status card, with 
 
 - [Which card Home shows](#which-card)
 - [I can't hear Slack](#slack-unheard)
+- [Missed messages while the Mac slept](#mac-slept)
 - [I'm paused](#paused)
 - [Claude Code or OpenCode is signed out](#claude-signed-out)
 - [Out of Claude or OpenCode usage](#claude-usage)
@@ -51,6 +52,10 @@ Home's card says **Not hearing Slack** and gives one of four reasons. While it s
 It worked when the Slack card leaves Home and a notification says "Misha hears Slack again", with how long the outage lasted.
 
 Only messages the extension captured can reach Misha later. While no Slack tab was signed in as you, the browser was closed or a tab's capture was lost, the extension captured nothing, and Misha doesn't go back for those messages: it sees them only when it reads that conversation to answer something new there. When the extension kept capturing but couldn't hand messages over, or its storage was failing, it holds what it captured and hands it over once Misha hears it again, though a browser restart while its storage fails can lose some. The card can't tell you which messages were kept, so after an outage check Slack for requests that matter and ask again where the clone hasn't answered. Quitting Misha with the browser still open is different: the extension keeps up to 2,000 messages until Misha takes them in.
+
+## Missed messages while the Mac slept {#mac-slept}
+
+While the Mac sleeps, the browser captures nothing and the clone answers nothing, and Misha doesn't go back for those messages after it wakes. No card says so. Answer them yourself or ask again. To stay covered, see [Keep it running](/start/get-started#keep-it-running).
 
 ## "I'm paused." {#paused}
 
@@ -141,7 +146,7 @@ In Home's **Recently**, a post marked **Not confirmed** went out without a reply
 
 - **"... unlike your Slack"** on Home's status card names a kind of request Misha sends to Slack that isn't quite like the one your Slack page sends. It's nothing to worry about and you don't need to change anything; let whoever maintains Misha know. The pill stays until the extension restarts. **"... not checked yet"** pills show only while **Settings › For whoever maintains me › Show requests not checked yet** is on.
 - **"My last cleanup left something in place"** in **Needs you** lists, under **What, and why**, paths Misha's cleanup didn't delete and why. It looks at them again at its next cleanup, and they don't stop the clone from answering.
-- **Sleep setting** with the minutes, under **Pause Misha** on **Settings**, means the Mac is set to sleep and the clone is offline while it sleeps. If `caffeinate` or another app keeps the Mac awake, ignore it; otherwise set sleep to Never in System Settings, under Battery or Energy.
+- **Sleep setting** with the minutes, under **Pause Misha** on **Settings**, means the Mac is set to sleep and the clone is offline while it sleeps. If `caffeinate` or another app keeps the Mac awake, ignore it; otherwise change the sleep setting as [Keep it running](/start/get-started#keep-it-running) says.
 
 ## Asking for help {#asking-for-help}
 

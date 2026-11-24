@@ -1,6 +1,6 @@
 ---
 title: Get started
-description: "From a fresh Mac to your clone's first answer in your self-DM: what you need, the two steps in Misha's window and what to do when a step is stuck."
+description: "From a fresh Mac to your clone's first answer in your self-DM: what you need, the download, the two steps in Misha's window and what to do when a step is stuck."
 prev:
   text: Try it
   link: /start/try
@@ -11,20 +11,31 @@ next:
 
 # Get started
 
-Misha is in an invite-only pilot. There is no public download, Chrome Web Store listing or invite key yet, so this page starts with Misha already on your Mac. Getting to the clone's first answer takes two steps in Misha's window and one message from you.
+Getting to your clone's first answer takes a download, two steps in Misha's window, then a hi in Slack that you approve on Home.
 
 ## What you need {#requirements}
 
 - A Mac with Chrome or Brave.
-- Claude Code, signed in with your own Claude subscription. Misha starts on it and its workers run on it, even if you later run the clone itself on OpenCode.
+- Claude Code, signed in in Terminal (`claude`) to the Claude account you want Misha to use. The clone and its workers count against that account's usage limits, and workers run on it even if you later run the clone itself on OpenCode.
 - git. On a Mac without it, `xcode-select --install` installs it.
+- Node.js, which the browser helper runs on. `node --version` in Terminal shows whether you have it.
 - Slack signed in in that browser.
 
 Everything else (the GitHub CLI, OpenCode, Jira, Google and the other services) is optional and can wait until after the first answer.
 
+## What Misha changes on your Mac {#before-you-install}
+
+Each time Misha starts, it installs or updates misha-core, its bundled Misha extension and the connectors you added, in Claude Code and OpenCode wherever it finds them: tools, commands, agent profiles, hooks and skills (kept once in `~/.agents/skills`, with links for Claude Code). Skills and commands carry their extension's name, such as `misha-core-workflow-git-cli` and the `misha-core` commands folder. Agent profiles don't: misha-core writes `implementer`, `reviewer`, `researcher`, `orchestrator` and `lite`. A file of yours already where Misha writes, such as your own `reviewer` agent, is first moved into `~/.misha/overwritten`, which keeps the newest 10 batches; nothing puts those files back for you. Your other agents, commands and skills are left alone.
+
+The browser part adds the Misha Browser extension and the helper that connects it to Misha ([Browser permissions](/reference/permissions) explains what each can do). There is no uninstall yet: [Remove Misha](/operate/manage#remove) says what is safe to remove today.
+
+## Download Misha {#download}
+
+Download Misha for macOS from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest) and open it.
+
 ## Step 1: Give me consciousness {#consciousness}
 
-Open Misha. Its window shows **Get started**, a checklist that ticks itself from what it finds on your Mac. The first group, **So I can be you**, holds the two steps the clone can't answer without.
+Misha's window shows **Get started**, a checklist that ticks itself from what it finds on your Mac. The first group, **So I can be you**, holds the two steps the clone can't answer without.
 
 **Give me consciousness** is done when Claude Code is on the Mac and signed in, and git is on the Mac. It then says "Claude Code is signed in on this Mac. I think with your own subscription." Until then it shows the first thing missing and one button for it:
 
@@ -42,23 +53,25 @@ Open Misha. Its window shows **Get started**, a checklist that ticks itself from
 
 | The step says | Do this |
 | --- | --- |
-| "My extension isn't running. It reads Slack for me, in the browser you already use." | Click **Show the extension**. Finder shows the extension's folder: open your browser's extensions page, turn on Developer mode, click **Load unpacked** and pick that folder. |
-| "My extension reaches me through a small helper on this Mac, and the helper isn't installed." | Click **Install the helper**. |
+| "My extension isn't running. It reads Slack for me, in the browser you already use." | Click **Show the extension**. Finder shows the extension's folder: open `chrome://extensions` (Chrome) or `brave://extensions` (Brave), turn on Developer mode, click **Load unpacked** and pick that folder. |
+| "My extension reaches me through a small helper on this Mac, and the helper isn't installed." | Click **Install the helper**. Terminal opens and runs a short installer with Node: it writes a launcher in `~/.misha/browser-bridge` and a small registration file for Chrome and Brave in your Library folder, and asks for no password. |
 | "My extension is running, but no Slack tab is signed in." | Click **Open Slack** (or **Open Slack in Chrome** or **in Brave**) and sign in to your workspace. |
 | "I see Slack once my extension reports." | Wait a moment, with Slack open in the browser. |
 
+If Slack was already open before you loaded the extension, Misha asks you to reload it once (the first row of the table below).
+
 Once the extension hears Slack, Misha sets itself up as you. You don't fill in a form:
 
-- Signed in to one Slack workspace, the step says "Setting myself up as you in Shop." and carries on by itself.
-- Signed in to several, it asks "Which Slack account do I answer as?" with a button per workspace. Click the one the clone should answer in. You can't change it later.
+- Signed in to one Slack workspace, the step names it, such as "Setting myself up as you in Shop.", and carries on by itself.
+- Signed in to several, it asks "Which Slack account do I answer as?" with a button per workspace. Click the one the clone should answer in. The clone answers only there: messages from your other workspaces reach Misha on this Mac and are dropped unanswered. Until setup finishes you can pick another; once it has, the account can't change.
 
-Misha starts with `:misha:` as the clone's emoji, no personality and no Routines, and with **Require my approval** on, so everything the clone would send or start waits for your OK. [Make it yours](/use/make-it-yours) changes all of this.
+Misha starts with `:misha:` as the clone's emoji, no personality and no Routines, on Claude Code at its default model, and with both **Require my approval** switches on (**Before I start work** and **Before anything goes out**), so everything the clone would send or start waits for your OK. [Make it yours](/use/make-it-yours) changes all of this.
 
 If setting itself up fails, the step says why and offers a way back:
 
 | The step says | Do this |
 | --- | --- |
-| "Slack's tab needs a reload before I can use it. Press Reload Slack, and Check again once Slack has loaded." | Click **Reload Slack**, which opens Slack again in the browser with the extension. Once Slack has loaded, click **Check again**. |
+| "Slack's tab needs a reload before I can use it. Press Reload Slack, and Check again once Slack has loaded." | Click **Reload Slack**, which opens Slack again in the browser with the extension. Once Slack has loaded, click **Check again**. A reload you do yourself works too, but the window learns of it only when you click **Check again**. |
 | "Slack isn't signed in to Shop anymore, where I was setting myself up as you." | Sign in to that workspace again and Misha finishes, or click another workspace's button. |
 | "I couldn't read your self-DM through Slack.", "I couldn't save my settings." or "I couldn't tell whether my settings were saved.", each with a reason | Fix what the reason names, then click **Check again**. If Slack is still loading, wait for it first. |
 | "My extension is running, and Slack is signed in to Shop. I set myself up as you once I can think." | Finish [Give me consciousness](#consciousness) first. |
@@ -68,10 +81,10 @@ If setting itself up fails, the step says why and offers a way back:
 When Let me hear Slack is done, it says "Say hi in your self-DM. My answer waits on Home under "Waiting for your OK"; approve it there and it arrives in Slack." Your self-DM is the direct message to yourself in Slack.
 
 1. Write "hi" to yourself in Slack.
-2. In Misha's window, click **Home** in the sidebar. Under **Waiting for your OK**, a card asks "Reply to you in your self-DM?" and shows the words under **What goes out**.
+2. Go back to Misha: nothing in Slack or on your desktop tells you the answer is waiting. Click **Home** in the sidebar, or, with the window closed, click Misha in the menu bar and choose **Waiting for your OK: 1**, which opens Home. Under **Waiting for your OK**, a card asks "Reply to you in your self-DM?" and shows the words under **What goes out**.
 3. Click **Approve**.
 
-The answer arrives in your self-DM, starting with `:misha:` in italics. That is your clone working.
+The answer arrives in your self-DM, starting with `:misha:` in italics. That is your clone working. If your workspace has no `:misha:` emoji, Slack shows the text `:misha:` instead; choose an emoji your workspace has on **Settings › How I look and sound › Icon**.
 
 From now on the clone answers DMs to you, mentions of you and threads you're in, and each answer waits on Home for your OK the same way until you turn **Before anything goes out** off ([Make it yours](/use/make-it-yours#approvals)). The menu bar's Misha menu shows "Waiting for your OK" with a count whenever something waits. If nothing reaches Home after your hi, see [Troubleshooting](/operate/troubleshooting).
 
@@ -84,16 +97,10 @@ Get started also lists two optional groups. You can skip both and come back from
 
 ## Keep it running {#keep-it-running}
 
-- **Keep the Mac awake.** The clone is offline while the Mac sleeps. When the Mac is set to sleep, **Settings** says so under **Pause Misha**. Set sleep to Never in System Settings, or run `caffeinate -d` in Terminal while you want the clone up. Closing a laptop's lid still puts it to sleep.
+- **Keep the Mac awake.** The clone is offline while the Mac sleeps, and messages from that time aren't answered later. When the Mac is set to sleep, **Settings** says so under **Pause Misha**. In System Settings, turn on **Prevent automatic sleeping on power adapter when the display is off** (Battery › Options on a MacBook) or **Prevent automatic sleeping when the display is off** (Energy on a desktop Mac). Or run `caffeinate -d` in Terminal, which keeps the Mac awake until you close that Terminal window or press Control-C. With the lid closed, a MacBook stays awake only while it is on power with an external display connected.
 - **Keep the browser open with Slack signed in.** Without a signed-in Slack tab, nothing reaches the clone.
 - **Turn on Open at login** in the menu bar's Misha menu, so Misha starts when you log in.
 - **Closing the window doesn't stop Misha.** It keeps answering from the menu bar. To stop it, [pause](/operate/manage#pause).
-
-## What setup changes on your Mac {#before-you-install}
-
-Each time Misha starts, it installs or updates misha-core, its bundled Misha extension and the connectors you added, in Claude Code and OpenCode wherever it finds them: tools, commands, agent profiles, hooks and skills (kept once in `~/.agents/skills`, with links for Claude Code). A file already where it writes is first moved into `~/.misha/overwritten`, which keeps the newest 10 batches; nothing puts those files back for you. The browser part adds the Misha Browser extension and the native host, the helper that connects the extension to Misha; [Browser permissions](/reference/permissions) explains what each can do.
-
-There is no uninstall yet. [Remove Misha](/operate/manage#remove) says what is safe to remove today.
 
 ## Next {#next}
 

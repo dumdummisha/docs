@@ -13,7 +13,7 @@ Misha is a real project, not a demo. It has worked alongside real people in a pr
 
 ## Your subscription, your tools {#runs-locally}
 
-Unlike hosted agents, Misha runs on the subscription you already pay for and fits the environment you already have: your Claude Code or OpenCode, your repositories and the services you're signed in to. Claude Code needs to be on your Mac either way, since Misha starts on it.
+Unlike hosted agents, Misha runs on the subscription you already pay for and fits the environment you already have: your Claude Code or OpenCode, your repositories and the services you're signed in to. Claude Code needs to be on your Mac either way, since Misha starts on it. [What Misha changes on your Mac](/start/get-started#before-you-install) lists what it installs there.
 
 ## No Slack app to approve {#no-slack-app}
 
@@ -53,7 +53,7 @@ This is real multi-provider, multi-effort agentic development. One piece of work
 
 ## Availability {#availability}
 
-There is no public download yet. Since 19 November 2026, one owner has been running an unsigned local build. To try it, ask for an invite on [dumdummisha.ai](https://dumdummisha.ai). Misha is free during the invite-only pilot: you pay for your own Claude and for any model provider you use through OpenCode. No price is promised after the pilot. [Get started](/start/get-started) shows what setup involves.
+Download Misha for macOS from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest), then follow [Get started](/start/get-started) to your clone's first answer. Misha is free during the pilot: you pay for your own Claude and for any model provider you use through OpenCode. No price is promised after the pilot.
 
 ## Who makes it {#publisher}
 

@@ -1,0 +1,31 @@
+flowchart TB
+  accTitle: What runs where
+  accDescr: Slack talks to your signed-in Slack tab in Chrome or Brave, where the Misha Browser extension hears new messages and posts for Misha. On your Mac, the tab connects to the Misha app, which keeps your settings and records and holds what waits for your OK on Home. The app gives messages to the clone, your own Claude Code or OpenCode, which can start workers for work you allow. Outside your Mac, under your own accounts, the clone and the workers talk to your model provider, GitHub and the services you connect.
+
+  slack["Slack"]
+
+  subgraph mac["Your Mac"]
+    direction TB
+    tab["Your Slack tab in Chrome or Brave,<br/>with the Misha Browser extension"]
+    app["Misha app<br/>settings, records,<br/>approvals on Home"]
+    clone["The clone<br/>your Claude Code or OpenCode"]
+    workers["Workers<br/>one per task"]:::conditional
+  end
+
+  subgraph outside["Outside your Mac, under your accounts"]
+    direction TB
+    provider["Your model provider"]
+    services["GitHub and the<br/>services you connect"]
+  end
+
+  slack <-->|"messages and posts"| tab
+  tab <--> app
+  app <--> clone
+  clone -.->|"work you allow"| workers
+  clone <--> provider
+  clone <--> services
+  workers <-.-> provider
+  workers <-.-> services
+
+  classDef conditional fill:#ffffff,stroke:#1f1b16,stroke-width:1.5px,stroke-dasharray:6 4,color:#1f1b16
+  style mac stroke-dasharray:8 5

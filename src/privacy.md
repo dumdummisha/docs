@@ -198,7 +198,7 @@ Deleting on your Mac erases nothing elsewhere. Claude Code and OpenCode transcri
 
 Files the clone reads can go to its model provider. Workers use separate worktrees outside your folders; preparing one adds fetched objects and git worktree metadata to the linked repository, not changes to its working files.
 
-[How Misha works](/understand/how-it-works) explains the runtime behind this table, and [Settings and commands](/reference/settings) lists who may change each setting.
+[Settings and commands](/reference/settings) lists who may change each setting.
 
 ### Residual risks {#residual-risks}
 

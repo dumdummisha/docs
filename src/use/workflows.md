@@ -63,4 +63,4 @@ To stop work, ask the clone in your self-DM to stop a worker, or [pause Misha](/
 - **Your decisions.** A decision that is yours comes as one short question, and only the step that depends on it waits.
 - **Someone else's work.** It needs their own approval in their own message.
 
-Send colleagues [Talking with a clone](/understand/slack) so they know what they're talking to. [How Misha works](/understand/how-it-works) explains how a message reaches your clone and how workers run, and [Control and maintain Misha](/operate/manage) covers pausing, Home and removing Misha.
+Send colleagues [Talking with a clone](/understand/slack) so they know what they're talking to. [How Misha works](/understand/how-it-works) explains what runs on your Mac and what reaches Slack and your model provider, and [Control and maintain Misha](/operate/manage) covers pausing, Home and removing Misha.

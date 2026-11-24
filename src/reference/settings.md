@@ -95,9 +95,8 @@ These work only in a one-to-one DM with you, never in a group DM or channel. Som
 | `compactAtTokens` | How many tokens the clone's session grows to before it is compacted. On OpenCode it must be below the model's input limit. | Empty, so 750000 tokens on Claude Code, and OpenCode's own threshold there. | Whole number; at least 1 token |
 | `runtime` | The runtime the clone runs on. Switching to the other one starts a new session there; the settings, notes and routines stay. | Claude Code. | One of Claude Code, OpenCode |
 | `models` | For each runtime, the model and effort the clone thinks with there, from the models that runtime offers. A change takes effect on the next message, in the same session. | Empty for each, so claude-opus-5-5 at high on Claude Code and openai/gpt-6-astra at medium on OpenCode. |  |
-| `sessionEpoch` | Moves on with each start fresh and each switch of runtime, so the next message starts a new session. | 0 |  |
 
-An empty **Limits** cell means no limit is documented for that field. `compactAtTokens` takes a positive whole number of tokens, or nothing for the runtime's default, which the table gives for each runtime; the window refuses anything else. On OpenCode a number must be below the selected model's input limit. No control changes `account` after the first save, and `sessionEpoch` moves with start fresh and with a switch to another runtime.
+An empty **Limits** cell means no limit is documented for that field. `compactAtTokens` takes a positive whole number of tokens, or nothing for the runtime's default, which the table gives for each runtime; the window refuses anything else. On OpenCode a number must be below the selected model's input limit. No control changes `account` after the first save.
 
 ### Where each change is made {#surfaces}
 

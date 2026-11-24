@@ -18,7 +18,7 @@ The `misha` server also serves your Slack tools, worker tools and the connectors
 | Tool | What it does | Input |
 | --- | --- | --- |
 | `misha_status` | Misha's state: version, whether it is paused, open at login, the runtime the clone runs on with its model and sign-in, why the clone isn't running, the programs it found, the harnesses misha-core is installed in, the Slack accounts the browser extension reports (each with its `accountId`) and whether each account hears Slack. | None |
-| `misha_read_settings` | Your settings, every field on [Settings and commands](/reference/settings#fields), with the `revision` a change is made against. | None |
+| `misha_read_settings` | Your settings, the fields [Settings and commands](/reference/settings#fields) describes, with the `revision` a change is made against. | None |
 | `misha_apply_setting` | Makes one settings change, or creates the settings once. Answers the settings before and after, or why the change was refused. | `mutation`, `expectedRevision` ([below](#apply-setting)) |
 | `misha_read_self_conversation` | The id of your self-DM for one signed-in Slack account, which creating the settings needs. | `accountId`, as `misha_status` names it: `slack:<team>:<user>` |
 | `misha_setup_probe` | What this Mac has, per capability: `ready`, `action-needed` or `undetermined`, each with a detail. It reads status only, never a credential. | `capabilities`: one or more of `claude-code`, `opencode`, `git`, `github`, `browser-extension`, `native-host`, `slack`, `clone-settings`, `always-on`, `connectors`, each once |

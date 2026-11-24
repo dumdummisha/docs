@@ -26,7 +26,6 @@ const SIDEBAR: DefaultTheme.SidebarItem[] = [
       { text: 'Make it yours', link: '/use/make-it-yours' },
       { text: 'Put Misha to work', link: '/use/workflows' },
       { text: 'How Misha works', link: '/understand/how-it-works' },
-      { text: 'Customise and reuse Misha', link: '/reference/extensions' },
     ],
   },
   {
@@ -45,6 +44,7 @@ const SIDEBAR: DefaultTheme.SidebarItem[] = [
     items: [
       { text: 'Privacy and security', link: '/privacy' },
       { text: 'Settings and commands', link: '/reference/settings' },
+      { text: 'MCP tools', link: '/reference/tools' },
       { text: 'Browser permissions', link: '/reference/permissions' },
     ],
   },
@@ -69,7 +69,7 @@ const FOOTER_MESSAGE = [
   '<a href="/privacy">Privacy</a>',
   `<a href="${BROWSER_REPOSITORY_URL}">Browser extension source</a>`,
   `<a href="${DOWNLOADS_REPOSITORY_URL}">Downloads and availability</a>`,
-  'Describes the desktop app 0.1.0 as of 2026-11-22',
+  'Describes the desktop app 0.1.0 as of 2026-11-24',
 ].join(' · ')
 
 const description = readmeFirstLine(await readFile(new URL('../README.md', import.meta.url), 'utf8'))

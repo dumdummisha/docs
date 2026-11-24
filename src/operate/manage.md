@@ -25,9 +25,12 @@ While Misha is paused:
 - The answer being written is cancelled. The clone answers only your self-DM commands, such as `settings` and `resume`, and posts nothing else in Slack. Workers of the clone's work can't post.
 - No new worker starts on the clone's work, and Misha stops every worker on that work that still runs, including the workers those started. Home says how that went.
 - Messages that reach the clone while paused aren't queued for it to catch up on. A `hands off` you send in a thread while paused doesn't count, so send it again after you resume. Requests already queued before the pause continue once you resume.
+- A worker the pause stopped doesn't start again on resume: the clone tells whoever asked, and you ask again to continue. What it changed stays in its worktree in `~/.misha/workers/worktrees`.
 - Your own Claude Code and OpenCode sessions, and the workers they start, keep every Misha tool and keep posting.
 - Something you already approved on Home waits and goes out when you resume. A message already on its way to Slack may still land.
 - The pause survives quitting: Misha starts paused and, once it runs, tries again to stop any worker on the clone's work still running.
+
+Pause is all or nothing. To keep the clone out of one channel or thread, see [What it listens to](/use/make-it-yours#listens).
 
 Home's card says "I'm paused." and how the stop is going:
 
@@ -37,8 +40,6 @@ Home's card says "I'm paused." and how the stop is going:
 | "I stopped my workers." | Every worker on the clone's work has ended: Misha counts one as stopped only once its processes are gone. | Nothing. |
 | "I couldn't stop one of my workers (...)" | Misha couldn't confirm that this worker stopped. The card and a desktop notification name the run by its id. | Keep Misha paused. The window doesn't show which process belongs to the run, so [ask for help](/operate/troubleshooting#asking-for-help) with the run id rather than quitting a process that only looks like it. |
 | "I couldn't stop my workers, so they may still run; my log says why." | The stop failed as a whole. | Keep Misha paused. Quit and open Misha again, which starts paused and tries the stop again. If workers are still listed under **Working on now**, [ask for help](/operate/troubleshooting#asking-for-help). |
-
-Each line goes on to repeat what the pause keeps and stops, as the list above does, and ends "Resume here, from the menu bar, or with "resume" in your self-DM."
 
 These lines show only while the paused card is the one on top. "Something's wrong on my side." and "I can't hear Slack." take its place, and the pause stays in force under them ([which card Home shows](/operate/troubleshooting#which-card)). Either way **Working on now** is the check: once it lists no worker, none of the clone's workers is running.
 
@@ -57,7 +58,7 @@ To stop the clone's work, pause and wait until none of its workers is listed und
 
 ## Approve what goes out {#approvals}
 
-While **Settings › Require my approval** holds them ([Make it yours](/use/make-it-yours#approvals)), the clone's replies, reactions, files, edits and notes to you, and the work it would start, wait on Home under **Waiting for your OK** ("Nothing here happens until you say so."). The menu bar shows "Waiting for your OK" with a count, and clicking it opens Home.
+While **Settings › Require my approval** holds them ([Make it yours](/use/make-it-yours#approvals)), the clone's replies, reactions, files, edits and notes to you, and the work it would start, wait on Home under **Waiting for your OK** ("Nothing here happens until you say so."). Misha shows no notification for these: the menu bar's Misha menu shows "Waiting for your OK" with a count, and clicking it opens Home.
 
 Each card asks a question, such as "Reply to Emma Lee in #shop-backend?" or "Start work for Emma Lee in #shop-backend?", and shows exactly what would go out, or the brief the worker would get. **Open in Slack** and **Show message** show the message it answers. A **Thread moved on** pill means someone wrote in the thread after the clone read it.
 
@@ -100,7 +101,7 @@ The post record covers Slack only. Commands, pushes and ticket edits aren't in i
 
 ## Updates {#updates}
 
-Today there is one unsigned local build, run by its owner since 19 November 2026: no public download, no signed build and no updater, so automatic updates, pinning a version and rollback aren't supported yet. The browser extension is loaded unpacked, with no Chrome Web Store listing, so the browser doesn't update it either.
+Misha is a signed build you download from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest). It has no automatic updater yet, so pinning a version and rollback aren't supported: to update, download the latest release and replace the app with it. Your data in `~/.misha` stays. The browser extension is loaded unpacked, with no Chrome Web Store listing, so the browser doesn't update it either.
 
 When a newer build starts, it brings misha-core, the bundled Misha extension and the connectors you added into line in each installed runtime, even when their version hasn't changed; adding or removing a connector does the same. Anything already where it writes, such as an agent file or your own edit of an earlier version, is first moved into `~/.misha/overwritten`, which keeps the newest 10 batches. Its database changes go forward only: an older build refuses a database a newer build has upgraded, so going back to an older build with the same data doesn't work.
 

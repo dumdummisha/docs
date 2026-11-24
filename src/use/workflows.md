@@ -28,7 +28,7 @@ Misha ships no ticket, review or deploy procedure of its own. Which tracker the 
 
 - **Anyone** the clone answers (a DM, a mention, a thread you're in, a channel it watches) gets answers from reads only.
 - **You**, in your self-DM or in a message with the clone's emoji, also get changes in connected services and the GitHub and AWS command lines.
-- **You and the people you allow** (**Who may ask me for work**) can start workers. Nothing they write widens what their workers may do.
+- **You and the people you allow** (**Who may ask me for work**) can start workers. A worker started for someone you allow goes only as far as their request and your Routines let it, and the clone reports in their thread. Nothing they write widens what their workers may do.
 
 ## How a request ends {#request-to-outcome}
 

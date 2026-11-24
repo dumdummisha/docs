@@ -53,7 +53,7 @@ This is real multi-provider, multi-effort agentic development. One piece of work
 
 ## Availability {#availability}
 
-Download Misha for macOS from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest), then follow [Get started](/start/get-started) to your clone's first answer. Misha is free during the pilot: you pay for your own Claude and for any model provider you use through OpenCode. No price is promised after the pilot.
+Download Misha for macOS from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest), then follow [Get started](/start/get-started) to your clone's first answer. Misha itself costs nothing. You pay only for your own Claude and for any model provider you use through OpenCode.
 
 ## Who makes it {#publisher}
 

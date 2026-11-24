@@ -13,7 +13,7 @@ This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.
 - **[Try it](https://docs.dumdummisha.ai/start/try)**
 - **[Privacy and security](https://docs.dumdummisha.ai/privacy)**
 
-Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/start/get-started) through [Make it yours](https://docs.dumdummisha.ai/use/make-it-yours) to [Put Misha to work](https://docs.dumdummisha.ai/use/workflows). [How Misha works](https://docs.dumdummisha.ai/understand/how-it-works) explains what runs where, and [Customise and reuse Misha](https://docs.dumdummisha.ai/reference/extensions) what you can add or reuse.
+Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/start/get-started) through [Make it yours](https://docs.dumdummisha.ai/use/make-it-yours) to [Put Misha to work](https://docs.dumdummisha.ai/use/workflows). [How Misha works](https://docs.dumdummisha.ai/understand/how-it-works) explains what runs where.
 
 <img src="https://docs.dumdummisha.ai/captures/home.png" alt="Misha's Home window, listening in Slack as Leo Novak: it is answering Emma Lee's thread in #shop-backend, two workers are running, and its recent posts are listed below. Pause Misha sits in the sidebar." width="640">
 

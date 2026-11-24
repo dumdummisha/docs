@@ -1,6 +1,6 @@
 ---
 title: Make it yours
-description: "Give your clone your voice, its Routines and the notes a colleague would ask you for, choose what it watches and who can ask it for work, and link your repositories."
+description: "Decide what your clone listens to, who may ask it for work, which code it reads and how it carries out work with your own skills and tools, then when it asks for your OK, how to pause it and how it sounds."
 prev:
   text: Get started
   link: /start/get-started
@@ -11,73 +11,83 @@ next:
 
 # Make it yours
 
-Your clone is live with the face you saved on Get started. Here you give it your voice and the context a colleague would ask you for, then decide who can ask it for work and what it can reach. Everything here is on **Settings** in the Misha window.
+Misha exists to give you back the time routine Slack work takes: the questions only you can answer, the small fixes, the lookups. You decide what it takes on and how. It's your automation, built from the tools you already use, and you can switch any of it off.
 
-## Voice and marker {#voice-and-marker}
+Your clone runs on your own Claude Code or OpenCode, and its workers are ordinary sessions of them on your Mac. So the skills, commands and tools you've set up there are the ones your workers can use. Tell Misha about them the way you'd tell a colleague: name a skill or a `/command` in a request or in your [Routines](#routines), and the worker is told to load it, and to say so if it can't find it.
 
-By default, your clone's posts start with its icon and are set in italics, so people can tell them from what you type; stealth mode drops the marker. On **Settings › Icon**, the preview shows how a post starts in Slack. Your icon in any message you write also calls the clone.
+Everything below is in Misha's window, on **Settings** and **Extensions**. Each category on Settings opens with **Open**, and **All settings** takes you back.
 
-<figure class="shot"><img class="shot__image" src="/captures/settings-icon.png" alt="The icon card: the emoji every post starts with, and a preview of a post by Leo Novak." width="1544" height="960" loading="lazy" decoding="async"><figcaption class="shot__caption">The icon card, with a preview of how a post by Leo Novak's clone starts. Made-up example.</figcaption></figure>
+## What it listens to {#listens}
 
-**Personality** is how the clone should sound, in your own words, up to 2000 characters. It shapes tone, language and formatting, not what the clone may do.
+By default your clone answers only DMs to you, mentions of you and threads you're in. **Settings › How I take work › Channels I watch** adds channels it reads in full: it reads every message there and answers what asks something of you or your work.
 
-<figure class="shot"><img class="shot__image" src="/captures/settings-personality.png" alt="The personality card with Leo's words on how the clone sounds." width="1544" height="736" loading="lazy" decoding="async"><figcaption class="shot__caption">Leo Novak's personality: short, friendly, first names, no exclamation marks. Made-up example.</figcaption></figure>
+**Settings › Who I ignore** keeps it away from people. **Soft-ignore** someone and the clone answers them only when they call it with its emoji; **Ignore** them and it never answers them. Watching and ignoring count for new messages as soon as you save.
 
-Another owner might write:
+## Who may ask it for work {#who-may-ask}
 
-> Reply in English, in two or three sentences. Link the ticket or file you read. Keep the humour to a minimum.
-
-**Routines** is what the clone should do with work, in your own words, up to 2000 characters. Write one per line: when something happens, what to do, then whether to tell you or ask you. You can name skills and commands for workers to follow, and you shouldn't put passwords or tokens in it. Your own request in the moment comes first, and Routines grant no access: who may ask for work and where workers may merge stay on Settings. Leave it empty and the clone works its usual way. [Put Misha to work](/use/workflows) shows how a request becomes work.
-
-<figure class="shot"><img class="shot__image" src="/captures/settings-routines.png" alt="The routines card with Leo's standing instruction for a fix: a worker updates its ticket, fixes it in its own worktree with a regression test, and opens a pull request for review." width="1544" height="912" loading="lazy" decoding="async"><figcaption class="shot__caption">Leo Novak's routine for a fix: a worker updates its ticket, fixes it in its own worktree and opens a pull request for review. Made-up example.</figcaption></figure>
-
-## Working context {#working-context}
-
-**What I remember** holds up to 200 notes of 1000 characters each, in your exact words, which the clone keeps as standing context. Add one with **Remember**, or write `remember` and the note in your self-DM; **Forget** removes it. A good first note is one a colleague would otherwise ask you about, such as "Emma owns payments. Ask Emma before touching the checkout."
-
-<figure class="shot"><img class="shot__image" src="/captures/settings-notes.png" alt="What the clone remembers: three numbered notes in your words." width="1544" height="784" loading="lazy" decoding="async"><figcaption class="shot__caption">Three notes in Leo's words, each with Forget. Made-up example.</figcaption></figure>
-
-Notes are separate from the clone's conversation history; [Settings and commands](/reference/settings#notes-history-start-fresh) explains both.
-
-## What it thinks with {#thinking}
-
-On **Settings › What I think with**, choose whether the clone runs on Claude Code or OpenCode, then a model and effort from the list that runtime offers. Switching runtime starts a new conversation with the same settings, notes and Routines; changing only the model keeps the conversation and counts from the next message. [Settings and commands](/reference/settings#what-i-think-with) has the defaults and limits.
-
-## Choose your scope {#choose-your-scope}
-
-Three cards on Settings decide who gets what. Each is separate, and leaving one empty is fine:
-
-| Card | What adding someone or something does | When it's empty |
-| --- | --- | --- |
-| **Channels I watch** | The clone reads every message there and answers what asks something of you or your work. | It answers only DMs to you, mentions of you and threads you're in. |
-| **Who may ask me for work** | They can start workers: research, a ticket, an implementation and its review. They don't get your direct changes in Jira, Google and the other services. | Only you can start work. Everyone else the clone answers gets answers from reads. |
-| **Who I ignore** | **Soft-ignore** someone and the clone answers them only when they call it with your icon. **Ignore** them and it never answers them at all. | Nobody is ignored. |
-
-Each entry has **Stop watching**, **Stop allowing** or **Stop ignoring** beside it. Watching and ignoring affect new messages as soon as you save. Who may ask for work changes on the clone's next turn and does not stop workers already running. [Settings and commands](/reference/settings#surfaces) lists the Slack commands that make the same changes.
+Anyone the clone answers gets answers from what it can read. Starting work (research, a ticket, a change and its review) is yours alone until you add people on **Settings › How I take work › Who may ask me for work**. They can then start workers, but they don't get your direct changes in Jira, Google and the other services, and nothing they write widens what their workers may do.
 
 <figure class="shot"><img class="shot__image" src="/captures/settings-allowed.png" alt="Who may ask for work besides Leo: Emma Lee and Max Becker." width="1544" height="688" loading="lazy" decoding="async"><figcaption class="shot__caption">Emma Lee and Max Becker may ask Leo's clone for work, each with Stop allowing. Made-up example.</figcaption></figure>
 
-How Leo might begin depends on the role. As a developer, Leo allows Emma Lee, who shares the backend, and watches `#shop-backend`. As a PM, Leo leaves both lists empty until the first week shows what colleagues ask. As a designer, Leo allows no one and soft-ignores Max Becker, who only wants Leo's own answers. When colleagues ask what's answering them, send them [Talking with a clone](/understand/slack).
+**Stop allowing** counts from the clone's next turn and doesn't stop workers already running. When colleagues ask what's answering them, send them [Talking with a clone](/understand/slack).
 
 ## Repositories {#repositories}
 
-If your clone should read code, link each repository on **Settings › Repositories** by its full folder path, and give its remote as `host/owner/name`, or leave the remote empty if it has none. The clone reads that folder as it is, uncommitted and ignored files included. Workers get worktrees of their own outside it.
+If your clone should read code, link each repository on **Settings › Repositories**. Click **Choose folder…** and pick the repository's top-level folder. Misha reads its git remotes and fills in the remote its pull requests go to:
 
-<figure class="shot"><img class="shot__image" src="/captures/settings-repositories.png" alt="The folders the clone reads: workers may merge in example.com/shop/shop-backend, not in example.com/shop/shop-web." width="1544" height="844" loading="lazy" decoding="async"><figcaption class="shot__caption">Two linked folders: workers may merge in the remote of one, not the other. Made-up example.</figcaption></figure>
+- One remote: it's filled in.
+- Several: **Pick its remote** lists them, with the current branch's remote picked.
+- None: the field stays empty and the card says "It has no remote, so none."
+- A remote Misha can't read as `host/owner/name`: "The remote origin isn't host/owner/name. Write it yourself."
+- Not a repository: "That folder isn't a git repository."
 
-For a folder with a remote, **May merge** starts off, so pull requests stay unmerged for someone to merge. Turn it on to let workers merge in that remote; your request and Routines decide the procedure. A folder with no remote can still be worked on locally, but has no pull request to open or merge. In your self-DM, `allow merging /Volumes/Code/shop-backend` and `stop merging /Volumes/Code/shop-backend` do the same.
+Then click **Add**. You can also type the full path and the remote yourself.
 
-## Pause when you need to {#pause}
+The clone reads a linked folder as it is, uncommitted and ignored files included, so link only folders you're willing to have it read. It writes nothing there: workers get git worktrees of their own outside it.
 
-**Pause Misha** is in the window's sidebar and in the Misha menu in the menu bar, and `pause` works in your self-DM. Pausing stops the clone's new work at once and tries to stop the workers on it that are running; messages that arrive meanwhile wait until you **Resume**. To stop the clone's work already under way, pause. [Pause Misha](/operate/manage#pause) has the details.
+For a folder with a remote, **May merge** starts off, so pull requests stay open for someone to merge. Turn it on to let workers merge in that remote; your request and Routines decide when. It's an instruction to the clone, not a lock.
 
-## Ready {#ready}
+## Routines {#routines}
 
-Your clone now has:
+**Settings › How I take work › Routines** is how you automate your own way of working: up to 2000 characters of standing instructions, one per line, when something happens, what to do, then whether to tell you or ask you. Name your skills and `/commands` here and workers follow them.
 
-- an icon and a voice that sound like you, Routines for work, and the notes a colleague would ask you for
-- the people who may ask for work and the channels it watches, or neither yet
-- the repositories, if you work in code
-- a brake for when you need it
+<figure class="shot"><img class="shot__image" src="/captures/settings-routines.png" alt="The routines card with Leo's standing instruction for a fix: a worker updates its ticket, fixes it in its own worktree with a regression test, and opens a pull request for review." width="1544" height="912" loading="lazy" decoding="async"><figcaption class="shot__caption">Leo Novak's routine for a fix: a worker updates its ticket, fixes it in its own worktree and opens a pull request for review. Made-up example.</figcaption></figure>
 
-Next, [put Misha to work](/use/workflows) with one real request. To change any of this later, see [Control and maintain Misha](/operate/manage#scope).
+Your own request in the moment comes first, then your Routines. Routines grant no access, a colleague's message can't change them, and they shouldn't hold passwords or tokens. Leave the field empty and the clone works its usual way. In your self-DM, `set routines <text>` replaces them whole.
+
+**Settings › What I remember** holds notes the clone keeps in mind, in your exact words: up to 200, of 1000 characters each. Add one with **Remember**, or write `remember` and the note in your self-DM. A good first note is one a colleague would otherwise ask you, such as "Emma owns payments. Ask Emma before touching the checkout."
+
+## Tools and services {#connect-for-a-task}
+
+Slack and GitHub are built in. To let the clone and its workers use Jira, Google, AWS, Figma or Fireflies, open **Extensions**, click **Open the catalogue** and **Add** the service. It then shows under **Added by you** on Extensions, with its sign-in button until it works. Add **GPT** there too if you want workers to use OpenAI's models through your OpenCode. A Claude Code or OpenCode session already open sees a change only after you restart it.
+
+## When it asks for your OK {#approvals}
+
+**Settings › Require my approval** has two switches, and a new clone has both on:
+
+- **Before I start work**: when a message would start work, Home shows you the work first and waits for your OK. Workers it starts after that don't ask again.
+- **Before anything goes out**: replies, reactions, files, edits, new DMs and the clone's notes to you wait for your OK.
+
+What waits shows on Home under **Waiting for your OK**, with the exact words that would go out. **Approve** lets it go and **Decline** drops it. On something the clone wrote, such as a reply, **Ask for changes** sends it your note to write it again. The menu bar shows "Waiting for your OK" with a count.
+
+Turn a switch off once you trust how the clone works. Turning one off pre-approves new actions only; anything already waiting still needs your decision.
+
+## Pause {#pause}
+
+**Pause Misha** is in the window's sidebar, on **Settings › What I think with** and in the menu bar's Misha menu, and `pause` works in your self-DM. Pausing stops the clone and the workers it started. Messages that reach it while paused aren't kept for later; requests it had already queued continue when you **Resume**. Your own Claude Code and OpenCode sessions keep working. [Pause Misha](/operate/manage#pause) has the details.
+
+## What it runs on {#thinking}
+
+**Settings › What I think with** chooses whether the clone runs on Claude Code or OpenCode, and its model and effort. Switching runtime starts a new conversation with the same settings and notes; changing only the model counts from the next message.
+
+## Personality and look {#voice-and-marker}
+
+By default, your clone's posts start with its emoji and are set in italics, so people can tell them from what you type; stealth mode drops the marker. **Settings › How I look and sound › Icon** chooses the emoji, with a preview of how a post starts. Your emoji in any message you write also calls the clone.
+
+<figure class="shot"><img class="shot__image" src="/captures/settings-icon.png" alt="The icon card: the emoji every post starts with, and a preview of a post by Leo Novak." width="1544" height="960" loading="lazy" decoding="async"><figcaption class="shot__caption">The icon card, with a preview of how a post by Leo Novak's clone starts. Made-up example.</figcaption></figure>
+
+**Personality**, in the same category, is how the clone should sound, in your own words, up to 2000 characters. It shapes tone, language and formatting, not what the clone may do. For example:
+
+> Reply in English, in two or three sentences. Link the ticket or file you read. Keep the humour to a minimum.
+
+Next, [put Misha to work](/use/workflows) with one real request.

@@ -11,6 +11,10 @@ next:
 
 # Get started
 
+::: info Set up in the window, on purpose
+There is no AI-guided setup, on purpose: doing these steps yourself in Misha's window gets you familiar with the app before you start automating. You can still set up from your own Claude Code or OpenCode if you want to: once Misha is open, it installs [MCP tools](/reference/tools) there that check and configure it, and `/misha-core:misha-setup` in Claude Code (`/misha-core/misha-setup` in OpenCode) walks you through setup with them. A session already open before Misha first ran sees them after a restart.
+:::
+
 Getting to your clone's first answer takes a download, two steps in Misha's window, then a hi in Slack that you approve on Home.
 
 ## What you need {#requirements}
@@ -35,9 +39,7 @@ Download Misha for macOS from [the latest release](https://github.com/dumdummish
 
 ## Step 1: Give me consciousness {#consciousness}
 
-Misha's window shows **Get started**, a checklist that ticks itself from what it finds on your Mac. The first group, **So I can be you**, holds the two steps the clone can't answer without.
-
-**Give me consciousness** is done when Claude Code is on the Mac and signed in, and git is on the Mac. It then says "Claude Code is signed in on this Mac. I think with your own subscription." Until then it shows the first thing missing and one button for it:
+**Give me consciousness** needs Claude Code, installed and signed in, and git. Until it has both, it shows the first thing missing and a button to fix it:
 
 | The step says | Do this |
 | --- | --- |

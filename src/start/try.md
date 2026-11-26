@@ -1,6 +1,6 @@
 ---
 title: Try it
-description: "Misha is a personal AI agent for routine Slack work. It is battle-tested, runs on your own subscription, needs no Slack app, asks before it acts, has a stealth mode and lean connectors, and does real multi-provider, multi-effort agentic development."
+description: "Misha is a personal AI agent. It is battle-tested, runs on your own subscription, needs no Slack app, asks before it acts, has a stealth mode and lean connectors, and does real multi-provider, multi-effort agentic development."
 prev: false
 next:
   text: Get started

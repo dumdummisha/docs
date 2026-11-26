@@ -1,6 +1,6 @@
 ---
 title: Get started
-description: "From a fresh Mac to your clone's first answer in your self-DM: what you need, the download, the two steps in Misha's window and what to do when a step is stuck."
+description: "From a fresh Mac to your clone's first answer in your self-DM: what you need, the download and install, activating your invite, the two steps in Misha's window and what to do when a step is stuck."
 prev:
   text: Try it
   link: /start/try
@@ -15,27 +15,48 @@ next:
 There is no AI-guided setup, on purpose: doing these steps yourself in Misha's window gets you familiar with the app before you start automating. You can still set up from your own Claude Code or OpenCode if you want to: once Misha is open, it installs [MCP tools](/reference/tools) there that check and configure it, and `/misha-core:misha-setup` in Claude Code (`/misha-core/misha-setup` in OpenCode) walks you through setup with them. A session already open before Misha first ran sees them after a restart.
 :::
 
-Getting to your clone's first answer takes a download, two steps in Misha's window, then a hi in Slack that you approve on Home.
+Getting to your clone's first answer takes a download, your invite key, two steps in Misha's window, then a hi in Slack that you approve on Home.
 
 ## What you need {#requirements}
 
-- A Mac with Chrome or Brave.
+- A Mac with Apple silicon and macOS 13 or later.
+- Chrome or Brave, version 140 or later.
+- An invite key. Downloading Misha doesn't give you access: ask for an invite on [dumdummisha.ai](https://dumdummisha.ai).
 - Claude Code or OpenCode, signed in. The clone and its workers run on one of them and count against that sign-in's usage limits. Until you choose on **Settings › What I think with**, Misha runs on the one it finds, and on Claude Code when it finds both. On Claude Code, sign in (`claude`) to the Claude account you want Misha to use. On OpenCode, the default model is OpenAI's `openai/gpt-6-astra`, so sign OpenCode in to OpenAI (`opencode auth login`).
 - git. On a Mac without it, `xcode-select --install` installs it.
-- Node.js, which the browser helper runs on. `node --version` in Terminal shows whether you have it.
 - Slack signed in in that browser.
 
-Everything else (the GitHub CLI, OpenCode, Jira, Google and the other services) is optional and can wait until after the first answer.
+Everything else (the GitHub CLI, the other runtime, Jira, Google and the other services) is optional and can wait until after the first answer.
 
 ## What Misha changes on your Mac {#before-you-install}
 
 Each time Misha starts, it installs or updates misha-core, its bundled Misha extension and the connectors you added, in Claude Code and OpenCode wherever it finds them: tools, commands, agent profiles, hooks and skills (kept once in `~/.agents/skills`, with links for Claude Code). Skills and commands carry their extension's name, such as `misha-core-workflow-git-cli` and the `misha-core` commands folder. Agent profiles don't: misha-core writes `implementer`, `reviewer`, `researcher`, `orchestrator` and `lite`. A file of yours already where Misha writes, such as your own `reviewer` agent, is first moved into `~/.misha/overwritten`, which keeps the newest 10 batches; nothing puts those files back for you. Your other agents, commands and skills are left alone.
 
-The browser part adds the Misha Browser extension and the helper that connects it to Misha ([Browser permissions](/reference/permissions) explains what each can do). There is no uninstall yet: [Remove Misha](/operate/manage#remove) says what is safe to remove today.
+The browser part adds the Misha Browser extension and the helper that connects it to Misha ([Browser permissions](/reference/permissions) explains what each can do). **Uninstall Misha…** in the menu bar removes what Misha added ([Remove Misha](/operate/manage#remove)).
 
-## Download Misha {#download}
+## Download and install {#download}
 
-Download Misha for macOS from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest) and open it.
+1. Download `Misha-<version>-darwin-arm64.zip` from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest). The release lists the ZIP's SHA-256: to check your download, run `shasum -a 256` on the file in Terminal and compare.
+2. Open the ZIP, and move `Misha.app` to your Applications folder before you open it. Misha writes the app's location into Claude Code and OpenCode, so put it where it will stay.
+3. Open Misha. The first time, macOS says that "Misha" is an app downloaded from the Internet and asks whether you're sure you want to open it. Click **Open**. Misha is signed with an Apple Developer ID and notarized by Apple, so after this it opens normally.
+
+Misha appears in the menu bar and opens its window on **Get started**, which asks for your invite key.
+
+## Activate your invite {#invite}
+
+Until an invite key is verified, nothing of Misha runs. The window shows only **Get started** with **Paste your invite key**, and the menu bar's Misha menu says "Misha needs an invite" and offers **Open Misha**, **Uninstall Misha…** and **Quit Misha**.
+
+1. Paste the key from your invitation into **Paste your invite key**.
+2. Click **Activate**. The button says **Activating…** while Misha checks the key.
+3. The window shows "Invited as" with the email your invite was made for, such as "Invited as ann@acme.example", and Misha starts. Step 1 below follows.
+
+Misha checks the key on your Mac, with no network call, and checks it again each time it starts. A valid key is saved in `~/.misha/app/invite.json`, a file only you can read ([what Misha stores](/privacy#storage)); an invalid one saves nothing. Until you activate, a Claude Code or OpenCode session that calls Misha's tools gets "Misha needs an invite. Open Misha and paste your invite key."
+
+| The window says | Do this |
+| --- | --- |
+| "Enter your invite key to use Misha." | Paste your key and click **Activate**. |
+| "This invite key isn't valid. Paste the key from your invitation, or ask the person who invited you for a new one." | Copy the whole key from your invitation again and paste it. If it still isn't valid, ask whoever invited you for a new one. |
+| "Misha couldn't read your invite at ...", with the file's path and a reason | A saved key exists but the file can't be read. Fix what the reason names, such as the file's permissions, or delete that file and paste your key again. |
 
 ## Step 1: Give me consciousness {#consciousness}
 
@@ -58,7 +79,7 @@ Download Misha for macOS from [the latest release](https://github.com/dumdummish
 | The step says | Do this |
 | --- | --- |
 | "My extension isn't running. It reads Slack for me, in the browser you already use." | Click **Show the extension**. Finder shows the extension's folder: open `chrome://extensions` (Chrome) or `brave://extensions` (Brave), turn on Developer mode, click **Load unpacked** and pick that folder. |
-| "My extension reaches me through a small helper on this Mac, and the helper isn't installed." | Click **Install the helper**. Terminal opens and runs a short installer with Node: it writes a launcher in `~/.misha/browser-bridge` and a small registration file for Chrome and Brave in your Library folder, and asks for no password. |
+| "My extension reaches me through a small helper on this Mac, and the helper isn't installed." | Click **Install the helper**. Terminal opens and runs a short installer on Misha's own runtime, so the Mac needs no Node.js: it writes a launcher in `~/.misha/browser-bridge` and a small registration file for Chrome and Brave in your Library folder, and asks for no password. |
 | "My extension is running, but no Slack tab is signed in." | Click **Open Slack** (or **Open Slack in Chrome** or **in Brave**) and sign in to your workspace. |
 | "I see Slack once my extension reports." | Wait a moment, with Slack open in the browser. |
 

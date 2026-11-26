@@ -6,7 +6,7 @@ Misha is a Mac app that answers routine Slack questions through your own Slack a
 
 This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.ai). The docs are for colleagues who got a reply from someone's clone, people deciding whether to try one, owners setting one up, and developers and security reviewers checking how it works.
 
-**Status on 19 November 2026:** one unsigned local build, run by its owner. There is no public download, no Chrome Web Store listing and no invite keys yet. Access starts with the invite on [dumdummisha.ai](https://dumdummisha.ai).
+**Status:** Misha is a Mac app for Apple silicon, signed with an Apple Developer ID and notarized by Apple. You download it from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest), and it updates itself from there. Using it takes an invite key: access starts with the invite on [dumdummisha.ai](https://dumdummisha.ai). The Misha Browser extension is loaded unpacked from the app; there is no Chrome Web Store listing.
 
 - **[Read the docs](https://docs.dumdummisha.ai)**
 - **[Was that the person or their clone?](https://docs.dumdummisha.ai/understand/slack)**
@@ -25,7 +25,7 @@ Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/st
 | --- | --- | --- |
 | [dumdummisha/docs](https://github.com/dumdummisha/docs) (this one) | The docs site: its pages, theme, screenshots and diagrams. | Public, Apache-2.0 except the fonts and brand artwork |
 | [dumdummisha/browser-extension](https://github.com/dumdummisha/browser-extension) | The Misha Browser extension that carries Slack to the app, its native host, and browser and desktop tools you can use in any MCP client without the app. | Public, Apache-2.0 |
-| [dumdummisha/desktop-downloads](https://github.com/dumdummisha/desktop-downloads) | Reserved for signed desktop builds and the update feed. Only a README until a signed build exists. | Public |
+| [dumdummisha/desktop-downloads](https://github.com/dumdummisha/desktop-downloads) | Signed and notarized desktop builds as GitHub Releases, which are also the app's update feed. | Public |
 | The Misha desktop app | The Mac app, misha-core and the connectors it installs in Claude Code and OpenCode. | Private |
 
 ## Contributing

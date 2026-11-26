@@ -11,7 +11,7 @@ next:
 
 # Make it yours
 
-Misha exists to give you back the time routine Slack work takes: the questions only you can answer, the small fixes, the lookups. You decide what it takes on and how. It's your automation, built from the tools you already use, and you can switch any of it off.
+Misha exists to give you back the time routine work takes: the questions only you can answer, the small fixes, the lookups. You decide what it takes on and how. It's your automation, built from the tools you already use, and you can switch any of it off.
 
 Your clone runs on your own Claude Code or OpenCode, and its workers are ordinary sessions of them on your Mac. So the skills, commands and tools you've set up there are the ones your workers can use. Tell Misha about them the way you'd tell a colleague: name a skill or a `/command` in a request or in your [Routines](#routines), and the worker is told to load it, and to say so if it can't find it. Your user-level skills and commands are always there. A repository's own skills and commands reach a worker only when they are committed on the default branch of its remote, because workers work in a fresh worktree of it.
 

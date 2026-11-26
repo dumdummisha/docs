@@ -13,6 +13,8 @@ To stop replies or work right now, [pause Misha](/operate/manage#pause) first an
 
 Each heading is a problem as Misha words it, mostly on Home's status card, with what it means, the one thing to do, how you know it worked and what may have been missed.
 
+- [Misha asks for an invite key](#invite)
+- [A session says Misha needs an invite](#invite-session)
 - [Which card Home shows](#which-card)
 - [I can't hear Slack](#slack-unheard)
 - [Missed messages while the Mac slept](#mac-slept)
@@ -22,6 +24,9 @@ Each heading is a problem as Misha words it, mostly on Home's status card, with 
 - [Something's wrong on my side](#something-wrong)
 - [Slack's tab needs a reload](#slack-reload)
 - [A program is missing, or Misha needs a restart](#program-missing)
+- [Misha was updated](#updated)
+- [Your data was saved by a newer Misha](#newer-data)
+- [The browser bridge cannot be used](#bridge-versions)
 - [A linked folder is unavailable](#linked-folder)
 - [A connector needs you to sign in again](#integration-sign-in)
 - [A tool isn't available](#tool-not-available)
@@ -33,6 +38,22 @@ Each heading is a problem as Misha words it, mostly on Home's status card, with 
 - [A post is Not confirmed or Didn't go out](#send-not-confirmed)
 - [Pills and cards that need nothing from you](#nothing-to-do)
 - [Asking for help](#asking-for-help)
+
+## "Enter your invite key to use Misha." {#invite}
+
+Misha runs nothing until an invite key is verified on this Mac, and it checks the saved key again each time it starts. The window shows **Get started** with **Paste your invite key** and one of three lines:
+
+| The window says | Do this |
+| --- | --- |
+| "Enter your invite key to use Misha." | No key is saved yet. Paste the key from your invitation and click **Activate**. |
+| "This invite key isn't valid. Paste the key from your invitation, or ask the person who invited you for a new one." | The key doesn't verify. Copy the whole key again and paste it; if it still isn't valid, ask whoever invited you for a new one. An invalid key saves nothing. |
+| "Misha couldn't read your invite at ...", with the file's path and a reason | A saved key exists, but its file can't be read. Fix what the reason names, such as the file's permissions, or delete the file it names and paste your key again. |
+
+It worked when the window shows "Invited as" with your invite's email and Misha starts. [Activate your invite](/start/get-started#invite) walks through the first activation.
+
+## "Misha needs an invite. Open Misha and paste your invite key." {#invite-session}
+
+A Claude Code or OpenCode session says this when it calls Misha's tools while Misha has no verified invite, so none of them work. Open Misha from the menu bar and activate your key as [above](#invite). It worked when the session's next call to a Misha tool answers.
 
 ## Which card Home shows {#which-card}
 
@@ -86,6 +107,32 @@ Get started shows this while Misha sets itself up, when the Slack tab was opened
 **Extensions › What I can't run without** marks what Misha can't run without (the runtime the clone runs on, Claude Code or OpenCode, git, the browser extension with its helper, and Slack) as **Missing** when it isn't found. A program you added from the Catalogue, such as the GitHub CLI, shows **Not installed** under **Added by you**. Each card offers its next step, such as **Get Claude Code**, **Get OpenCode**, **Get the GitHub CLI**, **Show the extension** or **Install the helper**. The menu bar's **Programs** list says where Misha found each program, or where it looked.
 
 After you install a program while Misha runs, its card says "I found it, but I started before it was installed. Restart me to use it." Click **Restart Misha**. It worked when the card shows its ready word, such as **Signed in** or **Found**. [What Extensions checks](/reference/settings#detection) lists every item.
+
+## "Misha was updated." {#updated}
+
+| The message says | Where | Do this |
+| --- | --- | --- |
+| "Misha was updated. Restart this Claude Code or OpenCode session." | A Claude Code or OpenCode session that was open before the update | Restart that session. It loads the new version as it starts. |
+| "Misha was updated. Quit Misha and open it again." | Misha itself, when the app on disk is no longer the copy that is running | Click **Quit Misha** in the menu bar's Misha menu, then open Misha again. |
+
+It worked when the message doesn't come back. [Updates](/operate/manage#updates) says how Misha updates.
+
+## "Your Misha data was saved by a newer Misha. Install the latest Misha, then open it again." {#newer-data}
+
+The menu bar shows this after "Misha could not start:" when you open an older build than the one that last used your data: a newer build upgraded `~/.misha/misha.db`, and its changes go forward only. Download [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest), replace the app with it as in [Download and install](/start/get-started#download), and open it. It worked when Misha starts.
+
+## "The browser bridge between ... cannot be used" {#bridge-versions}
+
+Misha Browser, its native host and Misha check each other's versions when they connect. When they disagree, Misha says "The browser bridge between", the two parts, "cannot be used:", the reason, then what to do:
+
+| The message ends | Do this |
+| --- | --- |
+| "Update Misha Browser in Chrome, then reload the extension. If Chrome has not received it yet, wait for the store update." | Misha Browser comes with Misha and is loaded unpacked, with no store listing. Update Misha, then reload Misha Browser on your browser's Extensions page (`chrome://extensions` or `brave://extensions`). |
+| "Update Misha, then restart the browser to restart its native host." | Install the latest Misha, then quit and reopen the browser. |
+| "Restart the browser and Misha. If they still disagree, install the latest Misha." | Quit and reopen both. If the message comes back, install the latest Misha. |
+| "The browser bridge versions could not be checked. Update Misha and Misha Browser, then restart the browser." | Update Misha, reload Misha Browser on the Extensions page, then quit and reopen the browser. |
+
+It worked when **Extensions › What I can't run without** shows the browser extension as **Running**. If the message stays, [ask for help](#asking-for-help) with its wording.
 
 ## A linked folder is unavailable {#linked-folder}
 

@@ -101,27 +101,51 @@ The post record covers Slack only. Commands, pushes and ticket edits aren't in i
 
 ## Updates {#updates}
 
-Misha is a signed build you download from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest). It has no automatic updater yet, so pinning a version and rollback aren't supported: to update, download the latest release and replace the app with it. Your data in `~/.misha` stays. The browser extension is loaded unpacked, with no Chrome Web Store listing, so the browser doesn't update it either.
+Misha updates itself from its [GitHub releases](https://github.com/dumdummisha/desktop-downloads/releases). It checks for a newer release when it starts and each time the Mac wakes from sleep, with no other schedule. A newer release downloads in the background, and once it's ready the menu bar's Misha menu shows one line, **Restart to update Misha**, followed by the release in parentheses. The line shows whatever else the menu says, even before you've activated an invite.
 
-When a newer build starts, it brings misha-core, the bundled Misha extension and the connectors you added into line in each installed runtime, even when their version hasn't changed; adding or removing a connector does the same. Anything already where it writes, such as an agent file or your own edit of an earlier version, is first moved into `~/.misha/overwritten`, which keeps the newest 10 batches. Its database changes go forward only: an older build refuses a database a newer build has upgraded, so going back to an older build with the same data doesn't work.
+- Click **Restart to update Misha** to restart once, on the new version.
+- Or carry on. **Quit Misha** quits and doesn't open Misha again; the downloaded update is installed the next time you open it.
+
+A check that fails changes nothing, and Misha checks again at its next start or wake. Each update replaces the whole app. There are no update channels, and a version can't be pinned or rolled back. Your data in `~/.misha` stays.
+
+After an update, a Claude Code or OpenCode session that was already open says "Misha was updated. Restart this Claude Code or OpenCode session." Restart that session so it loads the new version. If the app on disk changes while Misha runs, Misha says "Misha was updated. Quit Misha and open it again." ([Troubleshooting](/operate/troubleshooting#updated)).
+
+When a newer build starts, it brings misha-core, the bundled Misha extension and the connectors you added into line in each installed runtime, even when their version hasn't changed; adding or removing a connector does the same. Anything already where it writes, such as an agent file or your own edit of an earlier version, is first moved into `~/.misha/overwritten`, which keeps the newest 10 batches. Its database changes go forward only: an older build refuses a database a newer build has upgraded and says "Your Misha data was saved by a newer Misha. Install the latest Misha, then open it again.", so going back to an older build with the same data doesn't work.
+
+Misha Browser comes with the app and is loaded unpacked from the folder Misha shows, with no Chrome Web Store listing. If the extension and the app disagree after an update, Misha says which parts can't connect and what to do ([The browser bridge cannot be used](/operate/troubleshooting#bridge-versions)).
 
 ## Remove Misha {#remove}
 
-::: warning Not a complete procedure yet
-Misha has no uninstall button or command yet, and removing what it installed in Claude Code and OpenCode isn't available as a documented procedure. The steps below are the parts that are safe today. They leave Misha's additions in Claude Code and OpenCode, the app and its data folder in place, because the data folder holds what a later removal needs.
-:::
+Choose **Uninstall Misha…** in the menu bar's Misha menu. It is there whatever state Misha is in, including before you've activated an invite. Misha removes only what it can prove is its own and unchanged, never through a link, and lists everything else with what to do.
 
-1. **Pause, and wait until Working on now lists no worker.** If a worker stays listed, see [Pause Misha](#pause).
-2. **Keep what you want.** Workers change code in `~/.misha/workers/worktrees`, which may hold work you haven't pushed, and work without a repository leaves its files in `~/.misha/workers/scratch`. Keep what you want from there and from any folder Home says Misha left in place. The post record is in `~/.misha/misha.db`.
-3. **Turn off Open at login, then quit.** Uncheck **Open at login** in the menu bar's Misha menu, then click **Quit Misha**.
-4. **Remove the browser parts.** Remove the Misha Browser extension on your browser's Extensions page. Its queue of up to 2,000 messages not yet handed to Misha is in the extension's own browser storage, which the browser deletes with the extension. Then remove the native host, which the [browser extension's installer](https://github.com/dumdummisha/browser-extension) wrote: delete the file `misha.browser_bridge.json` where it exists in `~/Library/Application Support/Google/Chrome/NativeMessagingHosts/` and `~/Library/Application Support/BraveSoftware/Brave-Browser/NativeMessagingHosts/`, and the launcher `~/.misha/browser-bridge/native-host`, whose place is fixed even when `MISHA_HOME` names another folder. Delete only those files: the folders can hold other programs' registrations.
+Before you start:
 
-What Misha installed in Claude Code and OpenCode stays for now. Each extension's install record, in `~/.misha/extensions/claude-code/records`, `~/.misha/extensions/opencode/records` and, for skills, `~/.misha/extensions/agents/records`, names the files, folders, settings and Claude Code registrations it added, but turning that list into deletions by hand isn't safe. A record can name a whole configuration file or folder that Misha created and you've since added your own settings or files to, and Claude Code's registrations are removed through Claude Code's own commands, not by deleting files. Misha's own uninstall handles this, and it isn't available to you yet. Until it is:
+1. **Keep what you want.** Workers change code in `~/.misha/workers/worktrees`, which may hold work you haven't pushed, and work without a repository leaves its files in `~/.misha/workers/scratch`. The uninstall keeps any work folder that isn't exactly as Misha made it, but copy out what you want first. The post record is in `~/.misha/misha.db`.
+2. **Quit every Claude Code and OpenCode session and IDE agent.** They load Misha until they restart.
+3. **Remove Misha Browser** from each browser's Extensions page. Its queue of up to 2,000 messages not yet handed to Misha is in the extension's own browser storage, which the browser deletes with the extension.
 
-- Don't delete the files, folders or settings an install record names.
-- Don't delete the Misha app or its data folder, `~/.misha` (or the folder the `MISHA_HOME` environment variable names). Claude Code starts Misha's tool server from the app itself, and `~/.misha/extensions` holds the install records and generated files a removal needs. Skills also live in `~/.agents/skills`, with links for Claude Code.
-- Treat `~/.misha/overwritten` as yours. It holds your own originals, the files and settings the installers moved aside before writing over them, and nothing restores them automatically. Copy back what you want: each batch's `manifest.json` names where an entry came from, and its `members.json` holds settings' earlier values.
+Then:
 
-If you need Misha gone before its uninstall is available, [ask for help](/operate/troubleshooting#asking-for-help).
+1. **Confirm.** "Uninstall Misha?" lists what Misha will remove: its additions to Claude Code, OpenCode and `~/.agents/skills`, with how many of each, its native host, the work folders nobody changed and its files in `~/.misha`. Tick **Keep misha.db as a record** to keep the database. Click **Uninstall**.
+2. **Clear what still runs.** Misha pauses, then checks that nothing still uses it: a worker that may still be running, a session with `misha.db` open, a browser running Misha's native host, or another task holding one of Misha's locks. If anything does, it lists each with what to do; choose **Uninstall Misha…** again once they're done. **Resume** is in the menu if you change your mind.
+3. **Misha removes itself.** It removes its additions, the native host files, the work folders nobody changed and its own files, and turns **Open at login** off. Last, once nothing it keeps can start Misha again, it moves `Misha.app` to the Trash and deletes its pause and invite files.
+4. **Read the last window.** "Misha is uninstalled" says what it removed and what it kept. **Open full list** opens a text file with every path, which Misha leaves in place.
 
-Some records live outside Misha and need their own clean-up. Claude Code and OpenCode keep the sessions they ran for the clone and its workers in their own data on your Mac, and switching the clone's runtime doesn't erase its earlier sessions. What the clone and its workers did in Slack, GitHub, Jira and other services stays there, and model providers keep records under your own accounts as [Privacy and security](/privacy) describes.
+What Misha keeps is grouped in that window, each group with what to do:
+
+| Group | Why it stays |
+| --- | --- |
+| Additions you changed: edit or delete each | You edited a file Misha added, so it isn't Misha's alone any more. |
+| Records left: remove the integrations they list, then delete them | Misha couldn't remove those additions, for example because Claude Code or OpenCode isn't found or a folder is now a link. The shared skills stay while either runtime keeps an integration that may use them. |
+| Native host files: delete them if you no longer use Misha Browser | The files aren't the ones Misha's helper wrote. |
+| Work folders: save the work, then `git worktree remove <path>` | A worktree with changed or ignored files or commits, a scratch folder with files in it, or any work folder while git isn't found. |
+| Unknown entries: delete each you do not need | Something in `~/.misha` that Misha doesn't recognise. |
+| Backups: manifest.json names each original location; restore by hand | `~/.misha/overwritten`, your own files that the installers moved aside. |
+| Database | You ticked **Keep misha.db as a record**, or an integration that opens it remains. |
+| Misha.app, its pause and its invite | Something listed above can still start Misha, or the removal stopped. |
+
+The window also lists what is for you, with paths as they are on your Mac: remove Misha Browser from each browser if you haven't, restart any Claude Code or OpenCode session still open, and after Misha quits, delete the app's own support folder and run the `defaults delete` command it names. It leaves on purpose what isn't Misha's alone: the clone's and workers' sessions in Claude Code and OpenCode, connector sign-ins and caches (revoke each on the service's account page if you no longer want it), and your Claude Code, OpenCode and GitHub CLI logins.
+
+If the removal stops partway, the window says "Misha's removal stopped" and where. Don't open Misha again to retry, because opening it reinstalls its additions: finish by hand from the list.
+
+Some records live outside Misha and need their own clean-up. Claude Code and OpenCode keep the sessions they ran for the clone and its workers in their own data on your Mac, and switching the clone's runtime doesn't erase its earlier sessions. What the clone and its workers did in Slack, GitHub, Jira and other services stays there, and model providers keep records under your own accounts as [Privacy and security](/privacy) describes. The uninstall also doesn't revoke the OAuth grants you gave each service or the permissions you gave Misha in **System Settings › Privacy & Security**.

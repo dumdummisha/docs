@@ -197,7 +197,7 @@ Start fresh replaces the shared session for every conversation at once, and so d
 | Claude Code | `/misha-core:misha-setup` |
 | OpenCode | `/misha-core/misha-setup` |
 
-It walks you through setup and can make any change with an [MCP tool](/reference/tools), as the [table above](#surfaces) shows. Claude Code and OpenCode can both run it. The clone starts on Claude Code; choose its runtime on **Settings › What I think with**.
+It walks you through setup and can make any change with an [MCP tool](/reference/tools), as the [table above](#surfaces) shows. Claude Code and OpenCode can both run it, and it creates the settings with the runtime Misha found (Claude Code when it found both). Choose the clone's runtime later on **Settings › What I think with**.
 
 ## What Extensions checks {#detection}
 
@@ -205,8 +205,7 @@ It walks you through setup and can make any change with an [MCP tool](/reference
 
 | Item | Ready shows | What Extensions says when ready | Actions |
 | --- | --- | --- | --- |
-| The runtime the clone runs on (Claude Code before there are settings) | Signed in | Claude Code: "Signed in. I answer and run workers on your own subscription." OpenCode: "Signed in for the model I think with." Both end "You choose what I think with in Settings." | Sign in to Claude or Sign in to OpenCode<br>[Get Claude Code](https://claude.com/product/claude-code) or [Get OpenCode](https://opencode.ai/) |
-| Claude Code, while the clone runs on OpenCode | Signed in | "I think with OpenCode, but I start on Claude Code, and my workers run on it." | Sign in to Claude<br>[Get Claude Code](https://claude.com/product/claude-code) |
+| The runtime the clone runs on (before there are settings, the one Misha found, Claude Code when it found both or neither) | Signed in | Claude Code: "Signed in. I answer and run workers on your own subscription." OpenCode: "Signed in for the model I think with." Both end "You choose what I think with in Settings." | Sign in to Claude or Sign in to OpenCode<br>[Get Claude Code](https://claude.com/product/claude-code) or [Get OpenCode](https://opencode.ai/) |
 | git | Found | "On this Mac. My workers commit as {name}, {email}." | None |
 | Browser extension | Running | "Running in your browser. It reads Slack for me and posts what I write." | Show the extension<br>Install the helper, while the extension is silent and its helper is missing |
 | Slack | Signed in | "Signed in to {workspace}. That's where I answer as you." | Open Slack |

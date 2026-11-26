@@ -82,7 +82,7 @@ Turn a switch off once you trust how the clone works. Turning one off pre-approv
 
 ## What it runs on {#thinking}
 
-**Settings › What I think with** chooses whether the clone runs on Claude Code or OpenCode, and its model and effort. A new clone runs on Claude Code at its default model. Switching runtime starts a new conversation with the same settings and notes; changing only the model counts from the next message.
+**Settings › What I think with** chooses whether the clone runs on Claude Code or OpenCode, and its model and effort. A new clone runs on the runtime Misha found, Claude Code when it found both, at that runtime's default model. Workers the clone starts use the runtime it runs on unless a request or a Routine names another model. Switching runtime starts a new conversation with the same settings and notes; changing only the model counts from the next message.
 
 ## Personality and look {#voice-and-marker}
 

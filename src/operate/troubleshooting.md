@@ -83,7 +83,7 @@ Get started shows this while Misha sets itself up, when the Slack tab was opened
 
 ## A program is missing, or Misha needs a restart {#program-missing}
 
-**Extensions › What I can't run without** marks what Misha can't run without (Claude Code, git, the browser extension with its helper, and Slack) as **Missing** when it isn't found. A program you added from the Catalogue, such as the GitHub CLI, shows **Not installed** under **Added by you**. Each card offers its next step, such as **Get Claude Code**, **Get the GitHub CLI**, **Show the extension** or **Install the helper**. The menu bar's **Programs** list says where Misha found each program, or where it looked.
+**Extensions › What I can't run without** marks what Misha can't run without (the runtime the clone runs on, Claude Code or OpenCode, git, the browser extension with its helper, and Slack) as **Missing** when it isn't found. A program you added from the Catalogue, such as the GitHub CLI, shows **Not installed** under **Added by you**. Each card offers its next step, such as **Get Claude Code**, **Get OpenCode**, **Get the GitHub CLI**, **Show the extension** or **Install the helper**. The menu bar's **Programs** list says where Misha found each program, or where it looked.
 
 After you install a program while Misha runs, its card says "I found it, but I started before it was installed. Restart me to use it." Click **Restart Misha**. It worked when the card shows its ready word, such as **Signed in** or **Found**. [What Extensions checks](/reference/settings#detection) lists every item.
 

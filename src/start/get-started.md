@@ -20,7 +20,7 @@ Getting to your clone's first answer takes a download, two steps in Misha's wind
 ## What you need {#requirements}
 
 - A Mac with Chrome or Brave.
-- Claude Code, signed in in Terminal (`claude`) to the Claude account you want Misha to use. The clone and its workers count against that account's usage limits, and workers run on it even if you later run the clone itself on OpenCode.
+- Claude Code or OpenCode, signed in. The clone and its workers run on one of them and count against that sign-in's usage limits. Until you choose on **Settings › What I think with**, Misha runs on the one it finds, and on Claude Code when it finds both. On Claude Code, sign in (`claude`) to the Claude account you want Misha to use. On OpenCode, the default model is OpenAI's `openai/gpt-6-astra`, so sign OpenCode in to OpenAI (`opencode auth login`).
 - git. On a Mac without it, `xcode-select --install` installs it.
 - Node.js, which the browser helper runs on. `node --version` in Terminal shows whether you have it.
 - Slack signed in in that browser.
@@ -39,14 +39,16 @@ Download Misha for macOS from [the latest release](https://github.com/dumdummish
 
 ## Step 1: Give me consciousness {#consciousness}
 
-**Give me consciousness** needs Claude Code, installed and signed in, and git. Until it has both, it shows the first thing missing and a button to fix it:
+**Give me consciousness** needs the runtime the clone runs on, Claude Code or OpenCode, installed and signed in, and git. Until it has both, it shows the first thing missing and a button to fix it:
 
 | The step says | Do this |
 | --- | --- |
-| "I run on Claude Code, and it isn't on this Mac." | Click **Get Claude Code**, install it, then restart Misha. |
+| "I need Claude Code or OpenCode on this Mac." | Install either one, then restart Misha. **Get Claude Code** opens Claude Code's page; to use OpenCode instead, install it from [opencode.ai](https://opencode.ai/). |
+| "I run on Claude Code, and it isn't on this Mac." (or OpenCode) | The runtime chosen in Settings is missing. Click **Get Claude Code** or **Get OpenCode**, install it, then restart Misha. |
 | "I found it, but I started before it was installed. Restart me to use it." | Click **Restart Misha**. |
 | "Claude Code is on this Mac, but signed out." | Click **Sign in to Claude**, which opens Terminal with `claude auth login`, and finish signing in there. The step ticks by itself once you have. |
-| "I'm checking whether Claude Code is signed in." | Wait a few seconds. |
+| "OpenCode is on this Mac, but has no sign-in for openai/gpt-6-astra, the model I think with." | Click **Sign in to OpenCode**, which opens Terminal with `opencode auth login`, and sign in to the provider of the model it names. |
+| "I'm checking whether Claude Code is signed in." (or OpenCode) | Wait a few seconds. |
 | "git isn't on this Mac, and I can't start without it. Install it with xcode-select --install, then restart me." | Run `xcode-select --install` in Terminal, then restart Misha. |
 
 ## Step 2: Let me hear Slack {#hear-slack}
@@ -67,7 +69,7 @@ Once the extension hears Slack, Misha sets itself up as you. You don't fill in a
 - Signed in to one Slack workspace, the step names it, such as "Setting myself up as you in Shop.", and carries on by itself.
 - Signed in to several, it asks "Which Slack account do I answer as?" with a button per workspace. Click the one the clone should answer in. The clone answers only there: messages from your other workspaces reach Misha on this Mac and are dropped unanswered. Until setup finishes you can pick another; once it has, the account can't change.
 
-Misha starts with `:misha:` as the clone's emoji, no personality and no Routines, on Claude Code at its default model, and with both **Require my approval** switches on (**Before I start work** and **Before anything goes out**), so everything the clone would send or start waits for your OK. [Make it yours](/use/make-it-yours) changes all of this.
+Misha starts with `:misha:` as the clone's emoji, no personality and no Routines, on the runtime it found (Claude Code when it found both) at that runtime's default model, and with both **Require my approval** switches on (**Before I start work** and **Before anything goes out**), so everything the clone would send or start waits for your OK. [Make it yours](/use/make-it-yours) changes all of this.
 
 If setting itself up fails, the step says why and offers a way back:
 

@@ -13,7 +13,7 @@ Misha is a real project, not a demo. It has worked alongside real people in a pr
 
 ## Your subscription, your tools {#runs-locally}
 
-Unlike hosted agents, Misha runs on the subscription you already pay for and fits the environment you already have: your Claude Code or OpenCode, your repositories and the services you're signed in to. Claude Code needs to be on your Mac either way, since Misha starts on it. [What Misha changes on your Mac](/start/get-started#before-you-install) lists what it installs there.
+Unlike hosted agents, Misha runs on the subscription you already pay for and fits the environment you already have: your Claude Code or OpenCode, your repositories and the services you're signed in to. Either one is enough: Misha runs on whichever you have. [What Misha changes on your Mac](/start/get-started#before-you-install) lists what it installs there.
 
 ## No Slack app to approve {#no-slack-app}
 
@@ -49,7 +49,7 @@ Misha's built-in tools also let you check status, pause, resume and change setti
 
 ## Many models, many efforts, one piece of work {#harnesses}
 
-This is real multi-provider, multi-effort agentic development. One piece of work can pass through several workers (separate AI sessions that each do one task), each on the model and effort that suits its step: workers use Claude by default, and your requests or Routines can have Claude write a change and GPT review it, so another provider's model checks Claude's work. Parts of a request that don't depend on each other each get a worker, and they run at the same time. Claude Code on its own keeps to one provider's models.
+This is real multi-provider, multi-effort agentic development. One piece of work can pass through several workers (separate AI sessions that each do one task), each on the model and effort that suits its step: workers use the clone's runtime by default (Claude on Claude Code, GPT on OpenCode), and your requests or Routines can have Claude write a change and GPT review it, so another provider's model checks Claude's work. Parts of a request that don't depend on each other each get a worker, and they run at the same time. Claude Code on its own keeps to one provider's models.
 
 ## Availability {#availability}
 

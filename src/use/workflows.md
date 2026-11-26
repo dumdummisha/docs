@@ -20,7 +20,7 @@ Made-up requests from an owner, Leo Novak, in his self-DM (the direct message to
 - "SHOP-150 needs the API change and the web change. Do both." The two parts don't depend on each other, so each gets its own worker and they run at the same time. A part that needs another's result waits for that worker's report.
 - "Summarise yesterday's planning meeting into a Google Doc." No repository is involved, so the worker runs in a scratch folder of its own.
 
-Workers use Claude unless you or your [Routines](/use/make-it-yours#routines) name another model. GPT runs through your OpenCode signed in to OpenAI; add **GPT** from the **Catalogue** on Extensions and it checks that sign-in. A service the request needs, such as Jira or Google, has to be added on Extensions too ([Tools and services](/use/make-it-yours#connect-for-a-task)).
+Workers use the model of the runtime the clone runs on (Claude on Claude Code, GPT on OpenCode) unless you or your [Routines](/use/make-it-yours#routines) name another model. GPT runs through your OpenCode signed in to OpenAI; add **GPT** from the **Catalogue** on Extensions and it checks that sign-in. A service the request needs, such as Jira or Google, has to be added on Extensions too ([Tools and services](/use/make-it-yours#connect-for-a-task)).
 
 Misha ships no ticket, review or deploy procedure of its own. Which tracker the work uses, whether anything is reviewed and how far it goes come from your request and your Routines, just as in your own sessions.
 

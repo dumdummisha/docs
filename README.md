@@ -2,35 +2,23 @@ Dumdum Misha: your Slack clone, on your Mac. Documentation site.
 
 <img src="src/public/logo.svg" alt="The Dumdum Misha mascot" width="96" height="96">
 
-Misha is a Mac app that answers routine Slack questions through your own Slack account, as a clone whose replies can start with an emoji you choose and be set in italics. Work you allow, such as research, a ticket or a code change, goes to workers on the same Mac. The clone and its workers run on your Claude Code or OpenCode, and workers use that runtime's model by default; your requests and Routines can choose other models and review steps, through OpenCode.
+This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.ai).
 
-This repository is the source of [docs.dumdummisha.ai](https://docs.dumdummisha.ai). The docs are for colleagues who got a reply from someone's clone, people deciding whether to try one, owners setting one up, and developers and security reviewers checking how it works.
+Misha is a Mac app that answers routine Slack questions through your own Slack account, as a clone.
 
-**Status:** Misha is a Mac app for Apple silicon, signed with an Apple Developer ID and notarized by Apple. You download it from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest), and it updates itself from there. Using it takes an invite key: access starts with the invite on [dumdummisha.ai](https://dumdummisha.ai). The Misha Browser extension is loaded unpacked from the app; there is no Chrome Web Store listing.
+- **Got a reply from someone's clone?** Read [Talking with a clone](https://docs.dumdummisha.ai/understand/slack).
+- **Deciding whether to try it?** Start at [Try it](https://docs.dumdummisha.ai/start/try).
+- **Setting up your own?** Follow [Get started](https://docs.dumdummisha.ai/start/get-started), then [Make it yours](https://docs.dumdummisha.ai/use/make-it-yours) and [Put Misha to work](https://docs.dumdummisha.ai/use/workflows).
+- **Checking how it works?** Read [How Misha works](https://docs.dumdummisha.ai/understand/how-it-works) and [Privacy and security](https://docs.dumdummisha.ai/privacy).
+- **Fixing or adding to the docs?** See [Contributing](#contributing).
 
-- **[Read the docs](https://docs.dumdummisha.ai)**
-- **[Was that the person or their clone?](https://docs.dumdummisha.ai/understand/slack)**
-- **[Try it](https://docs.dumdummisha.ai/start/try)**
-- **[Privacy and security](https://docs.dumdummisha.ai/privacy)**
-
-Setting up your own clone runs from [Get started](https://docs.dumdummisha.ai/start/get-started) through [Make it yours](https://docs.dumdummisha.ai/use/make-it-yours) to [Put Misha to work](https://docs.dumdummisha.ai/use/workflows). [How Misha works](https://docs.dumdummisha.ai/understand/how-it-works) explains what runs where.
+**Status:** invite only. Ask for an invite on [dumdummisha.ai](https://dumdummisha.ai), then download the app from [the latest release](https://github.com/dumdummisha/desktop-downloads/releases/latest).
 
 <img src="https://docs.dumdummisha.ai/captures/home.png" alt="Misha's Home window, listening in Slack as Leo Novak: it is answering Emma Lee's thread in #shop-backend, two workers are running, and its recent posts are listed below. Pause Misha sits in the sidebar." width="640">
 
-*Home while the clone answers Emma Lee in #shop-backend and two workers run. Made-up example.*
+*Home, with made-up people.*
 
-## Repositories
-
-| Repository | What it holds | Source |
-| --- | --- | --- |
-| [dumdummisha/docs](https://github.com/dumdummisha/docs) (this one) | The docs site: its pages, theme, screenshots and diagrams. | Public, Apache-2.0 except the fonts and brand artwork |
-| [dumdummisha/browser-extension](https://github.com/dumdummisha/browser-extension) | The Misha Browser extension that carries Slack to the app, its native host, and browser and desktop tools you can use in any MCP client without the app. | Public, Apache-2.0 |
-| [dumdummisha/desktop-downloads](https://github.com/dumdummisha/desktop-downloads) | Signed and notarized desktop builds as GitHub Releases, which are also the app's update feed. | Public |
-| The Misha desktop app | The Mac app, misha-core and the connectors it installs in Claude Code and OpenCode. | Private |
-
-## Contributing
-
-Found something wrong? Every page has a **Suggest a change to this page** link that opens its source here, so you can propose the fix as a pull request.
+## Run and build
 
 The site is VitePress at the repository root. It needs Node 24 and pnpm 11.
 
@@ -41,29 +29,36 @@ The site is VitePress at the repository root. It needs Node 24 and pnpm 11.
 | `pnpm preview` | Serves the built site. |
 | `pnpm typecheck` | Type-checks the VitePress config and theme. CI runs it before the build. |
 
-Each page is a Markdown file in `src/`, and the sidebar that lists them is in `.vitepress/config.mts`. The theme and its styling are in `.vitepress/theme/`. Everything under `src/public/` is served as is: screenshots in `src/public/captures/`, diagrams in `src/public/diagrams/`, fonts and icons.
+## How content is organised
 
-Commands, paths, limits and other values from the desktop app and the browser extension are plain text in the pages. They describe the desktop app version and day named in the footer, which is set in `.vitepress/config.mts`. When the app changes, edit the pages and the footer together.
+| Path | What lives there |
+| --- | --- |
+| `src/` | The pages, one Markdown file each. |
+| `.vitepress/config.mts` | The sidebar that lists the pages, and the footer. |
+| `.vitepress/theme/` | The theme and its styling. |
+| `src/public/` | Files served as they are: screenshots in `captures/`, diagrams in `diagrams/`, fonts and icons. |
+| `diagrams/` | The Mermaid sources of the diagrams. |
 
-A screenshot goes into a page as a figure, so it gets the site's screenshot styling, its size and lazy loading:
+The first line of this README is also the site's description, so it stays one sentence with no heading above it.
 
-```html
-<figure class="shot"><img class="shot__image" src="/captures/home.png" alt="What the screenshot shows" width="2200" height="2214" loading="lazy" decoding="async"><figcaption class="shot__caption">The caption under it.</figcaption></figure>
-```
+## Where facts come from
 
-Give `width` and `height` the PNG's pixel size, so the page doesn't move while the image loads.
+Commands, paths, limits and other values from the desktop app and the browser extension are plain text in the pages. They describe the desktop app version and day named in the footer. When the app changes, edit the pages and the footer together.
 
-Diagrams are Mermaid sources in `diagrams/`, with the theme in `diagrams/mermaid.json`. Readers get the committed SVG in `src/public/diagrams/` and no Mermaid runtime, so after you change a source, render it again locally (this needs a headless browser) and commit the SVG:
+## Contributing
 
-```sh
-npx -y @mermaid-js/mermaid-cli@11.17.0 -i diagrams/<name>.mmd -o src/public/diagrams/<name>.svg -c diagrams/mermaid.json -b '#fffef8'
-```
+Found something wrong? Every page has a **Suggest a change to this page** link that opens its source here. Propose the fix as a pull request.
 
-The `-b` colour is the `background` in `diagrams/mermaid.json`. Mermaid still writes an SVG when a source doesn't parse, with "Syntax error" in it, so look at the result before you commit it.
+[CONTRIBUTING.md](CONTRIBUTING.md) covers adding a screenshot, rendering a diagram and what to check after a VitePress upgrade. Everything here is public, so examples use made-up people only, and nothing private goes into a commit.
 
-Everything here is public. Examples use made-up people only (Leo Novak, the owner; Emma Lee and Max Becker, colleagues) in a made-up Shop workspace and `#shop-backend`. No email addresses, internal ids, private URLs or personal file paths, and nothing copied from private source code. Check what you commit before each push, because a pushed commit cannot be taken back.
+## Repositories
 
-<!-- CSP in vercel.json, written for the 1.6.4 build: script-src is 'self' plus the hash of the one inline script VitePress emits (check-mac-os, constant); metaChunk moves the page hash map into a script file. After a VitePress upgrade, compare the built pages' inline scripts with the listed hash. style-src keeps 'unsafe-inline' because the server-rendered pages carry style attributes (position:relative, --vp-vh) that only 'unsafe-hashes' could list. img-src keeps data: for the theme's inline SVG icons in CSS. -->
+| Repository | What it holds | Source |
+| --- | --- | --- |
+| [dumdummisha/docs](https://github.com/dumdummisha/docs) (this one) | The docs site: its pages, theme, screenshots and diagrams. | Public, Apache-2.0 except the fonts and brand artwork |
+| [dumdummisha/browser-extension](https://github.com/dumdummisha/browser-extension) | The Misha Browser extension that carries Slack to the app, its native host, and browser and desktop tools you can use in any MCP client without the app. | Public, Apache-2.0 |
+| [dumdummisha/desktop-downloads](https://github.com/dumdummisha/desktop-downloads) | Signed and notarized desktop builds as GitHub Releases, which are also the app's update feed. | Public |
+| The Misha desktop app | The Mac app, misha-core and the connectors it installs in Claude Code and OpenCode. | Private |
 
 ## Licence
 
